@@ -1,5 +1,6 @@
-import { NgModule } from '@angular/core';
+
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { GlobalHeaderComponent } from './global-header.component';
 
 
@@ -11,7 +12,7 @@ import { GlobalHeaderComponent } from './global-header.component';
   imports: [
     CommonModule
   ],
-  export: [
+  exports: [
     GlobalHeaderComponent
   ]
 })
