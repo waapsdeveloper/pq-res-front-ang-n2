@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ContactUsComponent } from './contact-us.component';
 
 const routes: Routes = [
   {
-    path: 'contact-us',
-    loadChildren: () => import('../contact-us/contact-us.module').then((m) => m.ContactUsModule),
-    data: { breadcrumb: 'contactus' },
+    path: '',
+    component:ContactUsComponent
   },
 ];
 

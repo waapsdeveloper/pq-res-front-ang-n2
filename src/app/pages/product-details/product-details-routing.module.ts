@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ProductDetailsComponent } from './product-details.component';
 
 const routes: Routes = [
   {
-    path: 'product-details',
-    loadChildren: () => import('../product-details/product-details.module').then((m) => m.ProductDetailsModule),
-    data: { breadcrumb: 'product-details' },
+    path: '',
+    component:ProductDetailsComponent
   },
 ];
 
