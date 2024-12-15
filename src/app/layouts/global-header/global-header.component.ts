@@ -1,4 +1,5 @@
 import { Component } from "@angular/core";
+import { EventsService } from "../../services/events.service";
 
 
 @Component({
@@ -8,5 +9,13 @@ import { Component } from "@angular/core";
     standalone: false
 })
 export class GlobalHeaderComponent {
+
+  constructor(private events: EventsService){
+
+  }
+
+  openLink(link: string){
+    this.events.publish('open-link', {link: link})
+  }
 
 }

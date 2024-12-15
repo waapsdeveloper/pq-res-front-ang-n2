@@ -10,7 +10,7 @@ import { GlobalHeaderComponent } from './global-header.component';
     GlobalHeaderComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
   ],
   exports: [
     GlobalHeaderComponent

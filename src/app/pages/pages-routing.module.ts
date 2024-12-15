@@ -4,13 +4,23 @@ import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'splash',
     pathMatch: 'full'
+  },
+  {
+    path: 'splash',
+    loadChildren: () => import('./splash/splash.module').then((m) => m.SplashModule),
+    data: { breadcrumb: 'Splash' },
   },
   {
     path: 'home',
     loadChildren: () => import('./home/home.module').then((m) => m.HomeModule),
     data: { breadcrumb: 'Home' },
+  },
+  {
+    path: 'todays-deals',
+    loadChildren: () => import('./todays-deals/todays-deals.module').then((m) => m.TodaysDealsModule),
+    data: { breadcrumb: 'todays-deals' },
   },
   {
     path: 'about-us',
@@ -38,7 +48,7 @@ const routes: Routes = [
     data: { breadcrumb: 'product-details' },
   },
   {
-    path: 'product',
+    path: 'products',
     loadChildren: () => import('./products/products.module').then((m) => m.ProductsModule),
     data: { breadcrumb: 'products' },
   },
@@ -52,11 +62,7 @@ const routes: Routes = [
     loadChildren: () => import('./tables/tables.module').then((m) => m.TablesModule),
     data: { breadcrumb: 'tables' },
   },
-  {
-    path: 'todays-deals',
-    loadChildren: () => import('./todays-deals/todays-deals.module').then((m) => m.TodaysDealsModule),
-    data: { breadcrumb: 'todays-deals' },
-  },
+
 
 
 ];
