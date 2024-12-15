@@ -23,6 +23,6 @@ export class AppComponent implements OnInit {
     console.log(data);
     let link = data.link;
 
-    this.nav.push('/pages/' + link);
+    this.nav.push(link);
   }
 }

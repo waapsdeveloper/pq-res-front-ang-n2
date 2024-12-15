@@ -31,6 +31,10 @@ export class NavService {
     return this.previousUrl;
   }
 
+  public getPublicUrl(): string | null {
+    return this.currentUrl;
+  }
+
   async setRoot(page: any, param = {}) {
     // await this.nativePageTransitions.fade(null);
     const extras: NavigationExtras = {

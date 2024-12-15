@@ -20,7 +20,7 @@ export class SplashComponent extends BasePage {
     this.showLoader();
     setTimeout( () => {
       this.hideLoader();
-      this.events.publish('open-link', {link: 'home'})
+      this.events.publish('open-link', {link: 'tabs'})
     }, 2000);
 
 
