@@ -10,12 +10,18 @@ import { EventsService } from "../../services/events.service";
 })
 export class GlobalHeaderComponent {
 
+  currentRoute: string = 'home';
+
   constructor(private events: EventsService){
 
   }
 
   openLink(link: string){
+    this.currentRoute = link;
+    console.log(this.currentRoute);
     this.events.publish('open-link', {link: link})
   }
+
+
 
 }
