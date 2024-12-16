@@ -7,6 +7,10 @@ import { Component } from '@angular/core';
   templateUrl: './tabs.component.html',
   styleUrl: './tabs.component.scss'
 })
-export class TabsComponent {
+export class TabsComponent{
+  
+
+
+
 
 }
