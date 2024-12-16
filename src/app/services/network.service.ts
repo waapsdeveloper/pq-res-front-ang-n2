@@ -20,13 +20,25 @@ export class NetworkService {
   - - popular dishes
 
   - Todays Deals
+  - - today deal dish 
 
+  - Menu
+  - - Menu Category
+  - - Menu Items
+   
+  --Table Booking
+  - - Table Booking
+  - - Table Booking Details
+  
+  --Contact Us
+  - - Contact 
 
+   
   */
 
 
 
-
+ 
 
 
 
