@@ -36,8 +36,9 @@ body {
   background-color: var(--background-color);
   font-family: var(--default-font);
 }
+
 a {
-  color: var(--accent-color);
+  color: #d12e2e;
   text-decoration: none;
   transition: 0.3s;
 }
@@ -78,7 +79,7 @@ p {
 }
 .header {
   color: var(--default-color);
-  background-color: #ffffff00;
+  background-color: #00000061;
   padding: 20px 0;
   transition: all 0.5s;
   z-index: 997;
@@ -151,8 +152,9 @@ p {
     text-align: center;
     text-underline-position: from-font;
     text-decoration-skip-ink: none;
-    color:#FFFFFF;
+    color:#FFFFFF !important;
     text-transform: uppercase;
+    cursor: pointer;
 
   }
   .navmenu a i,
@@ -956,9 +958,7 @@ section.sec-5 {
 .sc-5-cont .dl-cont h6 {
   color: #CC3333;
 }
-.sc-5-cont {
-  padding-right: 225px;
-}
+
 .sc-5-img {
   text-align: right;
   padding-top: 20px;
