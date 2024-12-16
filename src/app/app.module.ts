@@ -5,6 +5,10 @@ import { AppComponent } from './app.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { PageWrapperModule } from './layouts/page-wrapper/page-wrapper.module';
 import { NgxPubSubModule } from '@pscoped/ngx-pub-sub';
+
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi   } from '@angular/common/http';
+import { InterceptorService } from './services/interceptor.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -16,7 +20,11 @@ import { NgxPubSubModule } from '@pscoped/ngx-pub-sub';
     NgxPubSubModule,
     PageWrapperModule
   ],
-  providers: [],
+  providers: [
+    provideHttpClient(withInterceptorsFromDi()),
+    { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true },
+
+  ],
   bootstrap: [AppComponent],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
