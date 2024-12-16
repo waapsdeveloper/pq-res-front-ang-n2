@@ -14,7 +14,17 @@ export class NetworkService {
     public utility: UtilityService,
   ) { }
 
-  // Authentication Related APIs
+  /* API CALLS PER PAGE
+  - Home
+  - - Table booking
+  - - popular dishes
+
+  - Todays Deals
+
+
+  */
+
+
 
 
 
