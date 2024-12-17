@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, ElementRef, ViewChild } from "@angular/core";
 import { EventsService } from "../../services/events.service";
 import { NavService } from "../../services/nav.service";
 
@@ -10,6 +10,11 @@ import { NavService } from "../../services/nav.service";
     standalone: false
 })
 export class GlobalHeaderComponent {
+
+  @ViewChild('menuheader') menuheader!: ElementRef;
+  isMenuVisible = false; // Tracks visibility
+
+
 
   constructor(private nav: NavService, private events: EventsService){
 
@@ -26,6 +31,10 @@ export class GlobalHeaderComponent {
     let g = this.nav.getPublicUrl();
     return g ? g.includes(type) : false;
 
+  }
+
+  toggleMobileMenu() {
+    this.isMenuVisible = !this.isMenuVisible;
   }
 
 
