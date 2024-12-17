@@ -80,7 +80,7 @@ p {
 }
 .header {
   color: var(--default-color);
-  background-color: #00000061;
+  background-color: #00000061 !important;
   padding: 20px 0;
   transition: all 0.5s;
   z-index: 997;
