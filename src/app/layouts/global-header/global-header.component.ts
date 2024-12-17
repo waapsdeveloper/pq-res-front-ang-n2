@@ -23,13 +23,17 @@ export class GlobalHeaderComponent {
   }
 
   openLink(link: string){
+    this.toggleMobileMenu();
     this.events.publish('open-link', {link: link})
   }
 
   getActiveState(type: string){
 
+
     let g = this.nav.getPublicUrl();
     return g ? g.includes(type) : false;
+
+
 
   }
 
