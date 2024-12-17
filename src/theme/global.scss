@@ -41,6 +41,7 @@ a {
   color: #d12e2e;
   text-decoration: none !important;
   transition: 0.3s;
+  cursor: pointer !important;
 }
 a:hover {
   color: color-mix(in srgb, var(--accent-color), transparent 25%);
