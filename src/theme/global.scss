@@ -39,7 +39,7 @@ body {
 
 a {
   color: #d12e2e;
-  text-decoration: none;
+  text-decoration: none !important;
   transition: 0.3s;
 }
 a:hover {
