@@ -9,7 +9,7 @@ import { BookingSectionComponent } from './booking-section/booking-section.compo
 import { PopularSectionComponent } from './popular-section/popular-section.component';
 import { QualitySectionComponent } from './quality-section/quality-section.component';
 import { DeliveredSectionComponent } from './delivered-section/delivered-section.component';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -23,7 +23,8 @@ import { DeliveredSectionComponent } from './delivered-section/delivered-section
   imports: [
     CommonModule,
     HomeRoutingModule,
-    PageLayoutModule
+    PageLayoutModule,
+    FormsModule
   ]
 })
 export class HomeModule { }

@@ -20,25 +20,35 @@ export class NetworkService {
   - - popular dishes
 
   - Todays Deals
-  - - today deal dish 
+  - - today deal dish
 
   - Menu
   - - Menu Category
   - - Menu Items
-   
+
   --Table Booking
   - - Table Booking
   - - Table Booking Details
-  
-  --Contact Us
-  - - Contact 
 
-   
+  --Contact Us
+  - - Contact
+
+
   */
 
+  // table bookings start
+  checkTableAvailability(data: any){
+    return this.httpPostResponse('table-booking/check-table-availability', data, null, false, true);
+  }
 
 
- 
+
+  // table bookings end
+
+
+
+
+
 
 
 
