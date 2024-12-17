@@ -15,7 +15,7 @@
            <li><a (click)="openLink('/tabs/contact-us')" [class.active]="getActiveState('contact-us')">Contact</a></li>
         </ul>
 
-        <ul class="d-xl-none" #menuheader [style.display]="isMenuVisible ? 'block' : 'none'">
+        <ul class="d-xl-none" #menuheader [style.display]="isMenuVisible ? 'block' : 'none'" style="height: 80vh;">
           <li><a (click)="openLink('/tabs/home')" [class.active]="getActiveState('home')">Home<br></a></li>
           <li><a (click)="openLink('/tabs/todays-deals')" [class.active]="getActiveState('todays-deals')">today deals</a></li>
           <li><a (click)="openLink('/tabs/about-us')" [class.active]="getActiveState('about-us')">About</a></li>
