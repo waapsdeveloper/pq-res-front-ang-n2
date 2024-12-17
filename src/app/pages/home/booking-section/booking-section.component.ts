@@ -20,8 +20,11 @@ export class BookingSectionComponent {
 
   }
 
-  formSubmit(){
+  async formSubmit(){
     console.log(this.formData)
+    const res = await this.network.checkTableAvailability(this.formData);
+
+    console.log(res);
 
   }
 
