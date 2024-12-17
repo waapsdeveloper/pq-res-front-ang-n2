@@ -6,6 +6,7 @@ import { TablesComponent } from './tables.component';
 import { PageLayoutModule } from '../../layouts/page-layout/page-layout.module';
 import { TableBannerComponent } from './table-banner/table-banner.component';
 import { TableListingComponent } from './table-listing/table-listing.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { TableListingComponent } from './table-listing/table-listing.component';
   imports: [
     CommonModule,
     TablesRoutingModule,
-    PageLayoutModule
+    PageLayoutModule,
+    FormsModule
   ]
 })
 export class TablesModule { }

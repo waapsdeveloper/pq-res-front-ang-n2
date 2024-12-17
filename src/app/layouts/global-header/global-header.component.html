@@ -3,7 +3,7 @@
      <a href="index.html" class="logo d-flex align-items-center me-auto me-xl-0">
         <!-- Uncomment the line below if you also wish to use an image logo -->
         <img src="/assets/img/logo.svg" alt="">
-   
+
      </a>
      <nav id="navmenu" class="navmenu">
         <ul>
@@ -14,7 +14,17 @@
            <li><a (click)="openLink('/tabs/tables')" [class.active]="getActiveState('tables')">Table Booking</a></li>
            <li><a (click)="openLink('/tabs/contact-us')" [class.active]="getActiveState('contact-us')">Contact</a></li>
         </ul>
-        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+
+        <ul class="d-xl-none" #menuheader [style.display]="isMenuVisible ? 'block' : 'none'" style="height: 80vh;">
+          <li><a (click)="openLink('/tabs/home')" [class.active]="getActiveState('home')">Home<br></a></li>
+          <li><a (click)="openLink('/tabs/todays-deals')" [class.active]="getActiveState('todays-deals')">today deals</a></li>
+          <li><a (click)="openLink('/tabs/about-us')" [class.active]="getActiveState('about-us')">About</a></li>
+          <li><a (click)="openLink('/tabs/products')" [class.active]="getActiveState('products')">Menu</a></li>
+          <li><a (click)="openLink('/tabs/tables')" [class.active]="getActiveState('tables')">Table Booking</a></li>
+          <li><a (click)="openLink('/tabs/contact-us')" [class.active]="getActiveState('contact-us')">Contact</a></li>
+       </ul>
+
+        <i class="mobile-nav-toggle d-xl-none bi bi-list" (click)="toggleMobileMenu()"></i>
      </nav>
      <a class="cart-bx" href="add_to_cart.html" data-aos="fade" data-aos-duration="1000">
      <span class="cart-count-head">2</span>
