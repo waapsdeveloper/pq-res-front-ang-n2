@@ -37,11 +37,19 @@ export class NetworkService {
   */
 
   // table bookings start
+
+  getTablesByRestaurantId(params: any, id: number){
+    let str = this.serialize(params);
+    return this.httpGetResponse('get-tables-by-restaurant/' + id + '?' + str, null, false, true);
+  }
+
+  setTableBooking(data: any){
+    return this.httpPostResponse('table-booking', data, null, false, true);
+  }
+
   checkTableAvailability(data: any){
     return this.httpPostResponse('table-booking/check-table-availability', data, null, false, true);
   }
-
-
 
   // table bookings end
 

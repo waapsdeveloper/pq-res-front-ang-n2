@@ -39,76 +39,13 @@
         </div>
         <div class="tabel-sc">
            <div class="row">
-              <div class="col-md-3 mb-4">
-                 <div class="tb-bx booked">
+              <div class="col-md-3 mb-4" *ngFor="let item of list">
+                 <div class="tb-bx" [class.booked]="item.selected">
                     <div class="tb-img">
                        <span>T1</span>
                        <img src="assets/img/table.svg" alt="">
                     </div>
-                    <button class="btn-prime" data-bs-toggle="modal" data-bs-target="#table-form">Select Table</button>
-                 </div>
-              </div>
-              <div class="col-md-3 mb-4">
-                 <div class="tb-bx">
-                    <div class="tb-img">
-                       <span>T2</span>
-                       <img src="assets/img/table.svg" alt="">
-                    </div>
-                    <button class="btn-prime" data-bs-toggle="modal" data-bs-target="#table-form">Select Table</button>
-                 </div>
-              </div>
-              <div class="col-md-3 mb-4">
-                 <div class="tb-bx">
-                    <div class="tb-img">
-                       <span>T3</span>
-                       <img src="assets/img/table.svg" alt="">
-                    </div>
-                    <button class="btn-prime" data-bs-toggle="modal" data-bs-target="#table-form">Select Table</button>
-                 </div>
-              </div>
-              <div class="col-md-3 mb-4">
-                 <div class="tb-bx">
-                    <div class="tb-img">
-                       <span>T4</span>
-                       <img src="assets/img/table.svg" alt="">
-                    </div>
-                    <button class="btn-prime" data-bs-toggle="modal" data-bs-target="#table-form">Select Table</button>
-                 </div>
-              </div>
-              <div class="col-md-3 mb-4">
-                 <div class="tb-bx">
-                    <div class="tb-img">
-                       <span>T5</span>
-                       <img src="assets/img/table.svg" alt="">
-                    </div>
-                    <button class="btn-prime" data-bs-toggle="modal" data-bs-target="#table-form">Select Table</button>
-                 </div>
-              </div>
-              <div class="col-md-3 mb-4">
-                 <div class="tb-bx">
-                    <div class="tb-img">
-                       <span>T6</span>
-                       <img src="assets/img/table.svg" alt="">
-                    </div>
-                    <button class="btn-prime" data-bs-toggle="modal" data-bs-target="#table-form">Select Table</button>
-                 </div>
-              </div>
-              <div class="col-md-3 mb-4">
-                 <div class="tb-bx">
-                    <div class="tb-img">
-                       <span>T7</span>
-                       <img src="assets/img/table.svg" alt="">
-                    </div>
-                    <button class="btn-prime" data-bs-toggle="modal" data-bs-target="#table-form">Select Table</button>
-                 </div>
-              </div>
-              <div class="col-md-3 mb-4">
-                 <div class="tb-bx">
-                    <div class="tb-img">
-                       <span>T8</span>
-                       <img src="assets/img/table.svg" alt="">
-                    </div>
-                    <button class="btn-prime" data-bs-toggle="modal" data-bs-target="#table-form">Select Table</button>
+                    <button (click)="setSelected(item)" class="btn-prime" data-bs-toggle="modal" data-bs-target="#table-form">{{ !item.selected ? 'Select Table' : 'Selected'   }}</button>
                  </div>
               </div>
            </div>
@@ -137,11 +74,9 @@
               </div>
               <div class="col-md-3">
                 <div class="text-right">
-                  <a href="#">
-                      <button class="btn-prime w-100">
-                          select and continue
-                      </button>
-                  </a>
+                    <button class="btn-prime w-100" (click)="startBooking()">
+                        select and continue
+                    </button>
                 </div>
               </div>
           </div>
