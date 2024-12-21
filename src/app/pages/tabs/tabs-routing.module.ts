@@ -13,6 +13,11 @@ const routes: Routes = [
         pathMatch: 'full',
       },
       {
+        path: 'login',
+        loadChildren: () => import('./../login/login.module').then((m) => m.LoginModule),
+        data: { breadcrumb: 'Login' },
+      },
+      {
         path: 'register',
         loadChildren: () => import('./../register/register.module').then((m) => m.RegisterModule),
         data: { breadcrumb: 'Register' },
@@ -84,6 +89,12 @@ const routes: Routes = [
         loadChildren: () =>
           import('./../tables/tables.module').then((m) => m.TablesModule),
         data: { breadcrumb: 'tables' },
+      },
+      {
+        path: 'booking-checkout',
+        loadChildren: () =>
+          import('./../booking-checkout/booking-checkout.module').then((m) => m.BookingCheckoutModule),
+        data: { breadcrumb: 'Booking Checkout' },
       },
     ],
   },

@@ -29,6 +29,16 @@ export class RegisterComponent extends BasePage implements OnInit {
     const res = await this.network.authRegister(data);
     console.log(res)
 
+    if(res.token){
+      localStorage.setItem('token', res.token);
+    }
+
+    if(res.user){
+      localStorage.setItem('user', res.user);
+      this.nav.push('/tabs/home');
+    }
+
+
 
 
   }

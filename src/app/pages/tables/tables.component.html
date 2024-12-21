@@ -1,4 +1,4 @@
 
   <app-table-banner></app-table-banner>
-  <app-table-listing [list]="list" (setBooking)="setBooking($event)" ></app-table-listing>
+  <app-table-listing [list]="filteredList" [floors]="floors"  [params]="params" (setBooking)="setBooking($event)" (filterFloors)="filterFloors($event)" ></app-table-listing>
 

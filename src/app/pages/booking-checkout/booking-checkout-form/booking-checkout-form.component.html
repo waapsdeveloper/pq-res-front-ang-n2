@@ -1,0 +1,199 @@
+<section class="sec-3">
+  <div class="fl-15" data-aos="fade" data-aos-duration="1200">
+     <img src="assets/img/fl-15.svg" alt="">
+  </div>
+  <div class="fl-16" data-aos="fade" data-aos-duration="1200">
+     <img src="assets/img/fl-16.svg" alt="">
+  </div>
+  <div class="fl-17" data-aos="fade" data-aos-duration="1200">
+     <img src="assets/img/fl-17.svg" alt="">
+  </div>
+  <div class="container">
+     <div class="add-to-sc">
+        <div class="row">
+           <div class="col-md-9">
+              <div  class="cart-box">
+                 <h3 class="mb-3">Check Out</h3>
+                 <div class="cart-items-list">
+                    <form action="">
+                       <h5 class="mb-3">Table Order Information</h5>
+                       <div class="radio-container mb-4">
+                          <!-- Dining Radio Button -->
+                          <label>
+                          <input type="radio" name="order-type" value="dining" id="dining" class="dining" checked>
+                          <span class="radio-label">
+                          <i class="bi bi-shop"></i> Dining
+                          </span>
+                          </label>
+                       </div>
+
+                       <div class="tabel-sc">
+                        <div class="row">
+                           <div class="col-md-3 mb-4" *ngFor="let item of tables">
+                              <div class="tb-bx booked">
+                                 <div class="tb-img">
+                                    <span>{{item.no_of_seats}}</span>,
+                                    <img src="assets/img/table.svg" alt="">
+                                 </div>
+                                 <button class="btn-prime" data-bs-toggle="modal" data-bs-target="#table-form">{{ item.identifier   }}</button>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+
+                       <div class="form-checkout-main">
+                          <div class="row">
+                             <div class="col-md-12 mb-3">
+                                <div class="form-group">
+                                   <label for="">Full Name*</label>
+                                   <input type="text" name="" id="" class="checkout-form" placeholder="Name">
+                                </div>
+                             </div>
+                             <div class="col-md-12 mb-3">
+                                <div class="form-group">
+                                   <label for="">Email *</label>
+                                   <input type="email" name="" id="" class="checkout-form" placeholder="Email">
+                                </div>
+                             </div>
+                             <div class="col-md-12 mb-3">
+                                <div class="form-group">
+                                   <label for="">Phone</label>
+                                   <input type="phone" name="" id="" class="checkout-form" placeholder="Phone">
+                                </div>
+                             </div>
+                             <div class="col-md-6 mb-3 for-delivery">
+                                <div class="form-group">
+                                   <label for="">City</label>
+                                   <input type="text" name="" id="" class="checkout-form" placeholder="City">
+                                </div>
+                             </div>
+                             <div class="col-md-6 mb-3 for-delivery">
+                                <div class="form-group">
+                                   <label for="">State</label>
+                                   <input type="text" name="" id="" class="checkout-form" placeholder="State">
+                                </div>
+                             </div>
+                             <div class="col-md-12 mb-3 for-delivery">
+                                <div class="form-group">
+                                   <label for="">Address</label>
+                                   <input type="text" name="" id="" class="checkout-form" placeholder="Address">
+                                </div>
+                             </div>
+                             <div class="col-md-10 mb-3 for-dinine">
+                                <div class="form-group">
+                                   <label for="">Table Booking</label>
+                                   <input type="text" name="" id="" class="checkout-form" placeholder="Table Booking">
+                                </div>
+                             </div>
+                             <div class="col-md-2 mb-3 for-dinine">
+                                <label for=""></label>
+                                <div class="form-group">
+
+                                 <a href="tables.html">
+                                   <button class="btn-prime" type="button"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                      <path d="M11.1999 2.30482C10.9366 2.13602 10.7033 1.91613 10.4312 1.76509C8.6029 0.748931 6.64522 0.113692 4.55924 0.0104099C2.97098 -0.0684398 1.44023 0.279165 0.593005 1.79397C-0.21993 3.24547 -0.164628 4.83245 0.56093 6.31394C0.868408 6.94363 1.43027 7.44116 1.2334 8.24631C1.21349 8.32405 1.3794 8.51951 1.48115 8.53617C1.58512 8.55394 1.7643 8.44954 1.82291 8.34848C1.92909 8.16413 1.97002 7.94202 2.02974 7.761C2.71659 7.7932 2.85706 8.15525 2.78516 8.7494C2.68009 9.61119 2.62811 10.4808 2.59714 11.3481C2.5894 11.5624 2.75088 11.7834 2.83494 12C2.99089 11.8323 3.22426 11.689 3.28952 11.4903C3.51625 10.7895 3.73525 10.0776 3.86244 9.35354C4.00291 8.54727 4.29158 8.18412 5.21844 8.06751C6.71159 7.87761 8.16381 7.3723 9.68129 6.98916C9.91798 7.87316 10.1679 8.87378 10.4644 9.85995C10.5241 10.0587 10.7597 10.2031 10.9145 10.373C10.9997 10.1554 11.1645 9.93325 11.1556 9.71891C11.1136 8.6661 11.0041 7.61662 10.9709 6.56382C10.9632 6.31616 11.0882 5.96189 11.2751 5.82752C12.2484 5.12009 12.2595 2.98338 11.1999 2.30482ZM2.10053 6.89365C4.68865 7.8354 7.05888 6.90031 9.52534 6.03297C7.94039 7.06912 3.70428 8.193 2.10053 6.89365ZM10.7077 4.49485C9.3716 5.54765 7.78112 6.01298 6.16189 6.3839C5.57348 6.51828 4.96737 6.57492 4.43869 6.65599C4.01176 6.6038 3.66336 6.57603 3.32048 6.51606C1.62715 6.21954 0.746744 5.15674 0.768865 3.45092C0.785455 2.0494 1.83508 0.90552 3.4156 0.750042C6.08557 0.489061 8.50447 1.28755 10.6922 2.78458C11.535 3.36208 11.5107 3.86294 10.7077 4.49485Z" fill="white"/>
+                                      </svg>
+                                      Select</button>
+                                 </a>
+                                </div>
+                             </div>
+                             <div class="col-md-12 mb-3">
+                                <div class="form-group">
+                                   <label for="">Payment Mehtods</label>
+                                   <label class="checkout-form">
+                                   <span class="radio-label-2">
+                                   <input type="radio" name="order-type" value="delivery" id="delivery">
+                                   <img src="assets/img/cash.svg" alt=""> Cash on Delivary
+                                   </span>
+                                   </label>
+                                </div>
+                             </div>
+                             <div class="col-md-2 mb-3">
+                                <div class="form-group">
+                                   <label class="checkout-form">
+                                   <span class="radio-label-2">
+                                   <input type="radio" name="order-type" value="delivery" id="delivery">
+                                   <img src="assets/img/easypesa.svg" alt="">
+                                   </span>
+                                   </label>
+                                </div>
+                             </div>
+                             <div class="col-md-2 mb-3">
+                                <div class="form-group">
+                                   <label class="checkout-form">
+                                   <span class="radio-label-2">
+                                   <input type="radio" name="order-type" value="delivery" id="delivery">
+                                   <img src="assets/img/jazz.svg" alt="">
+                                   </span>
+                                   </label>
+                                </div>
+                             </div>
+                             <div class="col-md-2 mb-3">
+                                <div class="form-group">
+                                   <label class="checkout-form">
+                                   <span class="radio-label-2">
+                                   <input type="radio" name="order-type" value="delivery" id="delivery">
+                                   <img src="assets/img/apple-pay.svg" alt="">
+                                   </span>
+                                   </label>
+                                </div>
+                             </div>
+                             <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                   <label class="checkout-form">
+                                   <span class="radio-label-2">
+                                   <input type="radio" name="order-type" value="delivery" id="delivery">
+                                   <img src="assets/img/cash.svg" alt=""> Credit / Debit Card
+                                   </span>
+                                   </label>
+                                </div>
+                             </div>
+                             <div class="col-md-6 mt-3">
+                                <a href="#">
+                                <button class="btn-prime">Submit</button>
+                                </a>
+                             </div>
+                          </div>
+                       </div>
+                    </form>
+                 </div>
+              </div>
+           </div>
+           <div class="col-md-3">
+              <div class="cart-box">
+                 <h3 class="mb-3">Order Details</h3>
+                 <div class="instructions">
+                    <p>Special Instructions (Optional)</p>
+                    <textarea name="" id="" class="int-field">
+
+                       </textarea>
+                    <p>Alternate Phone Number (3XXXXXXXXX)</p>
+                    <input type="number" name="" placeholder="Phone" id="" class="int-field">
+                 </div>
+                 <div class="instructions">
+                    <h3>Your Order</h3>
+                    <ul>
+                       <li>
+                          <div class="left-item">Sub Total :</div>
+                          <div class="irght-item">Rs 0</div>
+                       </li>
+                       <li>
+                          <div class="left-item">Delivery Fee :</div>
+                          <div class="irght-item">Rs 0</div>
+                       </li>
+                       <li>
+                          <div class="left-item">GST ( NaN % ) :</div>
+                          <div class="irght-item">Rs 0</div>
+                       </li>
+                    </ul>
+                    <div class="checkout-bar">
+                       <span>0 Items | Rs 0</span>
+                       <button>Check Out</button>
+                    </div>
+                 </div>
+              </div>
+           </div>
+        </div>
+     </div>
+  </div>
+</section>

@@ -17,19 +17,12 @@
               </div>
               <div class="col-md-6">
                  <div class="th-btn-sc">
-                    <div class="radio-container">
+                    <div class="radio-container" >
                        <!-- Delivery Radio Button -->
-                       <label>
-                       <input type="radio" name="floors" value="first-floor" id="first-floor" class="first-floor" checked>
+                       <label *ngFor="let fl of floors">
+                       <input type="radio" name="floors" value="first-floor" id="first-floor" class="first-floor" [checked]="fl === selectedFloor" (change)="setFloor(fl)" />
                        <span class="radio-label">
-                       <i class="bi bi-pin-map"></i> First Floor
-                       </span>
-                       </label>
-                       <!-- Dining Radio Button -->
-                       <label>
-                       <input type="radio" name="floors" value="second-floor" id="second-floor" class="second-floor">
-                       <span class="radio-label">
-                       <i class="bi bi-shop"></i> Second Floor
+                       <i class="bi bi-pin-map"></i> {{fl}} Floor
                        </span>
                        </label>
                     </div>
@@ -42,10 +35,10 @@
               <div class="col-md-3 mb-4" *ngFor="let item of list">
                  <div class="tb-bx" [class.booked]="item.selected">
                     <div class="tb-img">
-                       <span>T1</span>
+                       <span>{{item.no_of_seats}}</span>,
                        <img src="assets/img/table.svg" alt="">
                     </div>
-                    <button (click)="setSelected(item)" class="btn-prime" data-bs-toggle="modal" data-bs-target="#table-form">{{ !item.selected ? 'Select Table' : 'Selected'   }}</button>
+                    <button (click)="setSelected(item)" class="btn-prime" data-bs-toggle="modal" data-bs-target="#table-form">{{ !item.selected ? item.identifier : 'Selected'   }}</button>
                  </div>
               </div>
            </div>

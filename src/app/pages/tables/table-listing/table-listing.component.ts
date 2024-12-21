@@ -10,9 +10,22 @@ import { EventsService } from '../../../services/events.service';
 })
 export class TableListingComponent {
 
-
+  selectedFloor = 'First';
   @Input('list') list: any[] = [];
+  @Input('floors') floors: any[] = [];
   @Output('setBooking') setBooking = new EventEmitter<any>();
+  @Output('filterFloors') filterFloors = new EventEmitter<any>();
+
+  private _params: any;
+  @Input()
+  public set params(v : any) {
+    this._params = v;
+    this.setObjectReceived(v);
+  }
+
+  public get params() : any {
+    return this._params;
+  }
 
   selectedTable = '';
   selectedDate = '';
@@ -20,12 +33,17 @@ export class TableListingComponent {
   selectedGuestCount = '';
 
 
-  constructor(private events: EventsService){
-    this.events.subscribe('find-a-table', this.setObjectReceived.bind(this));
+  constructor(){
+
   }
 
   setSelected(item: any){
     item.selected = !item.selected;
+  }
+
+  setFloor(fl: any) {
+    this.selectedFloor = fl;
+    this.filterFloors.emit(fl)
   }
 
 

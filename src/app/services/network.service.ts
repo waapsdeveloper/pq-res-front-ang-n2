@@ -46,6 +46,10 @@ export class NetworkService {
     return this.httpPostResponse('auth/register', data, null, false, true);
   }
 
+  authLogin(data: any){
+    return this.httpPostResponse('auth/login', data, null, false, true);
+  }
+
   // table bookings start
 
   getTablesByRestaurantId(params: any, id: number){
