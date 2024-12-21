@@ -13,6 +13,11 @@ const routes: Routes = [
         pathMatch: 'full',
       },
       {
+        path: 'register',
+        loadChildren: () => import('./../register/register.module').then((m) => m.RegisterModule),
+        data: { breadcrumb: 'Register' },
+      },
+      {
         path: 'home',
         loadChildren: () =>
           import('./../home/home.module').then((m) => m.HomeModule),
