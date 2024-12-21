@@ -13,7 +13,7 @@ export class RegisterFormComponent {
   formData = {
     name: '',
     email: '',
-    pasword: ''
+    password: ''
   }
 
   @Output('onAction') onAction = new EventEmitter<any>();
@@ -35,7 +35,7 @@ export class RegisterFormComponent {
       return;
     }
 
-    if(!this.formData.pasword){
+    if(!this.formData.password){
       this.utility.presentFailureToast("Please enter your password");
       return;
     }

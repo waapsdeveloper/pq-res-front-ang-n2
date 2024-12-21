@@ -22,11 +22,14 @@ export class RegisterComponent extends BasePage implements OnInit {
 
 
 
-  onSubmitRegister($event: any){
+  async onSubmitRegister($event: any){
 
     let data = Object.assign({}, $event);
     console.log(data);
-    const res = await this.
+    const res = await this.network.authRegister(data);
+    console.log(res)
+
+
 
   }
 }

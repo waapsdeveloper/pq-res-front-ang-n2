@@ -36,6 +36,16 @@ export class NetworkService {
 
   */
 
+  // Auth registration
+
+  getUserByToken() {
+    return this.httpGetResponse('auth/me', null, false);
+  }
+
+  authRegister(data: any){
+    return this.httpPostResponse('auth/register', data, null, false, true);
+  }
+
   // table bookings start
 
   getTablesByRestaurantId(params: any, id: number){
