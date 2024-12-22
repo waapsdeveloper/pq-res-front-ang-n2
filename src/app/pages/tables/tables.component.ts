@@ -78,8 +78,11 @@ export class TablesComponent extends BasePage implements OnInit {
     console.log(data);
     const res = await this.network.setTableBooking(data);
     console.log(res);
-    if(res && res[0]?.booking_id){
-      this.nav.push('/tabs/booking-checkout', { booking: JSON.stringify(res[0]) });
+    if(res && res.booking){
+      this.utility.presentSuccessToast('Table booked successfully - we will contact you shortly, Thank you!');
+
+      // sthis.nav.pop();
+      // this.nav.push('/tabs/booking-checkout', { booking: JSON.stringify(res.booking) });
     }
 
   }

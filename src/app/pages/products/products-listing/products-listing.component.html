@@ -19,39 +19,9 @@
           <div class="mn-box">
             <h3>View Full Menu</h3>
             <ul class="mn-list">
-              <li>
-                <a href="#">
-                  <img src="assets/img/mn-1.svg" alt=""> <span>Breakfast</span>
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <img src="assets/img/mn-2.png" alt=""> <span>Crispy Chicken</span>
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <img src="assets/img/mn-3.png" alt=""> <span>Chicken & Fish</span>
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <img src="assets/img/mn-4.png" alt=""> <span>Wraps</span>
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <img src="assets/img/mn-5.png" alt=""> <span>Happy Meal</span>
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <img src="assets/img/mn-6.png" alt=""> <span>Extra Value Meals</span>
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <img src="assets/img/mn-7.png" alt=""> <span>Beef Menu</span>
+              <li *ngFor="let category of categories" >
+                <a (click)="getProductsByCategory(category.id)">
+                  <img [src]="category.image" alt=""> <span>{{ category.name }}</span>
                 </a>
               </li>
             </ul>
@@ -61,141 +31,8 @@
       <div class="col-md-9">
         <div class="product-sc">
           <div class="row">
-            <div class="col-md-4">
-              <div class="prod-box">
-                <div class="prod-img">
-                  <img src="assets/img/prod-item.svg" alt="">
-                </div>
-                <div class="prod-cont">
-                  <a href="#">
-                    <h3 class="prod-tittle">Garlic Burger</h3>
-                  </a>
-                  <p class="prod-disc">It is a long established fact that a reader BBQ food Chicken.</p>
-                  <h6 class="prod-price">price :<span>$15.00</span></h6>
-                  <a href="add_to_cart.html" class="prod-btn">
-                    + Add to Cart
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="prod-box">
-                <div class="prod-img">
-                  <img src="assets/img/prod-item.svg" alt="">
-                </div>
-                <div class="prod-cont">
-                  <a href="#">
-                    <h3 class="prod-tittle">Garlic Burger</h3>
-                  </a>
-                  <p class="prod-disc">It is a long established fact that a reader BBQ food Chicken.</p>
-                  <h6 class="prod-price">price :<span>$15.00</span></h6>
-                  <a href="add_to_cart.html" class="prod-btn">
-                    + Add to Cart
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="prod-box">
-                <div class="prod-img">
-                  <img src="assets/img/prod-item.svg" alt="">
-                </div>
-                <div class="prod-cont">
-                  <a href="#">
-                    <h3 class="prod-tittle">Garlic Burger</h3>
-                  </a>
-                  <p class="prod-disc">It is a long established fact that a reader BBQ food Chicken.</p>
-                  <h6 class="prod-price">price :<span>$15.00</span></h6>
-                  <a href="add_to_cart.html" class="prod-btn">
-                    + Add to Cart
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="prod-box">
-                <div class="prod-img">
-                  <img src="assets/img/prod-item.svg" alt="">
-                </div>
-                <div class="prod-cont">
-                  <a href="#">
-                    <h3 class="prod-tittle">Garlic Burger</h3>
-                  </a>
-                  <p class="prod-disc">It is a long established fact that a reader BBQ food Chicken.</p>
-                  <h6 class="prod-price">price :<span>$15.00</span></h6>
-                  <a href="add_to_cart.html" class="prod-btn">
-                    + Add to Cart
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="prod-box">
-                <div class="prod-img">
-                  <img src="assets/img/prod-item.svg" alt="">
-                </div>
-                <div class="prod-cont">
-                  <a href="#">
-                    <h3 class="prod-tittle">Garlic Burger</h3>
-                  </a>
-                  <p class="prod-disc">It is a long established fact that a reader BBQ food Chicken.</p>
-                  <h6 class="prod-price">price :<span>$15.00</span></h6>
-                  <a href="add_to_cart.html" class="prod-btn">
-                    + Add to Cart
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="prod-box">
-                <div class="prod-img">
-                  <img src="assets/img/prod-item.svg" alt="">
-                </div>
-                <div class="prod-cont">
-                  <a href="#">
-                    <h3 class="prod-tittle">Garlic Burger</h3>
-                  </a>
-                  <p class="prod-disc">It is a long established fact that a reader BBQ food Chicken.</p>
-                  <h6 class="prod-price">price :<span>$15.00</span></h6>
-                  <a href="add_to_cart.html" class="prod-btn">
-                    + Add to Cart
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="prod-box">
-                <div class="prod-img">
-                  <img src="assets/img/prod-item.svg" alt="">
-                </div>
-                <div class="prod-cont">
-                  <a href="#">
-                    <h3 class="prod-tittle">Garlic Burger</h3>
-                  </a>
-                  <p class="prod-disc">It is a long established fact that a reader BBQ food Chicken.</p>
-                  <h6 class="prod-price">price :<span>$15.00</span></h6>
-                  <a href="add_to_cart.html" class="prod-btn">
-                    + Add to Cart
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="prod-box">
-                <div class="prod-img">
-                  <img src="assets/img/prod-item.svg" alt="">
-                </div>
-                <div class="prod-cont">
-                  <a href="#">
-                    <h3 class="prod-tittle">Garlic Burger</h3>
-                  </a>
-                  <p class="prod-disc">It is a long established fact that a reader BBQ food Chicken.</p>
-                  <h6 class="prod-price">price :<span>$15.00</span></h6>
-                  <a href="add_to_cart.html" class="prod-btn">
-                    + Add to Cart
-                  </a>
-                </div>
-              </div>
+            <div class="col-md-4" *ngFor="let product of filteredProducts">
+              <app-product-box [item]="product"></app-product-box>
             </div>
           </div>
         </div>

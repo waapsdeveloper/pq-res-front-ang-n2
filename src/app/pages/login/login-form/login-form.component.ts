@@ -30,11 +30,6 @@ export class LoginFormComponent {
   async formSubmit(){
     console.log(this.formData)
 
-    if(!this.formData.name){
-      this.utility.presentFailureToast("Please enter your name");
-      return;
-    }
-
     if(!this.formData.email){
       this.utility.presentFailureToast("Please enter your password");
       return;

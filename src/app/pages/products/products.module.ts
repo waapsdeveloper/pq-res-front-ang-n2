@@ -6,6 +6,7 @@ import { ProductsComponent } from './products.component';
 import { PageLayoutModule } from '../../layouts/page-layout/page-layout.module';
 import { ProductsBannerComponent } from './products-banner/products-banner.component';
 import { ProductsListingComponent } from './products-listing/products-listing.component';
+import { ProductBoxModule } from '../../components/product-box/product-box.module';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { ProductsListingComponent } from './products-listing/products-listing.co
   imports: [
     CommonModule,
     ProductsRoutingModule,
-    PageLayoutModule
+    PageLayoutModule,
+    ProductBoxModule
   ]
 })
 export class ProductsModule { }

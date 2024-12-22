@@ -10,6 +10,12 @@ export class CartService {
   cart: any[] = [];
 
   addToCart(item: any){
+
+    let findIndex = this.cart.findIndex(i => i.id === item.id);
+    if(findIndex !== -1){
+      this.cart[findIndex].quantity += 1;
+      return;
+    }
     this.cart.push(item);
   }
 

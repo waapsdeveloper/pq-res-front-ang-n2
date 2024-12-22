@@ -8,7 +8,6 @@ import { ApiService } from './api.service';
 })
 export class NetworkService {
 
-
   constructor(
     public api: ApiService,
     public router: Router,
@@ -69,6 +68,12 @@ export class NetworkService {
   // table bookings end
 
   // products
+
+  getProducts(params: any){
+    let str = this.serialize(params);
+    return this.httpGetResponse('products?' + str , null, false, true);
+  }
+
   getPopularProducts(data: any){
     let str = this.serialize(data);
     return this.httpGetResponse('popular-products?' + str, null, false, true);
