@@ -1,6 +1,7 @@
 import { Component, ElementRef, ViewChild } from "@angular/core";
 import { EventsService } from "../../services/events.service";
 import { NavService } from "../../services/nav.service";
+import { CartService } from "../../services/cart.service";
 
 
 @Component({
@@ -16,9 +17,7 @@ export class GlobalHeaderComponent {
 
 
 
-  constructor(private nav: NavService, private events: EventsService){
-
-
+  constructor(private nav: NavService, private events: EventsService, public carte: CartService) {
 
   }
 

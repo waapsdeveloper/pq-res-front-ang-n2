@@ -6,6 +6,7 @@ import { TodaysDealsComponent } from './todays-deals.component';
 import { PageLayoutModule } from '../../layouts/page-layout/page-layout.module';
 import { TodaysBannerComponent } from './todays-banner/todays-banner.component';
 import { TodaysDealsListComponent } from './todays-deals-list/todays-deals-list.component';
+import { ProductBoxModule } from '../../components/product-box/product-box.module';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { TodaysDealsListComponent } from './todays-deals-list/todays-deals-list.
   imports: [
     CommonModule,
     TodaysDealsRoutingModule,
-    PageLayoutModule
+    PageLayoutModule,
+    ProductBoxModule
   ]
 })
 export class TodaysDealsModule { }

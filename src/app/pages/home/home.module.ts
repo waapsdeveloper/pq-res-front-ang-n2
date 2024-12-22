@@ -10,6 +10,7 @@ import { PopularSectionComponent } from './popular-section/popular-section.compo
 import { QualitySectionComponent } from './quality-section/quality-section.component';
 import { DeliveredSectionComponent } from './delivered-section/delivered-section.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ProductBoxModule } from '../../components/product-box/product-box.module';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     HomeRoutingModule,
     PageLayoutModule,
-    FormsModule
+    FormsModule,
+    ProductBoxModule
   ]
 })
 export class HomeModule { }

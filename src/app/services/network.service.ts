@@ -8,6 +8,7 @@ import { ApiService } from './api.service';
 })
 export class NetworkService {
 
+
   constructor(
     public api: ApiService,
     public router: Router,
@@ -67,6 +68,11 @@ export class NetworkService {
 
   // table bookings end
 
+  // products
+  getPopularProducts(data: any){
+    let str = this.serialize(data);
+    return this.httpGetResponse('popular-products?' + str, null, false, true);
+  }
 
 
 
