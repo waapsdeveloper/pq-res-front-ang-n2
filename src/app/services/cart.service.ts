@@ -30,6 +30,7 @@ export class CartService extends NgSimpleStateBaseRxjsStore<CartState>  {
         state[findIndex].quantity += 1;
         return state;
       }
+      item.quantity = 1;
       return [...state, item];
     });
 
@@ -45,9 +46,9 @@ export class CartService extends NgSimpleStateBaseRxjsStore<CartState>  {
 
   }
 
-  // removeFromCart(index: number){
-  //   this.cart.splice(index, 1);
-  // }
+  removeFromCart(id: number){
+    this.setState((state) => state.filter((item) => item.id !== id));
+  }
 
   // clearCart(){
   //   this.cart = [];
@@ -74,9 +75,15 @@ export class CartService extends NgSimpleStateBaseRxjsStore<CartState>  {
   //   return {total, count};
   // }
 
-  // getCartItems(){
-  //   return this.cart;
-  // }
+  getCartItems(){
+    return this.selectState();
+  }
+
+  updateQuantity(id: number, quantity: number){
+    this.setState((state) =>
+      state.map((item) => (item.id === id ? { ...item, quantity } : item))
+    );
+  }
 
   // getCartItem(index: number){
   //   return this.cart[index];

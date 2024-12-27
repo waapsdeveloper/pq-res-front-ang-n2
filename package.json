@@ -19,6 +19,7 @@
     "@angular/platform-browser-dynamic": "^19.0.4",
     "@angular/router": "^19.0.4",
     "@pscoped/ngx-pub-sub": "^6.0.1",
+    "@tabler/icons": "^3.26.0",
     "aos": "^2.3.4",
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
