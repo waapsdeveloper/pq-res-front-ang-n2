@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { CartService } from '../../services/cart.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-product-box',
@@ -10,9 +11,27 @@ import { CartService } from '../../services/cart.service';
 })
 export class ProductBoxComponent {
 
-  @Input() item: any;
+  private _item: any;
+  @Input()
+  set item(item: any) {
+    this._item = item;
+    const ir = this.carte.isItemInCart(this.item.id).subscribe((res: any) => {
+      console.log(res);
+      this.item.addedToCart = res;
+    })
 
-  constructor(public carte: CartService) { }
+  }
+  get item() {
+    return this._item;
+  }
+
+
+
+  isItemInCart?: Observable<boolean>;
+
+  constructor(public carte: CartService) {
+
+  }
 
   addToCart(item: any){
     console.log(item);

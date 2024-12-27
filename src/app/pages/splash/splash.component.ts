@@ -15,9 +15,22 @@ export class SplashComponent extends BasePage {
     this.initialize();
   }
 
-  initialize(){
+  async initialize(){
 
     this.showLoader();
+
+    // check if user logged in - if yes set its profile and cart
+    const user = this.users.getLoginUserFromApi() as any;
+    if(user){
+      const res = await this.network.getCartFromApi({user_id: user.id});
+      console.log(res);
+      // this.carte.set(res.cart);
+    }
+
+
+
+
+
     setTimeout( () => {
       this.hideLoader();
       this.events.publish('open-link', {link: 'tabs'})

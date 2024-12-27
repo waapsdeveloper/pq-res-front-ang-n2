@@ -1,4 +1,4 @@
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, isDevMode, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -8,6 +8,7 @@ import { NgxPubSubModule } from '@pscoped/ngx-pub-sub';
 
 import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi   } from '@angular/common/http';
 import { InterceptorService } from './services/interceptor.service';
+import { provideNgSimpleState } from 'ng-simple-state';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,11 @@ import { InterceptorService } from './services/interceptor.service';
   providers: [
     provideHttpClient(withInterceptorsFromDi()),
     { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true },
+    provideNgSimpleState({
+      enableDevTool: isDevMode(),
+      enableLocalStorage: true,
+      persistentStorage: 'local'
+    })
 
   ],
   bootstrap: [AppComponent],

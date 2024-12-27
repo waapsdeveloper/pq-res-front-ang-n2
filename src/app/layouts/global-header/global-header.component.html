@@ -26,8 +26,8 @@
 
         <i class="mobile-nav-toggle d-xl-none bi bi-list" (click)="toggleMobileMenu()"></i>
      </nav>
-     <a class="cart-bx" href="add_to_cart.html" data-aos="fade" data-aos-duration="1000">
-     <span class="cart-count-head">{{ this.carte.getCartCount() }}</span>
+     <a class="cart-bx" (click)="gotoCart()" data-aos="fade" data-aos-duration="1000">
+     <span class="cart-count-head">{{ cartCounter | async  }}</span>
      <img src="/assets/img/cart.png" alt="">
      </a>
   </div>

@@ -1,72 +1,97 @@
 import { Injectable } from '@angular/core';
+import { NgSimpleStateBaseRxjsStore, NgSimpleStateStoreConfig } from 'ng-simple-state';
+import { CartState, UserCartProduct } from '../interfaces/user-cart-product';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CartService {
+export class CartService extends NgSimpleStateBaseRxjsStore<CartState>  {
 
-  constructor() { }
+  constructor() {
+    super();
+  }
 
-  cart: any[] = [];
+  protected override storeConfig(): NgSimpleStateStoreConfig {
+    return {
+      storeName: 'UserCartStore'
+    };
+  }
+  protected override initialState(): CartState {
+    return [];
+  }
 
-  addToCart(item: any){
 
-    let findIndex = this.cart.findIndex(i => i.id === item.id);
-    if(findIndex !== -1){
-      this.cart[findIndex].quantity += 1;
-      return;
-    }
-    this.cart.push(item);
+  addToCart(item: UserCartProduct){
+
+    this.setState( (state: any) => {
+      let findIndex = state.findIndex( (i: any) => i.id === item.id);
+      if(findIndex !== -1){
+        state[findIndex].quantity += 1;
+        return state;
+      }
+      return [...state, item];
+    });
+
   }
 
   getCart(){
-    return this.cart;
-  }
 
-  removeFromCart(index: number){
-    this.cart.splice(index, 1);
-  }
-
-  clearCart(){
-    this.cart = [];
-  }
-
-  getTotal(){
-    let total = 0;
-    this.cart.forEach(item => {
-      total += item.price;
+    return new Promise((resolve, reject) => {
+      this.selectState().subscribe((state: any) => {
+        resolve(state);
+      });
     });
-    return total;
+
   }
 
-  getCartCount(){
-    return this.cart.length;
+  // removeFromCart(index: number){
+  //   this.cart.splice(index, 1);
+  // }
+
+  // clearCart(){
+  //   this.cart = [];
+  // }
+
+  // getTotal(){
+  //   let total = 0;
+  //   this.cart.forEach(item => {
+  //     total += item.price;
+  //   });
+  //   return total;
+  // }
+
+  getCartCounter(): Observable<number>{
+    return this.selectState(state => state.length);
   }
 
-  getCartSummary(){
-    let total = 0;
-    let count = this.cart.length;
-    this.cart.forEach(item => {
-      total += item.price;
+  // getCartSummary(){
+  //   let total = 0;
+  //   let count = this.cart.length;
+  //   this.cart.forEach(item => {
+  //     total += item.price;
+  //   });
+  //   return {total, count};
+  // }
+
+  // getCartItems(){
+  //   return this.cart;
+  // }
+
+  // getCartItem(index: number){
+  //   return this.cart[index];
+  // }
+
+  // updateCartItem(index: number, item: any){
+  //   this.cart[index] = item;
+  // }
+
+  isItemInCart(id: any){
+
+    return this.selectState(state => {
+      let findIndex = state.findIndex( (i: any) => i.id === id);
+      return findIndex !== -1;
     });
-    return {total, count};
-  }
-
-  getCartItems(){
-    return this.cart;
-  }
-
-  getCartItem(index: number){
-    return this.cart[index];
-  }
-
-  updateCartItem(index: number, item: any){
-    this.cart[index] = item;
-  }
-
-  isItemInCart(item: any){
-    let findIndex = this.cart.findIndex(i => i.id === item.id);
-    return findIndex !== -1;
   }
 
 

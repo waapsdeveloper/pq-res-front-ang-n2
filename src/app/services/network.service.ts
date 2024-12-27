@@ -79,6 +79,16 @@ export class NetworkService {
     return this.httpGetResponse('popular-products?' + str, null, false, true);
   }
 
+  // cart
+
+  getCartFromApi(data: any) {
+    let str = this.serialize(data);
+    return this.httpGetResponse('cart?' + str, null, false, true);
+  }
+
+  setCartToApi(data: any) {
+    return this.httpPostResponse('cart', data, null, false, true);
+  }
 
 
 

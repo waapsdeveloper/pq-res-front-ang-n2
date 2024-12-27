@@ -23,6 +23,7 @@
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
     "glightbox": "^3.3.0",
+    "ng-simple-state": "^19.0.1",
     "pq-res-front-ang-n2": "file:",
     "rxjs": "^7.5.0",
     "sweetalert2": "^11.15.0",
