@@ -33,6 +33,7 @@ export class CartContentComponent implements OnInit {
 
 
    }
+   this.navigateToPage();
 
    console.log(obj);
     console.log(table_identifier);
@@ -54,6 +55,9 @@ export class CartContentComponent implements OnInit {
       return;
     }
     this.carte.updateQuantity(item.id, item.quantity - 1);
+  }
+  navigateToPage() {
+    this.router.navigate(['/tabs/ordertracker']);
   }
 
   // getCartTotal(){
