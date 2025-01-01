@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import { OrderTrackingBannerRoutingModule } from './order-tracking-banner-routing.module';
 import { OrderTrackingBannerComponent } from './order-tracking-banner.component';
 
 
@@ -11,7 +9,6 @@ import { OrderTrackingBannerComponent } from './order-tracking-banner.component'
   ],
   imports: [
     CommonModule,
-    OrderTrackingBannerRoutingModule
   ],
   exports: [OrderTrackingBannerComponent]
 })

@@ -57,7 +57,7 @@ export class CartContentComponent implements OnInit {
     this.carte.updateQuantity(item.id, item.quantity - 1);
   }
   navigateToPage() {
-    this.router.navigate(['/tabs/ordertracker']);
+    this.router.navigate(['/tabs/order-tracker']);
   }
 
   // getCartTotal(){
