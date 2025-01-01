@@ -1,3 +1,4 @@
+import { OrderTrackerModule } from './../order-tracker/order-tracker.module';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { TabsComponent } from './tabs.component';
@@ -14,12 +15,14 @@ const routes: Routes = [
       },
       {
         path: 'login',
-        loadChildren: () => import('./../login/login.module').then((m) => m.LoginModule),
+        loadChildren: () =>
+          import('./../login/login.module').then((m) => m.LoginModule),
         data: { breadcrumb: 'Login' },
       },
       {
         path: 'register',
-        loadChildren: () => import('./../register/register.module').then((m) => m.RegisterModule),
+        loadChildren: () =>
+          import('./../register/register.module').then((m) => m.RegisterModule),
         data: { breadcrumb: 'Register' },
       },
       {
@@ -53,6 +56,14 @@ const routes: Routes = [
         loadChildren: () =>
           import('./../checkout/checkout.module').then((m) => m.CheckoutModule),
         data: { breadcrumb: 'checkout' },
+      },
+      {
+        path: 'ordertracker',
+        loadChildren: () =>
+          import('../order-tracker/order-tracker.module').then(
+            (m) => m.OrderTrackerModule
+          ),
+        data: { breadcrumb: 'order-tracker' },
       },
       {
         path: 'contact-us',
@@ -93,7 +104,9 @@ const routes: Routes = [
       {
         path: 'booking-checkout',
         loadChildren: () =>
-          import('./../booking-checkout/booking-checkout.module').then((m) => m.BookingCheckoutModule),
+          import('./../booking-checkout/booking-checkout.module').then(
+            (m) => m.BookingCheckoutModule
+          ),
         data: { breadcrumb: 'Booking Checkout' },
       },
     ],

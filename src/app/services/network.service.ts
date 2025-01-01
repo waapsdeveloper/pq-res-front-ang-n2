@@ -90,6 +90,9 @@ export class NetworkService {
     return this.httpPostResponse('cart', data, null, false, true);
   }
 
+  makeOrder(data: any) {
+    return this.httpPostResponse(`make-order-bookings`, data, null, false, true);
+  }
 
 
 

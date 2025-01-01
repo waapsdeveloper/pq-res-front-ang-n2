@@ -33,6 +33,8 @@ export class CartService extends NgSimpleStateBaseRxjsStore<CartState>  {
       item.quantity = 1;
       return [...state, item];
     });
+  
+
 
   }
 

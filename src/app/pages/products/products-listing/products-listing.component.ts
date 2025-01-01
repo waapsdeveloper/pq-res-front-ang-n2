@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NetworkService } from '../../../services/network.service';
 import { CartService } from '../../../services/cart.service';
+import { NavService } from '../../../services/nav.service';
 
 @Component({
   selector: 'app-products-listing',
@@ -11,17 +12,25 @@ import { CartService } from '../../../services/cart.service';
 })
 export class ProductsListingComponent {
 
+
+
+
   categories: any[] = [];
   products: any[] = [];
   filteredProducts: any[] = [];
 
-  constructor(private network: NetworkService, public carte: CartService) { }
+  constructor(private network: NetworkService, public carte: CartService,public nav: NavService) { }
 
   ngOnInit() {
     this.initialize();
   }
 
   async initialize(){
+    const params = this.nav.getQueryParams();
+    const table_identifier = params['table_identifier'];
+    localStorage.setItem('table_identifier', table_identifier);
+   console.log(localStorage.getItem('table_identifier'));
+
 
     let obj = {
 

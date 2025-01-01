@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Injector } from '@angular/core';
+import { NavService } from '../../services/nav.service';
 
 @Component({
     selector: 'app-products',
@@ -7,5 +8,10 @@ import { Component } from '@angular/core';
     standalone: false
 })
 export class ProductsComponent {
+  constructor(injector: Injector,public nav: NavService) {
+  }
 
+
+
+ 
 }

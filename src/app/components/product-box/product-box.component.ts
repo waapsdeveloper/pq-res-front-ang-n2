@@ -37,6 +37,7 @@ export class ProductBoxComponent {
     console.log(item);
     item.addedToCart = true;
     this.carte.addToCart(item);
+    
   }
 
 }
