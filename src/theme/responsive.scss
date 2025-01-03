@@ -18,7 +18,11 @@
 
   .pizza-img{
     position: initial;
+    width: 77%;
   }
+  .pizza-home {
+    text-align: center;
+}
   section.sc-1 .row {
     flex-wrap: wrap-reverse;
 }
@@ -306,3 +310,154 @@ button.btn-prime {
 
   }
 
+
+
+  /* Covers iPad Pro, iPad Mini, and iPad */
+@media only screen and (min-width: 768px) and (max-width: 1366px) {
+  .sc-cont {
+    padding-left: 0;
+}
+.offset-md-1 {
+  margin-left: 40px;
+}
+
+.fl-9 {
+  display: none;
+}
+img.img-fluid.pizza-img {
+  max-width: 500px;
+  right: -183px;
+  top: -38px;
+}
+.fl-8 {
+  right: 61%;
+  top: -44px;
+  z-index: 1;
+}
+.fl-9 {
+  top: 333px;
+  left: auto;
+  right: -34px;
+}
+.navmenu a, .navmenu a:focus {
+  font-size: 50px;
+  font-weight: 600;
+  text-transform: uppercase;
+  justify-content: center;
+  padding: 22px;
+}
+.book-sc {
+  width: 100%;
+}
+.book-sc .col-md-3:last-child {
+  width: 100% !important;
+  margin-top: 15px;
+}
+.book-sc .col-md-3 {
+  flex: 0 0 auto;
+  width: 33%;
+}
+.book-inp button.btn-prime {
+  width: 100%;
+}
+.product-sc .col-md-3 {
+  width: 50%;
+}
+.header .logo {
+  order: 0;
+}
+a.cart-bx {
+  margin-right: 23px;
+}
+.mobile-nav-toggle {
+  font-size: 43px;
+}
+section.sec-4 .col-md-6 {
+  display: none;
+}
+.burger-dt img {
+  width: 100%;
+}
+.pd-dt-bx {
+  margin-bottom: 10px;
+  position: relative;
+  z-index: 2;
+  background: #ffffffe3;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 5px 5px 2px #00000014;
+}
+section.sec-5 .col-md-6 {
+  width: 100%;
+}
+.ftr-top .col-md-6 {
+  width: 47%;
+}
+section.sec-4 .col-md-2 {
+  width: 50%;
+}
+.mobile-nav-toggle{
+  color: #fff !important;
+}
+section.about-main .col-md-6 {
+  width: 100%;
+}
+.top-cont-1 {
+  margin-top: 35px;
+}
+.abt-img img {
+  height: 78px;
+}
+.abt-box {
+  height: 205px;
+}
+
+.inner-content {
+  position: relative;
+  z-index: 2;
+}
+section.about-main {
+  padding-top: 0;
+}
+section.sec-3 .col-md-3 {
+  width: 50%;
+}
+section.sec-3 .col-md-9 {
+  width: 58%;
+}
+.product-sc .col-md-4 {
+  width: 100%;
+}
+.menu-item-sidebar {
+  position: sticky;
+  top: 120px;
+}
+.tabel-sc .col-md-3 {
+  width: 33% !important;
+}
+.tb-img img {
+  width: 100%;
+}
+section.write-us .col-md-6, section.write-us .col-md-5 {
+  width: 100%;
+}
+.write-img img {
+  height: 600px;
+  margin-bottom: 50px;
+}
+
+
+
+.cstm-col-ip .col-md-3 {
+  width: 42% !important;
+}
+.cont-bx .col-md-4 {
+  width: 100%;
+  margin-bottom: 12px;
+}
+.sc-5-img {
+  text-align: center;
+}
+
+
+}
