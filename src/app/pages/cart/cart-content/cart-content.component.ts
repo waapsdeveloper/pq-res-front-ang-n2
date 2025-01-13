@@ -13,32 +13,56 @@ import { Router } from '@angular/router';
 export class CartContentComponent implements OnInit {
   cartItems: any[] = [];
   phone: number | null = null;
-  constructor(public carte: CartService, private network: NetworkService,private router: Router) {
+  constructor(
+    public carte: CartService,
+    private network: NetworkService,
+    private router: Router
+  ) {
     this.carte.getCartItems().subscribe((res: any) => {
-      console.log(res);
       this.cartItems = res;
+      // Map each product in the response to process variations
+      this.cartItems = res.map((item: any) => {
+        if (item.variation && item.variation.length > 0) {
+          // Parse the meta_value into JSON
+          const parsedVariations = JSON.parse(item.variation[0].meta_value);
+
+          // Add parsed variations to the item object
+          return {
+            ...item,
+            parsedVariations: parsedVariations.map((variation: any) => ({
+              type: variation.type,
+              selected: variation.selected,
+              options: variation.options.map((option: any) => ({
+                name: option.name,
+                description: option.description,
+                price: option.price,
+              })),
+            })),
+          };
+        } else {
+          return item; // If no variations, return item as is
+        }
+      });
+
+      console.log('Mapped Cart Items:', this.cartItems);
     });
   }
 
   ngOnInit() {}
 
- async  makeOrder() {
-
+  async makeOrder() {
     const table_identifier = localStorage.getItem('table_identifier');
-   let obj = {
+    let obj = {
       table_identifier: table_identifier,
       products: this.cartItems,
       phone: this.phone,
       status: 'pending',
+    };
+    this.navigateToPage();
 
-
-   }
-   this.navigateToPage();
-
-   console.log(obj);
+    console.log(obj);
     console.log(table_identifier);
     this.network.makeOrder(obj);
-
   }
 
   removeItem(item: any) {
