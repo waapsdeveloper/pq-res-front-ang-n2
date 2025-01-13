@@ -11,7 +11,6 @@ import { Router } from '@angular/router';
   styleUrl: './cart-content.component.scss',
 })
 export class CartContentComponent implements OnInit {
-
   cartItems: any[] = [];
   subtotal: number = 0;
   deliveryFee: number = 50; // Example static delivery fee
@@ -19,7 +18,7 @@ export class CartContentComponent implements OnInit {
   gstAmount: number = 0;
   total: number = 0;
   phone: number | null = null;
-  
+
   constructor(
     public carte: CartService,
     private network: NetworkService,
@@ -27,11 +26,23 @@ export class CartContentComponent implements OnInit {
   ) {
     this.carte.getCartItems().subscribe((res: any) => {
       this.cartItems = res;
+
       // Map each product in the response to process variations
       this.cartItems = res.map((item: any) => {
         if (item.variation && item.variation.length > 0) {
-          // Parse the meta_value into JSON
-          const parsedVariations = JSON.parse(item.variation[0].meta_value);
+          // Check if meta_value is a string and parse it if necessary
+          let parsedVariations: any;
+
+          if (typeof item.variation[0].meta_value === 'string') {
+            try {
+              parsedVariations = JSON.parse(item.variation[0].meta_value);
+            } catch (error) {
+              console.error("Error parsing variation JSON:", error);
+              parsedVariations = []; // Default to empty if parsing fails
+            }
+          } else {
+            parsedVariations = item.variation[0].meta_value; // Use directly if it's already an object
+          }
 
           // Add parsed variations to the item object
           return {
@@ -53,6 +64,7 @@ export class CartContentComponent implements OnInit {
 
       console.log('Mapped Cart Items:', this.cartItems);
     });
+
   }
   toggleVariation(item: any, variation: any): void {
     variation.selected = !variation.selected; // Toggle the selected status
@@ -60,44 +72,27 @@ export class CartContentComponent implements OnInit {
   }
 
   ngOnInit() {
-     this.carte.getCartItems().subscribe((res: any) => {
-        this.cartItems = res.map((item: any) => ({
-          ...item,
-          parsedVariations: item.variation?.length
+    this.carte.getCartItems().subscribe((res: any) => {
+      this.cartItems = res.map((item: any) => ({
+        ...item,
+        parsedVariations: item.variation?.length
           ? JSON.parse(item.variation[0]?.meta_value || '[]') // Parse the variation meta_value
           : [],
-          totalPrice: item.price * item.quantity, // Calculate initial total price for each item
-        }));
-        this.calculateOrderDetails();
-      });
-    }
-    calculateOrderDetails() {
-      // Calculate subtotal including variations
-      this.subtotal = this.cartItems.reduce((sum, item) => {
-        const itemPrice = item.price * item.quantity;
+        totalPrice: item.price * item.quantity, // Calculate initial total price for each item
+      }));
+      this.calculateOrderDetails();
 
-        // Add the price of selected variations
-        const variationPrice = item.parsedVariations
-          ?.filter((variation: any) => variation.selected)
-          .reduce((vSum:any, variation:any) => {
-            const optionsPrice = variation.options.reduce(
-              (oSum: number, option: any) => oSum + option.price,
-              0
-            );
-            return vSum + optionsPrice;
-          }, 0);
+    });
+  }
+  calculateOrderDetails() {
+    // Calculate subtotal including variations
+    this.subtotal = this.carte.total_price;
 
-        return sum + itemPrice + (variationPrice || 0);
-      }, 0);
+    // Calculate GST amount
+    this.gstAmount = (this.subtotal * this.gstPercentage) / 100;
 
-      // Calculate GST amount
-      this.gstAmount = (this.subtotal * this.gstPercentage) / 100;
-
-      // Calculate total
-      this.total = this.subtotal + this.gstAmount + this.deliveryFee;
-    }
-
-
+    // Calculate total
+  }
 
   async makeOrder() {
     const table_identifier = localStorage.getItem('table_identifier');
@@ -106,11 +101,10 @@ export class CartContentComponent implements OnInit {
       products: this.cartItems,
       phone: this.phone,
       status: 'pending',
-      gst:this.gstAmount,
-      total:this.total,
-      delivery:this.deliveryFee,
-      subTotal:this.subtotal
-
+      gst: this.gstAmount,
+      total: this.total,
+      delivery: this.deliveryFee,
+      subTotal: this.subtotal,
     };
     this.navigateToPage();
 
@@ -119,7 +113,6 @@ export class CartContentComponent implements OnInit {
     this.network.makeOrder(obj);
   }
 
-  
   navigateToPage() {
     this.router.navigate(['/tabs/order-tracker']);
   }

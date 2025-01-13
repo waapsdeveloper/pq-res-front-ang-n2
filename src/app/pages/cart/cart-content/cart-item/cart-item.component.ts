@@ -4,7 +4,7 @@ import { CartService } from '../../../../services/cart.service';
 @Component({
   selector: 'app-cart-item',
   standalone: false,
-  
+
   templateUrl: './cart-item.component.html',
   styleUrl: './cart-item.component.scss'
 })
@@ -12,9 +12,11 @@ export class CartItemComponent {
 
   @Input() item: any;
 
+
   constructor( public carte: CartService ) {
 
   }
+
 
   changeVariationSelection($event: any){
     this.carte.totalOfProductCost();
@@ -39,5 +41,9 @@ export class CartItemComponent {
     this.carte.updateQuantity(item.id, item.quantity - 1);
     this.carte.totalOfProductCost();
   }
+
+
+
+
 
 }
