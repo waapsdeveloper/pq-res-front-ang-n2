@@ -39,7 +39,7 @@
             </div>
             <div class="cart-items-list" *ngIf="cartItems.length > 0">
               <ul>
-                <app-cart-item *ngFor="let item of cartItems" [item]="item"></app-cart-item>                
+                <app-cart-item *ngFor="let item of cartItems" [item]="item"></app-cart-item>
               </ul>
             </div>
 
@@ -67,19 +67,19 @@
               <ul>
                 <li>
                   <div class="left-item">Sub Total :</div>
-                  <div class="irght-item">Rs {{subtotal}}</div>
+                  <div class="irght-item">Rs {{carte.total_price || 0}}</div>
                 </li>
                 <li>
                   <div class="left-item">Delivery Fee :</div>
-                  <div class="irght-item">Rs {{deliveryFee}}</div>
+                  <div class="irght-item">Rs {{deliveryFee || 0}}</div>
                 </li>
                 <li>
                   <div class="left-item">GST ( NaN % ) :</div>
-                  <div class="irght-item">Rs {{gstAmount}}</div>
+                  <div class="irght-item">Rs {{gstAmount || 0}}</div>
                 </li>
               </ul>
               <div class="checkout-bar">
-                <span>{{ cartItems.length }} Items |  Rs {{ total }}</span>
+                <span>{{ cartItems.length }} Items |  Rs {{ total || 0 }}</span>
                 <button (click)="makeOrder()">Check Out</button>
               </div>
             </div>

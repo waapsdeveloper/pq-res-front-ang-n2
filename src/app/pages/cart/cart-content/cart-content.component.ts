@@ -73,28 +73,10 @@ export class CartContentComponent implements OnInit {
 
   ngOnInit() {
     this.carte.getCartItems().subscribe((res: any) => {
-      this.cartItems = res.map((item: any) => ({
-        ...item,
-        parsedVariations: item.variation?.length
-          ? JSON.parse(item.variation[0]?.meta_value || '[]') // Parse the variation meta_value
-          : [],
-        totalPrice: item.price * item.quantity, // Calculate initial total price for each item
-      }));
-      this.calculateOrderDetails();
+      this.cartItems = res
 
     });
   }
-  calculateOrderDetails() {
-    // Calculate subtotal including variations
-    this.subtotal = this.carte.total_price
-
-    // Calculate GST amount
-    this.gstAmount = (this.subtotal * this.gstPercentage) / 100;
-
-    // Calculate total
-    this.total = this.subtotal + this.gstAmount + this.deliveryFee;
-  }
-
   async makeOrder() {
     const table_identifier = localStorage.getItem('table_identifier');
     let obj = {
