@@ -86,12 +86,13 @@ export class CartContentComponent implements OnInit {
   }
   calculateOrderDetails() {
     // Calculate subtotal including variations
-    this.subtotal = this.carte.total_price;
+    this.subtotal = this.carte.total_price
 
     // Calculate GST amount
     this.gstAmount = (this.subtotal * this.gstPercentage) / 100;
 
     // Calculate total
+    this.total = this.subtotal + this.gstAmount + this.deliveryFee;
   }
 
   async makeOrder() {

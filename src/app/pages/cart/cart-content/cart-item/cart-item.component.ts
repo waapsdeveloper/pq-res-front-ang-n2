@@ -9,8 +9,57 @@ import { CartService } from '../../../../services/cart.service';
   styleUrl: './cart-item.component.scss'
 })
 export class CartItemComponent {
+  private _item: any;
+  @Input()
+  get item(): any{
+    return this._item;
+  }
 
-  @Input() item: any;
+  set item(value: any){
+    this._item = value;
+     this.parse(value)
+
+  }
+
+  parse(v:any){
+    console.log("h",v);
+    if (v.variation && v.variation.length > 0) {
+      // Check if meta_value is a string and parse it if necessary
+      let parsedVariations: any;
+
+      if (typeof v.variation[0].meta_value === 'string') {
+        try {
+          parsedVariations = JSON.parse(v.variation[0].meta_value);
+        } catch (error) {
+          console.error("Error parsing variation JSON:", error);
+          parsedVariations = []; // Default to empty if parsing fails
+        }
+      } else {
+        parsedVariations = v.variation[0].meta_value; // Use directly if it's already an object
+      }
+      console.log("h",v);
+      // Add parsed variations to the item object
+      return {
+        ...v,
+        parsedVariations: parsedVariations.map((variation: any) => ({
+          type: variation.type,
+          selected: variation.selected,
+          options: variation.options.map((option: any) => ({
+            name: option.name,
+            description: option.description,
+            price: option.price,
+          })),
+        })),
+      };
+    } else {
+
+      return v; // If no variations, return item as is
+    }
+
+
+}
+
+
 
 
   constructor( public carte: CartService ) {
