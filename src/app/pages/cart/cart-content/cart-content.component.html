@@ -49,15 +49,15 @@
 
                     <!-- Variations Section -->
                     <div class="cart-variations" *ngIf="item.parsedVariations && item.parsedVariations.length > 0">
-                      <div class="variations-inline">
-                        <div *ngFor="let variation of item.parsedVariations">
+                      <div class="variations-inline fw-semibold">
+                        <div class="" *ngFor="let variation of item.parsedVariations">
                           <label>
                             <input
                               type="checkbox"
                               [checked]="variation.selected"
                               (change)="toggleVariation(item, variation)"
                             />
-                            {{ variation.type }}
+                            {{ variation?.type}}
                           </label>
                         </div>
                       </div>
@@ -116,19 +116,19 @@
               <ul>
                 <li>
                   <div class="left-item">Sub Total :</div>
-                  <div class="irght-item">Rs 0</div>
+                  <div class="irght-item">Rs {{subtotal}}</div>
                 </li>
                 <li>
                   <div class="left-item">Delivery Fee :</div>
-                  <div class="irght-item">Rs 0</div>
+                  <div class="irght-item">Rs {{deliveryFee}}</div>
                 </li>
                 <li>
                   <div class="left-item">GST ( NaN % ) :</div>
-                  <div class="irght-item">Rs 0</div>
+                  <div class="irght-item">Rs {{gstAmount}}</div>
                 </li>
               </ul>
               <div class="checkout-bar">
-                <span>0 Items | Rs 0</span>
+                <span>{{ cartItems.length }} Items |  Rs {{ total }}</span>
                 <button (click)="makeOrder()">Check Out</button>
               </div>
             </div>

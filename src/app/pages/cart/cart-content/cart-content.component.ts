@@ -12,6 +12,11 @@ import { Router } from '@angular/router';
 })
 export class CartContentComponent implements OnInit {
   cartItems: any[] = [];
+  subtotal: number = 0;
+  deliveryFee: number = 50; // Example static delivery fee
+  gstPercentage: number = 10; // Example GST percentage
+  gstAmount: number = 0;
+  total: number = 0;
   phone: number | null = null;
   constructor(
     public carte: CartService,
@@ -52,15 +57,58 @@ export class CartContentComponent implements OnInit {
     console.log(`Variation toggled for ${item.name}:`, variation);
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+     this.carte.getCartItems().subscribe((res: any) => {
+        this.cartItems = res.map((item: any) => ({
+          ...item,
+          parsedVariations: item.variation?.length
+          ? JSON.parse(item.variation[0]?.meta_value || '[]') // Parse the variation meta_value
+          : [],
+          totalPrice: item.price * item.quantity, // Calculate initial total price for each item
+        }));
+        this.calculateOrderDetails();
+      });
+    }
+    calculateOrderDetails() {
+      // Calculate subtotal including variations
+      this.subtotal = this.cartItems.reduce((sum, item) => {
+        const itemPrice = item.price * item.quantity;
+
+        // Add the price of selected variations
+        const variationPrice = item.parsedVariations
+          ?.filter((variation: any) => variation.selected)
+          .reduce((vSum:any, variation:any) => {
+            const optionsPrice = variation.options.reduce(
+              (oSum: number, option: any) => oSum + option.price,
+              0
+            );
+            return vSum + optionsPrice;
+          }, 0);
+
+        return sum + itemPrice + (variationPrice || 0);
+      }, 0);
+
+      // Calculate GST amount
+      this.gstAmount = (this.subtotal * this.gstPercentage) / 100;
+
+      // Calculate total
+      this.total = this.subtotal + this.gstAmount + this.deliveryFee;
+    }
+
+
 
   async makeOrder() {
     const table_identifier = localStorage.getItem('table_identifier');
     let obj = {
-      table_identifier: table_identifier ,
+      table_identifier: table_identifier,
       products: this.cartItems,
       phone: this.phone,
       status: 'pending',
+      gst:this.gstAmount,
+      total:this.total,
+      delivery:this.deliveryFee,
+      subTotal:this.subtotal
+
     };
     this.navigateToPage();
 

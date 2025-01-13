@@ -2,19 +2,25 @@
   margin-top: 10px;
 }
 
-.variations-inline {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px; /* Space between checkboxes */
+.variations-list {
+  display: block; /* Ensures one item per line */
 }
 
-.variations-inline label {
+.variation-item {
+  margin: 5px 0; /* Space between variation items */
+}
+
+.variation-item label {
+  font-weight: bold;
+  font-size: 14px;
   display: flex;
   align-items: center;
   cursor: pointer;
-  font-size: 14px;
 }
 
-.variations-inline input[type="checkbox"] {
-  margin-right: 5px;
+.variation-item input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  accent-color: #007bff; /* Makes the checkbox prominent */
 }
