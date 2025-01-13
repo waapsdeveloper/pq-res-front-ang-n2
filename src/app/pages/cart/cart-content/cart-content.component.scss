@@ -1,0 +1,20 @@
+.cart-variations {
+  margin-top: 10px;
+}
+
+.variations-inline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px; /* Space between checkboxes */
+}
+
+.variations-inline label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.variations-inline input[type="checkbox"] {
+  margin-right: 5px;
+}

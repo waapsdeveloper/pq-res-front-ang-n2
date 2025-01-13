@@ -47,13 +47,17 @@ export class CartContentComponent implements OnInit {
       console.log('Mapped Cart Items:', this.cartItems);
     });
   }
+  toggleVariation(item: any, variation: any): void {
+    variation.selected = !variation.selected; // Toggle the selected status
+    console.log(`Variation toggled for ${item.name}:`, variation);
+  }
 
   ngOnInit() {}
 
   async makeOrder() {
     const table_identifier = localStorage.getItem('table_identifier');
     let obj = {
-      table_identifier: table_identifier,
+      table_identifier: table_identifier ,
       products: this.cartItems,
       phone: this.phone,
       status: 'pending',
