@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
   styleUrl: './cart-content.component.scss',
 })
 export class CartContentComponent implements OnInit {
+
   cartItems: any[] = [];
   subtotal: number = 0;
   deliveryFee: number = 50; // Example static delivery fee
@@ -18,6 +19,7 @@ export class CartContentComponent implements OnInit {
   gstAmount: number = 0;
   total: number = 0;
   phone: number | null = null;
+  
   constructor(
     public carte: CartService,
     private network: NetworkService,
@@ -117,21 +119,7 @@ export class CartContentComponent implements OnInit {
     this.network.makeOrder(obj);
   }
 
-  removeItem(item: any) {
-    this.carte.removeFromCart(item.id);
-  }
-
-  addQuantity(item: any) {
-    this.carte.updateQuantity(item.id, item.quantity + 1);
-  }
-
-  removeQuantity(item: any) {
-    if (item.quantity <= 1) {
-      this.removeItem(item);
-      return;
-    }
-    this.carte.updateQuantity(item.id, item.quantity - 1);
-  }
+  
   navigateToPage() {
     this.router.navigate(['/tabs/order-tracker']);
   }

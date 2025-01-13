@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class CartService extends NgSimpleStateBaseRxjsStore<CartState>  {
+  
 
   constructor() {
     super();
@@ -33,6 +34,8 @@ export class CartService extends NgSimpleStateBaseRxjsStore<CartState>  {
       item.quantity = 1;
       return [...state, item];
     });
+
+    this.totalOfProductCost();
   
 
 
@@ -101,7 +104,40 @@ export class CartService extends NgSimpleStateBaseRxjsStore<CartState>  {
       let findIndex = state.findIndex( (i: any) => i.id === id);
       return findIndex !== -1;
     });
+
   }
+
+  async totalOfProductCost() {
+
+    const selected_products = await this.getCart() as any[];
+
+
+    let cost = selected_products.reduce((prev, next) => {
+      // Calculate base product cost
+      let productCost = next.quantity * next.price;
+
+      console.log(next.variation)
+      // Check if variations exist and calculate the cost of selected variations
+      if (next.variation) {
+        next.variation.forEach((variation: any) => {
+          if (variation.options) {
+            variation.options.forEach((option: any) => {
+              if (option.selected) {
+                // Add variation option price to the product cost
+                productCost += option.price;
+              }
+            });
+          }
+        });
+      }
+
+      return prev + productCost; // Add product cost to the total
+    }, 0);
+
+    console.log(cost) // Update the total cost
+  }
+
+
 
 
 }
