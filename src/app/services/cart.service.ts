@@ -102,26 +102,25 @@ export class CartService extends NgSimpleStateBaseRxjsStore<CartState> {
 
   async totalOfProductCost() {
     const selected_products = (await this.getCart()) as any[];
-
+  console.log(selected_products);
     let cost = selected_products.reduce((prev, next) => {
       // Calculate base product cost
       let productCost = next.quantity * next.price;
-      // Check if variations exist and calcula  te the cost of selected variations
 
+      // Check if variations exist and calculate the cost of selected variations
       if (next.variation) {
         next.variation.forEach((variation: any) => {
-          
+          // Parse meta_value as JSON if it exists
           if (variation.meta_value) {
-            variation.meta_value.forEach((value: any) => {
-            if(value.selected){
-              if (value.options) {
-                value.options.forEach((option :any)=> {
-              productCost += option.price;
-                });
+            const metaValueArray = JSON.parse(variation.meta_value);
 
-            }
-
-
+            metaValueArray.forEach((value: any) => {
+              if (value.selected) {
+                if (value.options) {
+                  value.options.forEach((option: any) => {
+                    productCost += option.price;
+                  });
+                }
               }
             });
           }
@@ -131,7 +130,8 @@ export class CartService extends NgSimpleStateBaseRxjsStore<CartState> {
       return prev + productCost; // Add product cost to the total
     }, 0);
 
-    console.log(cost); // Update the total cost
-    this.total_price = cost
+    console.log(cost); // Log the total cost
+    this.total_price = cost; // Update the total cost
   }
+
 }
