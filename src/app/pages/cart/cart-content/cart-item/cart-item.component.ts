@@ -39,6 +39,7 @@ export class CartItemComponent {
       }));
 
       console.log(result);
+      this.variations = result
     }
   }
 

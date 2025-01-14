@@ -7,17 +7,17 @@
       {{ item.name }} x <span>{{ item.quantity || 1 }}</span>
 
       <!-- Variations Section -->
-      <div class="cart-variations" *ngIf="item.parsedVariations && item.parsedVariations.length > 0">
+      <div class="cart-variations" *ngIf="variations && variations.length>0">
         <div class="variations-inline fw-semibold">
-          <div class="" *ngFor="let variation of item.parsedVariations">
-            <label>
+          <div class="" *ngFor="let variation of variations">
+            <label *ngFor="let options of variation.options ">
               <input
                 type="checkbox"
                 [checked]="variation.selected"
                 [(ngModel)]="variation.selected"
                 (ngModelChange)="changeVariationSelection($event)"
               />
-              {{ variation?.type}}
+              {{ variation?.type}} Rs:{{options?.price}}
             </label>
           </div>
         </div>

@@ -67,7 +67,7 @@
               <ul>
                 <li>
                   <div class="left-item">Sub Total :</div>
-                  <div class="irght-item">Rs {{carte.total_price || 0}}</div>
+                  <div class="irght-item">Rs {{this.carte.total_price}}</div>
                 </li>
                 <li>
                   <div class="left-item">Delivery Fee :</div>
@@ -79,7 +79,7 @@
                 </li>
               </ul>
               <div class="checkout-bar">
-                <span>{{ cartItems.length }} Items |  Rs {{ total || 0 }}</span>
+                <span>{{ cartItems.length }} Items | Rs {{this.carte.total_price}}</span>
                 <button (click)="makeOrder()">Check Out</button>
               </div>
             </div>
