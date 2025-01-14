@@ -67,7 +67,7 @@
               <ul>
                 <li>
                   <div class="left-item">Sub Total :</div>
-                  <div class="irght-item">Rs {{this.carte.total_price}}</div>
+                  <div class="irght-item" (ngModelChange)="changeVariationSelection($event)">Rs {{this.carte.total_price}}</div>
                 </li>
                 <li>
                   <div class="left-item">Delivery Fee :</div>
@@ -78,7 +78,7 @@
                   <div class="irght-item">Rs {{gstAmount || 0}}</div>
                 </li>
               </ul>
-              <div class="checkout-bar">
+              <div class="checkout-bar" (ngModelChange)="changeVariationSelection($event)">
                 <span>{{ cartItems.length }} Items | Rs {{this.carte.total_price}}</span>
                 <button (click)="makeOrder()">Check Out</button>
               </div>

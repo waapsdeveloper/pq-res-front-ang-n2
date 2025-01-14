@@ -71,11 +71,15 @@ export class CartContentComponent implements OnInit {
     console.log(`Variation toggled for ${item.name}:`, variation);
   }
 
+
   ngOnInit() {
     this.carte.getCartItems().subscribe((res: any) => {
       this.cartItems = res
 
     });
+  }
+  changeVariationSelection($event: any) {
+    this.carte.totalOfProductCost();
   }
   async makeOrder() {
     const table_identifier = localStorage.getItem('table_identifier');
