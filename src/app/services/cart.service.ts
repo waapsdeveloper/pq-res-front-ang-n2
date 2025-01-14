@@ -107,14 +107,19 @@ export class CartService extends NgSimpleStateBaseRxjsStore<CartState> {
       // Calculate base product cost
       let productCost = next.quantity * next.price;
       // Check if variations exist and calcula  te the cost of selected variations
+
       if (next.variation) {
         next.variation.forEach((variation: any) => {
+          
           if (variation.meta_value) {
             variation.meta_value.forEach((value: any) => {
+            if(value.selected){
               if (value.options) {
-                  value.options.forEach((option :any)=> {
-                productCost += option.price;
-                  });
+                value.options.forEach((option :any)=> {
+              productCost += option.price;
+                });
+
+            }
 
 
               }

@@ -2,13 +2,13 @@ import { Component, Input } from '@angular/core';
 import { CartService } from '../../../../services/cart.service';
 
 @Component({
-  selector: 'app-cart-item',
+  selector: 'app-order-tracking-item',
   standalone: false,
 
-  templateUrl: './cart-item.component.html',
-  styleUrl: './cart-item.component.scss',
+  templateUrl: './order-tracking-item.component.html',
+  styleUrl: './order-tracking-item.component.scss',
 })
-export class CartItemComponent {
+export class OrderTrackingItemComponent {
   private _item: any;
   variations: any[] = [];
 
@@ -21,6 +21,7 @@ export class CartItemComponent {
     this._item = value;
     this.setVariation(value);
   }
+
   setVariation(v: any) {
     if (v.variation && v.variation.length > 0) {
       console.log(v.variation);
@@ -35,7 +36,6 @@ export class CartItemComponent {
           name: option.name,
           description: option.description,
           price: option.price,
-          
         })),
       }));
 
@@ -43,7 +43,6 @@ export class CartItemComponent {
       this.variations = result;
     }
   }
-
 
   constructor(public carte: CartService) {}
 
