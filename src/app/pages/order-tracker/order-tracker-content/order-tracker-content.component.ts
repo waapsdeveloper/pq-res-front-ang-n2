@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, Input } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CartService } from '../../../services/cart.service';
 import { NetworkService } from '../../../services/network.service';
+import { NavService } from '../../../services/nav.service';
 
 @Component({
   selector: 'app-order-tracker-content',
@@ -11,12 +12,15 @@ import { NetworkService } from '../../../services/network.service';
   styleUrl: './order-tracker-content.component.scss',
 })
 export class OrderTrackerContentComponent {
+  @Input() data: any;
   cartItems: any[] = [];
   phone: number | null = null;
   constructor(
     public carte: CartService,
     private network: NetworkService,
-    private router: Router
+    private router: Router,
+    private nav: NavService,
+    private route: ActivatedRoute
   ) {
     this.carte.getCartItems().subscribe((res: any) => {
       console.log(res);
@@ -25,8 +29,6 @@ export class OrderTrackerContentComponent {
   }
 
  async ngOnInit() {
-
-//const res = await this.network.trackOrder();
 
 
   }

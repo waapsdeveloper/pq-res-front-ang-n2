@@ -94,8 +94,9 @@ export class NetworkService {
     return this.httpPostResponse(`make-order-bookings`, data, null, false, true);
   }
 
-  trackOrder(data: any) {
-    return this.httpPostResponse(`frontend/track-customer-order/`, data, null, false, true);
+  trackOrder(data:any) {
+    let str = this.serialize(data);
+    return this.httpGetResponse('track-customer-order/' + data , null, false, true);
   }
 
 

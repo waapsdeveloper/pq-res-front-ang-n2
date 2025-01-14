@@ -89,15 +89,21 @@ export class CartContentComponent implements OnInit {
       total: this.carte.total_price,
       delivery: this.deliveryFee,
       subTotal: this.carte.total_price,
+      type: table_identifier ? 'dine-in' : 'delivery',
     };
-    this.navigateToPage();
-
     console.log(obj);
-    this.network.makeOrder(obj);
+    const res = await this.network.makeOrder(obj);
+    console.log(res);
+    if (res) {
+      if (res.data && res.data.order_number) {
+
+        this.navigateToPage(res?.data.order_number);
+      }
+    }
   }
 
-  navigateToPage() {
-    this.router.navigate(['/tabs/order-tracker']);
+  navigateToPage(order_number: string) {
+    this.router.navigate(['/tabs/order-tracker/' + order_number]);
   }
 
   // getCartTotal(){
