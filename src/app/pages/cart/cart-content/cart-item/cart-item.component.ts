@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CartService } from '../../../../services/cart.service';
 
 @Component({
@@ -8,7 +8,7 @@ import { CartService } from '../../../../services/cart.service';
   templateUrl: './cart-item.component.html',
   styleUrl: './cart-item.component.scss',
 })
-export class CartItemComponent {
+export class CartItemComponent implements OnInit{
   private _item: any;
   // variations: any[] = [];
 
@@ -17,6 +17,9 @@ export class CartItemComponent {
     return this._item;
   }
 
+ngOnInit(): void {
+  this.carte.totalOfProductCost();
+}
   set item(value: any) {
     this._item = value;
     this.setVariation(value);
@@ -29,13 +32,13 @@ export class CartItemComponent {
       console.log(parsedVariations);
       // Add parsed variations to the item object
       let result = parsedVariations.map((variation: any) => ({
-        type: variation.type,        
+        type: variation.type,
         options: variation.options.map((option: any) => ({
           name: option.name,
           description: option.description,
           price: option.price,
           selected: option.selected
-          
+
         })),
       }));
 

@@ -25,8 +25,8 @@ export class PopularSectionComponent {
     const res = await this.network.getPopularProducts(obj);
     console.log(res);
 
-    if(res.products){
-      this.products = res.products.data
+    if(res?.products){
+      this.products = res?.products?.data
     }
   }
 

@@ -11,6 +11,7 @@ import { Observable } from 'rxjs';
 })
 export class CartService extends NgSimpleStateBaseRxjsStore<CartState> {
   total_price: any;
+  variation_price:any;
   constructor() {
     super();
   }
@@ -117,6 +118,7 @@ export class CartService extends NgSimpleStateBaseRxjsStore<CartState> {
             variation.options.forEach((option: any) => {
               if (option.selected == true) {
                 productCost += option.price;
+
               }
             });
           }

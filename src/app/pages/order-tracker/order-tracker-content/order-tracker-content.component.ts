@@ -24,22 +24,14 @@ export class OrderTrackerContentComponent {
     });
   }
 
-  ngOnInit() {}
+ async ngOnInit() {
 
-  async makeOrder() {
-    const table_identifier = localStorage.getItem('table_identifier');
-    let obj = {
-      table_identifier: table_identifier,
-      products: this.cartItems,
-      phone: this.phone,
-      status: 'pending',
-    };
-    this.navigateToPage();
+//const res = await this.network.trackOrder();
 
-    console.log(obj);
-    console.log(table_identifier);
-    this.network.makeOrder(obj);
+
   }
+
+
 
   removeItem(item: any) {
     this.carte.removeFromCart(item.id);
@@ -56,9 +48,7 @@ export class OrderTrackerContentComponent {
     }
     this.carte.updateQuantity(item.id, item.quantity - 1);
   }
-  navigateToPage() {
-    this.router.navigate(['/tabs/order-tracker']);
-  }
+
 
   // getCartTotal(){
   //   return this.carte.getCartTotal();
