@@ -10,7 +10,7 @@ import { CartService } from '../../../../services/cart.service';
 })
 export class CartItemComponent {
   private _item: any;
-  variations: any[] = [];
+  // variations: any[] = [];
 
   @Input()
   get item(): any {
@@ -29,18 +29,18 @@ export class CartItemComponent {
       console.log(parsedVariations);
       // Add parsed variations to the item object
       let result = parsedVariations.map((variation: any) => ({
-        type: variation.type,
-        selected: variation.selected,
+        type: variation.type,        
         options: variation.options.map((option: any) => ({
           name: option.name,
           description: option.description,
           price: option.price,
+          selected: option.selected
           
         })),
       }));
 
       console.log(result);
-      this.variations = result;
+      this.item['variations'] = result;
     }
   }
 
