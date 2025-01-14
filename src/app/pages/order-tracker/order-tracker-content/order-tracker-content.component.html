@@ -26,7 +26,7 @@
         <div class="col-md-9">
           <div class="cart-box">
             <h3>Items From Your Cart</h3>
-            <div class="item-bx text-center" *ngIf="cartItems.length == 0">
+            <div class="item-bx text-center" *ngIf="data?.order_product?.length == 0">
               <img
                 src="assets/img/delivery-img-inner.svg"
                 class="mb-3"
@@ -37,11 +37,15 @@
                 <button class="btn-prime">Explore Menu</button>
               </a>
             </div>
-            <div class="cart-items-list" *ngIf="cartItems.length > 0">
+            <div class="cart-items-list" *ngIf="data?.order_product?.length > 0">
               <ul>
-                <app-order-tracking-item *ngFor="let item of cartItems" [item]="item"></app-order-tracking-item>
+                <app-order-tracking-item
+                  *ngFor="let item of data?.order_product"
+                  [item]="item">
+                </app-order-tracking-item>
               </ul>
             </div>
+
           </div>
         </div>
         <div class="col-md-3">
@@ -57,8 +61,7 @@
                 placeholder="Phone"
                 id="phone1234567"
                 class="int-field"
-                required
-                [(ngModel)]="phone"
+                
               />
             </div>
             <div class="instructions">
@@ -66,7 +69,7 @@
               <ul>
                 <li>
                   <div class="left-item">Sub Total :</div>
-                  <div class="irght-item">Rs 0</div>
+                  <div class="irght-item">{{data?.total_price}}</div>
                 </li>
                 <li>
                   <div class="left-item">Delivery Fee :</div>
@@ -78,7 +81,7 @@
                 </li>
               </ul>
               <div class="checkout-bar">
-                <span>0 Items | Rs 0</span>
+                <span>{{data?.order_products.length}} Items | Rs {{data?.total_price}}</span>
               </div>
             </div>
           </div>
