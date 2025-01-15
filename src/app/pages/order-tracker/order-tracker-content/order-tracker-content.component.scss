@@ -1,0 +1,17 @@
+.cart-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Ensures status is aligned to the opposite side */
+}
+
+.cart-heading .badge {
+  margin-left: auto; /* Pushes the badge to the right */
+}
+.cart-heading .badge {
+  background-color: #007bff; /* Example: Blue background */
+  color: #ffffff;           /* White text for contrast */
+  padding: 5px 10px;        /* Add padding for better appearance */
+  border-radius: 5px;       /* Rounded corners */
+  font-size: 0.9rem;        /* Adjust font size */
+  font-weight: bold;        /* Bold text */
+}

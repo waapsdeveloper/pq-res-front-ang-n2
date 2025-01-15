@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CartService } from '../../services/cart.service';
 import { NetworkService } from '../../services/network.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-order-tracker',
@@ -12,48 +12,23 @@ import { Router } from '@angular/router';
 })
 export class OrderTrackerComponent {
   cartItems: any[] = [];
+  data: any = null;
   phone: number | null = null;
-  constructor(public carte: CartService, private network: NetworkService,) {
-    this.carte.getCartItems().subscribe((res: any) => {
-      console.log(res);
-      this.cartItems = res;
-    });
+  constructor(
+    public carte: CartService,
+    private network: NetworkService,
+    private route: ActivatedRoute
+  ) {
+
   }
 
-  ngOnInit() {}
+  async ngOnInit() {
+    const order_number = this.route.snapshot.paramMap.get('order_number');
 
-  async makeOrder() {
-    const table_identifier = localStorage.getItem('table_identifier');
-    let obj = {
-      table_identifier: table_identifier,
-      products: this.cartItems,
-      phone: this.phone,
-      status: 'pending',
-    };
-
-    console.log(obj);
-    console.log(table_identifier);
-    this.network.makeOrder(obj);
-  }
-
-  removeItem(item: any) {
-    this.carte.removeFromCart(item.id);
-  }
-
-  addQuantity(item: any) {
-    this.carte.updateQuantity(item.id, item.quantity + 1);
-  }
-
-  removeQuantity(item: any) {
-    if (item.quantity <= 1) {
-      this.removeItem(item);
-      return;
-    }
-    this.carte.updateQuantity(item.id, item.quantity - 1);
+    const res = await this.network.trackOrder(order_number);
+    this.data = res.order;
+    console.log(this.data);
   }
 
 
-  // getCartTotal(){
-  //   return this.carte.getCartTotal();
-  // }
 }

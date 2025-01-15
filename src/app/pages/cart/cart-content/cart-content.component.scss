@@ -1,0 +1,26 @@
+.cart-variations {
+  margin-top: 10px;
+}
+
+.variations-list {
+  display: block; /* Ensures one item per line */
+}
+
+.variation-item {
+  margin: 5px 0; /* Space between variation items */
+}
+
+.variation-item label {
+  font-weight: bold;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.variation-item input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  accent-color: #007bff; /* Makes the checkbox prominent */
+}

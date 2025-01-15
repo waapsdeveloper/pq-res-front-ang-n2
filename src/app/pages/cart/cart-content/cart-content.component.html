@@ -39,35 +39,11 @@
             </div>
             <div class="cart-items-list" *ngIf="cartItems.length > 0">
               <ul>
-                <li *ngFor="let item of cartItems">
-                  <div class="cart-img">
-                    <img [src]="item.image" alt="" />
-                  </div>
-                  <div class="cart-name">
-                    {{ item.name }} <span>{{ item.quantity || 1 }}</span>
-                  </div>
-                  <div class="cart-price">Rs {{ item.price }}</div>
-                  <div class="cart-count">
-                    <img
-                      src="assets/svg/circle-plus.svg"
-                      (click)="addQuantity(item)"
-                    />
-                    <input
-                      type="number"
-                      class="value"
-                      [value]="item.quantity"
-                      min="1"
-                      style="text-align: center"
-                    />
-                    <img
-                      src="assets/svg/circle-minus.svg"
-                      (click)="removeQuantity(item)"
-                    />
-                  </div>
-                  <img src="assets/svg/trash.svg" (click)="removeItem(item)" />
-                </li>
+                <app-cart-item *ngFor="let item of cartItems" [item]="item"
+                ></app-cart-item>
               </ul>
             </div>
+
           </div>
         </div>
         <div class="col-md-3">
@@ -92,19 +68,19 @@
               <ul>
                 <li>
                   <div class="left-item">Sub Total :</div>
-                  <div class="irght-item">Rs 0</div>
+                  <div class="irght-item" >Rs {{this.carte.total_price}}</div>
                 </li>
                 <li>
                   <div class="left-item">Delivery Fee :</div>
-                  <div class="irght-item">Rs 0</div>
+                  <div class="irght-item">Rs {{deliveryFee || 0}}</div>
                 </li>
                 <li>
                   <div class="left-item">GST ( NaN % ) :</div>
-                  <div class="irght-item">Rs 0</div>
+                  <div class="irght-item">Rs {{gstAmount || 0}}</div>
                 </li>
               </ul>
-              <div class="checkout-bar">
-                <span>0 Items | Rs 0</span>
+              <div class="checkout-bar" >
+                <span>{{ cartItems.length }} Items | Rs {{this.carte.total_price}}</span>
                 <button (click)="makeOrder()">Check Out</button>
               </div>
             </div>

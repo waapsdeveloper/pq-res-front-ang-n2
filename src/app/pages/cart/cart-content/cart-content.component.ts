@@ -12,52 +12,103 @@ import { Router } from '@angular/router';
 })
 export class CartContentComponent implements OnInit {
   cartItems: any[] = [];
+  subtotal: number = 0;
+  deliveryFee: number = 50; // Example static delivery fee
+  gstPercentage: number = 10; // Example GST percentage
+  gstAmount: number = 0;
+  total: number = 0;
   phone: number | null = null;
-  constructor(public carte: CartService, private network: NetworkService,private router: Router) {
+  variations: any[] = [];
+
+  constructor(
+    public carte: CartService,
+    private network: NetworkService,
+    private router: Router
+  ) {
     this.carte.getCartItems().subscribe((res: any) => {
-      console.log(res);
+      this.cartItems = res;
+
+      // Map each product in the response to process variations
+      this.cartItems = res.map((item: any) => {
+        if (item.variation && item.variation.length > 0) {
+          // Check if meta_value is a string and parse it if necessary
+          let parsedVariations: any;
+
+          if (typeof item.variation[0].meta_value === 'string') {
+            try {
+              parsedVariations = JSON.parse(item.variation[0].meta_value);
+            } catch (error) {
+              console.error('Error parsing variation JSON:', error);
+              parsedVariations = []; // Default to empty if parsing fails
+            }
+          } else {
+            parsedVariations = item.variation[0].meta_value; // Use directly if it's already an object
+          }
+
+          // Add parsed variations to the item object
+          return {
+            ...item,
+            parsedVariations: parsedVariations.map((variation: any) => ({
+              type: variation.type,
+              selected: variation.selected,
+              options: variation.options.map((option: any) => ({
+                name: option.name,
+                description: option.description,
+                price: option.price,
+              })),
+            })),
+          };
+        } else {
+          return item; // If no variations, return item as is
+        }
+      });
+
+      console.log('Mapped Cart Items:', this.cartItems);
+    });
+  }
+  toggleVariation(item: any, variation: any): void {
+    variation.selected = !variation.selected; // Toggle the selected status
+    console.log(`Variation toggled for ${item.name}:`, variation);
+  }
+
+  ngOnInit() {
+    this.carte.getCartItems().subscribe((res: any) => {
       this.cartItems = res;
     });
   }
-
-  ngOnInit() {}
-
- async  makeOrder() {
-
-    const table_identifier = localStorage.getItem('table_identifier');
-   let obj = {
-      table_identifier: table_identifier,
+  changeVariationSelection($event: any) {
+    this.carte.totalOfProductCost();
+  }
+  handleVariations(updatedVariations: any[]) {
+    console.log('Variations received from child:', updatedVariations);
+    this.variations = updatedVariations;
+  }
+  async makeOrder() {
+    const table_identifier = localStorage.getItem('table_identifier') || '';
+    let obj = {
+      table_identifier: table_identifier ? table_identifier : '',
       products: this.cartItems,
       phone: this.phone,
       status: 'pending',
+      gst: this.gstAmount,
+      total_price: this.carte.total_price,
+      delivery: this.deliveryFee,
+      subTotal: this.carte.total_price,
+      type: table_identifier ? 'dine-in' : 'delivery',
+    };
+    console.log(obj);
+    const res = await this.network.makeOrder(obj);
+    console.log(res);
+    if (res) {
+      if (res.data && res.data.order_number) {
 
-
-   }
-   this.navigateToPage();
-
-   console.log(obj);
-    console.log(table_identifier);
-    this.network.makeOrder(obj);
-
-  }
-
-  removeItem(item: any) {
-    this.carte.removeFromCart(item.id);
-  }
-
-  addQuantity(item: any) {
-    this.carte.updateQuantity(item.id, item.quantity + 1);
-  }
-
-  removeQuantity(item: any) {
-    if (item.quantity <= 1) {
-      this.removeItem(item);
-      return;
+        this.navigateToPage(res?.data.order_number);
+      }
     }
-    this.carte.updateQuantity(item.id, item.quantity - 1);
   }
-  navigateToPage() {
-    this.router.navigate(['/tabs/order-tracker']);
+
+  navigateToPage(order_number: string) {
+    this.router.navigate(['/tabs/order-tracker/' + order_number]);
   }
 
   // getCartTotal(){

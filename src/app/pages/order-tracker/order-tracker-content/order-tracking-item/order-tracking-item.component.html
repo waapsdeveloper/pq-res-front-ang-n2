@@ -1,0 +1,23 @@
+<li>
+  <!-- Product Image -->
+  <div class="cart-img">
+    <img [src]="item?.image" alt="{{ item.product_name }}" />
+  </div>
+
+  <!-- Product Name and Quantity -->
+  <div class="cart-name">
+    {{ item.product_name }} x <span>{{ item?.quantity }}</span>
+
+    <!-- Product Variations -->
+    <div *ngIf="item?.variations?.length > 0" class="cart-variations">
+      <p *ngFor="let variation of item.variations">
+        <span *ngFor="let option of variation.options">
+          {{ option.name }} (Rs {{ option.price }})
+        </span>
+      </p>
+    </div>
+  </div>
+
+  <!-- Product Price -->
+  <div class="cart-price">Rs {{ item.price }}</div>
+</li>

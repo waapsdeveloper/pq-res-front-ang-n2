@@ -1,7 +1,5 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, Input } from '@angular/core';
 import { CartService } from '../../../services/cart.service';
-import { NetworkService } from '../../../services/network.service';
 
 @Component({
   selector: 'app-order-tracker-content',
@@ -11,56 +9,18 @@ import { NetworkService } from '../../../services/network.service';
   styleUrl: './order-tracker-content.component.scss',
 })
 export class OrderTrackerContentComponent {
-  cartItems: any[] = [];
-  phone: number | null = null;
-  constructor(
-    public carte: CartService,
-    private network: NetworkService,
-    private router: Router
-  ) {
-    this.carte.getCartItems().subscribe((res: any) => {
-      console.log(res);
-      this.cartItems = res;
-    });
+  private _data: any;
+  variations: any[] = [];
+  @Input()
+  get data(): any {
+    return this._data;
   }
-
-  ngOnInit() {}
-
-  async makeOrder() {
-    const table_identifier = localStorage.getItem('table_identifier');
-    let obj = {
-      table_identifier: table_identifier,
-      products: this.cartItems,
-      phone: this.phone,
-      status: 'pending',
-    };
-    this.navigateToPage();
-
-    console.log(obj);
-    console.log(table_identifier);
-    this.network.makeOrder(obj);
+  set data(value: any) {
+    this._data = value;
   }
+ 
 
-  removeItem(item: any) {
-    this.carte.removeFromCart(item.id);
-  }
+  constructor(public carte: CartService) {}
 
-  addQuantity(item: any) {
-    this.carte.updateQuantity(item.id, item.quantity + 1);
-  }
-
-  removeQuantity(item: any) {
-    if (item.quantity <= 1) {
-      this.removeItem(item);
-      return;
-    }
-    this.carte.updateQuantity(item.id, item.quantity - 1);
-  }
-  navigateToPage() {
-    this.router.navigate(['/tabs/order-tracker']);
-  }
-
-  // getCartTotal(){
-  //   return this.carte.getCartTotal();
-  // }
+  async ngOnInit() {}
 }
