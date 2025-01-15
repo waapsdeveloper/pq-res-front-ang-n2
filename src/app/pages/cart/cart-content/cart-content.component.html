@@ -39,7 +39,8 @@
             </div>
             <div class="cart-items-list" *ngIf="cartItems.length > 0">
               <ul>
-                <app-cart-item *ngFor="let item of cartItems" [item]="item"></app-cart-item>
+                <app-cart-item *ngFor="let item of cartItems" [item]="item"    (variationsUpdated)="handleVariations($event)"
+                ></app-cart-item>
               </ul>
             </div>
 

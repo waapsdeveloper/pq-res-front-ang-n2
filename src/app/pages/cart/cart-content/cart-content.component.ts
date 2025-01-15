@@ -18,6 +18,7 @@ export class CartContentComponent implements OnInit {
   gstAmount: number = 0;
   total: number = 0;
   phone: number | null = null;
+  variations: any[] = [];
 
   constructor(
     public carte: CartService,
@@ -78,6 +79,10 @@ export class CartContentComponent implements OnInit {
   changeVariationSelection($event: any) {
     this.carte.totalOfProductCost();
   }
+  handleVariations(updatedVariations: any[]) {
+    console.log('Variations received from child:', updatedVariations);
+    this.variations = updatedVariations;
+  }
   async makeOrder() {
     const table_identifier = localStorage.getItem('table_identifier') || '';
     let obj = {
@@ -89,6 +94,7 @@ export class CartContentComponent implements OnInit {
       total: this.carte.total_price,
       delivery: this.deliveryFee,
       subTotal: this.carte.total_price,
+      // variation_price:this.cartItems?.variations
       type: table_identifier ? 'dine-in' : 'delivery',
     };
     console.log(obj);

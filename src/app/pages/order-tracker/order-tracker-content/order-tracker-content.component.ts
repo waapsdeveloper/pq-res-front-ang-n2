@@ -10,6 +10,7 @@ import { CartService } from '../../../services/cart.service';
 })
 export class OrderTrackerContentComponent {
   private _data: any;
+  variations: any[] = [];
   @Input()
   get data(): any {
     return this._data;
@@ -17,6 +18,7 @@ export class OrderTrackerContentComponent {
   set data(value: any) {
     this._data = value;
   }
+ 
 
   constructor(public carte: CartService) {}
 

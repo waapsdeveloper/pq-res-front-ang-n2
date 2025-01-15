@@ -1,4 +1,4 @@
-  import { Component, Input } from '@angular/core';
+  import { Component, EventEmitter, Input, Output } from '@angular/core';
   import { CartService } from '../../../../services/cart.service';
 
   @Component({
@@ -12,7 +12,6 @@
     private _item: any;
     variations: any[] = [];
     @Input()
-
     get item(): any {
       return this._item;
     }
@@ -22,25 +21,27 @@
      this.setVariation(value);
     }
 
+
     setVariation(v: any) {
       if (v.variation && v.variation.length > 0) {
         console.log(v.variation);
         // Check if meta_value is a string and parse it if necessary
-        let parsedVariations: any[] = JSON.parse(v.variation[0].meta_value);
+        let parsedVariations: any[] = JSON.parse(v.variation);
         console.log(parsedVariations);
         // Add parsed variations to the item object
         let result = parsedVariations.map((variation: any) => ({
           type: variation.type,
-          selected: variation.selected,
           options: variation.options.map((option: any) => ({
             name: option.name,
             description: option.description,
             price: option.price,
+            selected: option.selected
+
           })),
         }));
 
         console.log(result);
-        this.variations = result;
+        this.item['variations'] = result;
       }
     }
 

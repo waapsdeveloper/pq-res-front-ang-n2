@@ -1,21 +1,18 @@
 <li>
   <!-- Product Image -->
-  <!-- <div class="cart-img">
-    <img [src]="item.products?.image" alt="{{ item.product?.name }}" />
-  </div> -->
+  <div class="cart-img">
+    <img [src]="item?.image" alt="{{ item.product_name }}" />
+  </div>
 
   <!-- Product Name and Quantity -->
   <div class="cart-name">
     {{ item.product_name }} x <span>{{ item?.quantity }}</span>
-  </div>
 
-  <!-- Product Variations -->
-  <div *ngIf="item?.variations?.length > 0" class="cart-variations">
-    <div *ngFor="let variation of item.variations">
-      <p>
-        <strong>{{ variation.type }}</strong>:
-        <span *ngFor="let option of variation?.options">
-          {{ option?.name }} (Rs {{ option?.price }})
+    <!-- Product Variations -->
+    <div *ngIf="item?.variations?.length > 0" class="cart-variations">
+      <p *ngFor="let variation of item.variations">
+        <span *ngFor="let option of variation.options">
+          {{ option.name }} (Rs {{ option.price }})
         </span>
       </p>
     </div>

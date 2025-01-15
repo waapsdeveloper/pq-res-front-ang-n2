@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CartService } from '../../../../services/cart.service';
 
 @Component({
@@ -10,6 +10,9 @@ import { CartService } from '../../../../services/cart.service';
 })
 export class CartItemComponent implements OnInit{
   private _item: any;
+  @Output() variationsUpdated = new EventEmitter<any[]>();
+
+
   @Input()
   get item(): any {
     return this._item;
@@ -42,6 +45,8 @@ ngOnInit(): void {
 
       console.log(result);
       this.item['variations'] = result;
+      this.variationsUpdated.emit(this.item['variations']);
+
     }
   }
 
