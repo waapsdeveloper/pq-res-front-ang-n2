@@ -91,7 +91,7 @@ export class CartContentComponent implements OnInit {
       phone: this.phone,
       status: 'pending',
       gst: this.gstAmount,
-      total: this.carte.total_price,
+      total_price: this.carte.total_price,
       delivery: this.deliveryFee,
       subTotal: this.carte.total_price,
       type: table_identifier ? 'dine-in' : 'delivery',
