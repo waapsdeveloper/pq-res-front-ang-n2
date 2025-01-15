@@ -8,5 +8,12 @@ import { Component, Input } from '@angular/core';
   styleUrl: './order-tracking-banner.component.scss'
 })
 export class OrderTrackingBannerComponent {
-  @Input() data: any;
+  private _data: any;
+  @Input()
+  get data(): any {
+    return this._data;
+  }
+  set data(value: any) {
+    this._data = value;
+  }
 }

@@ -10,8 +10,6 @@ import { CartService } from '../../../../services/cart.service';
 })
 export class CartItemComponent implements OnInit{
   private _item: any;
-  // variations: any[] = [];
-
   @Input()
   get item(): any {
     return this._item;

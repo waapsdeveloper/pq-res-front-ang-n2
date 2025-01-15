@@ -1,5 +1,4 @@
 <section class="sc-1 inner">
-
   <div class="fl-5 animated-2" data-aos="zoom-in-up" data-aos-duration="1200">
     <img src="assets/img/2.png" alt="" />
   </div>
@@ -26,7 +25,10 @@
         <div class="col-md-9">
           <div class="cart-box">
             <h3>Items From Your Cart</h3>
-            <div class="item-bx text-center" *ngIf="data?.order_product?.length == 0">
+            <div
+              class="item-bx text-center"
+              *ngIf="data?.products?.length == 0"
+            >
               <img
                 src="assets/img/delivery-img-inner.svg"
                 class="mb-3"
@@ -37,15 +39,15 @@
                 <button class="btn-prime">Explore Menu</button>
               </a>
             </div>
-            <div class="cart-items-list" *ngIf="data?.order_product?.length > 0">
+            <div class="cart-items-list" *ngIf="data?.products?.length > 0">
               <ul>
                 <app-order-tracking-item
-                  *ngFor="let item of data?.order_product"
-                  [item]="item">
+                  *ngFor="let item of data?.products"
+                  [item]="item"
+                >
                 </app-order-tracking-item>
               </ul>
             </div>
-
           </div>
         </div>
         <div class="col-md-3">
@@ -53,7 +55,14 @@
             <h3 class="mb-3">Order Details</h3>
             <div class="instructions">
               <p>Special Instructions (Optional)</p>
-              <textarea name="" id="" class="int-field"> </textarea>
+              <textarea
+                name=""
+                id=""
+                class="int-field"
+                [value]="data?.product?.notes"
+                readonly
+              >
+              </textarea>
               <p>Alternate Phone Number (3XXXXXXXXX)</p>
               <input
                 type="number"
@@ -61,7 +70,8 @@
                 placeholder="Phone"
                 id="phone1234567"
                 class="int-field"
-                
+                [value]="data?.customer.phone"
+                readonly
               />
             </div>
             <div class="instructions">
@@ -69,7 +79,7 @@
               <ul>
                 <li>
                   <div class="left-item">Sub Total :</div>
-                  <div class="irght-item">{{data?.total_price}}</div>
+                  <div class="irght-item">Rs :{{ data?.total_price }}</div>
                 </li>
                 <li>
                   <div class="left-item">Delivery Fee :</div>
@@ -81,7 +91,11 @@
                 </li>
               </ul>
               <div class="checkout-bar">
-                <span>{{data?.order_products.length}} Items | Rs {{data?.total_price}}</span>
+                <span
+                  >{{ data?.products?.length }} Items |Rs :{{
+                    data?.total_price
+                  }}</span
+                >
               </div>
             </div>
           </div>
