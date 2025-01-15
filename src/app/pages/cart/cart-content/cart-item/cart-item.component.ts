@@ -8,19 +8,18 @@ import { CartService } from '../../../../services/cart.service';
   templateUrl: './cart-item.component.html',
   styleUrl: './cart-item.component.scss',
 })
-export class CartItemComponent implements OnInit{
+export class CartItemComponent implements OnInit {
   private _item: any;
   @Output() variationsUpdated = new EventEmitter<any[]>();
-
 
   @Input()
   get item(): any {
     return this._item;
   }
 
-ngOnInit(): void {
-  this.carte.totalOfProductCost();
-}
+  ngOnInit(): void {
+    this.carte.totalOfProductCost();
+  }
   set item(value: any) {
     this._item = value;
     this.setVariation(value);
@@ -38,18 +37,20 @@ ngOnInit(): void {
           name: option.name,
           description: option.description,
           price: option.price,
-          selected: option.selected
-
+          selected: option.selected,
         })),
       }));
 
       console.log(result);
       this.item['variations'] = result;
-      this.variationsUpdated.emit(this.item['variations']);
+      const prices = result
+        .flatMap((variation) => variation.options) // Flatten the options arrays
+        .map((option) => option.price); // Extract only the price
+      console.log('Extracted Prices:', prices);
 
+      this.variationsUpdated.emit(prices);
     }
   }
-
 
   constructor(public carte: CartService) {}
 
