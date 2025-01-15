@@ -94,7 +94,6 @@ export class CartContentComponent implements OnInit {
       total: this.carte.total_price,
       delivery: this.deliveryFee,
       subTotal: this.carte.total_price,
-      variation_price:this.variations,
       type: table_identifier ? 'dine-in' : 'delivery',
     };
     console.log(obj);

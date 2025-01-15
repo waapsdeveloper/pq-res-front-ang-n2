@@ -10,7 +10,6 @@ import { CartService } from '../../../../services/cart.service';
 })
 export class CartItemComponent implements OnInit {
   private _item: any;
-  @Output() variationsUpdated = new EventEmitter<any[]>();
 
   @Input()
   get item(): any {
@@ -43,12 +42,6 @@ export class CartItemComponent implements OnInit {
 
       console.log(result);
       this.item['variations'] = result;
-      const prices = result
-        .flatMap((variation) => variation.options) // Flatten the options arrays
-        .map((option) => option.price); // Extract only the price
-      console.log('Extracted Prices:', prices);
-
-      this.variationsUpdated.emit(prices);
     }
   }
 
