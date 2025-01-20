@@ -99,6 +99,10 @@ export class NetworkService {
     return this.httpGetResponse('track-customer-order/' + data , null, false, true);
   }
 
+  restaurantDetail(){
+    return this.httpGetResponse('restaurant-detail/1', null, false);
+}
+
 
 
 
