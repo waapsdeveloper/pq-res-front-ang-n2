@@ -40,6 +40,8 @@ export class InterceptorService implements HttpInterceptor {
       Accept: 'application/json',
     };
 
+    obj['restaurant_id'] = localStorage.getItem('restaurant_id');
+
     let cnt = request.headers.get('Content-Type');
     if (cnt == 'application/json') {
       obj['Content-Type'] = request.headers.get('Content-Type');

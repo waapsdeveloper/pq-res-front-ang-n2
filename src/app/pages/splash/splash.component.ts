@@ -17,10 +17,13 @@ export class SplashComponent extends BasePage {
 
 
   async initialize() {
+
     this.showLoader();
     const defaults = await this.network.getDefaultRestaurantId();
     console.log(defaults);
-    this.restaurant_id = localStorage.setItem("restaurant_id" , defaults)
+    if(defaults && defaults.active_restaurant){
+      localStorage.setItem("restaurant_id" , String(defaults.active_restaurant));
+    }
 
     // check if user logged in - if yes set its profile and cart
     // const user = this.users.getLoginUserFromApi() as any;
