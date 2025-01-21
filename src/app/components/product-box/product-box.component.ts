@@ -1,3 +1,4 @@
+import { UtilityService } from './../../services/utility.service';
 import { Component, Input } from '@angular/core';
 import { CartService } from '../../services/cart.service';
 import { Observable } from 'rxjs';
@@ -29,15 +30,17 @@ export class ProductBoxComponent {
 
   isItemInCart?: Observable<boolean>;
 
-  constructor(public carte: CartService) {
+  constructor(public carte: CartService,public utility: UtilityService) {
 
   }
 
   addToCart(item: any){
     console.log(item);
     item.addedToCart = true;
+
     this.carte.addToCart(item);
-    
+
+    this.utility.presentSuccessToast("Item added to cart!");
   }
 
 }

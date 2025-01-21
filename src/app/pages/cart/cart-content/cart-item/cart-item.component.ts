@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CartService } from '../../../../services/cart.service';
+import { UtilityService } from '../../../../services/utility.service';
 
 @Component({
   selector: 'app-cart-item',
@@ -45,7 +46,7 @@ export class CartItemComponent implements OnInit {
     }
   }
 
-  constructor(public carte: CartService) {}
+  constructor(public carte: CartService,public utility:UtilityService) {}
 
   changeVariationSelection($event: any) {
     this.carte.totalOfProductCost();
@@ -54,6 +55,7 @@ export class CartItemComponent implements OnInit {
   removeItem(item: any) {
     this.carte.removeFromCart(item.id);
     this.carte.totalOfProductCost();
+    this.utility.presentSuccessToast("Item remove from cart");
   }
 
   addQuantity(item: any) {

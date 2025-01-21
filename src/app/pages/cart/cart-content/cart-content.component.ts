@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { CartService } from '../../../services/cart.service';
 import { NetworkService } from '../../../services/network.service';
 import { Router } from '@angular/router';
+import { UtilityService } from '../../../services/utility.service';
 
 @Component({
   selector: 'app-cart-content',
@@ -23,7 +24,8 @@ export class CartContentComponent implements OnInit {
   constructor(
     public carte: CartService,
     private network: NetworkService,
-    private router: Router
+    private router: Router,
+    public utility: UtilityService
   ) {
     this.carte.getCartItems().subscribe((res: any) => {
       this.cartItems = res;
@@ -103,6 +105,7 @@ export class CartContentComponent implements OnInit {
       if (res.data && res.data.order_number) {
 
         this.navigateToPage(res?.data.order_number);
+       this.utility.presentSuccessToast("Order Placed!");
       }
     }
   }
