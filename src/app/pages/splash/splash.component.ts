@@ -6,38 +6,33 @@ import { BasePage } from '../base-page/base-page';
   standalone: false,
 
   templateUrl: './splash.component.html',
-  styleUrl: './splash.component.scss'
+  styleUrl: './splash.component.scss',
 })
 export class SplashComponent extends BasePage {
-
-  constructor(injector: Injector ){
+  restaurant_id:any;
+  constructor(injector: Injector) {
     super(injector);
     this.initialize();
   }
 
-  async initialize(){
 
+  async initialize() {
     this.showLoader();
+    const defaults = await this.network.getDefaultRestaurantId();
+    console.log(defaults);
+    this.restaurant_id = localStorage.setItem("restaurant_id" , defaults)
 
     // check if user logged in - if yes set its profile and cart
-    const user = this.users.getLoginUserFromApi() as any;
-    if(user){
-      const res = await this.network.getCartFromApi({user_id: user.id});
-      console.log(res);
-      // this.carte.set(res.cart);
-    }
+    // const user = this.users.getLoginUserFromApi() as any;
+    // if(user){
+    //   const res = await this.network.getCartFromApi({user_id: user.id});
+    //   console.log(res);
+    //   // this.carte.set(res.cart);
+    // }
 
-
-
-
-
-    setTimeout( () => {
+    setTimeout(() => {
       this.hideLoader();
-      this.events.publish('open-link', {link: 'tabs'})
+      this.events.publish('open-link', { link: 'tabs' });
     }, 2000);
-
-
   }
-
-
 }

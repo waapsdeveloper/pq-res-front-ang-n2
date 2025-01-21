@@ -1,0 +1,16 @@
+.variations-list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px; /* Optional: Adds spacing between each variation line */
+}
+
+.variation-item {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Space between the checkbox and text */
+}
+
+label {
+  display: inline-block;
+  margin-bottom: 0; /* Prevents stacking on multiple lines */
+}
