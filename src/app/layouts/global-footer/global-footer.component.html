@@ -22,8 +22,8 @@
         </div>
         <div class="col-md-3">
           <div class="btn-sc text-center">
-            <a href="#">
-              <button class="btn-prime">Order Now</button>
+            <a (click)="navigateToMenu()">
+              <button class="btn-prime" >Order Now</button>
             </a>
           </div>
         </div>
@@ -41,9 +41,10 @@
       </div>
       <div class="col-lg-3 col-md-6 d-flex">
         <div>
-          <h4>Book a table</h4>
-          <a  class="btn-account btn-login" (click)="navigateToContact()">Make A Call</a>
-      
+          <h4>Booking</h4>
+          <!-- <a  class="btn-account btn-login" (click)="navigateToContact()">Make A Call</a> -->
+          <a  class="btn-account btn-login" (click)="navigateToTable()">Book a Table</a>
+
         </div>
       </div>
       <div class="col-lg-3 col-md-6 d-flex">

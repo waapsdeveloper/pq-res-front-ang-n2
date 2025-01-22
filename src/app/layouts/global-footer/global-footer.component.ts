@@ -24,7 +24,6 @@ export class GlobalFooterComponent implements OnInit {
     this.setLogo();
 
      this.footer = json ? JSON.parse(json) : null;
-    console.log(this.footer);
   }
   navigateToLogin() {
     this.router.navigate(['/tabs/login']); // Full path to login
@@ -34,7 +33,13 @@ export class GlobalFooterComponent implements OnInit {
     this.router.navigate(['/tabs/register']); // Adjust if signup exists
   }
   navigateToContact() {
-    this.router.navigate(['/tabs/contact-us']); // Adjust if signup exists
+    this.router.navigate(['/tabs/contact-us']);
+  }
+  navigateToTable() {
+    this.router.navigate(['/tabs/tables']);
+  }
+  navigateToMenu() {
+    this.router.navigate(['/tabs/products']);
   }
   formatTime(time: string): string {
     const [hour, minute] = time.split(':');
@@ -47,7 +52,6 @@ export class GlobalFooterComponent implements OnInit {
 
     let image = json ? JSON.parse(json) : null;
     this.logoUrl = image?.logo || '';
-    console.log(this.logoUrl);
     return this.logoUrl;
   }
 }
