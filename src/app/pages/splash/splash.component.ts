@@ -37,9 +37,9 @@ export class SplashComponent extends BasePage {
     // //   // this.carte.set(res.cart);
     // // }
 
-    // setTimeout(() => {
-    //   this.hideLoader();
-    //   this.events.publish('open-link', { link: 'tabs' });
-    // }, 2000);
+    setTimeout(() => {
+      this.hideLoader();
+      this.events.publish('open-link', { link: 'tabs' });
+    }, 2000);
   }
 }
