@@ -29,6 +29,8 @@ export class CartContentComponent implements OnInit {
   ) {
     this.carte.getCartItems().subscribe((res: any) => {
       this.cartItems = res;
+     console.log('res',this.cartItems);
+
 
       // Map each product in the response to process variations
       this.cartItems = res.map((item: any) => {
