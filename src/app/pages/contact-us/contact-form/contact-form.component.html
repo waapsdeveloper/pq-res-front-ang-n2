@@ -39,7 +39,7 @@
                       </div>
                       <div class="ccb-cont">
                           <h4>Phone Us 24/7</h4>
-                          <p>123-5879406</p>
+                          <p>{{data?.phone}}</p>
                       </div>
                   </div>
               </div>
@@ -50,18 +50,23 @@
                       </div>
                       <div class="ccb-cont">
                           <h4>Get Direction</h4>
-                          <p>Sector:7, Road:27, House:18, Uttara,<br> Dhaka, 1230 Dhaka.</p>
+                          <p>{{data?.address}}</p>
                       </div>
                   </div>
               </div>
-              <div class="col-md-4">
+              <div class="col-md-4" style="height: auto;">
                   <div class="contact-cont-bx">
                       <div class="ccb-img">
                           <img src="assets/img/c1.svg" alt="">
                       </div>
-                      <div class="ccb-cont">
-                          <h4>Opening Hours</h4>
-                          <p>Everyday 11.00 PM - 11.00 AM</p>
+                      <div>
+                        <h4>Opening Hours</h4>
+                        <p class="mb-0">
+                          <span *ngFor="let timing of data?.timings; let last = last">
+                            {{ timing.day }} <span>{{ formatTime(timing.start_time) }} - {{ formatTime(timing.end_time) }}</span>
+                            <br *ngIf="!last" />
+                          </span>
+                        </p>
                       </div>
                   </div>
               </div>
