@@ -6,34 +6,38 @@ import { BrowserModule } from '@angular/platform-browser';
 import { PageWrapperModule } from './layouts/page-wrapper/page-wrapper.module';
 import { NgxPubSubModule } from '@pscoped/ngx-pub-sub';
 
-import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi   } from '@angular/common/http';
+import {
+  HTTP_INTERCEPTORS,
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
 import { InterceptorService } from './services/interceptor.service';
 import { provideNgSimpleState } from 'ng-simple-state';
+import { SpinnerComponent } from '../theme/spinner/spinner.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-  ],
+  declarations: [AppComponent],
   imports: [
     CommonModule,
     BrowserModule,
     AppRoutingModule,
     NgxPubSubModule,
-    PageWrapperModule
+    PageWrapperModule,
+    SpinnerComponent
+
   ],
+
   providers: [
     provideHttpClient(withInterceptorsFromDi()),
     { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true },
     provideNgSimpleState({
       enableDevTool: isDevMode(),
       enableLocalStorage: true,
-      persistentStorage: 'local'
-    })
-
+      persistentStorage: 'local',
+    }),
   ],
   bootstrap: [AppComponent],
-  schemas: [
-    CUSTOM_ELEMENTS_SCHEMA
-  ]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+
 })
-export class AppModule { }
+export class AppModule {}

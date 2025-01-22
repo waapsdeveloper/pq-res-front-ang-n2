@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import AOS from 'aos';
 import { EventsService } from "./services/events.service";
 import { NavService } from "./services/nav.service";
-
+import { SpinnerComponent } from "../theme/spinner/spinner.component";
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
