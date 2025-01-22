@@ -74,6 +74,11 @@ export class CartContentComponent implements OnInit {
   ngOnInit() {
     this.carte.getCartItems().subscribe((res: any) => {
       this.cartItems = res;
+      this.cartItems = this.cartItems.map(item => {
+        const { id, ...rest } = item; // Destructure `id` and the rest of the keys
+        return { product_id: id, ...rest }; // Replace `id` with `product_id`
+      });
+      console.log(this.cartItems);
     });
   }
   changeVariationSelection($event: any) {
@@ -88,6 +93,7 @@ export class CartContentComponent implements OnInit {
     let obj = {
       table_identifier: table_identifier ? table_identifier : '',
       products: this.cartItems,
+      restaurant_id: localStorage.getItem('restaurant_id') ? localStorage.getItem('restaurant_id') : -1 ,
       phone: this.phone,
       status: 'pending',
       gst: this.gstAmount,
