@@ -3,7 +3,7 @@ import { BasePage } from '../base-page/base-page';
 import { Config } from '../../config/config';
 
 
-const restaurantId = Config.restaurant_id;
+// const restaurantId = Config.restaurant_id;
 @Component({
     selector: 'app-tables',
     templateUrl: './tables.component.html',
@@ -16,7 +16,7 @@ export class TablesComponent extends BasePage implements OnInit {
   filteredList: any[] = [];
   params: any;
   floors: any[] = [];
-
+  restaurantId:any;
 
   constructor(injector: Injector){
     super(injector)
@@ -32,15 +32,16 @@ export class TablesComponent extends BasePage implements OnInit {
   async initialize(){
 
     const params = this.nav.getQueryParams();
+this.restaurantId = localStorage.getItem('restaurant_id')
     console.log(params);
     this.params = params;
     let obj = {
-      restaurant_id: restaurantId
+      restaurant_id: this.restaurantId
     }
 
     obj = Object.assign(obj, params);
 
-    const res = await this.network.getTablesByRestaurantId(obj, restaurantId);
+    const res = await this.network.getTablesByRestaurantId(obj, this.restaurantId);
     console.log(res);
 
     if(res.restaurant && res.restaurant.length > 0){

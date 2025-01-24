@@ -1,76 +1,107 @@
 <section class="write-us">
   <div class="container">
-      <div class="row justify-content-center">
-          <div class="col-md-6">
-              <div class="write-img">
-                  <img src="assets/img/contact-side.png" alt="">
-              </div>
-          </div>
-          <div class="col-md-5">
-              <div class="write-box">
-                  <h3>Write to us</h3>
-                  <form action="">
-                      <div class="form-group">
-                          <input type="name" name="" id="" class="contact-input" placeholder="Name">
-                      </div>
-                      <div class="form-group">
-                          <input type="Email" name="" id="" class="contact-input" placeholder="Email">
-                      </div>
-                      <div class="form-group">
-                          <input type="phone" name="" id="" class="contact-input" placeholder="Phone">
-                      </div>
-                      <div class="form-group">
-                         <textarea name="" class="contact-input" id="" placeholder="Message"></textarea>
-                      </div>
-                      <div class="mt-2">
-                          <button class="btn-prime">Send A message</button>
-                      </div>
-                  </form>
-              </div>
-          </div>
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="write-img">
+          <img src="assets/img/contact-side.png" alt="" />
+        </div>
       </div>
+      <div class="col-md-5">
+        <div class="write-box">
+          <h3>Write to us</h3>
+          <form action="">
+            <div class="form-group">
+              <input
+                type="name"
+                name="name"
+                id=""
+                class="contact-input"
+                placeholder="Name"
+                [(ngModel)]="name"
+              />
+            </div>
+            <div class="form-group">
+              <input
+                type="Email"
+                name="email"
+                id=""
+                class="contact-input"
+                placeholder="Email"
+                [(ngModel)]="email"
+              />
+            </div>
+            <div class="form-group">
+              <input
+                type="phone"
+                name="phone"
+                id=""
+                class="contact-input"
+                placeholder="Phone"
+                [(ngModel)]="phone"
+              />
+            </div>
+            <div class="form-group">
+              <textarea
+                name="message"
+                class="contact-input"
+                id=""
+                placeholder="Message"
+                [(ngModel)]="message"
+              ></textarea>
+            </div>
+            <div class="mt-2">
+              <button class="btn-prime" (click)="contactUs()">Send A message</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
 
-      <div class="cont-bx">
-          <div class="row">
-              <div class="col-md-4">
-                  <div class="contact-cont-bx">
-                      <div class="ccb-img">
-                          <img src="assets/img/c1.svg" alt="">
-                      </div>
-                      <div class="ccb-cont">
-                          <h4>Phone Us 24/7</h4>
-                          <p>{{data?.phone}}</p>
-                      </div>
-                  </div>
-              </div>
-              <div class="col-md-4">
-                  <div class="contact-cont-bx">
-                      <div class="ccb-img">
-                          <img src="assets/img/c2.svg" alt="">
-                      </div>
-                      <div class="ccb-cont">
-                          <h4>Get Direction</h4>
-                          <p>{{data?.address}}</p>
-                      </div>
-                  </div>
-              </div>
-              <div class="col-md-4" >
-                  <div class="contact-cont-bx" style="height: auto;">
-                      <div class="ccb-img">
-                          <img src="assets/img/c1.svg" alt="">
-                      </div>
-                      <div >
-                        <h4>Opening Hours</h4>
-                        <p class="mb-0">
-                          <span *ngFor="let timing of data?.timings; let last = last">
-                            {{ timing.day }} <span>{{ formatTime(timing.start_time) }} - {{ formatTime(timing.end_time) }}</span>
-                            <br *ngIf="!last" />
-                          </span>
-                        </p>
-                      </div>
-                  </div>
-              </div>
+    <div class="cont-bx">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="contact-cont-bx">
+            <div class="ccb-img">
+              <img src="assets/img/c1.svg" alt="" />
+            </div>
+            <div class="ccb-cont">
+              <h4>Phone Us 24/7</h4>
+              <p>{{ data?.phone }}</p>
+            </div>
           </div>
+        </div>
+        <div class="col-md-4">
+          <div class="contact-cont-bx" style="height: auto; padding: 8px;">
+            <div class="ccb-img">
+              <img src="assets/img/c1.svg" alt="" />
+            </div>
+            <div>
+              <h4>Opening Hours</h4>
+              <p class="mb-0">
+                <span *ngFor="let timing of data?.timings; let last = last">
+                  {{ timing.day }}
+                  <span
+                    >{{ formatTime(timing.start_time) }} -
+                    {{ formatTime(timing.end_time) }}</span
+                  >
+                  <br *ngIf="!last" />
+                </span>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="contact-cont-bx">
+            <div class="ccb-img">
+              <img src="assets/img/c2.svg" alt="" />
+            </div>
+            <div class="ccb-cont">
+              <h4>Get Direction</h4>
+              <p>{{ data?.address }}</p>
+            </div>
+          </div>
+        </div>
       </div>
+    </div>
   </div>
 </section>
