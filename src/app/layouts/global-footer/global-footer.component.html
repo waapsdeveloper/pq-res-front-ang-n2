@@ -13,7 +13,7 @@
     <div class="ftr-top">
       <div class="row">
         <div class="col-md-3">
-          <img [src]="logoUrl" alt=""  style="width: 250px;"/>
+          <img [src]="logoUrl" alt="" style="width: 250px" />
         </div>
         <div class="col-md-6">
           <h3 class="ft-cont">
@@ -23,7 +23,7 @@
         <div class="col-md-3">
           <div class="btn-sc text-center">
             <a (click)="navigateToMenu()">
-              <button class="btn-prime" >Order Now</button>
+              <button class="btn-prime">Order Now</button>
             </a>
           </div>
         </div>
@@ -34,7 +34,7 @@
         <div class="address">
           <h4>Address</h4>
           <p class="mb-0">
-          {{footer?.address}}
+            {{ footer?.address }}
           </p>
           <a href="#">view Google map</a>
         </div>
@@ -43,36 +43,47 @@
         <div>
           <h4>Booking</h4>
           <!-- <a  class="btn-account btn-login" (click)="navigateToContact()">Make A Call</a> -->
-          <a  class="btn-account btn-login" (click)="navigateToTable()">Book a Table</a>
-
+          <a class="btn-account btn-login" (click)="navigateToTable()"
+            >Book a Table</a
+          >
         </div>
       </div>
       <div class="col-lg-3 col-md-6 d-flex">
         <div>
           <h4>Opening Hours</h4>
-          <p class="mb-0">
-            <span *ngFor="let timing of footer?.timings; let last = last">
-              {{ timing.day }} <span>{{ formatTime(timing.start_time) }} - {{ formatTime(timing.end_time) }}</span>
-              <br *ngIf="!last" />
-            </span>
-          </p>
+          <div class="row">
+            <div class="col-4">
+              <!-- Day Column -->
+              <span *ngFor="let timing of footer?.timings; let last = last">
+                {{ timing.day }}
+                <br *ngIf="!last" />
+              </span>
+            </div>
+            <div class="col-8">
+              <!-- Timing Column -->
+              <span *ngFor="let timing of footer?.timings; let last = last">
+                {{ formatTime(timing.start_time) }} -
+                {{ formatTime(timing.end_time) }}
+                <br *ngIf="!last" />
+              </span>
+            </div>
+          </div>
         </div>
-
       </div>
       <div class="col-lg-3 col-md-6">
         <h4>Account</h4>
         <div class="ftr-account">
-          <a  class="btn-account btn-login"
-            (click)="navigateToLogin()" >Login</a
-          >
-          <a  class="btn-account btn-signup"
-          (click)="navigateToSignup()" >Signup</a
+          <a class="btn-account btn-login" (click)="navigateToLogin()">Login</a>
+          <a class="btn-account btn-signup" (click)="navigateToSignup()"
+            >Signup</a
           >
         </div>
       </div>
     </div>
   </div>
   <div class="container copyright text-center mt-4">
-    <p>© <span>{{currentYear}} </span> <span>{{ footer?.name}}</span></p>
+    <p>
+      © <span>{{ currentYear }} </span> <span>{{ footer?.name }}</span>
+    </p>
   </div>
 </footer>
