@@ -2,9 +2,8 @@
   <div class="container position-relative d-flex align-items-center justify-content-between">
      <a href="index.html" class="logo d-flex align-items-center me-auto me-xl-0">
         <!-- Uncomment the line below if you also wish to use an image logo -->
-        <img src="/assets/img/logo.svg" alt="">
-
-     </a>
+        <img  [src]="logoUrl" alt="">
+  </a>
      <nav id="navmenu" class="navmenu">
         <ul>
            <li><a (click)="openLink('/tabs/home')" [class.active]="getActiveState('home')">Home<br></a></li>

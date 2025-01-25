@@ -14,6 +14,7 @@ export class ProductsListingComponent {
   categories: any[] = [];
   products: any[] = [];
   filteredProducts: any[] = [];
+  restaurant_id:any;
 
   constructor(
     private network: NetworkService,
@@ -33,7 +34,10 @@ export class ProductsListingComponent {
       console.log(localStorage.getItem('table_identifier'));
     }
 
-    let obj = {};
+    this.restaurant_id = localStorage.getItem('restaurant_id');
+    let obj = {
+      restaurant_id: this.restaurant_id
+    };
     const res = await this.network.getProducts(obj);
     console.log(res);
 

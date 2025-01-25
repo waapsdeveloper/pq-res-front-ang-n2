@@ -1,27 +1,54 @@
 import { Injectable } from '@angular/core';
-import { EventsService } from '../events.service';
+import { NgSimpleStateBaseRxjsStore } from 'ng-simple-state';
+import { NgSimpleStateStoreConfig } from 'ng-simple-state/public-api';
+import { Observable } from 'rxjs';
 
+export interface GlobalLoaderState {
+  loader: boolean;
+}
 @Injectable({
   providedIn: 'root'
 })
-export class LoadingService {
+export class LoadingService extends NgSimpleStateBaseRxjsStore<GlobalLoaderState> {
+  loader:any;
 
-  loading = false;
-  constructor(private events: EventsService) { }
+  constructor() {
+    super();
+  }
+  protected storeConfig(): NgSimpleStateStoreConfig {
+    return {
+      storeName: 'GlobalLoaderState'
+    };
+  }
+  protected initialState(): GlobalLoaderState {
+    return {
+      loader: false
+    };
+  }
+  setLoader(flag: boolean) {
+    this.loader = { flag };
+    this.setState((state) => ({ loader: flag }));
+  }
 
+  getLoader(): Observable<any> {
+    return this.selectState((state) => state);
+  }
 
-  async showLoader(msg = '') {
-    this.loading = true;
-    this.events.publish('enable-loading', {
-      value: 'active'
-    })
+  async showLoader(message = '') {
+    // this.loading = await this.loadingController.create({
+    //   cssClass: 'my-loader-class',
+    //   spinner: "circles", // Round spinner
+    //   translucent: false,
+    //   backdropDismiss: false
+    // });
+    // await this.loading.present();
+    this.setLoader(true)
   }
 
   async hideLoader() {
-    this.loading = false;
-    this.events.publish('enable-loading', {
-      value: 'in-active'
-    })
+    // if (this.loading) {
+    //   this.loading.dismiss();
+    // }
+    this.setLoader(false);
   }
-
 }

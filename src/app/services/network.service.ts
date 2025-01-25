@@ -7,12 +7,11 @@ import { ApiService } from './api.service';
   providedIn: 'root',
 })
 export class NetworkService {
-
   constructor(
     public api: ApiService,
     public router: Router,
-    public utility: UtilityService,
-  ) { }
+    public utility: UtilityService
+  ) {}
 
   /* API CALLS PER PAGE
   - Home
@@ -35,7 +34,7 @@ export class NetworkService {
 
 
   */
-  getDefaultRestaurantId(){
+  getDefaultRestaurantId() {
     return this.httpGetResponse('restaurant/active', null, false, true);
   }
 
@@ -45,41 +44,56 @@ export class NetworkService {
     return this.httpGetResponse('auth/me', null, false);
   }
 
-  authRegister(data: any){
+  authRegister(data: any) {
     return this.httpPostResponse('auth/register', data, null, false, true);
   }
 
-  authLogin(data: any){
+  authLogin(data: any) {
     return this.httpPostResponse('auth/login', data, null, false, true);
   }
 
   // table bookings start
 
-  getTablesByRestaurantId(params: any, id: number){
+  getTablesByRestaurantId(params: any, id: number) {
     let str = this.serialize(params);
-    return this.httpGetResponse('get-tables-by-restaurant/' + id + '?' + str, null, false, true);
+    return this.httpGetResponse(
+      'get-tables-by-restaurant/' + id + '?' + str,
+      null,
+      false,
+      true
+    );
   }
 
-  setTableBooking(data: any){
+  setTableBooking(data: any) {
     return this.httpPostResponse('table-booking', data, null, false, true);
   }
 
-  checkTableAvailability(data: any){
-    return this.httpPostResponse('table-booking/check-table-availability', data, null, false, true);
+  checkTableAvailability(data: any) {
+    return this.httpPostResponse(
+      'table-booking/check-table-availability',
+      data,
+      null,
+      false,
+      true
+    );
   }
 
   // table bookings end
 
   // products
 
-  getProducts(params: any){
+  getProducts(params: any) {
     let str = this.serialize(params);
-    return this.httpGetResponse('products?' + str , null, false, true);
+    return this.httpGetResponse('products?' + str, null, false, true);
   }
 
-  getPopularProducts(data: any){
+  getPopularProducts(data: any) {
     let str = this.serialize(data);
     return this.httpGetResponse('popular-products?' + str, null, false, true);
+  }
+  getTodayDeal(data: any) {
+    let str = this.serialize(data);
+    return this.httpGetResponse('today-deals?' + str, null, false, true);
   }
 
   // cart
@@ -94,20 +108,31 @@ export class NetworkService {
   }
 
   makeOrder(data: any) {
-    return this.httpPostResponse(`make-order-bookings`, data, null, false, true);
+    return this.httpPostResponse(
+      `make-order-bookings`,
+      data,
+      null,
+      false,
+      true
+    );
+  }
+  contactUs(data:any){
+    return this.httpPostResponse('contact-us', data, null, false, true);
   }
 
-  trackOrder(data:any) {
+  trackOrder(data: any) {
     let str = this.serialize(data);
-    return this.httpGetResponse('track-customer-order/' + data , null, false, true);
+    return this.httpGetResponse(
+      'track-customer-order/' + data,
+      null,
+      false,
+      true
+    );
   }
 
-  restaurantDetail(){
+  restaurantDetail() {
     return this.httpGetResponse('restaurant-detail/1', null, false);
-}
-
-
-
+  }
 
   serialize = (obj: any) => {
     const str: any[] = [];
@@ -212,9 +237,11 @@ export class NetworkService {
       }
       const url = key + (id ? '/' + id : '');
       const seq =
-        type === 'get' ? this.api.get(url, {}) :
-          type === 'delete' ? this.api.delete(url, {}) :
-            this.api.post(url, data);
+        type === 'get'
+          ? this.api.get(url, {})
+          : type === 'delete'
+          ? this.api.delete(url, {})
+          : this.api.post(url, data);
 
       seq.subscribe({
         next: (res: any) => {
@@ -223,11 +250,10 @@ export class NetworkService {
             this.utility.hideLoader();
           }
 
-          console.log("EW", res)
+          console.log('EW', res);
           resolve(res.result);
         },
         error: (err: any) => {
-
           this.utility.hideLoader();
 
           if (showError == true) {

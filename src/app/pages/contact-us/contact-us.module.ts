@@ -6,6 +6,7 @@ import { ContactUsComponent } from './contact-us.component';
 import { PageLayoutModule } from '../../layouts/page-layout/page-layout.module';
 import { ContactBannerComponent } from './contact-banner/contact-banner.component';
 import { ContactFormComponent } from './contact-form/contact-form.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { ContactFormComponent } from './contact-form/contact-form.component';
   imports: [
     CommonModule,
     ContactUsRoutingModule,
-    PageLayoutModule
+    PageLayoutModule,
+    FormsModule
   ]
 })
 export class ContactUsModule { }

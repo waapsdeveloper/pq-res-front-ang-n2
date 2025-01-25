@@ -12,15 +12,16 @@ import { CartService } from '../../../services/cart.service';
 export class PopularSectionComponent {
 
   products: any[] = [];
-
+ restaurant_id :any
   constructor(private network: NetworkService, public carte: CartService) {
     this.initialize();
   }
 
   async initialize(){
-
+    this.restaurant_id = localStorage.getItem('restaurant_id')
     let obj = {
-      perpage: 8
+      perpage: 8,
+      restaurant_id:this.restaurant_id
     }
     const res = await this.network.getPopularProducts(obj);
     console.log(res);

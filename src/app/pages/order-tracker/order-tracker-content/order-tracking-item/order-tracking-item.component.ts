@@ -26,9 +26,9 @@
       if (v.variation && v.variation.length > 0) {
         console.log(v.variation);
         // Check if meta_value is a string and parse it if necessary
-        let parsedVariations: any[] = JSON.parse(v.variation);
+        let parsedVariations: any[] = JSON.parse(JSON.parse(v.variation));
         console.log(parsedVariations);
-        // Add parsed variations to the item object
+
         let result = parsedVariations.map((variation: any) => ({
           type: variation.type,
           options: variation.options.map((option: any) => ({
