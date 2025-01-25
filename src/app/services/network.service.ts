@@ -35,6 +35,9 @@ export class NetworkService {
 
 
   */
+  getDefaultRestaurantId(){
+    return this.httpGetResponse('restaurant/active', null, false, true);
+  }
 
   // Auth registration
 

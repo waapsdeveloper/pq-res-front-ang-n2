@@ -1,51 +1,51 @@
-<li >
-    <div class="cart-img">
-      <img [src]="item.image" alt="" />
-    </div>
-    <div class="cart-name">
-      <!-- Product name and quantity -->
-      {{ item.name }} x <span>{{ item.quantity || 1 }}</span>
+<li>
+  <div class="cart-img">
+    <img [src]="item.image" alt="" />
+  </div>
+  <div class="cart-name">
+    <!-- Product name and quantity -->
+    {{ item.name }} x <span>{{ item.quantity || 1 }}</span>
 
-      <!-- Variations Section -->
-      <div class="cart-variations" *ngIf="item.variations && item.variations.length > 0">
-        <div class="variations-inline fw-semibold">
-          <div class="" *ngFor="let variation of item.variations">
-            <label *ngFor="let options of variation.options ">
-              <input
-                type="checkbox"
-                [checked]="options.selected"
-                [(ngModel)]="options.selected"
-                (ngModelChange)="changeVariationSelection($event)"
-              />
-              {{ variation?.type}} Rs:{{options?.price}}
-            </label>
-          </div>
+    <!-- Variations Section -->
+    <div class="cart-variations" *ngIf="item.variations && item.variations.length > 0">
+      <div class="variations-list">
+        <div class="variation-item" *ngFor="let variation of item.variations">
+          <label *ngFor="let option of variation.options">
+            <input
+              type="checkbox"
+              [checked]="option.selected"
+              [(ngModel)]="option.selected"
+              (ngModelChange)="changeVariationSelection($event)"
+            />
+            <span>{{ variation?.type }} Rs: {{ option?.price }}</span>
+          </label>
         </div>
       </div>
     </div>
+  </div>
 
-    <!-- Product price -->
-    <div class="cart-price">Rs {{ item.price }}</div>
+  <!-- Product price -->
+  <div class="cart-price">Rs {{ item.price }}</div>
 
-    <!-- Quantity controls -->
-    <div class="cart-count">
-      <img
-        src="assets/svg/circle-plus.svg"
-        (click)="addQuantity(item)"
-      />
-      <input
-        type="number"
-        class="value"
-        [value]="item.quantity"
-        min="1"
-        style="text-align: center"
-      />
-      <img
-        src="assets/svg/circle-minus.svg"
-        (click)="removeQuantity(item)"
-      />
-    </div>
+  <!-- Quantity controls -->
+  <div class="cart-count">
+    <img
+      src="assets/svg/circle-plus.svg"
+      (click)="addQuantity(item)"
+    />
+    <input
+      type="number"
+      class="value"
+      [value]="item.quantity"
+      min="1"
+      style="text-align: center"
+    />
+    <img
+      src="assets/svg/circle-minus.svg"
+      (click)="removeQuantity(item)"
+    />
+  </div>
 
-    <!-- Remove item -->
-    <img src="assets/svg/trash.svg" (click)="removeItem(item)" />
-  </li>
+  <!-- Remove item -->
+  <img src="assets/svg/trash.svg" (click)="removeItem(item)" />
+</li>
