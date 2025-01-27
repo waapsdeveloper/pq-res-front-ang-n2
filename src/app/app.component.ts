@@ -3,6 +3,7 @@ import AOS from 'aos';
 import { EventsService } from "./services/events.service";
 import { NavService } from "./services/nav.service";
 import { SpinnerComponent } from "../theme/spinner/spinner.component";
+import { NotificationsService } from "./services/notifications.service";
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
@@ -11,8 +12,8 @@ import { SpinnerComponent } from "../theme/spinner/spinner.component";
 })
 export class AppComponent implements OnInit {
 
-  constructor(public events: EventsService, public nav: NavService){
-    this.events.subscribe('open-link', this.openlink.bind(this))
+  constructor(public events: EventsService, public nav: NavService, private notifications: NotificationsService){
+    this.events.subscribe('open-link', this.openlink.bind(this))    
   }
 
   ngOnInit(): void {

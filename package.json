@@ -27,6 +27,7 @@
     "glightbox": "^3.3.0",
     "ng-simple-state": "^19.0.1",
     "pq-res-front-ang-n2": "file:",
+    "pusher-js": "^8.4.0-rc2",
     "rxjs": "^7.5.0",
     "sweetalert2": "^11.15.0",
     "swiper": "^11.1.15",

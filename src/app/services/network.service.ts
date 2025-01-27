@@ -7,6 +7,7 @@ import { ApiService } from './api.service';
   providedIn: 'root',
 })
 export class NetworkService {
+  
   constructor(
     public api: ApiService,
     public router: Router,
