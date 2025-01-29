@@ -59,6 +59,9 @@ export class NetworkService {
  lowestPrice(){
    return this.httpGetResponse('lowest-price',null,false);
  }
+ allCategory(){
+ return this.httpGetResponse('all-category',null,false);
+ }
 
   // table bookings start
 

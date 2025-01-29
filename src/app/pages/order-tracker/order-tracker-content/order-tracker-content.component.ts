@@ -25,7 +25,7 @@ export class OrderTrackerContentComponent {
 
   async ngOnInit() {}
   splitBill(){
-    this.total = this.data?.total_price / this.perHead;
+    this.total = (this.data?.total_price / this.perHead).toFixed(2);
 
   }
 }

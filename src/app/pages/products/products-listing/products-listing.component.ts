@@ -39,7 +39,8 @@ export class ProductsListingComponent {
       restaurant_id: this.restaurant_id
     };
     const res = await this.network.getProducts(obj);
-    console.log(res);
+    const categories = await this.network.allCategory();
+    console.log(res, categories);
 
     if (res) {
       this.categories = res.categories;
