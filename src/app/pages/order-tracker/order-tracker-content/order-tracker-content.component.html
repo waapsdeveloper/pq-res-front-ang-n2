@@ -25,8 +25,8 @@
         <div class="col-md-9">
           <div class="cart-box">
             <h3 class="cart-heading">
-              ORDER DETAILS
-              <span class="badge badge-info">{{ data?.status }}</span>
+              Items From Your Cart
+              <span class="badge badge-info">{{data?.status}}</span>
             </h3>
             <div
               class="item-bx text-center"
@@ -57,22 +57,12 @@
           <div class="cart-box">
             <h3 class="mb-3">Order Details</h3>
             <div class="instructions">
-              <p>Per Head</p>
-              <input
-                type="number"
-                name="splitBill"
-                placeholder="No of Person"
-                id="phone1234567"
-                class="int-field"
-                [value]="total"
-                readonly
-              />
               <p>Special Instructions (Optional)</p>
               <textarea
                 name=""
                 id=""
                 class="int-field"
-                [value]="data?.notes"
+                [value]="data?.product?.notes"
                 readonly
               >
               </textarea>

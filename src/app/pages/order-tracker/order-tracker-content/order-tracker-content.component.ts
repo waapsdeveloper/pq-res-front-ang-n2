@@ -9,8 +9,6 @@ import { CartService } from '../../../services/cart.service';
   styleUrl: './order-tracker-content.component.scss',
 })
 export class OrderTrackerContentComponent {
-  total:any
-  splitBill= localStorage.getItem('splitBill');
   private _data: any;
   variations: any[] = [];
   @Input()
@@ -19,15 +17,10 @@ export class OrderTrackerContentComponent {
   }
   set data(value: any) {
     this._data = value;
-    this.total =  this.data?.total_price / parseInt(this?.splitBill || '1');
   }
-
-
+ 
 
   constructor(public carte: CartService) {}
 
-  async ngOnInit() {
-
-
-  }
+  async ngOnInit() {}
 }

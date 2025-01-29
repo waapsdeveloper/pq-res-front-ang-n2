@@ -117,7 +117,7 @@ export class CartService extends NgSimpleStateBaseRxjsStore<CartState> {
           if (variation.options.length > 0) {
             variation.options.forEach((option: any) => {
               if (option.selected == true) {
-                productCost += option.price.toFixed(2);
+                productCost += option.price;
 
               }
             });
@@ -129,6 +129,6 @@ export class CartService extends NgSimpleStateBaseRxjsStore<CartState> {
     }, 0);
 
     console.log(cost); // Log the total cost
-    this.total_price = cost.toFixed(2); // Update the total cost
+    this.total_price = cost; // Update the total cost
   }
 }
