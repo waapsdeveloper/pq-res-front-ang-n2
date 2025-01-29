@@ -1,0 +1,13 @@
+.abt-img {
+  width: 150px; /* Your desired width */
+  height: 150px; /* Your desired height (must be equal to width for a circle) */
+  border-radius: 50%; /* Makes the container circular */
+  overflow: hidden; /* Prevents image from overflowing */
+}
+
+.abt-img img {
+  width: 100%; /* Image takes full width of container */
+  height: 100%; /* Image takes full height of container */
+  object-fit: cover; /* Or contain, depending on how you want it to fit */
+  display: block; /* Prevents a small space below the image */
+}

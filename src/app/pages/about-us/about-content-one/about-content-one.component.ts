@@ -9,10 +9,10 @@ import { NetworkService } from '../../../services/network.service';
   styleUrl: './about-content-one.component.scss',
 })
 export class AboutContentOneComponent implements OnInit {
+  data:any;
   constructor(private network: NetworkService) {}
   async ngOnInit() {
-    let id = localStorage.getItem('restaurant_id');
     let res = await this.network.aboutUsCategory();
-    console.log(res);
+    this.data = res.data
   }
 }
