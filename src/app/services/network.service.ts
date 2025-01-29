@@ -7,7 +7,7 @@ import { ApiService } from './api.service';
   providedIn: 'root',
 })
 export class NetworkService {
-  
+
   constructor(
     public api: ApiService,
     public router: Router,
@@ -52,6 +52,13 @@ export class NetworkService {
   authLogin(data: any) {
     return this.httpPostResponse('auth/login', data, null, false, true);
   }
+
+  aboutUsCategory(id:any){
+    return this.httpGetResponse(`about-us/${id}`, null, false);
+  }
+ lowestPrice(){
+   return this.httpGetResponse('lowest-price',null,false);
+ }
 
   // table bookings start
 

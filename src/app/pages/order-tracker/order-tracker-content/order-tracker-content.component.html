@@ -57,9 +57,9 @@
           <div class="cart-box">
             <h3 class="mb-3">Order Details</h3>
             <div class="instructions">
-              <p>Per Head</p>
+              <p>Split Bills</p>
               <input type="number" name="" placeholder="" id="phone1234567"
-              class="int-field" [value]="perHead" />
+              class="int-field" [(ngModel)]="perHead" (click)="splitBill()" />
             </div>
             <div class="instructions">
               <p>Special Instructions (Optional)</p>
@@ -97,13 +97,17 @@
                   <div class="left-item">GST ( NaN % ) :</div>
                   <div class="irght-item">Rs 0</div>
                 </li>
+                <li>
+                  <button (click)="splitBill()">Split Bill</button>
+                  <span>Splited Bill: {{total}}</span>
+             
+                </li>
               </ul>
               <div class="checkout-bar">
                 <span
-                  >{{ data?.products?.length }} Items |Rs :{{
+                  >{{ data?.products?.length }} Items |Rs : {{
                     data?.total_price
-                  }}</span
-                >
+                  }}</span>
               </div>
             </div>
           </div>
