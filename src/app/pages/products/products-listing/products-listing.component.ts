@@ -42,8 +42,8 @@ export class ProductsListingComponent {
     const categories = await this.network.allCategory();
     console.log(res, categories);
 
-    if (res) {
-      this.categories = res.categories;
+    if (res && categories) {
+      this.categories = categories.data;
       this.products = res.products.data;
       this.filteredProducts = [...this.products];
     }

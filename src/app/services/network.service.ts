@@ -53,14 +53,14 @@ export class NetworkService {
     return this.httpPostResponse('auth/login', data, null, false, true);
   }
 
-  aboutUsCategory(id:any){
-    return this.httpGetResponse(`about-us/${id}`, null, false);
+  aboutUsCategory(){
+    return this.httpGetResponse('about-us', null, false);
   }
  lowestPrice(){
    return this.httpGetResponse('lowest-price',null,false);
  }
  allCategory(){
- return this.httpGetResponse('all-category',null,false);
+ return this.httpGetResponse('all-categories',null,false);
  }
 
   // table bookings start
