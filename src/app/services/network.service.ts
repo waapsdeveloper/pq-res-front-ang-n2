@@ -7,7 +7,6 @@ import { ApiService } from './api.service';
   providedIn: 'root',
 })
 export class NetworkService {
-
   constructor(
     public api: ApiService,
     public router: Router,
@@ -53,15 +52,15 @@ export class NetworkService {
     return this.httpPostResponse('auth/login', data, null, false, true);
   }
 
-  aboutUsCategory(){
+  aboutUsCategory() {
     return this.httpGetResponse('about-us', null, false);
   }
- lowestPrice(){
-   return this.httpGetResponse('lowest-price',null,false);
- }
- allCategory(){
- return this.httpGetResponse('all-categories',null,false);
- }
+  lowestPrice() {
+    return this.httpGetResponse('lowest-price', null, false);
+  }
+  allCategory() {
+    return this.httpGetResponse('all-categories', null, false);
+  }
 
   // table bookings start
 
@@ -127,7 +126,7 @@ export class NetworkService {
       true
     );
   }
-  contactUs(data:any){
+  contactUs(data: any) {
     return this.httpPostResponse('contact-us', data, null, false, true);
   }
 
