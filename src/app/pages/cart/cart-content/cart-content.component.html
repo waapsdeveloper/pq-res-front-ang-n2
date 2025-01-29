@@ -1,5 +1,4 @@
 <section class="sc-1 inner">
-
   <div class="fl-5 animated-2" data-aos="zoom-in-up" data-aos-duration="1200">
     <img src="assets/img/2.png" alt="" />
   </div>
@@ -39,19 +38,30 @@
             </div>
             <div class="cart-items-list" *ngIf="cartItems.length > 0">
               <ul>
-                <app-cart-item *ngFor="let item of cartItems" [item]="item"
+                <app-cart-item
+                  *ngFor="let item of cartItems"
+                  [item]="item"
                 ></app-cart-item>
               </ul>
             </div>
-
           </div>
         </div>
         <div class="col-md-3">
           <div class="cart-box">
             <h3 class="mb-3">Order Details</h3>
             <div class="instructions">
+              <p>Do you want to split the bill?</p>
+              <input
+                type="number"
+                name="splitBill"
+                placeholder="No of Person"
+                id="phone1234567"
+                class="int-field"
+                [value]=""
+                [(ngModel)]="splitBill"
+              />
               <p>Special Instructions (Optional)</p>
-              <textarea name="" id="" class="int-field"> </textarea>
+              <textarea name="" id="" class="int-field" [(ngModel)]="notes"> </textarea>
               <p>Alternate Phone Number (3XXXXXXXXX)</p>
               <input
                 type="number"
@@ -68,19 +78,22 @@
               <ul>
                 <li>
                   <div class="left-item">Sub Total :</div>
-                  <div class="irght-item" >Rs {{this.carte.total_price}}</div>
+                  <div class="irght-item">Rs {{ this.carte.total_price }}</div>
                 </li>
                 <li>
                   <div class="left-item">Delivery Fee :</div>
-                  <div class="irght-item">Rs {{deliveryFee || 0}}</div>
+                  <div class="irght-item">Rs {{ deliveryFee || 0 }}</div>
                 </li>
                 <li>
                   <div class="left-item">GST ( NaN % ) :</div>
-                  <div class="irght-item">Rs {{gstAmount || 0}}</div>
+                  <div class="irght-item">Rs {{ gstAmount || 0 }}</div>
                 </li>
               </ul>
-              <div class="checkout-bar" >
-                <span>{{ cartItems.length }} Items | Rs {{this.carte.total_price}}</span>
+              <div class="checkout-bar">
+                <span
+                  >{{ cartItems.length }} Items | Rs
+                  {{ this.carte.total_price }}</span
+                >
                 <button (click)="makeOrder()">Check Out</button>
               </div>
             </div>

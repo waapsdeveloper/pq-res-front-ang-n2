@@ -20,6 +20,8 @@ export class CartContentComponent implements OnInit {
   total: number = 0;
   phone: number | null = null;
   variations: any[] = [];
+  splitBill: any;
+  notes: any;
 
   constructor(
     public carte: CartService,
@@ -29,8 +31,7 @@ export class CartContentComponent implements OnInit {
   ) {
     this.carte.getCartItems().subscribe((res: any) => {
       this.cartItems = res;
-     console.log('res',this.cartItems);
-
+      console.log('res', this.cartItems);
 
       // Map each product in the response to process variations
       this.cartItems = res.map((item: any) => {
@@ -78,13 +79,15 @@ export class CartContentComponent implements OnInit {
   ngOnInit() {
     this.carte.getCartItems().subscribe((res: any) => {
       this.cartItems = res;
-      this.cartItems = this.cartItems.map(item => {
+      this.cartItems = this.cartItems.map((item) => {
         const { id, ...rest } = item; // Destructure `id` and the rest of the keys
         return { product_id: id, ...rest }; // Replace `id` with `product_id`
       });
       console.log(this.cartItems);
+      console.log('makeOrder');
     });
   }
+  
   changeVariationSelection($event: any) {
     this.carte.totalOfProductCost();
   }
@@ -93,27 +96,29 @@ export class CartContentComponent implements OnInit {
     this.variations = updatedVariations;
   }
   async makeOrder() {
+
     const table_identifier = localStorage.getItem('table_identifier') || '';
     let obj = {
       table_identifier: table_identifier ? table_identifier : '',
       products: this.cartItems,
-      restaurant_id: localStorage.getItem('restaurant_id') ? localStorage.getItem('restaurant_id') : -1 ,
+      restaurant_id: localStorage.getItem('restaurant_id') ? localStorage.getItem('restaurant_id')  : -1,
       phone: this.phone,
       status: 'pending',
       gst: this.gstAmount,
-      total_price: this.carte.total_price,
+      total_price: this.carte.total_price.toFixed(2),
       delivery: this.deliveryFee,
-      subTotal: this.carte.total_price,
+      subTotal: this.carte.total_price.toFixed(2),
       type: table_identifier ? 'dine-in' : 'delivery',
     };
-    console.log(obj);
+    console.log(obj, this.splitBill);
+    localStorage.setItem('splitBill', this.splitBill);
+
     const res = await this.network.makeOrder(obj);
     console.log(res);
     if (res) {
       if (res.data && res.data.order_number) {
-
         this.navigateToPage(res?.data.order_number);
-       this.utility.presentSuccessToast("Order Placed!");
+        this.utility.presentSuccessToast('Order Placed!');
       }
     }
   }
