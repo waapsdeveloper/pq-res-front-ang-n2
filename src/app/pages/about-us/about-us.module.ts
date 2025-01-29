@@ -8,7 +8,7 @@ import { AboutBannerComponent } from './about-banner/about-banner.component';
 import { AboutContentOneComponent } from './about-content-one/about-content-one.component';
 import { AboutContentTwoComponent } from './about-content-two/about-content-two.component';
 import { AboutContentThreeComponent } from './about-content-three/about-content-three.component';
-
+import { SwiperModule } from 'swiper/angular';
 
 @NgModule({
   declarations: [
@@ -16,12 +16,14 @@ import { AboutContentThreeComponent } from './about-content-three/about-content-
     AboutBannerComponent,
     AboutContentOneComponent,
     AboutContentTwoComponent,
-    AboutContentThreeComponent
+    AboutContentThreeComponent,
+
   ],
   imports: [
     CommonModule,
     AboutUsRoutingModule,
     PageLayoutModule,
+    SwiperModule
   ]
 })
 export class AboutUsModule { }

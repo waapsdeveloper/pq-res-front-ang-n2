@@ -9,9 +9,12 @@ import { NetworkService } from '../../../services/network.service';
   styleUrl: './about-content-one.component.scss',
 })
 export class AboutContentOneComponent implements OnInit {
-onSlideChanged() {
+onSwiper($event: any) {
 throw new Error('Method not implemented.');
 }
+onSlideChange() {
+}
+
   data:any;
 courseImages: any;
   constructor(private network: NetworkService) {}
