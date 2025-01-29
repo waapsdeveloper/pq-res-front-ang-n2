@@ -21,7 +21,7 @@ import { AboutContentThreeComponent } from './about-content-three/about-content-
   imports: [
     CommonModule,
     AboutUsRoutingModule,
-    PageLayoutModule
+    PageLayoutModule,
   ]
 })
 export class AboutUsModule { }
