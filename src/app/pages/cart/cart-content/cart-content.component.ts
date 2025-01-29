@@ -21,6 +21,7 @@ export class CartContentComponent implements OnInit {
   phone: number | null = null;
   variations: any[] = [];
   splitBill:any;
+  notes:any;
   constructor(
     public carte: CartService,
     private network: NetworkService,
@@ -105,6 +106,7 @@ export class CartContentComponent implements OnInit {
       delivery: this.deliveryFee,
       subTotal: this.carte.total_price,
       type: table_identifier ? 'dine-in' : 'delivery',
+      notes:this.notes
     };
     localStorage.setItem('splitBill', this.splitBill);
     console.log(obj,this.splitBill);
