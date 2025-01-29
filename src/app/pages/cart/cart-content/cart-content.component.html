@@ -50,6 +50,18 @@
           <div class="cart-box">
             <h3 class="mb-3">Order Details</h3>
             <div class="instructions">
+              <p>Do you Want to split the BIll?</p>
+              <input
+                type="number"
+                name=""
+                placeholder="No of person"
+                id="phone1234567"
+                class="int-field"
+                required
+                [(ngModel)]="splitBill"
+              />
+            </div>
+            <div class="instructions">
               <p>Special Instructions (Optional)</p>
               <textarea name="" id="" class="int-field"> </textarea>
               <p>Alternate Phone Number (3XXXXXXXXX)</p>
