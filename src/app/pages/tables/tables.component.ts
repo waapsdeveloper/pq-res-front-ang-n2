@@ -61,6 +61,7 @@ export class TablesComponent extends BasePage implements OnInit {
   }
 
   filterTables($event:any) {
+    console.log($event);
     if (!this.list || this.list.length === 0) {
       console.log('No tables available yet.');
       return;
@@ -77,7 +78,7 @@ export class TablesComponent extends BasePage implements OnInit {
     console.log('Filtered Tables:', this.filteredList);
   }
 
-  
+
   async setBooking(data: any) {
     // get if user is logged in
     const user = await this.users.getLoginUser();
@@ -101,6 +102,7 @@ export class TablesComponent extends BasePage implements OnInit {
   }
   onGuestCount(count: number) { // Type the parameter (number)
     this.guestCount = count;
+    
     console.log("Guest Count in Parent:", count); // Check the console
     // Now you can use the count in the parent component
     // ... your logic to use the guest count ...
