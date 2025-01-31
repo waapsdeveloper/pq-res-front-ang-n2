@@ -38,9 +38,9 @@ export class NotificationsService {
     // this.events.unsubscribe('course-rec-update-by-list');
   }
 
-  registerPusherEvent() {
+  registerPusherEvent(order_number: string) {
     this.notificationChannel.bind(
-      'notification-update',
+      'notification-update-' + order_number,
       this.notificationChannelReceived.bind(this)
     );
   }
