@@ -61,6 +61,9 @@ export class NetworkService {
   allCategory() {
     return this.httpGetResponse('all-categories', null, false);
   }
+  allBranches(){
+    return this.httpGetResponse('all-branches', null, false);
+  }
 
   // table bookings start
 

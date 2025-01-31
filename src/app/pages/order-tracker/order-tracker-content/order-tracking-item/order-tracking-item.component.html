@@ -12,7 +12,9 @@
     <div *ngIf="item?.variations?.length > 0" class="cart-variations">
       <p *ngFor="let variation of item.variations">
         <span *ngFor="let option of variation.options">
-          {{ option.name }} (Rs {{ option.price }})
+          <span *ngIf="option.selected"
+            >{{ option.name }} (Rs {{ option.price }})</span
+          >
         </span>
       </p>
     </div>
