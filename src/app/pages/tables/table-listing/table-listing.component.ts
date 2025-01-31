@@ -15,7 +15,11 @@ export class TableListingComponent {
   @Input('floors') floors: any[] = [];
   @Output('setBooking') setBooking = new EventEmitter<any>();
   @Output('filterFloors') filterFloors = new EventEmitter<any>();
+  @Output('guest') guest = new EventEmitter<any>();
+  @Output('filteredTables') filteredTables = new EventEmitter<any>();
 
+  name= ''
+  phone= 0;
   private _params: any;
   @Input()
   public set params(v: any) {
@@ -31,35 +35,16 @@ export class TableListingComponent {
   selectedDate = '';
   selectedTime = '';
   selectedGuestCount = '';
-  filteredTables: any[] = [];
+  //filteredTables: any[] = [];
 
   constructor(private utility: UtilityService) {
-    setTimeout(() => {
-      this.filterTables();
-    }, 1500);
+
+  }
+  filterTables(){
+
+  this.filteredTables.emit(this.selectedGuestCount)
   }
 
-  filterTables() {
-    if (!this.list || this.list.length === 0) {
-      console.log('No tables available yet.');
-      return;
-    }
-
-    this.filteredTables = [...this.list];
-    let maxSeats = parseInt(this.selectedGuestCount);
-
-    // Filtering tables where seats are between selectedGuestCount and selectedGuestCount + 5
-    this.filteredTables = this.list.filter(
-      (table) =>
-        table.no_of_seats >= maxSeats && table.no_of_seats <= maxSeats + 5
-    );
-
-    console.log('Filtered Tables:', this.filteredTables);
-  }
-
-  onGuestCountChange() {
-    this.filterTables();
-  }
   setSelected(item: any) {
     item.selected = !item.selected;
   }
@@ -74,6 +59,7 @@ export class TableListingComponent {
 
     if (data['no_of_guests']) {
       this.selectedGuestCount = data['no_of_guests'];
+      this.guest.emit(Number(this.selectedGuestCount));
     }
 
     if (data['date']) {
