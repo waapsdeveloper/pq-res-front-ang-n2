@@ -7,10 +7,9 @@ import { UtilityService } from '../../../services/utility.service';
   standalone: false,
 
   templateUrl: './table-listing.component.html',
-  styleUrl: './table-listing.component.scss'
+  styleUrl: './table-listing.component.scss',
 })
 export class TableListingComponent {
-
   selectedFloor = 'First';
   @Input('list') list: any[] = [];
   @Input('floors') floors: any[] = [];
@@ -19,12 +18,12 @@ export class TableListingComponent {
 
   private _params: any;
   @Input()
-  public set params(v : any) {
+  public set params(v: any) {
     this._params = v;
     this.setObjectReceived(v);
   }
 
-  public get params() : any {
+  public get params(): any {
     return this._params;
   }
 
@@ -32,61 +31,81 @@ export class TableListingComponent {
   selectedDate = '';
   selectedTime = '';
   selectedGuestCount = '';
+  filteredTables: any[] = [];
 
-
-  constructor(private utility: UtilityService){
-
+  constructor(private utility: UtilityService) {
+    setTimeout(() => {
+      this.filterTables();
+    }, 1500);
   }
 
-  setSelected(item: any){
+  filterTables() {
+    if (!this.list || this.list.length === 0) {
+      console.log('No tables available yet.');
+      return;
+    }
+
+    this.filteredTables = [...this.list];
+    let maxSeats = parseInt(this.selectedGuestCount);
+
+    // Filtering tables where seats are between selectedGuestCount and selectedGuestCount + 5
+    this.filteredTables = this.list.filter(
+      (table) =>
+        table.no_of_seats >= maxSeats && table.no_of_seats <= maxSeats + 5
+    );
+
+    console.log('Filtered Tables:', this.filteredTables);
+  }
+
+  onGuestCountChange() {
+    this.filterTables();
+  }
+  setSelected(item: any) {
     item.selected = !item.selected;
   }
 
   setFloor(fl: any) {
     this.selectedFloor = fl;
-    this.filterFloors.emit(fl)
+    this.filterFloors.emit(fl);
   }
 
-
-
-  setObjectReceived(data: any){
+  setObjectReceived(data: any) {
     console.log(data);
 
-    if(data['no_of_guests']){
+    if (data['no_of_guests']) {
       this.selectedGuestCount = data['no_of_guests'];
     }
 
-    if(data['date']){
+    if (data['date']) {
       this.selectedDate = data['date'];
     }
 
-    if(data['time']){
+    if (data['time']) {
       this.selectedTime = data['time'];
     }
-
-
-
-
   }
 
-
-  startBooking(){
-
+  startBooking() {
     // get selected tables
-    const selected = this.list.filter(x => x.selected).map(x => x.id);
+    const selected = this.list.filter((x) => x.selected).map((x) => x.id);
     console.log(selected);
 
-    if(selected.length == 0){
+    if (selected.length == 0) {
       this.utility.presentFailureToast('Please select a table to book');
       return;
     }
 
     // prepare booking data
-    if (this.selectedDate == '' || this.selectedTime == '' || this.selectedGuestCount == ''){
-      this.utility.presentFailureToast('Please select date, time and guest count');
+    if (
+      this.selectedDate == '' ||
+      this.selectedTime == '' ||
+      this.selectedGuestCount == ''
+    ) {
+      this.utility.presentFailureToast(
+        'Please select date, time and guest count'
+      );
       return;
     }
-
 
     // let startTIme = this.selectedDate + ' ' + this.selectedTime;
     // // add 1 hour
@@ -113,26 +132,46 @@ export class TableListingComponent {
     console.log('Start Time:', startTimeString);
     console.log('End Time:', formattedEndTime);
 
-
     let bookingData = {
-      "restaurant_id": 1,
-      "tables": selected,
-      "no_of_seats": this.selectedGuestCount,
-      "start_time": startTimeString + ':00',
-      "end_time": formattedEndTime + ':00',
-
+      restaurant_id: 1,
+      tables: selected,
+      no_of_seats: this.selectedGuestCount,
+      start_time: startTimeString + ':00',
+      end_time: formattedEndTime + ':00',
     };
 
-    this.setBooking.emit(bookingData)
-
-
-
-
-
-
-
+    this.setBooking.emit(bookingData);
   }
+  formData = {
+    no_of_guests: '',
+    date: '',
+    time: '',
+  };
 
+  @Output('onAction') onAction = new EventEmitter<any>();
 
+  async formSubmit() {
+    console.log(this.formData);
 
+    if (!this.formData.no_of_guests) {
+      this.utility.presentFailureToast('Please enter number of guests');
+      return;
+    }
+
+    if (!this.formData.date) {
+      this.utility.presentFailureToast('Which date you are about to visit');
+      return;
+    }
+
+    if (!this.formData.time) {
+      this.utility.presentFailureToast('Which time you are about to visit');
+      return;
+    }
+
+    this.onAction.emit(this.formData);
+
+    // const res = await this.network.checkTableAvailability(this.formData);
+
+    // console.log(res);
+  }
 }

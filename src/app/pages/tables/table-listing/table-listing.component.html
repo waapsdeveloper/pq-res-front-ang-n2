@@ -9,6 +9,60 @@
      <img src="assets/img/fl-17.svg" alt="">
   </div>
   <div class="container">
+    <section class="sc-2">
+      <div class="container">
+         <div class="booking-box">
+            <div class="fl-9"  data-aos="fade" data-aos-duration="1200">
+               <img src="assets/img/fl-9.svg" alt="">
+            </div>
+            <div class="fl-10"  data-aos="fade" data-aos-duration="1200">
+               <img src="assets/img/fl-10.svg" alt="">
+            </div>
+            <div class="book-sc">
+               <h3 class="top-cont-1">Online Booking</h3>
+               <h2 class="top-cont-2">Table <span>Booking</span></h2>
+               <div class="row">
+                  <div class="col-md-3">
+                     <div class="book-inp">
+                        <input class="form-control" placeholder="No of Guest" type="number" [(ngModel)]="selectedGuestCount" (ngModelChange)="filterTables()">
+                     </div>
+                  </div>
+                  <div class="col-md-3">
+                     <div class="book-inp">
+                        <input class="form-control" placeholder="Date" type="date" [(ngModel)]="selectedDate" >
+                     </div>
+                  </div>
+                  <div class="col-md-3">
+                     <div class="book-inp">
+                        <input class="form-control" placeholder="Time" type="time" [(ngModel)]="selectedTime">
+                     </div>
+                  </div>
+                  <div class="col-md-3">
+                     <div class="book-inp">
+                        <div class="btn-sc text-left">
+
+                           <button class="btn-prime w-100" (click)="startBooking()">
+                            Continue
+                           </button>
+
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="fl-11"  data-aos="fade" data-aos-duration="1200">
+               <img src="assets/img/fl-11.svg" alt="">
+            </div>
+            <div class="fl-12"  data-aos="fade" data-aos-duration="1200">
+               <img src="assets/img/fl-12.svg" alt="">
+            </div>
+            <div class="fl-14" data-aos="fade" data-aos-duration="1200">
+               <img src="assets/img/fl-14.svg" alt="">
+            </div>
+         </div>
+      </div>
+    </section>
+
      <div class="table-box">
         <div class="tb-head-sc mb-4">
            <div class="row">
@@ -17,22 +71,25 @@
               </div>
               <div class="col-md-6">
                  <div class="th-btn-sc">
-                    <div class="radio-container" >
-                       <!-- Delivery Radio Button -->
-                       <label *ngFor="let fl of floors">
-                       <input type="radio" name="floors" value="first-floor" id="first-floor" class="first-floor" [checked]="fl === selectedFloor" (change)="setFloor(fl)" />
-                       <span class="radio-label">
-                       <i class="bi bi-pin-map"></i> {{fl}} Floor
-                       </span>
-                       </label>
-                    </div>
+                  <div class="radio-container">
+                    <label for="floor-select">
+                      <i class="bi bi-pin-map"></i> Select Floor:
+                    </label>
+                    <select id="floor-select" class="floor-dropdown" [(ngModel)]="selectedFloor" (change)="setFloor(selectedFloor)">
+                      <option *ngFor="let fl of floors" [value]="fl">
+                        {{ fl }} Floor
+                      </option>
+                    </select>
+                  </div>
+
                  </div>
               </div>
            </div>
         </div>
         <div class="tabel-sc">
            <div class="row">
-              <div class="col-md-3 mb-4" *ngFor="let item of list">
+              <div class="col-md-3 mb-4" *ngFor="let item of filteredTables;
+              ">
                  <div class="tb-bx" [class.booked]="item.selected">
                     <div class="tb-img">
                        <span>{{item.no_of_seats}}</span>,
@@ -68,7 +125,7 @@
               <div class="col-md-3">
                 <div class="text-right">
                     <button class="btn-prime w-100" (click)="startBooking()">
-                        select and continue
+                        Select And Continue
                     </button>
                 </div>
               </div>
