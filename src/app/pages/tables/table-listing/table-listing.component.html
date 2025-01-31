@@ -120,7 +120,7 @@
                   id="floor-select"
                   class="floor-dropdown"
                   [(ngModel)]="selectedFloor"
-                  (change)="setFloor(selectedFloor)"
+                  (ngModelChange)="setFloor(selectedFloor)"
                 >
                   <option *ngFor="let fl of floors" [value]="fl">
                     {{ fl }} Floor
