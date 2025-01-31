@@ -32,39 +32,34 @@ export class TableListingComponent {
   selectedTime = '';
   selectedGuestCount = '';
   filteredTables: any[] = [];
-  phone = null;
-  name: string = '';
 
   constructor(private utility: UtilityService) {
     setTimeout(() => {
-      this.filterTables(); // Run after component is initialized
+      this.filterTables();
     }, 1500);
   }
 
   filterTables() {
-    console.log('Selected Guest Count:', this.selectedGuestCount);
     if (!this.list || this.list.length === 0) {
       console.log('No tables available yet.');
       return;
     }
 
-    // Initialize filteredTables with all records initially
     this.filteredTables = [...this.list];
+    let maxSeats = parseInt(this.selectedGuestCount);
 
-    // Only apply filtering if a value is set for selectedGuestCount
-    if (this.selectedGuestCount && Number(this.selectedGuestCount) > 0) {
-      let maxSeats = parseInt(this.selectedGuestCount);
-
-      // Filtering tables where seats are between selectedGuestCount and selectedGuestCount + 5
-      this.filteredTables = this.list.filter(
-        (table) =>
-          table.no_of_seats >= maxSeats && table.no_of_seats <= maxSeats + 5
-      );
-    }
+    // Filtering tables where seats are between selectedGuestCount and selectedGuestCount + 5
+    this.filteredTables = this.list.filter(
+      (table) =>
+        table.no_of_seats >= maxSeats && table.no_of_seats <= maxSeats + 5
+    );
 
     console.log('Filtered Tables:', this.filteredTables);
   }
 
+  onGuestCountChange() {
+    this.filterTables();
+  }
   setSelected(item: any) {
     item.selected = !item.selected;
   }
@@ -143,8 +138,6 @@ export class TableListingComponent {
       no_of_seats: this.selectedGuestCount,
       start_time: startTimeString + ':00',
       end_time: formattedEndTime + ':00',
-      phone: this.phone,
-      name: this.name,
     };
 
     this.setBooking.emit(bookingData);
