@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CartService } from '../../services/cart.service';
 import { NetworkService } from '../../services/network.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NotificationsService } from '../../services/notifications.service';
 
 @Component({
   selector: 'app-order-tracker',
@@ -17,7 +18,8 @@ export class OrderTrackerComponent {
   constructor(
     public carte: CartService,
     private network: NetworkService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private notifications: NotificationsService
   ) {
 
   }
@@ -28,6 +30,8 @@ export class OrderTrackerComponent {
     const res = await this.network.trackOrder(order_number);
     this.data = res.order;
     console.log(this.data);
+
+    this.notifications.registerPusherEvent(order_number)
   }
 
 
