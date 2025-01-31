@@ -18,20 +18,32 @@ export class OrderTrackerComponent {
   constructor(
     public carte: CartService,
     private network: NetworkService,
-    private route: ActivatedRoute,
+    private activatedRoute: ActivatedRoute,
     private notifications: NotificationsService
   ) {
 
   }
 
   async ngOnInit() {
-    const order_number = this.route.snapshot.paramMap.get('order_number');
+
+    this.activatedRoute.paramMap.subscribe((params) => {
+      this.initialize(params);
+    })
+
+    
+  }
+
+  async initialize(params: any){
+
+    const order_number = params['order_number'];
 
     const res = await this.network.trackOrder(order_number);
     this.data = res.order;
     console.log(this.data);
 
     this.notifications.registerPusherEvent(order_number)
+
+
   }
 
 

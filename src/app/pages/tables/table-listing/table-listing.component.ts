@@ -1,6 +1,5 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { EventsService } from '../../../services/events.service';
-import { UtilityService } from '../../../services/utility.service';
+import { Component, EventEmitter, Injector, Input, OnInit, Output } from '@angular/core';
+import { BasePage } from '../../base-page/base-page';
 
 @Component({
   selector: 'app-table-listing',
@@ -9,17 +8,19 @@ import { UtilityService } from '../../../services/utility.service';
   templateUrl: './table-listing.component.html',
   styleUrl: './table-listing.component.scss',
 })
-export class TableListingComponent {
-  selectedFloor = 'First';
-  @Input('list') list: any[] = [];
-  @Input('floors') floors: any[] = [];
-  @Output('setBooking') setBooking = new EventEmitter<any>();
-  @Output('filterFloors') filterFloors = new EventEmitter<any>();
-  @Output('guest') guest = new EventEmitter<any>();
-  @Output('filteredTables') filteredTables = new EventEmitter<any>();
+export class TableListingComponent extends BasePage implements OnInit {
 
-  name= ''
-  phone= 0;
+  list: any[] = [];
+  filteredList: any[] = [];
+  floors: any[] = [];
+  restaurantId: any;
+  guestCount= 0;
+
+  selectedFloor = 'First';
+
+  name = '';
+  phone = 0;
+
   private _params: any;
   @Input()
   public set params(v: any) {
@@ -37,12 +38,11 @@ export class TableListingComponent {
   selectedGuestCount = '';
   //filteredTables: any[] = [];
 
-  constructor(private utility: UtilityService) {
-
+  constructor(injector: Injector) {
+    super(injector)
   }
-  filterTables(){
-
-  this.filteredTables.emit(this.selectedGuestCount)
+  ngOnInit(): void {
+    this.restaurantId = localStorage.getItem('restaurant_id');
   }
 
   setSelected(item: any) {
@@ -51,15 +51,16 @@ export class TableListingComponent {
 
   setFloor(fl: any) {
     this.selectedFloor = fl;
-    this.filterFloors.emit(fl);
+    this.filteredList = this.list.filter((item: any) => {
+      return item.floor === this.selectedFloor;
+    });
   }
 
-  setObjectReceived(data: any) {
+  async setObjectReceived(data: any) {
     console.log(data);
 
     if (data['no_of_guests']) {
       this.selectedGuestCount = data['no_of_guests'];
-      this.guest.emit(Number(this.selectedGuestCount));
     }
 
     if (data['date']) {
@@ -69,11 +70,43 @@ export class TableListingComponent {
     if (data['time']) {
       this.selectedTime = data['time'];
     }
+
+    const restaurantId = String(localStorage.getItem('restaurant_id'));
+    let obj = {
+      restaurant_id: restaurantId,
+    };
+
+    obj = Object.assign(obj, data);
+
+    const res = await this.network.getTablesByRestaurantId(
+      obj,
+      parseInt(restaurantId)
+    );
+    console.log(res);
+
+    if (res.restaurant && res.restaurant.length > 0) {
+      this.list = res.restaurant;
+      this.floors = res.floors;
+
+      this.filteredList = this.list.filter((item: any) => {
+        return item.floor === this.floors[0];
+      });
+    }
+
   }
 
-  startBooking() {
+  filterFloors($event: any) {
+    console.log($event);
+
+    this.filteredList = this.list.filter((item: any) => {
+      return item.floor === $event;
+    });
+
+  }
+
+  async startBooking() {
     // get selected tables
-    const selected = this.list.filter((x) => x.selected).map((x) => x.id);
+    const selected = this.list.filter((x: any) => x.selected).map((x: any) => x.id);
     console.log(selected);
 
     if (selected.length == 0) {
@@ -126,8 +159,27 @@ export class TableListingComponent {
       end_time: formattedEndTime + ':00',
     };
 
-    this.setBooking.emit(bookingData);
+    // get if user is logged in
+    const user = await this.users.getLoginUser();
+    console.log(user);
+    if (!user) {
+      this.nav.push('/tabs/login');
+      return;
+    }
+
+    console.log(bookingData);
+    const res = await this.network.setTableBooking(bookingData);
+    console.log(res);
+    if (res && res.booking) {
+      this.utility.presentSuccessToast(
+        'Table booked successfully - we will contact you shortly, Thank you!'
+      );
+
+      // sthis.nav.pop();
+      // this.nav.push('/tabs/booking-checkout', { booking: JSON.stringify(res.booking) });
+    }
   }
+
   formData = {
     no_of_guests: '',
     date: '',
@@ -159,5 +211,20 @@ export class TableListingComponent {
     // const res = await this.network.checkTableAvailability(this.formData);
 
     // console.log(res);
+  }
+
+  updateGuestCount($event: any) {
+    console.log($event);
+    if (!this.list || this.list.length === 0) {
+      console.log('No tables available yet.');
+      return;
+    }
+
+    this.filteredList = this.list.filter((item: any) => {
+      return item.no_of_seats >= $event;
+    });
+
+    console.log('Filtered Tables:', this.filteredList);
+    
   }
 }

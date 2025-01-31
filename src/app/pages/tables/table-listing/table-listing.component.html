@@ -25,57 +25,32 @@
               <!-- Name Input -->
               <div class="col-md-2">
                 <div class="book-inp">
-                  <input
-                    class="form-control"
-                    placeholder="Name"
-                    type="text"
-                    [(ngModel)]="name"
-                  />
+                  <input class="form-control" placeholder="Name" type="text" [(ngModel)]="name" />
                 </div>
               </div>
               <!-- Phone Input -->
               <div class="col-md-3">
                 <div class="book-inp">
-                  <input
-                    class="form-control"
-                    placeholder="Phone"
-                    type="number"
-                    [(ngModel)]="phone"
-                  />
+                  <input class="form-control" placeholder="Phone" type="number" [(ngModel)]="phone" />
                 </div>
               </div>
               <!-- No of Guest -->
               <div class="col-md-2">
                 <div class="book-inp">
-                  <input
-                    class="form-control"
-                    placeholder="No of Guest"
-                    type="number"
-                    [(ngModel)]="selectedGuestCount"
-                    (ngModelChange)="filterTables()"
-                  />
+                  <input class="form-control" placeholder="No of Guest" type="number" [(ngModel)]="selectedGuestCount"
+                    (ngModelChange)="updateGuestCount($event)" />
                 </div>
               </div>
               <!-- Date Input -->
               <div class="col-md-3">
                 <div class="book-inp">
-                  <input
-                    class="form-control"
-                    placeholder="Date"
-                    type="date"
-                    [(ngModel)]="selectedDate"
-                  />
+                  <input class="form-control" placeholder="Date" type="date" [(ngModel)]="selectedDate" />
                 </div>
               </div>
               <!-- Time Input -->
               <div class="col-md-2">
                 <div class="book-inp">
-                  <input
-                    class="form-control"
-                    placeholder="Time"
-                    type="time"
-                    [(ngModel)]="selectedTime"
-                  />
+                  <input class="form-control" placeholder="Time" type="time" [(ngModel)]="selectedTime" />
                 </div>
               </div>
               <!-- Continue Button -->
@@ -116,12 +91,8 @@
                 <label for="floor-select">
                   <i class="bi bi-pin-map"></i> Select Floor:
                 </label>
-                <select
-                  id="floor-select"
-                  class="floor-dropdown"
-                  [(ngModel)]="selectedFloor"
-                  (ngModelChange)="setFloor(selectedFloor)"
-                >
+                <select id="floor-select" class="floor-dropdown" [(ngModel)]="selectedFloor"
+                  (ngModelChange)="setFloor(selectedFloor)">
                   <option *ngFor="let fl of floors" [value]="fl">
                     {{ fl }} Floor
                   </option>
@@ -133,19 +104,13 @@
       </div>
       <div class="tabel-sc">
         <div class="row">
-          <div class="col-md-3 mb-4" *ngFor="let item of list">
+          <div class="col-md-3 mb-4" *ngFor="let item of filteredList">
             <div class="tb-bx" [class.booked]="item.selected">
               <div class="tb-img">
-                <span>{{ item.no_of_seats }}</span
-                >,
+                <span>{{ item.no_of_seats }}</span>,
                 <img src="assets/img/table.svg" alt="" />
               </div>
-              <button
-                (click)="setSelected(item)"
-                class="btn-prime"
-                data-bs-toggle="modal"
-                data-bs-target="#table-form"
-              >
+              <button (click)="setSelected(item)" class="btn-prime" data-bs-toggle="modal" data-bs-target="#table-form">
                 {{ !item.selected ? item.identifier : "Selected" }}
               </button>
             </div>
