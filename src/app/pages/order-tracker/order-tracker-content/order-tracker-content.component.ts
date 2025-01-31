@@ -9,6 +9,8 @@ import { CartService } from '../../../services/cart.service';
   styleUrl: './order-tracker-content.component.scss',
 })
 export class OrderTrackerContentComponent {
+  perHead: any;
+  total:any
   private _data: any;
   variations: any[] = [];
   @Input()
@@ -18,9 +20,12 @@ export class OrderTrackerContentComponent {
   set data(value: any) {
     this._data = value;
   }
- 
 
   constructor(public carte: CartService) {}
 
   async ngOnInit() {}
+  splitBill(){
+    this.total = (this.data?.total_price / this.perHead).toFixed(2);
+
+  }
 }

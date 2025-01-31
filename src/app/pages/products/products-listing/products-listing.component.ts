@@ -39,10 +39,11 @@ export class ProductsListingComponent {
       restaurant_id: this.restaurant_id
     };
     const res = await this.network.getProducts(obj);
-    console.log(res);
+    const categories = await this.network.allCategory();
+    console.log(res, categories);
 
-    if (res) {
-      this.categories = res.categories;
+    if (res && categories) {
+      this.categories = categories.data;
       this.products = res.products.data;
       this.filteredProducts = [...this.products];
     }

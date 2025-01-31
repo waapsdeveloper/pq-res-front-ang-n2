@@ -20,7 +20,7 @@ export class CartContentComponent implements OnInit {
   total: number = 0;
   phone: number | null = null;
   variations: any[] = [];
-
+  notes:any;
   constructor(
     public carte: CartService,
     private network: NetworkService,
@@ -105,8 +105,8 @@ export class CartContentComponent implements OnInit {
       delivery: this.deliveryFee,
       subTotal: this.carte.total_price,
       type: table_identifier ? 'dine-in' : 'delivery',
+      notes:this.notes
     };
-    console.log(obj);
     const res = await this.network.makeOrder(obj);
     console.log(res);
     if (res) {

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NetworkService } from '../../../services/network.service';
+import { UtilityService } from '../../../services/utility.service';
 
 @Component({
   selector: 'app-contact-form',
@@ -9,7 +10,10 @@ import { NetworkService } from '../../../services/network.service';
   styleUrl: './contact-form.component.scss',
 })
 export class ContactFormComponent implements OnInit {
-  constructor(private network: NetworkService) {}
+  constructor(
+    private network: NetworkService,
+    public utilitty: UtilityService
+  ) {}
   data: any;
   name: any;
   email: any;
@@ -33,9 +37,12 @@ export class ContactFormComponent implements OnInit {
       email: this.email,
       message: this.message,
       phone: this.phone,
+      restaurant_id: localStorage.getItem('restaurant_id'),
     };
 
     console.log(obj);
     this.network.contactUs(obj);
+    this.utilitty.presentSuccessToast('Item added to cart!');
+    (this.name = ''), (this.email = ''), (this.message = ''), (this.phone = '');
   }
 }
