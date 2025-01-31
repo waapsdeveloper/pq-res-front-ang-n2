@@ -32,6 +32,8 @@ export class TableListingComponent {
   selectedTime = '';
   selectedGuestCount = '';
   filteredTables: any[] = [];
+  phone = null;
+  name: string = '';
 
   constructor(private utility: UtilityService) {
     setTimeout(() => {
@@ -138,6 +140,8 @@ export class TableListingComponent {
       no_of_seats: this.selectedGuestCount,
       start_time: startTimeString + ':00',
       end_time: formattedEndTime + ':00',
+      phone: this.phone,
+      name: this.name,
     };
 
     this.setBooking.emit(bookingData);
