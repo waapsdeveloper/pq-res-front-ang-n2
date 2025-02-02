@@ -1,16 +1,89 @@
-.variations-list {
+// .variations-list {
+//   display: flex;
+//   flex-direction: column;
+//   gap: 5px; /* Optional: Adds spacing between each variation line */
+// }
+
+// .variation-item {
+//   display: flex;
+//   align-items: center;
+//   gap: 10px; /* Space between the checkbox and text */
+// }
+
+// label {
+//   display: inline-block;
+//   margin-bottom: 0; /* Prevents stacking on multiple lines */
+// }
+.cart-item {
+  display: flex;
+  flex-wrap: wrap; /* Responsive */
+  justify-content: space-between;
+  width: 100%;
+  padding: 15px;
+  border-bottom: 1px solid #ddd;
+  gap: 15px;
+}
+
+.cart-left,
+.cart-right {
+  flex: 1; /* Make both divs take equal width */
+  min-width: 300px;
+}
+
+.cart-img {
+  position: relative;
+  width: 100%;
+  height: 200px; /* Bigger Image */
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.cart-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.cart-overlay {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.6); /* Dark overlay */
+  color: white;
+  padding: 10px;
+  text-align: center;
+}
+
+.cart-right {
   display: flex;
   flex-direction: column;
-  gap: 5px; /* Optional: Adds spacing between each variation line */
+  justify-content: space-between;
 }
 
-.variation-item {
+.variation-title {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.cart-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 15px;
+  padding-top: 10px;
+  border-top: 1px solid #ddd;
+}
+
+.cart-count {
   display: flex;
   align-items: center;
-  gap: 10px; /* Space between the checkbox and text */
+  margin: 4px;
+  gap: 8px;
 }
 
-label {
-  display: inline-block;
-  margin-bottom: 0; /* Prevents stacking on multiple lines */
+.cart-delete {
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
 }
