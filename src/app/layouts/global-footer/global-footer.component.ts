@@ -15,13 +15,20 @@ export class GlobalFooterComponent implements OnInit {
   footer: any;
   currentYear: number = new Date().getFullYear();
   logoUrl: string | null = null;
+  selectedRestaurant: string = '';
+  branches:any[] = []
   constructor(public router: Router, private network: NetworkService) {}
   async ngOnInit() {
     //  const res = await this.network.restaurantDetail();
     //  console.log(res.data);
     //  this.item= res.data;
+    const res = await this.network.allBranches();
+    this.branches = res.data;
+    console.log(this.branches);
+
     let json = localStorage.getItem('restaurant');
     this.setLogo();
+
 
      this.footer = json ? JSON.parse(json) : null;
   }
@@ -53,6 +60,10 @@ export class GlobalFooterComponent implements OnInit {
     let image = json ? JSON.parse(json) : null;
     this.logoUrl = image?.logo || '';
     return this.logoUrl;
+  }
+  update(){
+    localStorage.setItem('restaurant_id' , this.selectedRestaurant)
+    console.log(this.selectedRestaurant)
   }
 }
 

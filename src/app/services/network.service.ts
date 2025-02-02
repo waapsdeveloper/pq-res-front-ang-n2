@@ -143,8 +143,8 @@ export class NetworkService {
     );
   }
 
-  restaurantDetail() {
-    return this.httpGetResponse('restaurant-detail/1', null, false);
+  restaurantDetail(id:any) {
+    return this.httpGetResponse(`restautant-detail/${id}`, null, false);
   }
 
   serialize = (obj: any) => {

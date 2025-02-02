@@ -11,7 +11,7 @@ import { Observable } from 'rxjs';
   styleUrl: './product-box.component.scss'
 })
 export class ProductBoxComponent {
-
+  addToCarts:boolean = true;
   private _item: any;
   @Input()
   set item(item: any) {

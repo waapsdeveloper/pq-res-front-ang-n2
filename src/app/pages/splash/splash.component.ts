@@ -9,25 +9,31 @@ import { BasePage } from '../base-page/base-page';
   styleUrl: './splash.component.scss',
 })
 export class SplashComponent extends BasePage {
-  restaurant_id:any;
+  restaurant_id: any;
   constructor(injector: Injector) {
     super(injector);
     this.initialize();
   }
 
-
   async initialize() {
-
     // this.showLoader();
-    const defaults = await this.network.getDefaultRestaurantId();
-    console.log(defaults);
-    if(defaults && defaults.active_restaurant){
-
-      let R = defaults.active_restaurant;
-      localStorage.setItem("restaurant" , JSON.stringify(R));
-      localStorage.setItem("restaurant_id" , R.id);
-    //   localStorage.setItem("restaurant_id" , JSON.stringify(defaults.active_restaurant));
-    }
+    this.restaurant_id = localStorage.getItem("restaurant_id")
+ //   const defaults = await this.network.getDefaultRestaurantId();
+    const res = await this.network.restaurantDetail(this.restaurant_id);
+    console.log(res.data);
+    if (res && res.data){
+      let  R = res.data;
+        localStorage.setItem('restaurant', JSON.stringify(R));
+        localStorage.setItem('restaurant_id', R.id);
+      }
+    
+   // console.log(defaults);
+    // if (defaults && defaults.active_restaurant) {
+    //   let R = defaults.active_restaurant;
+    //   localStorage.setItem('restaurant', JSON.stringify(R));
+    //   localStorage.setItem('restaurant_id', R.id);
+    //   //   localStorage.setItem("restaurant_id" , JSON.stringify(defaults.active_restaurant));
+    // }
 
     // // check if user logged in - if yes set its profile and cart
     // // const user = this.users.getLoginUserFromApi() as any;

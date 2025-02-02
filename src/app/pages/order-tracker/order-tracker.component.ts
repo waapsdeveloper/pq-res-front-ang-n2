@@ -30,12 +30,13 @@ export class OrderTrackerComponent {
       this.initialize(params);
     })
 
-    
+
   }
 
   async initialize(params: any){
 
-    const order_number = params['order_number'];
+    const order_number = params.params['order_number'];
+    console.log(params.params);
 
     const res = await this.network.trackOrder(order_number);
     this.data = res.order;

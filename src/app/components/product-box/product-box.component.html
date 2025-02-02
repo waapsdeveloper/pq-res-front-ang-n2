@@ -13,3 +13,27 @@
      </a>
   </div>
 </div>
+<div class="new-order-received-fixed-layout" *ngIf="addToCarts">
+  <div class="order-content">
+    <h2><img src="assets/svg/order.svg" alt=""></h2>
+    <div class="prod-box">
+      <div class="prod-img">
+         <img [src]="item.image" alt="">
+      </div>
+      <div class="prod-cont">
+         <a href="#">
+            <h3 class="prod-tittle">{{ item.name }}</h3>
+         </a>
+         <p class="prod-disc">{{ item.description }}</p>
+         <h6 class="prod-price">Price: <span>${{ item.price }}</span></h6>
+         <a href="javascript:void(0)" class="prod-btn" (click)="addToCart(item)">
+           Add to cart
+         </a>
+      </div>
+    </div>
+    <div class="buttons">
+      <button >Close</button>
+      <button>View Order</button>
+    </div>
+  </div>
+</div>
