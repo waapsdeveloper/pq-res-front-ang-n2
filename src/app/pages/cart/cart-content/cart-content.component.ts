@@ -82,11 +82,11 @@ export class CartContentComponent implements OnInit {
     this.carte.getCartItems().subscribe((res: any) => {
       console.log(res)
       this.cartItems = res;
-      // this.cartItems = this.cartItems.map(item => {
-      //   const { id, ...rest } = item; // Destructure `id` and the rest of the keys
-      //   return { product_id: id, ...rest }; // Replace `id` with `product_id`
-      // });
-      // console.log(this.cartItems);
+      this.cartItems = this.cartItems.map(item => {
+        const { id, ...rest } = item;
+        return { product_id: id, ...rest };
+      });
+      console.log(this.cartItems);
     });
   }
   changeVariationSelection($event: any) {
