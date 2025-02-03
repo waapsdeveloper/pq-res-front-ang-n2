@@ -10,36 +10,39 @@
   </div>
 
   <div class="cart-right">
-    <div class="variation-box" *ngIf="!item.variations?.length">
-      <img src="assets/img/delivery-img-inner.svg" class="mb-3" style="margin-left: 10rem ;" alt="" />
+    <!-- Product Name & Price -->
+    <div class="cart-details">
+      <h3>{{ item.name }} </h3>
+      <h3>${{item.price}}</h3>
+ </div>
+
+    <!-- Actions (Quantity + Remove) -->
+    <div class="cart-actions">
+      <div class="cart-count">
+        <img src="assets/svg/circle-plus.svg" (click)="addQuantity(item)" />
+        <input type="number" class="value" style="padding-left: 8px;" [value]="item.quantity" min="1" />
+        <img src="assets/svg/circle-minus.svg" (click)="removeQuantity(item)" />
+      </div>
+      <img class="cart-delete" src="assets/svg/trash.svg" (click)="removeItem(item)" />
     </div>
 
+    <!-- Variations Section -->
     <div class="cart-variations" *ngIf="item.variations?.length">
-      <div class="variations-list" *ngFor="let variation of item.variations">
-        <p class="variation-title">{{ variation.type }}</p>
-        <div class="variation-item" [ngClass]="{'selected': option.selected}" *ngFor="let option of variation.options">
+      <div class="variations-list" *ngFor="let variation of item?.variations">
+        <p class="variation-title">{{ variation?.type }}</p>
+        <div class="variation-item" [ngClass]="{'selected': option?.selected}" *ngFor="let option of variation?.options">
           <label>
             <div>
               <span>{{ option?.name }}</span>
             </div>
             <div class="d-flex gap-3">
               <span>${{ option?.price }}</span>
-              <input type="checkbox" [checked]="option.selected" [(ngModel)]="option.selected"
+              <input type="checkbox" [checked]="option?.selected" [(ngModel)]="option.selected"
                 (ngModelChange)="changeVariationSelection($event)" />
             </div>
-
           </label>
         </div>
       </div>
-    </div>
-
-    <div class="cart-actions">
-      <div class="cart-count">
-        <img src="assets/svg/circle-plus.svg" (click)="addQuantity(item)" />
-        <input type="number" class="value" [value]="item.quantity" min="1" />
-        <img src="assets/svg/circle-minus.svg" (click)="removeQuantity(item)" />
-      </div>
-      <img class="cart-delete" src="assets/svg/trash.svg" (click)="removeItem(item)" />
     </div>
   </div>
 </div>

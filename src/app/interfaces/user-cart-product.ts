@@ -3,6 +3,7 @@ export interface UserCartProduct {
   name: string;
   price: number;
   quantity: number;
+  variations:any[] ;
 }
 
 export type CartState = Array<UserCartProduct>;
