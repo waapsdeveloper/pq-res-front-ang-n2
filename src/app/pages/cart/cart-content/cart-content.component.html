@@ -1,15 +1,3 @@
-<section class="">
-
-  <div class="fl-5 animated-2" data-aos="zoom-in-up" data-aos-duration="1200">
-    <img src="assets/img/2.png" alt="" />
-  </div>
-  <div class="fl-6" data-aos="zoom-in-up" data-aos-duration="1300">
-    <img src="assets/img/9.png" alt="" />
-  </div>
-  <div class="fl-26" data-aos="zoom-in-up" data-aos-duration="1300">
-    <img src="assets/img/fl-26.svg" alt="" />
-  </div>
-</section>
 <section class="sec-3">
   <div class="fl-15" data-aos="fade" data-aos-duration="1200">
     <img src="assets/img/fl-15.svg" alt="" />
@@ -37,14 +25,12 @@
                 <button class="btn-prime">Explore Menu</button>
               </a>
             </div>
-            <div class="cart-items-list" *ngIf="cartItems.length > 0">              
+            <div class="cart-items-list" *ngIf="cartItems.length > 0">
               <div *ngFor="let item of cartItems">
-                <app-cart-item  [item]="item"></app-cart-item>
+                <app-cart-item [item]="item"></app-cart-item>
                 <div class="line=2143"></div>
               </div>
-                
             </div>
-
           </div>
         </div>
         <div class="col-md-3">
@@ -52,7 +38,13 @@
             <h3 class="mb-3">Order Details</h3>
             <div class="instructions">
               <p>Special Instructions (Optional)</p>
-              <textarea name="notes" id="" class="int-field" [(ngModel)]="notes" > </textarea>
+              <textarea
+                name="notes"
+                id=""
+                class="int-field"
+                [(ngModel)]="notes"
+              >
+              </textarea>
               <p>Alternate Phone Number (3XXXXXXXXX)</p>
               <input
                 type="number"
@@ -69,22 +61,30 @@
               <ul>
                 <li>
                   <div class="left-item">Sub Total :</div>
-                  <div class="right-item">Rs {{ this.carte.total_price | number: '1.2-2' }}</div>
+                  <div class="right-item">
+                    Rs {{ this.carte.total_price | number : "1.2-2" }}
+                  </div>
                 </li>
                 <li>
                   <div class="left-item">Delivery Fee :</div>
-                  <div class="right-item">Rs {{ deliveryFee || 0 | number: '1.2-2' }}</div>
+                  <div class="right-item">
+                    Rs {{ deliveryFee || 0 | number : "1.2-2" }}
+                  </div>
                 </li>
                 <li>
                   <div class="left-item">GST ( 0 % ) :</div>
-                  <div class="right-item">Rs {{ gstAmount || 0 | number: '1.2-2' }}</div>
+                  <div class="right-item">
+                    Rs {{ gstAmount || 0 | number : "1.2-2" }}
+                  </div>
                 </li>
               </ul>
               <div class="checkout-bar">
-                <span>{{ cartItems.length }} Items | Rs {{ this.carte.total_price | number: '1.2-2' }}</span>
+                <span
+                  >{{ cartItems.length }} Items | Rs
+                  {{ this.carte.total_price | number : "1.2-2" }}</span
+                >
                 <button (click)="makeOrder()">Check Out</button>
               </div>
-              
             </div>
           </div>
         </div>
