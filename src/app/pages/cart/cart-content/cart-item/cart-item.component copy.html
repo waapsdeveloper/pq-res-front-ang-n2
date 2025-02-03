@@ -1,36 +1,47 @@
 <div class="cart-item">
+  <!-- Left Side: Large Image with Overlay Text -->
   <div class="cart-left">
     <div class="cart-img">
       <img [src]="item.image" alt="" />
       <div class="cart-overlay">
-        <div>{{ item.name }}</div>
+        <div style=" text-transform: capitalize;">{{ item.name }}</div>
         <div>Rs {{ item.price }}</div>
       </div>
     </div>
   </div>
 
+  <!-- Right Side: Variations, Actions -->
   <div class="cart-right">
+    <!-- Variations Section -->
     <div class="cart-variations" *ngIf="item.variations?.length">
       <div class="variations-list" *ngFor="let variation of item.variations">
-        <p class="variation-title">{{ variation.type }}</p>
-        <div class="variation-item" [class.selected]="option.selected" *ngFor="let option of variation.options">
+        <p class="variation-title" style=" text-transform: capitalize;">{{ variation.type }}</p>
+        <div class="variation-item" *ngFor="let option of variation.options">
           <label>
-            <span>{{ option?.name }} Rs: {{ option?.price }}</span>
             <input
+
               type="checkbox"
               [checked]="option.selected"
               [(ngModel)]="option.selected"
               (ngModelChange)="changeVariationSelection($event)"
             />
+            <span style=" text-transform: capitalize;">{{ option?.name }} Rs: {{ option?.price }}</span>
           </label>
         </div>
       </div>
     </div>
 
+    <!-- Quantity Controls and Delete Action (Moved Below Variations) -->
     <div class="cart-actions">
       <div class="cart-count">
         <img src="assets/svg/circle-plus.svg" (click)="addQuantity(item)" />
-        <input type="number" class="value" [value]="item.quantity" min="1" />
+        <input
+          type="number"
+          class="value"
+          [value]="item.quantity"
+          min="1"
+          style="text-align: center"
+        />
         <img src="assets/svg/circle-minus.svg" (click)="removeQuantity(item)" />
       </div>
       <img class="cart-delete" src="assets/svg/trash.svg" (click)="removeItem(item)" />

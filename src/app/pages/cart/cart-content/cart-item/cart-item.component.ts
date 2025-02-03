@@ -59,7 +59,10 @@ export class CartItemComponent implements OnInit {
   }
 
   addQuantity(item: any) {
-    this.carte.updateQuantity(item.id, item.quantity + 1);
+    let n = parseInt(item.quantity);
+    n = n + 1;
+    console.log(n)
+    this.carte.updateQuantity(item.id, n);
     this.carte.totalOfProductCost();
   }
 

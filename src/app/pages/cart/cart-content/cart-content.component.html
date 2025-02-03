@@ -37,11 +37,9 @@
                 <button class="btn-prime">Explore Menu</button>
               </a>
             </div>
-            <div class="cart-items-list" *ngIf="cartItems.length > 0">
-              <ul>
+            <div class="cart-items-list" *ngIf="cartItems.length > 0">              
                 <app-cart-item *ngFor="let item of cartItems" [item]="item"
                 ></app-cart-item>
-              </ul>
             </div>
 
           </div>
