@@ -10,6 +10,7 @@ import { UtilityService } from '../../../../services/utility.service';
   styleUrl: './cart-item.component.scss',
 })
 export class CartItemComponent implements OnInit {
+
   private _item: any;
 
   @Input()
@@ -25,6 +26,7 @@ export class CartItemComponent implements OnInit {
     this.setVariation(value);
   }
   setVariation(v: any) {
+
     if (v.variation && v.variation.length > 0) {
       console.log(v.variation);
       // Check if meta_value is a string and parse it if necessary
@@ -43,7 +45,7 @@ export class CartItemComponent implements OnInit {
 
       console.log(result);
       console.log("Before",this.item);
-      this.item['variations'] = result;
+      this.carte.updateVariations(this.item.id, result);
        console.log("After ",this.item);
     }
   }
