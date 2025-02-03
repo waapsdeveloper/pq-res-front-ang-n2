@@ -42,7 +42,9 @@ export class CartItemComponent implements OnInit {
       }));
 
       console.log(result);
+      console.log("Before",this.item);
       this.item['variations'] = result;
+       console.log("After ",this.item);
     }
   }
 

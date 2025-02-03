@@ -47,7 +47,6 @@
   flex-direction: column;
   gap: 10px;
 }
- 
 
 .cart-variations {
   background: #f9f9f9;
@@ -75,8 +74,8 @@
   background: #fff;
 }
 
-.variation-item.selected{
-  background-color: #FFE1E1 !important;
+.variation-item.selected {
+  background-color: #ffe1e1 !important;
 }
 
 .variation-item span {
@@ -94,7 +93,6 @@
 .variation-item input {
   margin-left: auto;
 }
-
 
 .cart-actions {
   display: flex;
@@ -117,4 +115,9 @@
 .cart-delete {
   width: 24px;
   cursor: pointer;
+}
+.cart-details {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid;
 }

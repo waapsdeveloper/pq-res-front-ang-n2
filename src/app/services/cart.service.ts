@@ -27,6 +27,11 @@ export class CartService extends NgSimpleStateBaseRxjsStore<CartState> {
 
   addToCart(item: UserCartProduct) {
 
+   if(!item.variations){
+     item.variations = [];
+   }
+
+
     this.setState((state: any) => {
       let findIndex = state.findIndex((i: any) => i.id === item.id);
       if (findIndex !== -1) {
@@ -82,7 +87,7 @@ export class CartService extends NgSimpleStateBaseRxjsStore<CartState> {
   }
 
   updateQuantity(id: number, quantity: number) {
-    
+
     this.setState((state) => {
       const updatedState = state.map((item: any) =>
         item.id === id ? { ...item, quantity: quantity } : item
