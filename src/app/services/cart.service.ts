@@ -96,6 +96,16 @@ export class CartService extends NgSimpleStateBaseRxjsStore<CartState> {
     });
   }
 
+  updateVariations(id: number, variations: any[]) {
+
+    this.setState((state) => {
+      const updatedState = state.map((item: any) =>
+        item.id === id ? { ...item, variations: variations } : item
+      );
+      return updatedState;
+    });
+  }
+
   // getCartItem(index: number){
   //   return this.cart[index];
   // }
