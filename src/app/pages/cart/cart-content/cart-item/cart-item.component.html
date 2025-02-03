@@ -27,8 +27,8 @@
     </div>
 
     <!-- Variations Section -->
-    <div class="cart-variations" *ngIf="item.variations?.length">
-      <div class="variations-list" *ngFor="let variation of item?.variations">
+    <div class="cart-variations" *ngFor="let vari of item?.variations">
+      <div class="variations-list" *ngFor="let variation of vari">
         <p class="variation-title">{{ variation?.type }}</p>
         <div class="variation-item" [ngClass]="{'selected': option?.selected}" *ngFor="let option of variation?.options">
           <label>

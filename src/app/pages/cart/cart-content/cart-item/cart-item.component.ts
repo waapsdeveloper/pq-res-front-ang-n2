@@ -23,6 +23,7 @@ export class CartItemComponent implements OnInit {
   }
   set item(value: any) {
     this._item = value;
+    console.log(this.item);
     // this.setVariation(value);
   }
   // setVariation(v: any) {
