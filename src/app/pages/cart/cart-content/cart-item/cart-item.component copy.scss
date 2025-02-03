@@ -87,3 +87,10 @@
   width: 24px;
   height: 24px;
 }
+.variation-box {
+  display: grid;
+  place-items: center;  /* Centers both horizontally and vertically */
+  height: 100%;
+  width: 100%;
+}
+
