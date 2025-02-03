@@ -13,15 +13,17 @@
     <div class="cart-variations" *ngIf="item.variations?.length">
       <div class="variations-list" *ngFor="let variation of item.variations">
         <p class="variation-title">{{ variation.type }}</p>
-        <div class="variation-item" [class.selected]="option.selected" *ngFor="let option of variation.options">
+        <div class="variation-item" [ngClass]="{'selected': option.selected}" *ngFor="let option of variation.options">
           <label>
-            <span>{{ option?.name }} Rs: {{ option?.price }}</span>
-            <input
-              type="checkbox"
-              [checked]="option.selected"
-              [(ngModel)]="option.selected"
-              (ngModelChange)="changeVariationSelection($event)"
-            />
+            <div>
+              <span>{{ option?.name }}</span>
+            </div>
+            <div class="d-flex gap-3">
+              <span>${{ option?.price }}</span>
+              <input type="checkbox" [checked]="option.selected" [(ngModel)]="option.selected"
+                (ngModelChange)="changeVariationSelection($event)" />
+            </div>
+
           </label>
         </div>
       </div>
