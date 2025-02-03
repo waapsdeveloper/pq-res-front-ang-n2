@@ -23,32 +23,32 @@ export class CartItemComponent implements OnInit {
   }
   set item(value: any) {
     this._item = value;
-    this.setVariation(value);
+    // this.setVariation(value);
   }
-  setVariation(v: any) {
+  // setVariation(v: any) {
 
-    if (v.variation && v.variation.length > 0) {
-      console.log(v.variation);
-      // Check if meta_value is a string and parse it if necessary
-      let parsedVariations: any[] = JSON.parse(v.variation[0].meta_value);
-      console.log(parsedVariations);
-      // Add parsed variations to the item object
-      let result = parsedVariations.map((variation: any) => ({
-        type: variation.type,
-        options: variation.options.map((option: any) => ({
-          name: option.name,
-          description: option.description,
-          price: option.price,
-          selected: option.selected,
-        })),
-      }));
+  //   if (v.variation && v.variation.length > 0) {
+  //     console.log(v.variation);
+  //     // Check if meta_value is a string and parse it if necessary
+  //     let parsedVariations: any[] = JSON.parse(v.variation[0].meta_value);
+  //     console.log(parsedVariations);
+  //     // Add parsed variations to the item object
+  //     let result = parsedVariations.map((variation: any) => ({
+  //       type: variation.type,
+  //       options: variation.options.map((option: any) => ({
+  //         name: option.name,
+  //         description: option.description,
+  //         price: option.price,
+  //         selected: option.selected,
+  //       })),
+  //     }));
 
-      console.log(result);
-      console.log("Before",this.item);
-      this.carte.updateVariations(this.item.id, result);
-       console.log("After ",this.item);
-    }
-  }
+  //     console.log(result);
+  //     console.log("Before",this.item);
+  //     this.carte.updateVariations(this.item.id, result);
+  //      console.log("After ",this.item);
+  //   }
+  // }
 
   constructor(public carte: CartService,public utility:UtilityService) {}
 
