@@ -4,22 +4,22 @@ import { CommonModule } from '@angular/common';
 import { ProductsRoutingModule } from './products-routing.module';
 import { ProductsComponent } from './products.component';
 import { PageLayoutModule } from '../../layouts/page-layout/page-layout.module';
-import { ProductsBannerComponent } from './products-banner/products-banner.component';
 import { ProductsListingComponent } from './products-listing/products-listing.component';
 import { ProductBoxModule } from '../../components/product-box/product-box.module';
+import { HeaderBreadcrumbModule } from "../../components/header-breadcrumb/header-breadcrumb.module";
 
 
 @NgModule({
   declarations: [
     ProductsComponent,
-    ProductsBannerComponent,
     ProductsListingComponent
   ],
   imports: [
     CommonModule,
     ProductsRoutingModule,
     PageLayoutModule,
-    ProductBoxModule
-  ]
+    ProductBoxModule,
+    HeaderBreadcrumbModule
+]
 })
 export class ProductsModule { }
