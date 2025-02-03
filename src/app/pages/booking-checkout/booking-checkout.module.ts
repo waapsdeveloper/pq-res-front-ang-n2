@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { BookingCheckoutRoutingModule } from './booking-checkout-routing.module';
 import { BookingCheckoutComponent } from './booking-checkout.component';
-import { BookingCheckoutBannerModule } from './booking-checkout-banner/booking-checkout-banner.module';
 import { BookingCheckoutFormModule } from './booking-checkout-form/booking-checkout-form.module';
+import { HeaderBreadcrumbModule } from "../../components/header-breadcrumb/header-breadcrumb.module";
 
 
 @NgModule({
@@ -14,8 +14,8 @@ import { BookingCheckoutFormModule } from './booking-checkout-form/booking-check
   imports: [
     CommonModule,
     BookingCheckoutRoutingModule,
-    BookingCheckoutBannerModule,
-    BookingCheckoutFormModule
-  ]
+    BookingCheckoutFormModule,
+    HeaderBreadcrumbModule
+]
 })
 export class BookingCheckoutModule { }
