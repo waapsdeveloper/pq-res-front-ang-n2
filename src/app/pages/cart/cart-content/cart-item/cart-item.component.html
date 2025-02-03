@@ -10,6 +10,10 @@
   </div>
 
   <div class="cart-right">
+    <div class="variation-box" *ngIf="!item.variations?.length">
+      <img src="assets/img/delivery-img-inner.svg" class="mb-3" style="margin-left: 10rem ;" alt="" />
+    </div>
+
     <div class="cart-variations" *ngIf="item.variations?.length">
       <div class="variations-list" *ngFor="let variation of item.variations">
         <p class="variation-title">{{ variation.type }}</p>
