@@ -62,25 +62,25 @@
                 <li>
                   <div class="left-item">Sub Total :</div>
                   <div class="right-item">
-                    $ {{ this.carte.total_price | number : "1.2-2" }}
+                    ${{ this.carte.total_price | number : "1.2-2" }}
                   </div>
                 </li>
                 <li>
                   <div class="left-item">Delivery Fee :</div>
                   <div class="right-item">
-                    $ {{ deliveryFee || 0 | number : "1.2-2" }}
+                    ${{ deliveryFee || 0 | number : "1.2-2" }}
                   </div>
                 </li>
                 <li>
                   <div class="left-item">GST ( 0 % ) :</div>
                   <div class="right-item">
-                    $ {{ gstAmount || 0 | number : "1.2-2" }}
+                    ${{ gstAmount || 0 | number : "1.2-2" }}
                   </div>
                 </li>
               </ul>
               <div class="checkout-bar">
                 <span
-                  >{{ cartItems.length }} Items | $
+                  >{{ cartItems.length }} Items |s$
                   {{ this.carte.total_price | number : "1.2-2" }}</span
                 >
                 <button (click)="makeOrder()">Check Out</button>
