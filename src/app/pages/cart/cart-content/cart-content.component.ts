@@ -82,10 +82,10 @@ export class CartContentComponent implements OnInit {
     this.carte.getCartItems().subscribe((res: any) => {
       console.log(res)
       this.cartItems = res;
-      this.cartItems = this.cartItems.map(item => {
-        const { id, ...rest } = item;
-        return { product_id: id, ...rest };
-      });
+      // this.cartItems = this.cartItems.map(item => {
+      //   const { id, ...rest } = item;
+      //   return { product_id: id, ...rest };
+      // });
       console.log(this.cartItems);
     });
   }
@@ -98,9 +98,18 @@ export class CartContentComponent implements OnInit {
   }
   async makeOrder() {
     const table_identifier = localStorage.getItem('table_identifier') || '';
+
+    const items = this.cartItems.map(item => {
+      const { id, ...rest } = item;
+      return { product_id: id, ...rest };
+    });
+
+
+
+
     let obj = {
       table_identifier: table_identifier ? table_identifier : '',
-      products: this.cartItems,
+      products: items,
       restaurant_id: localStorage.getItem('restaurant_id') ? localStorage.getItem('restaurant_id') : -1 ,
       phone: this.phone,
       status: 'pending',
