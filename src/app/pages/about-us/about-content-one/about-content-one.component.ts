@@ -20,6 +20,10 @@ courseImages: any;
   constructor(private network: NetworkService) {}
   async ngOnInit() {
     let res = await this.network.aboutUsCategory();
-    this.data = res.data
+
+    const temp = [...res.data, ...res.data, ...res.data, ...res.data]
+    
+    // this.data = res.data
+    this.data = temp;
   }
 }
