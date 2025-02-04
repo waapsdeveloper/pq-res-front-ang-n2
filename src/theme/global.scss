@@ -1634,13 +1634,14 @@ textarea.contact-input {
   margin-bottom: 25px;
   font-size: 30px;
 }
+
 .contact-cont-bx {
   border: 1px solid #CC3333;
   border-radius: 8px;
   display: flex;
   height: 150px;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 .ccb-img {
