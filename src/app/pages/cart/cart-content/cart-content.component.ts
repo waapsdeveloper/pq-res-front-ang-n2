@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { CartService } from '../../../services/cart.service';
 import { NetworkService } from '../../../services/network.service';
 import { Router } from '@angular/router';
@@ -12,6 +12,21 @@ import { UtilityService } from '../../../services/utility.service';
   styleUrl: './cart-content.component.scss',
 })
 export class CartContentComponent implements OnInit {
+
+  
+  hostScreensize = -1;
+
+
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.updateColumnClass(event.target.innerWidth);
+  }
+
+  updateColumnClass(width: number) {
+    this.hostScreensize = width; //<= 1300 ? 'col-md-12' : 'col-md-9';
+  }
+
   cartItems: any[] = [];
   subtotal: number = 0;
   deliveryFee: number = 50; // Example static delivery fee

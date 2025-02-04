@@ -9,21 +9,19 @@ import { NetworkService } from '../../../services/network.service';
   styleUrl: './about-content-one.component.scss',
 })
 export class AboutContentOneComponent implements OnInit {
-onSwiper($event: any) {
-throw new Error('Method not implemented.');
-}
-onSlideChange() {
-}
-
-  data:any;
-courseImages: any;
+  
+  data: any;
+  courseImages: any;
+  
   constructor(private network: NetworkService) {}
   async ngOnInit() {
     let res = await this.network.aboutUsCategory();
 
-    const temp = [...res.data, ...res.data, ...res.data, ...res.data]
-    
-    // this.data = res.data
-    this.data = temp;
+    // const temp = [...res.data, ...res.data, ...res.data, ...res.data]
+
+    this.data = res.data;
   }
+
+  onSwiper($event: any) {}
+  onSlideChange() {}
 }

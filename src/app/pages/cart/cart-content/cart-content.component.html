@@ -1,5 +1,5 @@
 <section class="sec-3">
-  <div class="fl-15" data-aos="fade" data-aos-duration="1200">
+  <!-- <div class="fl-15" data-aos="fade" data-aos-duration="1200">
     <img src="assets/img/fl-15.svg" alt="" />
   </div>
   <div class="fl-16" data-aos="fade" data-aos-duration="1200">
@@ -7,13 +7,18 @@
   </div>
   <div class="fl-17" data-aos="fade" data-aos-duration="1200">
     <img src="assets/img/fl-17.svg" alt="" />
-  </div>
+  </div> -->
   <div class="container">
     <div class="add-to-sc">
       <div class="row">
-        <div class="col-md-9">
+        <div [ngClass]="{
+          'col-md-9': hostScreensize > 1300,
+          'col-md-6': hostScreensize <= 1300 && hostScreensize > 1000,
+          'col-md-12': hostScreensize <= 1000
+        }">
+        
           <div class="cart-box">
-            <h3>Items From Your Cart</h3>
+            
             <div class="item-bx text-center" *ngIf="cartItems.length == 0">
               <img
                 src="assets/img/delivery-img-inner.svg"
@@ -33,7 +38,11 @@
             </div>
           </div>
         </div>
-        <div class="col-md-3">
+        <div [ngClass]="{
+          'col-md-3': hostScreensize > 1300,
+          'col-md-6': hostScreensize <= 1300 && hostScreensize > 1000,
+          'col-md-12': hostScreensize <= 1000
+        }">
           <div class="cart-box">
             <h3 class="mb-3">Order Details</h3>
             <div class="instructions">
