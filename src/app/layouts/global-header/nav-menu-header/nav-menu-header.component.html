@@ -8,7 +8,7 @@
         <li><a (click)="openLink('/tabs/contact-us')" [class.active]="getActiveState('contact-us')">Contact</a></li>
      </ul>
 
-     <ul class="d-xl-none" #menuheader [style.display]="isMenuVisible ? 'block' : 'none'" class="full-page-menu">
+     <ul class="d-xl-none" #menuheader *ngIf="isMenuVisible" [style.display]="isMenuVisible ? 'block' : 'none'" class="full-page-menu">
         <a href="/" class="logo d-flex align-items-center me-auto me-xl-0">
             <img  [src]="logoUrl" alt="">
          </a>

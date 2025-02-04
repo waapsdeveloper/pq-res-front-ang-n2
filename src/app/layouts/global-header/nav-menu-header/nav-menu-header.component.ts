@@ -19,7 +19,9 @@ export class NavMenuHeaderComponent {
 
 
   openLink(link: string) {
-    this.toggleMobileMenu();
+    if(this.isMenuVisible){
+      this.toggleMobileMenu();
+    }
     this.events.publish('open-link', { link: link });
   }
 
