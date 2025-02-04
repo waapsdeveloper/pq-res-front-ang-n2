@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Injector, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, Injector, Input, OnInit, Output } from '@angular/core';
 import { BasePage } from '../../base-page/base-page';
 
 @Component({
@@ -37,6 +37,20 @@ export class TableListingComponent extends BasePage implements OnInit {
   selectedTime = '';
   selectedGuestCount = '';
   //filteredTables: any[] = [];
+
+
+  hostScreensize = -1;
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.updateColumnClass(event.target.innerWidth);
+  }
+
+  updateColumnClass(width: number) {
+    this.hostScreensize = width; //<= 1300 ? 'col-md-12' : 'col-md-9';
+  }
+
+  
 
   constructor(injector: Injector) {
     super(injector)

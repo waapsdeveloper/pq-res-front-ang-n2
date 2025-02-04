@@ -31,7 +31,8 @@
       <div class="variations-list" *ngFor="let variation of vari">
         <p class="variation-title">{{ variation?.type }}</p>
         <div class="d-flex flex-column gap-2 ">
-          <div class="variation-item" [ngClass]="{'selected': option?.selected}" *ngFor="let option of variation?.options">
+          <!-- [ngClass]="{'selected': option?.selected}" -->
+          <div class="variation-item" *ngFor="let option of variation?.options">
             <label>
               <div>
                 <span>{{ option?.name }}</span>

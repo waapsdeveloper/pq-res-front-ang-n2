@@ -31,7 +31,7 @@
               </a>
             </div>
             <div class="cart-items-list" *ngIf="cartItems.length > 0">
-              <div *ngFor="let item of cartItems">
+              <div *ngFor="let item of cartItems" class="d-flex flex-column gap-5">
                 <app-cart-item [item]="item"></app-cart-item>
                 <div class="line=2143"></div>
               </div>

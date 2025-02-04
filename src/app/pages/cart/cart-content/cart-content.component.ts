@@ -15,9 +15,7 @@ export class CartContentComponent implements OnInit {
 
   
   hostScreensize = -1;
-
-
-
+  
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
     this.updateColumnClass(event.target.innerWidth);
