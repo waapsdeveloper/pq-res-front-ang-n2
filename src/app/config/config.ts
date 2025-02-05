@@ -1,8 +1,8 @@
 export class Config {
   // static apiBaseUrl: string = 'http://127.0.0.1:8000/api/frontend'; // Base URL for API endpoints
-  static apiBaseUrl: string = 'https://pqresapi.spacess.online/api/frontend'; // Base URL for API endpoints
+  // static apiBaseUrl: string = 'https://pqresapi.spacess.online/api/frontend'; // Base URL for API endpoints
   //  static apiBaseUrl: string = 'https://pqresapi.spacess.online/api/frontend'; // Base URL for API endpoints
-//  static apiBaseUrl: string = 'https://api.restaurant.axetechsolutions.com/api/frontend'; // Base URL for API endpoints
+ static apiBaseUrl: string = 'https://api.restaurant.axetechsolutions.com/api/frontend'; // Base URL for API endpoints
   static timeout: number = 5000; // Default timeout for API calls in milliseconds
   static restaurant_id: number = 1;
 
