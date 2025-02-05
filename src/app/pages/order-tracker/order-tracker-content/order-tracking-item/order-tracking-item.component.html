@@ -1,25 +1,45 @@
-<li>
-  <!-- Product Image -->
-  <div class="cart-img">
-    <img [src]="item?.image" alt="{{ item.product_name }}" />
-  </div>
-
-  <!-- Product Name and Quantity -->
-  <div class="cart-name">
-    {{ item.product_name }} x <span>{{ item?.quantity }}</span>
-
-    <!-- Product Variations -->
-    <div *ngIf="item?.variations?.length > 0" class="cart-variations">
-      <p *ngFor="let variation of item.variations">
-        <span *ngFor="let option of variation.options">
-          <span *ngIf="option.selected"
-            >{{ option.name }} (Rs {{ option.price }})</span
-          >
-        </span>
-      </p>
+<div class="cart-item">
+  <div class="cart-left">
+    <div class="cart-img">
+      <img [src]="item.image" alt="" />
+      <div class="cart-overlay">
+        <div>{{ item.name }}</div>
+        <div>${{ item.price }}</div>
+      </div>
     </div>
   </div>
 
-  <!-- Product Price -->
-  <div class="cart-price">Rs {{ item.price }}</div>
-</li>
+  <div class="cart-right">
+    <!-- Product Name & Price -->
+    <div class="cart-details">
+      <h3>{{ item.name }} x <b>{{ item.quantity}}</b></h3>
+      <h3>${{item.price}}</h3>
+ </div>
+
+    <!-- Actions (Quantity + Remove) -->
+    
+
+    <!-- Variations Section -->
+    <div class="cart-variations" *ngFor="let vari of item?.variations">
+      <div class="variations-list" *ngFor="let variation of vari">
+        <p class="variation-title">{{ variation?.type }}</p>
+        <div class="d-flex flex-column gap-2 ">
+          <!-- [ngClass]="{'selected': option?.selected}" -->
+          <div class="variation-item" *ngFor="let option of variation?.options">
+            <label>
+              <div>
+                <span>{{ option?.name }}</span>
+              </div>
+              <div class="d-flex gap-3">
+                <span>${{ option?.price }}</span>
+                <input type="checkbox" disabled="true" [checked]="option?.selected" [(ngModel)]="option.selected"
+                  (ngModelChange)="changeVariationSelection($event)" />
+              </div>
+            </label>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</div>

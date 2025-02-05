@@ -4,8 +4,8 @@ import { CommonModule } from '@angular/common';
 import { RegisterRoutingModule } from './register-routing.module';
 import { RegisterComponent } from './register.component';
 import { RegisterFormModule } from './register-form/register-form.module';
-import { RegisterBannerSectionModule } from './register-banner-section/register-banner-section.module';
 import { FormsModule } from '@angular/forms';
+import { HeaderBreadcrumbModule } from "../../components/header-breadcrumb/header-breadcrumb.module";
 
 
 @NgModule({
@@ -15,9 +15,9 @@ import { FormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     RegisterRoutingModule,
-    RegisterBannerSectionModule,
     RegisterFormModule,
-    FormsModule
-  ]
+    FormsModule,
+    HeaderBreadcrumbModule
+]
 })
 export class RegisterModule { }

@@ -14,30 +14,16 @@ export class GlobalHeaderComponent {
   @ViewChild('menuheader') menuheader!: ElementRef;
   cartCounter: Observable<number>;
   logoUrl: string | null = null;
-  isMenuVisible = false; // Tracks visibility
 
   constructor(
     private nav: NavService,
-    private events: EventsService,
     public carte: CartService
   ) {
     this.cartCounter = this.carte.getCartCounter();
     this.setLogo();
   }
 
-  openLink(link: string) {
-    this.toggleMobileMenu();
-    this.events.publish('open-link', { link: link });
-  }
 
-  getActiveState(type: string) {
-    let g = this.nav.getPublicUrl();
-    return g ? g.includes(type) : false;
-  }
-
-  toggleMobileMenu() {
-    this.isMenuVisible = !this.isMenuVisible;
-  }
 
   gotoCart() {
     this.nav.push('/tabs/cart');

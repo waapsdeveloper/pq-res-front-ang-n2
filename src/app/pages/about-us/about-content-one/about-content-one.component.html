@@ -1,19 +1,20 @@
 <section class="about-sc">
-  <div class="container">
-    <div class="row">
+  <div class="container mt-5">
+    <div class="row justify-content-center">
       <ng-container *ngIf="data.length > 4; else noSwiper">
         <swiper
           [slidesPerView]="4"
           [spaceBetween]="20"
-          [navigation]="true"
+          [navigation]="false"
           [pagination]="{ clickable: true }"
-          [loop]="false"
+          [centeredSlides]="true"
+          [loop]="true"
           [breakpoints]="{
             '320': { slidesPerView: 1 },
             '768': { slidesPerView: 2 },
             '1024': { slidesPerView: 4 }
           }"
-          style="overflow: visible"
+          style="overflow: hidden"
         >
           <ng-template swiperSlide *ngFor="let item of data; let i = index">
             <div>

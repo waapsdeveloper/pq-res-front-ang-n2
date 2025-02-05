@@ -1,18 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CartBannerComponent } from './cart-banner.component';
+import { HeaderBreadcrumbComponent } from './header-breadcrumb.component';
 
 
 
 @NgModule({
   declarations: [
-    CartBannerComponent
+    HeaderBreadcrumbComponent
   ],
   imports: [
     CommonModule
   ],
   exports: [
-    CartBannerComponent
+    HeaderBreadcrumbComponent
   ]
 })
-export class CartBannerModule { }
+export class HeaderBreadcrumbModule { }

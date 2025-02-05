@@ -1,17 +1,5 @@
-<section class="sc-1 inner">
-
-  <div class="fl-5 animated-2" data-aos="zoom-in-up" data-aos-duration="1200">
-    <img src="assets/img/2.png" alt="" />
-  </div>
-  <div class="fl-6" data-aos="zoom-in-up" data-aos-duration="1300">
-    <img src="assets/img/9.png" alt="" />
-  </div>
-  <div class="fl-26" data-aos="zoom-in-up" data-aos-duration="1300">
-    <img src="assets/img/fl-26.svg" alt="" />
-  </div>
-</section>
 <section class="sec-3">
-  <div class="fl-15" data-aos="fade" data-aos-duration="1200">
+  <!-- <div class="fl-15" data-aos="fade" data-aos-duration="1200">
     <img src="assets/img/fl-15.svg" alt="" />
   </div>
   <div class="fl-16" data-aos="fade" data-aos-duration="1200">
@@ -19,13 +7,18 @@
   </div>
   <div class="fl-17" data-aos="fade" data-aos-duration="1200">
     <img src="assets/img/fl-17.svg" alt="" />
-  </div>
+  </div> -->
   <div class="container">
     <div class="add-to-sc">
       <div class="row">
-        <div class="col-md-9">
+        <div class="col-md-9" [ngClass]="{
+          'col-md-9': hostScreensize > 1300,
+          'col-md-6': hostScreensize <= 1300 && hostScreensize > 1000,
+          'col-md-12': hostScreensize <= 1000
+        }">
+        
           <div class="cart-box">
-            <h3>Items From Your Cart</h3>
+            
             <div class="item-bx text-center" *ngIf="cartItems.length == 0">
               <img
                 src="assets/img/delivery-img-inner.svg"
@@ -38,20 +31,29 @@
               </a>
             </div>
             <div class="cart-items-list" *ngIf="cartItems.length > 0">
-              <ul>
-                <app-cart-item *ngFor="let item of cartItems" [item]="item"
-                ></app-cart-item>
-              </ul>
+              <div *ngFor="let item of cartItems" class="d-flex flex-column gap-5">
+                <app-cart-item [item]="item"></app-cart-item>
+                <div class="line=2143"></div>
+              </div>
             </div>
-
           </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-3" [ngClass]="{
+          'col-md-3': hostScreensize > 1300,
+          'col-md-6': hostScreensize <= 1300 && hostScreensize > 1000,
+          'col-md-12': hostScreensize <= 1000
+        }">
           <div class="cart-box">
             <h3 class="mb-3">Order Details</h3>
             <div class="instructions">
               <p>Special Instructions (Optional)</p>
-              <textarea name="notes" id="" class="int-field" [(ngModel)]="notes" > </textarea>
+              <textarea
+                name="notes"
+                id=""
+                class="int-field"
+                [(ngModel)]="notes"
+              >
+              </textarea>
               <p>Alternate Phone Number (3XXXXXXXXX)</p>
               <input
                 type="number"
@@ -68,19 +70,28 @@
               <ul>
                 <li>
                   <div class="left-item">Sub Total :</div>
-                  <div class="irght-item" >Rs {{this.carte.total_price}}</div>
+                  <div class="right-item">
+                    ${{ this.carte.total_price | number : "1.2-2" }}
+                  </div>
                 </li>
                 <li>
                   <div class="left-item">Delivery Fee :</div>
-                  <div class="irght-item">Rs {{deliveryFee || 0}}</div>
+                  <div class="right-item">
+                    ${{ deliveryFee || 0 | number : "1.2-2" }}
+                  </div>
                 </li>
                 <li>
-                  <div class="left-item">GST ( NaN % ) :</div>
-                  <div class="irght-item">Rs {{gstAmount || 0}}</div>
+                  <div class="left-item">GST ( 0 % ) :</div>
+                  <div class="right-item">
+                    ${{ gstAmount || 0 | number : "1.2-2" }}
+                  </div>
                 </li>
               </ul>
-              <div class="checkout-bar" >
-                <span>{{ cartItems.length }} Items | Rs {{this.carte.total_price}}</span>
+              <div class="checkout-bar">
+                <span
+                  >{{ cartItems.length }} Items |$
+                  {{ this.carte.total_price | number : "1.2-2" }}</span
+                >
                 <button (click)="makeOrder()">Check Out</button>
               </div>
             </div>

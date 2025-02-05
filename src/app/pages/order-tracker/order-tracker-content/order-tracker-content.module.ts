@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { OrderTrackerContentComponent } from './order-tracker-content.component';
 import { FormsModule } from '@angular/forms';
 import { OrderTrackingItemComponent } from './order-tracking-item/order-tracking-item.component';
+import { CartItemModule } from '../../cart/cart-content/cart-item/cart-item.module';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { OrderTrackingItemComponent } from './order-tracking-item/order-tracking
   ],
   imports: [
     CommonModule,
-    FormsModule
+    FormsModule,
+    CartItemModule
   ],
   exports: [OrderTrackerContentComponent]
 })

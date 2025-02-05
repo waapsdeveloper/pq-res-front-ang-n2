@@ -16,7 +16,7 @@ export class GlobalFooterComponent implements OnInit {
   currentYear: number = new Date().getFullYear();
   logoUrl: string | null = null;
   selectedRestaurant: string = '';
-  branches:any[] = []
+  branches: any[] = [];
   constructor(public router: Router, private network: NetworkService) {}
   async ngOnInit() {
     //  const res = await this.network.restaurantDetail();
@@ -29,8 +29,7 @@ export class GlobalFooterComponent implements OnInit {
     let json = localStorage.getItem('restaurant');
     this.setLogo();
 
-
-     this.footer = json ? JSON.parse(json) : null;
+    this.footer = json ? JSON.parse(json) : null;
   }
   navigateToLogin() {
     this.router.navigate(['/tabs/login']); // Full path to login
@@ -61,9 +60,13 @@ export class GlobalFooterComponent implements OnInit {
     this.logoUrl = image?.logo || '';
     return this.logoUrl;
   }
-  update(){
-    localStorage.setItem('restaurant_id' , this.selectedRestaurant)
-    console.log(this.selectedRestaurant)
+  update() {
+    if (this.selectedRestaurant) {
+      localStorage.setItem('restaurant_id', this.selectedRestaurant);
+      console.log(this.selectedRestaurant);
+      this.router.navigate(['/']).then(() => {
+        window.location.reload(); // Reload the page after navigation
+      });
+    }
   }
 }
-

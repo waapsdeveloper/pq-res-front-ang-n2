@@ -1,9 +1,19 @@
 <header id="header" class="header d-flex align-items-center sticky-top">
-  <div class="container position-relative d-flex align-items-center justify-content-between">
-     <a href="index.html" class="logo d-flex align-items-center me-auto me-xl-0">
-        <!-- Uncomment the line below if you also wish to use an image logo -->
-        <img  [src]="logoUrl" alt="">
-  </a>
+   <div class="container position-relative d-flex align-items-center justify-content-between">
+      <a href="/" class="logo d-flex align-items-center me-auto me-xl-0">
+         <img  [src]="logoUrl" alt="">
+      </a>
+
+      <app-nav-menu-header [logoUrl]="logoUrl"></app-nav-menu-header>
+
+      <a class="cart-bx" (click)="gotoCart()" data-aos="fade" data-aos-duration="1000">
+         <span class="cart-count-head">{{ cartCounter | async  }}</span>
+         <img src="/assets/img/cart.png" alt="">
+      </a>
+
+   </div>
+  <!-- <div class="container position-relative d-flex align-items-center justify-content-between">
+     
      <nav id="navmenu" class="navmenu">
         <ul>
            <li><a (click)="openLink('/tabs/home')" [class.active]="getActiveState('home')">Home<br></a></li>
@@ -25,9 +35,6 @@
 
         <i class="mobile-nav-toggle d-xl-none bi bi-list" (click)="toggleMobileMenu()"></i>
      </nav>
-     <a class="cart-bx" (click)="gotoCart()" data-aos="fade" data-aos-duration="1000">
-     <span class="cart-count-head">{{ cartCounter | async  }}</span>
-     <img src="/assets/img/cart.png" alt="">
-     </a>
-  </div>
+     
+  </div> -->
 </header>

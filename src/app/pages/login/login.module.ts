@@ -3,9 +3,9 @@ import { CommonModule } from '@angular/common';
 
 import { LoginRoutingModule } from './login-routing.module';
 import { LoginComponent } from './login.component';
-import { LoginBannerSectionModule } from './login-banner-section/login-banner-section.module';
 import { LoginFormModule } from './login-form/login-form.module';
 import { FormsModule } from '@angular/forms';
+import { HeaderBreadcrumbModule } from "../../components/header-breadcrumb/header-breadcrumb.module";
 
 
 @NgModule({
@@ -15,10 +15,9 @@ import { FormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     LoginRoutingModule,
-    LoginBannerSectionModule,
     LoginFormModule,
-    FormsModule
-
-  ]
+    FormsModule,
+    HeaderBreadcrumbModule
+]
 })
 export class LoginModule { }

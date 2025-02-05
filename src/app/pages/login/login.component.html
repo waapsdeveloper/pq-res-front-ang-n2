@@ -1,2 +1,3 @@
-<app-login-banner-section></app-login-banner-section>
-  <app-login-form (onAction)="onSubmitLogin($event)" (onRegister)="onRegister($event)"></app-login-form>
+<!-- <app-login-banner-section></app-login-banner-section> -->
+<app-header-breadcrumb [heading]="'Login'" [subheading]="'HOME / TABLE BOOKING'"> </app-header-breadcrumb><app-header-breadcrumb [heading]="'About Us'" [subheading]="'HOME / ABOUTUS'"> </app-header-breadcrumb>
+<app-login-form (onAction)="onSubmitLogin($event)" (onRegister)="onRegister($event)"></app-login-form>

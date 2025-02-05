@@ -26,6 +26,12 @@ export class CartService extends NgSimpleStateBaseRxjsStore<CartState> {
   }
 
   addToCart(item: UserCartProduct) {
+
+   if(!item.variations){
+     item.variations = [];
+   }
+
+
     this.setState((state: any) => {
       let findIndex = state.findIndex((i: any) => i.id === item.id);
       if (findIndex !== -1) {
@@ -81,9 +87,23 @@ export class CartService extends NgSimpleStateBaseRxjsStore<CartState> {
   }
 
   updateQuantity(id: number, quantity: number) {
-    this.setState((state) =>
-      state.map((item) => (item.id === id ? { ...item, quantity } : item))
-    );
+
+    this.setState((state) => {
+      const updatedState = state.map((item: any) =>
+        item.id === id ? { ...item, quantity: quantity } : item
+      );
+      return updatedState;
+    });
+  }
+
+  updateVariations(id: number, variations: any[]) {
+
+    this.setState((state) => {
+      const updatedState = state.map((item: any) =>
+        item.id === id ? { ...item, variations: variations } : item
+      );
+      return updatedState;
+    });
   }
 
   // getCartItem(index: number){
@@ -108,13 +128,11 @@ export class CartService extends NgSimpleStateBaseRxjsStore<CartState> {
       // Calculate base product cost
       let productCost = next.quantity * next.price;
 
-      // Check if variations exist and calculate the cost of selected variations
       if (next.variations) {
         next.variations.forEach((variation: any) => {
-          // Parse meta_value as JSON if it exists
           console.log(variation);
 
-          if (variation.options.length > 0) {
+          if (variation.options) {
             variation.options.forEach((option: any) => {
               if (option.selected == true) {
                 productCost += option.price;

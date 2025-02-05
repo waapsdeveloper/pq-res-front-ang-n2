@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { CartRoutingModule } from './cart-routing.module';
 import { CartComponent } from './cart.component';
-import { CartBannerModule } from './cart-banner/cart-banner.module';
 import { CartContentModule } from './cart-content/cart-content.module';
+import { HeaderBreadcrumbModule } from "../../components/header-breadcrumb/header-breadcrumb.module";
 
 
 @NgModule({
@@ -14,9 +14,8 @@ import { CartContentModule } from './cart-content/cart-content.module';
   imports: [
     CommonModule,
     CartRoutingModule,
-    CartBannerModule,
-    CartContentModule
-
-  ]
+    CartContentModule,
+    HeaderBreadcrumbModule
+]
 })
 export class CartModule { }

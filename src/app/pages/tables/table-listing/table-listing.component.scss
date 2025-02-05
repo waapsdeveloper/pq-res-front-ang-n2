@@ -1,3 +1,27 @@
 .radio-container {
     align-items: center;
 }
+
+.table-image-static-243 {
+    width: 100%;
+}
+
+
+.tb-img {
+    position: relative;
+    margin-bottom: 20px;
+  }
+  
+  .tb-img span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    color: #d12e2e;
+    font-weight: 600;
+    font-size: 3em;
+    transform: translate(-50%, -50%);
+  }
+  
+  .tb-bx button {
+      width: 100%;
+  }

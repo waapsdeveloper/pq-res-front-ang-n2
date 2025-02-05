@@ -1223,8 +1223,8 @@ ul.mn-list li a img {
 }
 
 .cart-box h3 {
-  font-size: 20px;
-  border-bottom: 1px solid;
+  font-size: 30px;
+ // border-bottom: 1px solid;
   padding-bottom: 20px;
   text-transform: capitalize;
 }
@@ -1344,7 +1344,7 @@ ul {
   padding: 0;
   list-style: none;
 }
-.cart-items-list {}
+// .cart-items-list {}
 
 ul {
     padding: 0;
@@ -1394,7 +1394,7 @@ a.cart-bx {
   display: flex;
   align-items: center;
   justify-content: end;
-  width: 20%;
+  // width: 20%;
 }
 
 input.value {
@@ -1544,24 +1544,6 @@ input[name="order-type" i] {
   border-radius: 10px;
 }
 
-.tb-img {
-  position: relative;
-  margin-bottom: 20px;
-}
-
-.tb-img span {
-  position: absolute;
-  top: 85px;
-  left: 0;
-  right: 0;
-  color: #d12e2e;
-  font-weight: 600;
-  font-size: 28px;
-}
-
-.tb-bx button {
-    width: 100%;
-}
 
 .modal-header {
   border: none;
@@ -1652,13 +1634,14 @@ textarea.contact-input {
   margin-bottom: 25px;
   font-size: 30px;
 }
+
 .contact-cont-bx {
   border: 1px solid #CC3333;
   border-radius: 8px;
   display: flex;
   height: 150px;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 .ccb-img {
@@ -1739,14 +1722,14 @@ section.video-play {
 
 .abt-box {
   border-radius: 10px;
-  position: relative;
+  // position: relative;
   padding: 30px;
   text-align: center;
   height: 250px;
   display: flex;
   align-items: center;
   justify-content: center;
-  bottom: 70px;
+  // bottom: 70px;
 }
 
 img.abt-fl-1 {
