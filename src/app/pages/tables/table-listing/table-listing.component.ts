@@ -56,6 +56,7 @@ export class TableListingComponent extends BasePage implements OnInit {
     super(injector)
   }
   ngOnInit(): void {
+    this.updateColumnClass(window.innerWidth);
     this.restaurantId = localStorage.getItem('restaurant_id');
   }
 

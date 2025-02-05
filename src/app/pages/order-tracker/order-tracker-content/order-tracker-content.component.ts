@@ -25,6 +25,7 @@ export class OrderTrackerContentComponent {
   constructor(public carte: CartService) {}
 
   async ngOnInit() {}
+  
   splitBill(){
     this.split_Bill = true
     this.total = Number((this.data?.total_price / this.perHead).toFixed(2));

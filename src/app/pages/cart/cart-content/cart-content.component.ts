@@ -92,6 +92,11 @@ export class CartContentComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    this.updateColumnClass(window.innerWidth);
+
+
+
     this.carte.getCartItems().subscribe((res: any) => {
       console.log(res)
       this.cartItems = res;
@@ -133,6 +138,9 @@ export class CartContentComponent implements OnInit {
       type: table_identifier ? 'dine-in' : 'delivery',
       notes:this.notes
     };
+
+    console.log(obj);
+
     const res = await this.network.makeOrder(obj);
     console.log(res);
     if (res) {
