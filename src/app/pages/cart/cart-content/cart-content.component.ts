@@ -146,8 +146,9 @@ export class CartContentComponent implements OnInit {
     if (res) {
       if (res.data && res.data.order_number) {
 
+        this.carte.clearCart();
         this.navigateToPage(res?.data.order_number);
-       this.utility.presentSuccessToast("Order Placed!");
+        this.utility.presentSuccessToast("Order Placed!");
       }
     }
   }

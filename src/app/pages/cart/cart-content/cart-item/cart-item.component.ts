@@ -13,6 +13,8 @@ export class CartItemComponent implements OnInit {
 
   private _item: any;
 
+  @Input() cartIndex: number = -1;
+
   @Input()
   get item(): any {
     return this._item;
@@ -53,9 +55,44 @@ export class CartItemComponent implements OnInit {
 
   constructor(public carte: CartService,public utility:UtilityService) {}
 
-  changeVariationSelection($event: any) {
-    this.carte.totalOfProductCost();
+  // changeVariationSelection($event: any, option: any ) {
+  //   console.log($event.target.checked, option);
+
+
+  //   this.carte.updateVariations(this.item.id, this.item.variations )
+
+  //   this.carte.totalOfProductCost();
+  // }
+
+  changeVariationSelection(event: Event, option: any, i: number, j: number, k: number) {
+    const checked = (event.target as HTMLInputElement).checked;
+  
+    this.carte.setState((state) =>
+      state.map((cartItem, cIndex) =>
+        cIndex === this.cartIndex
+          ? {
+              ...cartItem,
+              variations: cartItem.variations.map((vari, variIndex) =>
+                variIndex === i
+                  ? vari.map((variation: any, varIndex: number) =>
+                      varIndex === j
+                        ? {
+                            ...variation,
+                            options: variation.options.map((opt: any, optIndex: number) =>
+                              optIndex === k ? { ...opt, selected: checked } : opt
+                            ),
+                          }
+                        : variation
+                    )
+                  : vari
+              ),
+            }
+          : cartItem
+      )
+    );
   }
+  
+  
 
   removeItem(item: any) {
     this.carte.removeFromCart(item.id);

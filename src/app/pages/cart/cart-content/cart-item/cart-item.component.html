@@ -27,20 +27,20 @@
     </div>
 
     <!-- Variations Section -->
-    <div class="cart-variations" *ngFor="let vari of item?.variations">
-      <div class="variations-list" *ngFor="let variation of vari">
+    <div class="cart-variations" *ngFor="let vari of item?.variations; let i = index">
+      <div class="variations-list" *ngFor="let variation of vari; let j = index">
         <p class="variation-title">{{ variation?.type }}</p>
         <div class="d-flex flex-column gap-2 ">
           <!-- [ngClass]="{'selected': option?.selected}" -->
-          <div class="variation-item" *ngFor="let option of variation?.options">
+          <div class="variation-item" *ngFor="let option of variation?.options; let k = index">
             <label>
               <div>
                 <span>{{ option?.name }}</span>
               </div>
               <div class="d-flex gap-3">
                 <span>${{ option?.price }}</span>
-                <input type="checkbox" [checked]="option?.selected" [(ngModel)]="option.selected"
-                  (ngModelChange)="changeVariationSelection($event)" />
+                <!-- [(ngModel)]="option.selected" -->
+                <input type="checkbox" [checked]="option?.selected" (change)="changeVariationSelection($event, option, i,j,k)" />
               </div>
             </label>
           </div>
