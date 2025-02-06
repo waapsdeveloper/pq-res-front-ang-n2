@@ -36,6 +36,7 @@ export class OrderTrackerComponent {
   async initialize(params: any){
 
     const order_number = params.params['order_number'];
+    localStorage.setItem('order_number',order_number)
     console.log(params.params);
 
     const res = await this.network.trackOrder(order_number);
