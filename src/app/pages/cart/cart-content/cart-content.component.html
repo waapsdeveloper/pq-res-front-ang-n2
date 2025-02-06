@@ -11,14 +11,15 @@
   <div class="container">
     <div class="add-to-sc">
       <div class="row">
-        <div class="col-md-9" [ngClass]="{
-          'col-md-9': hostScreensize > 1300,
-          'col-md-6': hostScreensize <= 1300 && hostScreensize > 1000,
-          'col-md-12': hostScreensize <= 1000
-        }">
-        
+        <div
+          class="col-md-9"
+          [ngClass]="{
+            'col-md-9': hostScreensize > 1300,
+            'col-md-6': hostScreensize <= 1300 && hostScreensize > 1000,
+            'col-md-12': hostScreensize <= 1000
+          }"
+        >
           <div class="cart-box">
-            
             <div class="item-bx text-center" *ngIf="cartItems.length == 0">
               <img
                 src="assets/img/delivery-img-inner.svg"
@@ -31,18 +32,24 @@
               </a>
             </div>
             <div class="cart-items-list" *ngIf="cartItems.length > 0">
-              <div *ngFor="let item of cartItems; let i = index" class="d-flex flex-column gap-5">
+              <div
+                *ngFor="let item of cartItems; let i = index"
+                class="d-flex flex-column gap-5"
+              >
                 <app-cart-item [item]="item" [cartIndex]="i"></app-cart-item>
                 <div class="line=2143"></div>
               </div>
             </div>
           </div>
         </div>
-        <div class="col-md-3" [ngClass]="{
-          'col-md-3': hostScreensize > 1300,
-          'col-md-6': hostScreensize <= 1300 && hostScreensize > 1000,
-          'col-md-12': hostScreensize <= 1000
-        }">
+        <div
+          class="col-md-3"
+          [ngClass]="{
+            'col-md-3': hostScreensize > 1300,
+            'col-md-6': hostScreensize <= 1300 && hostScreensize > 1000,
+            'col-md-12': hostScreensize <= 1000
+          }"
+        >
           <div class="cart-box">
             <h3 class="mb-3">Order Details</h3>
             <div class="instructions">
@@ -57,13 +64,29 @@
               <p>Alternate Phone Number (3XXXXXXXXX)</p>
               <input
                 type="number"
-                name=""
+                name="phone"
                 placeholder="Phone"
                 id="phone1234567"
                 class="int-field"
                 required
                 [(ngModel)]="phone"
               />
+            </div>
+            <div class="instructions">
+              <!-- Branch Dropdown -->
+              <p>Select Branch</p>
+              <select
+                id="branch-select"
+                name="branch"
+                class="contact-input form-control"
+                [(ngModel)]="selectedBranch"
+                (ngModelChange)="update()"
+              >
+                <option value="" disabled selected>Select Branch</option>
+                <option *ngFor="let branch of branches" [value]="branch.id">
+                  {{ branch.name }}
+                </option>
+              </select>
             </div>
             <div class="instructions">
               <h3>Your Order</h3>
@@ -88,10 +111,10 @@
                 </li>
               </ul>
               <div class="checkout-bar">
-                <span
-                  >{{ cartItems.length }} Items |$
-                  {{ this.carte.total_price | number : "1.2-2" }}</span
-                >
+                <span>
+                  {{ cartItems.length }} Items |$
+                  {{ this.carte.total_price | number : "1.2-2" }}
+                </span>
                 <button (click)="makeOrder()">Check Out</button>
               </div>
             </div>
