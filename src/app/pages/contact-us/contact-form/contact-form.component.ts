@@ -19,10 +19,16 @@ export class ContactFormComponent implements OnInit {
   email: any;
   message: any;
   phone: any;
-  ngOnInit(): void {
+  branches: any[] = [];
+  selectedBranch: any;
+
+  async ngOnInit() {
     let json = localStorage.getItem('restaurant');
     this.data = json ? JSON.parse(json) : null;
     console.log(this.data);
+    const res = await this.network.allBranches();
+    this.branches = res?.data;
+    console.log('this is the branches', this.branches);
   }
   formatTime(time: string): string {
     const [hour, minute] = time.split(':');
@@ -37,12 +43,15 @@ export class ContactFormComponent implements OnInit {
       email: this.email,
       message: this.message,
       phone: this.phone,
-      restaurant_id: localStorage.getItem('restaurant_id'),
+      restaurant_id: this.selectedBranch,
     };
 
     console.log(obj);
     this.network.contactUs(obj);
-    this.utilitty.presentSuccessToast('Item added to cart!');
+    this.utilitty.presentSuccessToast('Message Sent !');
     (this.name = ''), (this.email = ''), (this.message = ''), (this.phone = '');
+  }
+  update() {
+    console.log(this.selectedBranch);
   }
 }

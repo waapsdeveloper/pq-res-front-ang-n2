@@ -1,4 +1,12 @@
-import { Component, EventEmitter, HostListener, Injector, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  HostListener,
+  Injector,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { BasePage } from '../../base-page/base-page';
 
 @Component({
@@ -9,12 +17,13 @@ import { BasePage } from '../../base-page/base-page';
   styleUrl: './table-listing.component.scss',
 })
 export class TableListingComponent extends BasePage implements OnInit {
-
   list: any[] = [];
   filteredList: any[] = [];
   floors: any[] = [];
   restaurantId: any;
-  guestCount= 0;
+  guestCount = 0;
+  branches: any[] = [];
+  selectedBranch: any;
 
   selectedFloor = 'First';
 
@@ -38,7 +47,6 @@ export class TableListingComponent extends BasePage implements OnInit {
   selectedGuestCount = '';
   //filteredTables: any[] = [];
 
-
   hostScreensize = -1;
 
   @HostListener('window:resize', ['$event'])
@@ -50,14 +58,15 @@ export class TableListingComponent extends BasePage implements OnInit {
     this.hostScreensize = width; //<= 1300 ? 'col-md-12' : 'col-md-9';
   }
 
-  
-
   constructor(injector: Injector) {
-    super(injector)
+    super(injector);
   }
-  ngOnInit(): void {
+  async ngOnInit() {
     this.updateColumnClass(window.innerWidth);
     this.restaurantId = localStorage.getItem('restaurant_id');
+    const res = await this.network.allBranches();
+    this.branches = res?.data;
+    console.log('this is the branches', this.branches);
   }
 
   setSelected(item: any) {
@@ -107,7 +116,6 @@ export class TableListingComponent extends BasePage implements OnInit {
         return item.floor === this.floors[0];
       });
     }
-
   }
 
   filterFloors($event: any) {
@@ -116,12 +124,13 @@ export class TableListingComponent extends BasePage implements OnInit {
     this.filteredList = this.list.filter((item: any) => {
       return item.floor === $event;
     });
-
   }
 
   async startBooking() {
     // get selected tables
-    const selected = this.list.filter((x: any) => x.selected).map((x: any) => x.id);
+    const selected = this.list
+      .filter((x: any) => x.selected)
+      .map((x: any) => x.id);
     console.log(selected);
 
     if (selected.length == 0) {
@@ -167,7 +176,7 @@ export class TableListingComponent extends BasePage implements OnInit {
     console.log('End Time:', formattedEndTime);
 
     let bookingData = {
-      restaurant_id: 1,
+      restaurant_id: this.selectedBranch,
       tables: selected,
       no_of_seats: this.selectedGuestCount,
       start_time: startTimeString + ':00',
@@ -175,12 +184,12 @@ export class TableListingComponent extends BasePage implements OnInit {
     };
 
     // get if user is logged in
-    const user = await this.users.getLoginUser();
-    console.log(user);
-    if (!user) {
-      this.nav.push('/tabs/login');
-      return;
-    }
+    // const user = await this.users.getLoginUser();
+    // console.log(user);
+    // if (!user) {
+    //   this.nav.push('/tabs/login');
+    //   return;
+    // }
 
     console.log(bookingData);
     const res = await this.network.setTableBooking(bookingData);
@@ -189,6 +198,15 @@ export class TableListingComponent extends BasePage implements OnInit {
       this.utility.presentSuccessToast(
         'Table booked successfully - we will contact you shortly, Thank you!'
       );
+
+      this.formData = {
+        no_of_guests: '',
+        date: '',
+        time: '',
+      };
+      setTimeout(() => {
+        this.nav.pop();
+      }, 1500);
 
       // sthis.nav.pop();
       // this.nav.push('/tabs/booking-checkout', { booking: JSON.stringify(res.booking) });
@@ -240,6 +258,10 @@ export class TableListingComponent extends BasePage implements OnInit {
     });
 
     console.log('Filtered Tables:', this.filteredList);
-    
+  }
+  update() {
+    if (this.selectedBranch) {
+      console.log('This is selected branch', this.selectedBranch);
+    }
   }
 }

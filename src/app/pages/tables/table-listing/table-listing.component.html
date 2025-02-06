@@ -9,118 +9,204 @@
     <img src="assets/img/fl-17.svg" alt="" />
   </div>
   <div class="">
-    
     <div class="table-box">
       <div class="container">
         <div class="tb-head-sc mb-4">
-          <h3>Please fill the form for your booking </h3>
+          <h3>Please fill the form for your booking</h3>
           <div class="row">
             <!-- Name Input -->
-            <div [ngClass]="{
+            <div
+              [ngClass]="{
                 'col-md-2': hostScreensize > 1300,
                 'col-md-4': hostScreensize <= 1300 && hostScreensize > 1000,
                 'col-md-12': hostScreensize <= 1000
-              }" style="margin-bottom: 16px;">
+              }"
+              style="margin-bottom: 16px"
+            >
               <div class="book-inp">
-                <input class="form-control" placeholder="Name" type="text" [(ngModel)]="name" />
+                <input
+                  class="form-control"
+                  placeholder="Name"
+                  type="text"
+                  [(ngModel)]="name"
+                />
               </div>
             </div>
+
             <!-- Phone Input -->
-            <div [ngClass]="{
+            <div
+              [ngClass]="{
                 'col-md-2': hostScreensize > 1300,
                 'col-md-4': hostScreensize <= 1300 && hostScreensize > 1000,
                 'col-md-12': hostScreensize <= 1000
-              }" style="margin-bottom: 16px;">
+              }"
+              style="margin-bottom: 16px"
+            >
               <div class="book-inp">
-                <input class="form-control" placeholder="Phone" type="number" [(ngModel)]="phone" />
+                <input
+                  class="form-control"
+                  placeholder="Phone"
+                  type="number"
+                  [(ngModel)]="phone"
+                />
               </div>
             </div>
+
             <!-- No of Guest -->
-            <div [ngClass]="{
+            <div
+              [ngClass]="{
                 'col-md-2': hostScreensize > 1300,
                 'col-md-4': hostScreensize <= 1300 && hostScreensize > 1000,
                 'col-md-12': hostScreensize <= 1000
-              }" style="margin-bottom: 16px;">
+              }"
+              style="margin-bottom: 16px"
+            >
               <div class="book-inp">
-                <input class="form-control" placeholder="No of Guest" type="number" [(ngModel)]="selectedGuestCount"
-                  (ngModelChange)="updateGuestCount($event)" />
+                <input
+                  class="form-control"
+                  placeholder="No of Guest"
+                  type="number"
+                  [(ngModel)]="selectedGuestCount"
+                  (ngModelChange)="updateGuestCount($event)"
+                />
               </div>
             </div>
+
             <!-- Date Input -->
-            <div [ngClass]="{
+            <div
+              [ngClass]="{
                 'col-md-2': hostScreensize > 1300,
                 'col-md-4': hostScreensize <= 1300 && hostScreensize > 1000,
                 'col-md-12': hostScreensize <= 1000
-              }" style="margin-bottom: 16px;">
+              }"
+              style="margin-bottom: 16px"
+            >
               <div class="book-inp">
-                <input class="form-control" placeholder="Date" type="date" [(ngModel)]="selectedDate" />
+                <input
+                  class="form-control"
+                  placeholder="Date"
+                  type="date"
+                  [(ngModel)]="selectedDate"
+                />
               </div>
             </div>
+
             <!-- Time Input -->
-            <div [ngClass]="{
+            <div
+              [ngClass]="{
                 'col-md-2': hostScreensize > 1300,
                 'col-md-4': hostScreensize <= 1300 && hostScreensize > 1000,
                 'col-md-12': hostScreensize <= 1000
-              }" style="margin-bottom: 16px;">
+              }"
+              style="margin-bottom: 16px"
+            >
               <div class="book-inp">
-                <input class="form-control" placeholder="Time" type="time" [(ngModel)]="selectedTime" />
+                <input
+                  class="form-control"
+                  placeholder="Time"
+                  type="time"
+                  [(ngModel)]="selectedTime"
+                />
               </div>
             </div>
-            <div [ngClass]="{
+
+            <!-- Continue Button -->
+            <div
+              [ngClass]="{
                 'col-md-2': hostScreensize > 1300,
                 'col-md-4': hostScreensize <= 1300 && hostScreensize > 1000,
                 'col-md-12': hostScreensize <= 1000
-              }" style="margin-bottom: 16px;">
+              }"
+              style="margin-bottom: 16px"
+            >
               <button class="btn-prime w-100" (click)="startBooking()">
                 Continue
               </button>
             </div>
-            <!-- Continue Button -->
+
+            <!-- Extra Row for Alignment -->
             <div class="col-md-12 gap-8 mt-3 d-flex justify-content-end">
               <div class="book-inp">
-                <div class="btn-sc text-left">
-                  
-                </div>
+                <div class="btn-sc text-left"></div>
               </div>
             </div>
           </div>
-          
         </div>
         <div class="row">
           <div class="col-md-6">
             <h3 class="mb-0">Table List</h3>
           </div>
           <div class="col-md-6">
-            <div class="th-btn-sc">
+            <div class="th-btn-sc d-flex justify-content-end align-items-center gap-3">
+              <!-- Floor Dropdown -->
               <div class="radio-container">
                 <label for="floor-select">
                   <i class="bi bi-pin-map"></i> Select Floor:
                 </label>
-                <select id="floor-select" class="floor-dropdown form-control" style="width: auto;" [(ngModel)]="selectedFloor"
-                  (ngModelChange)="setFloor(selectedFloor)">
+                <select
+                  id="floor-select"
+                  class="floor-dropdown form-control"
+                  style="width: auto"
+                  [(ngModel)]="selectedFloor"
+                  (ngModelChange)="setFloor(selectedFloor)"
+                >
                   <option *ngFor="let fl of floors" [value]="fl">
                     {{ fl }} Floor
+                  </option>
+                </select>
+              </div>
+
+              <!-- Branch Dropdown -->
+              <div class="radio-container">
+                <label for="branch-select">
+                  <i class="bi bi-pin-map"></i> Select Branch:
+                </label>
+                <select
+                  id="branch-select"
+                  class="floor-dropdown form-control"
+                  style="width: auto"
+                  [(ngModel)]="selectedBranch"
+                  required (ngModelChange)="update()"
+
+                >
+                  <option *ngFor="let branch of branches" [value]="branch.id">
+                    {{ branch.name }}
                   </option>
                 </select>
               </div>
             </div>
           </div>
         </div>
+
+
         <div class="tabel-sc">
           <div class="row">
-            <div [ngClass]="{
-              'col-md-2': hostScreensize > 1300,
-              'col-md-4': hostScreensize <= 1300 && hostScreensize > 1000,
-              'col-md-6': hostScreensize <= 1000 && hostScreensize > 430,
-              'col-md-12': hostScreensize <= 430
-            }" style="margin-bottom: 16px;" class="mb-4" *ngFor="let item of filteredList">
-            
+            <div
+              [ngClass]="{
+                'col-md-2': hostScreensize > 1300,
+                'col-md-4': hostScreensize <= 1300 && hostScreensize > 1000,
+                'col-md-6': hostScreensize <= 1000 && hostScreensize > 430,
+                'col-md-12': hostScreensize <= 430
+              }"
+              style="margin-bottom: 16px"
+              class="mb-4"
+              *ngFor="let item of filteredList"
+            >
               <div class="tb-bx" [class.booked]="item.selected">
                 <div class="tb-img">
                   <span>{{ item.no_of_seats }}</span>
-                  <img class="table-image-static-243" src="assets/img/table.svg" alt="" />
+                  <img
+                    class="table-image-static-243"
+                    src="assets/img/table.svg"
+                    alt=""
+                  />
                 </div>
-                <button (click)="setSelected(item)" class="btn-prime" data-bs-toggle="modal" data-bs-target="#table-form">
+                <button
+                  (click)="setSelected(item)"
+                  class="btn-prime"
+                  data-bs-toggle="modal"
+                  data-bs-target="#table-form"
+                >
                   {{ !item.selected ? item.identifier : "Selected" }}
                 </button>
               </div>
@@ -129,7 +215,6 @@
         </div>
         <div class="tb-bottom"></div>
       </div>
-      
     </div>
   </div>
 </section>

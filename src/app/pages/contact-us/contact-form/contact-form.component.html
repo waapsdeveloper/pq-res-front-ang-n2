@@ -8,13 +8,12 @@
       </div>
       <div class="col-md-5">
         <div class="write-box">
-          <h3>Write to us</h3>
-          <form action="">
+          <h3>Write to us</h3>
+          <form>
             <div class="form-group">
               <input
-                type="name"
+                type="text"
                 name="name"
-                id=""
                 class="contact-input"
                 placeholder="Name"
                 [(ngModel)]="name"
@@ -22,9 +21,8 @@
             </div>
             <div class="form-group">
               <input
-                type="Email"
+                type="email"
                 name="email"
-                id=""
                 class="contact-input"
                 placeholder="Email"
                 [(ngModel)]="email"
@@ -32,25 +30,43 @@
             </div>
             <div class="form-group">
               <input
-                type="phone"
+                type="tel"
                 name="phone"
-                id=""
                 class="contact-input"
                 placeholder="Phone"
                 [(ngModel)]="phone"
               />
             </div>
+
+            <!-- Branch Dropdown (Fixed) -->
+            <div class="form-group">
+              <select
+                id="branch-select"
+                name="branch"
+                class="contact-input form-control"
+                [(ngModel)]="selectedBranch"
+                (ngModelChange)="update()"
+              >
+              <option value="text" disabled selected>Select a Branch</option>
+                <!-- Placeholder option -->
+                <option *ngFor="let branch of branches" [value]="branch.id">
+                  {{ branch.name }}
+                </option>
+              </select>
+            </div>
+
             <div class="form-group">
               <textarea
                 name="message"
                 class="contact-input"
-                id=""
                 placeholder="Message"
                 [(ngModel)]="message"
               ></textarea>
             </div>
             <div class="mt-2">
-              <button class="btn-prime" (click)="contactUs()">Send A message</button>
+              <button class="btn-prime" (click)="contactUs()">
+                Send A Message
+              </button>
             </div>
           </form>
         </div>
@@ -71,7 +87,7 @@
           </div>
         </div>
         <div class="col-md-4">
-          <div class="contact-cont-bx" style="height: auto; padding: 8px;">
+          <div class="contact-cont-bx" style="height: auto; padding: 8px">
             <div class="ccb-img">
               <img src="assets/img/c1.svg" alt="" />
             </div>
@@ -80,10 +96,10 @@
               <p class="mb-0 d-flex flex-column">
                 <span *ngFor="let timing of data?.timings; let last = last">
                   {{ timing.day }}
-                  <span
-                    >{{ formatTime(timing.start_time) }} -
-                    {{ formatTime(timing.end_time) }}</span
-                  >
+                  <span>
+                    {{ formatTime(timing.start_time) }} -
+                    {{ formatTime(timing.end_time) }}
+                  </span>
                   <br *ngIf="!last" />
                 </span>
               </p>

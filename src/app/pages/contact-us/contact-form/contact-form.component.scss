@@ -1,0 +1,35 @@
+/* Style for input and select fields */
+.contact-input {
+  background-color: #fff; /* Match background color of input */
+  border: 1px solid #ccc; /* Border color */
+  padding: 10px; /* Padding for the fields */
+  font-size: 14px; /* Font size for consistency */
+  width: 100%; /* Full width */
+  box-sizing: border-box; /* Include padding in the width */
+}
+
+/* Style for the select dropdown */
+.contact-input.form-control {
+  background-color: #fff; /* Match background color */
+  border: 1px solid #ccc; /* Border */
+  padding: 10px; /* Padding for consistency */
+  font-size: 14px; /* Font size for consistency */
+  width: 100%; /* Full width */
+  box-sizing: border-box; /* Box-sizing for consistent width */
+  -webkit-appearance: none; /* Remove default styling in some browsers */
+  -moz-appearance: none; /* Remove default styling in Firefox */
+  appearance: none; /* Remove default styling */
+}
+
+/* Style for the placeholder option */
+.contact-input.form-control option:disabled {
+  color: #000000; /* Light grey text for the placeholder */
+  font-style: italic; /* Optional: Italicize the placeholder for emphasis */
+}
+
+/* Focus styling for select input */
+.contact-input:focus,
+.contact-input.form-control:focus {
+  border-color: #007bff; /* Focus border color */
+  outline: none; /* Remove default outline */
+}
