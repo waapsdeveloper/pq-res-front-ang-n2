@@ -14,7 +14,7 @@
         <div class="col-md-9">
           <div class="cart-box">
             <h3 class="cart-heading">
-              <h3>ORDER DETAILS | {{data?.order_number}}</h3>
+              <h3>ORDER DETAILS | {{ data?.order_number }}</h3>
               <span class="badge badge-info">{{ data?.status }}</span>
             </h3>
             <div
@@ -31,9 +31,13 @@
                 <button class="btn-prime">Explore Menu</button>
               </a>
             </div>
-            <div class="cart-items-list d-flex flex-column gap-5" *ngIf="data?.products?.length > 0">
+            <div
+              class="cart-items-list d-flex flex-column gap-5"
+              *ngIf="data?.products?.length > 0"
+            >
               <div *ngFor="let item of data.products">
-                <app-order-tracking-item [item]="item"> </app-order-tracking-item>
+                <app-order-tracking-item [item]="item">
+                </app-order-tracking-item>
               </div>
             </div>
           </div>
@@ -41,16 +45,6 @@
         <div class="col-md-3">
           <div class="cart-box">
             <h3 class="mb-3">Order Details</h3>
-            <div class="instructions">
-              <p>Split Bills</p>
-              <input type="number" name="" placeholder="" id="phone1234567"
-              class="int-field" [(ngModel)]="perHead" (click)="splitBill()" />
-              
-              <button class="btn btn-danger mt-3" (click)="splitBill()">Split Bill</button>
-              
-
-              
-            </div>
             <div class="instructions">
               <p>Special Instructions (Optional)</p>
               <textarea
@@ -72,28 +66,62 @@
                 readonly
               />
             </div>
+
             <div class="instructions">
               <h3>Your Order</h3>
               <ul>
                 <li>
                   <div class="left-item">Sub Total :</div>
-                  <div class="irght-item">Rs :{{ data?.total_price }}</div>
+                  <div class="right-item">Rs :{{ data?.total_price }}</div>
                 </li>
                 <li>
                   <div class="left-item">Delivery Fee :</div>
-                  <div class="irght-item">Rs 0</div>
+                  <div class="right-item">Rs 0</div>
                 </li>
                 <li>
-                  <div class="left-item">GST ( NaN % ) :</div>
-                  <div class="irght-item">Rs 0</div>
-                </li>                
+                  <div class="left-item">GST ( NaN % ) :</div>
+                  <div class="right-item">Rs 0</div>
+                </li>
               </ul>
+
+              <!-- Total Price and Split Bill Section -->
               <div class="checkout-bar">
                 <span
-                  >{{ data?.products?.length }} Items |Rs : {{
-                    data?.total_price
-                  }}</span>
+                  >{{ data?.products?.length }} Items | Rs:
+                  {{ data?.total_price }}</span
+                >
               </div>
+            </div>
+          </div>
+
+          <div class="split-bill-section mt-3">
+            <p class="mb-2">Split Bills</p>
+
+            <input
+              type="number"
+              name="perHead"
+              placeholder="Enter number of people"
+              id="splitInput"
+              class="int-field"
+              [(ngModel)]="perHead"
+              (ngModelChange)="update()"
+            />
+
+            <button
+              *ngIf="perHead > 0 && !split_Bill"
+              class="btn btn-danger mt-3"
+              (click)="splitBill()"
+            >
+              Split Bill
+            </button>
+
+            <div
+              *ngIf="split_Bill && total !== null && !isTotalInvalid"
+            >
+              <p class="mt-3">Amount per head: Rs {{ total }}</p>
+            </div>
+            <div *ngIf="split_Bill && total !== null && isTotalInvalid">
+              <p class="mt-3">Invalid input. Please enter valid numbers.</p>
             </div>
           </div>
         </div>
