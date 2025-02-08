@@ -69,4 +69,9 @@ export class GlobalFooterComponent implements OnInit {
       });
     }
   }
+  navigateToOrder(){
+   let order_number = localStorage.getItem('order_number') ? localStorage.getItem('order_number') : null;
+   this.router.navigate(['/tabs/order-tracker/' + order_number]);
+
+  }
 }

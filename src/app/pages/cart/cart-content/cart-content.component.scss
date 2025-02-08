@@ -24,3 +24,45 @@
   margin-right: 10px;
   accent-color: #007bff; /* Makes the checkbox prominent */
 }
+/* Styling for the input fields and select dropdowns */
+.contact-input, .int-field {
+  background-color: #fff; /* Match the background color */
+  border: 1px solid #ccc; /* Border color for all form inputs */
+  padding: 10px; /* Padding for consistency */
+  font-size: 14px; /* Font size to match */
+  width: 100%; /* Full width for responsiveness */
+  box-sizing: border-box; /* Box sizing for padding */
+}
+
+/* Styling for the select dropdown */
+.contact-input.form-control {
+  background-color: #fff; /* Background color for consistency */
+  border: 1px solid #ccc; /* Border */
+  padding: 10px; /* Padding for consistency */
+  font-size: 14px; /* Font size for consistency */
+  width: 100%; /* Full width for responsiveness */
+  box-sizing: border-box; /* Include padding in width */
+  -webkit-appearance: none; /* Remove default dropdown styling */
+  -moz-appearance: none; /* Remove default dropdown styling */
+  appearance: none; /* Remove default dropdown styling */
+}
+
+/* Optional: Style the placeholder text of the select dropdown */
+.contact-input.form-control option:disabled {
+  color: #888; /* Light grey color for placeholder text */
+  font-style: italic; /* Optional italic for placeholder */
+}
+
+/* Apply responsiveness based on screen size */
+@media (max-width: 1300px) {
+  .cart-box {
+    padding: 15px; /* Adjust padding for smaller screens */
+  }
+}
+
+@media (max-width: 1000px) {
+  .instructions p {
+    font-size: 12px; /* Smaller font for instructions on smaller screens */
+  }
+}
+

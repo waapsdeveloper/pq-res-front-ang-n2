@@ -12,6 +12,7 @@ export class OrderTrackerContentComponent {
   perHead: any;
   total:any
   split_Bill=false;
+  isTotalInvalid: boolean = false;
   private _data: any;
   variations: any[] = [];
   @Input()
@@ -25,10 +26,24 @@ export class OrderTrackerContentComponent {
   constructor(public carte: CartService) {}
 
   async ngOnInit() {}
-  
-  splitBill(){
-    this.split_Bill = true
-    this.total = Number((this.data?.total_price / this.perHead).toFixed(2));
+
+  splitBill() {
+    this.split_Bill = true; // Set the flag when the button is clicked
+
+    if (this.data && this.data.total_price !== null && !isNaN(this.data.total_price) &&
+        this.perHead !== null && !isNaN(this.perHead) && this.perHead > 0) {
+
+      this.total = Number((this.data.total_price / this.perHead).toFixed(2));
+      this.isTotalInvalid = false;
+    } else {
+      this.total = NaN;
+      this.isTotalInvalid = true;
+      console.error("Invalid input for bill splitting.");
+    }
+  }
+  update(){
+    this.split_Bill=false;
 
   }
+
 }

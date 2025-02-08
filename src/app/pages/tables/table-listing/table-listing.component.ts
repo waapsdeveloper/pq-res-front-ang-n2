@@ -28,7 +28,7 @@ export class TableListingComponent extends BasePage implements OnInit {
   selectedFloor = 'First';
 
   name = '';
-  phone = 0;
+  phone = '';
 
   private _params: any;
   @Input()
@@ -67,6 +67,9 @@ export class TableListingComponent extends BasePage implements OnInit {
     const res = await this.network.allBranches();
     this.branches = res?.data;
     console.log('this is the branches', this.branches);
+   setTimeout(() => {
+    this.updateGuestCount(this.selectedGuestCount)
+   }, 1200);
   }
 
   setSelected(item: any) {
@@ -176,6 +179,8 @@ export class TableListingComponent extends BasePage implements OnInit {
     console.log('End Time:', formattedEndTime);
 
     let bookingData = {
+      name:this.name,
+      phone:this.phone,
       restaurant_id: this.selectedBranch,
       tables: selected,
       no_of_seats: this.selectedGuestCount,

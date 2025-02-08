@@ -12,10 +12,10 @@ import { UtilityService } from '../../../services/utility.service';
   styleUrl: './cart-content.component.scss',
 })
 export class CartContentComponent implements OnInit {
-
-  
+  branches: any[] = [];
+  selectedBranch: any;
   hostScreensize = -1;
-  
+
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
     this.updateColumnClass(event.target.innerWidth);
@@ -33,27 +33,21 @@ export class CartContentComponent implements OnInit {
   total: number = 0;
   phone: number | null = null;
   variations: any[] = [];
-  notes:any;
+  notes: any;
   constructor(
-
     public carte: CartService,
     private network: NetworkService,
     private router: Router,
     public utility: UtilityService
-
   ) {
-
     // this.carte.getCartItems().subscribe((res: any) => {
     //   this.cartItems = res;
     //  console.log('res',this.cartItems);
-
-
     //   // Map each product in the response to process variations
     //   this.cartItems = res.map((item: any) => {
     //     if (item.variation && item.variation.length > 0) {
     //       // Check if meta_value is a string and parse it if necessary
     //       let parsedVariations: any;
-
     //       if (typeof item.variation[0].meta_value === 'string') {
     //         try {
     //           parsedVariations = JSON.parse(item.variation[0].meta_value);
@@ -64,7 +58,6 @@ export class CartContentComponent implements OnInit {
     //       } else {
     //         parsedVariations = item.variation[0].meta_value; // Use directly if it's already an object
     //       }
-
     //       // Add parsed variations to the item object
     //       return {
     //         ...item,
@@ -82,7 +75,6 @@ export class CartContentComponent implements OnInit {
     //       return item; // If no variations, return item as is
     //     }
     //   });
-
     //   console.log('Mapped Cart Items:', this.cartItems);
     // });
   }
@@ -91,14 +83,14 @@ export class CartContentComponent implements OnInit {
     console.log(`Variation toggled for ${item.name}:`, variation);
   }
 
-  ngOnInit() {
-
+ async ngOnInit() {
+    const res = await this.network.allBranches();
+    this.branches = res?.data;
+    console.log('this is the branches', this.branches);
     this.updateColumnClass(window.innerWidth);
 
-
-
     this.carte.getCartItems().subscribe((res: any) => {
-      console.log(res)
+      console.log(res);
       this.cartItems = res;
       // this.cartItems = this.cartItems.map(item => {
       //   const { id, ...rest } = item;
@@ -117,18 +109,15 @@ export class CartContentComponent implements OnInit {
   async makeOrder() {
     const table_identifier = localStorage.getItem('table_identifier') || '';
 
-    const items = this.cartItems.map(item => {
+    const items = this.cartItems.map((item) => {
       const { id, ...rest } = item;
       return { product_id: id, ...rest };
     });
 
-
-
-
     let obj = {
       table_identifier: table_identifier ? table_identifier : '',
       products: items,
-      restaurant_id: localStorage.getItem('restaurant_id') ? localStorage.getItem('restaurant_id') : -1 ,
+      restaurant_id:this.selectedBranch ? this.selectedBranch : localStorage.getItem("restaurant_id"),
       phone: this.phone,
       status: 'pending',
       gst: this.gstAmount,
@@ -136,7 +125,7 @@ export class CartContentComponent implements OnInit {
       delivery: this.deliveryFee,
       subTotal: this.carte.total_price,
       type: table_identifier ? 'dine-in' : 'delivery',
-      notes:this.notes
+      notes: this.notes,
     };
 
     console.log(obj);
@@ -145,10 +134,9 @@ export class CartContentComponent implements OnInit {
     console.log(res);
     if (res) {
       if (res.data && res.data.order_number) {
-
         this.carte.clearCart();
         this.navigateToPage(res?.data.order_number);
-        this.utility.presentSuccessToast("Order Placed!");
+        this.utility.presentSuccessToast('Order Placed!');
       }
     }
   }
@@ -160,4 +148,8 @@ export class CartContentComponent implements OnInit {
   // getCartTotal(){
   //   return this.carte.getCartTotal();
   // }
+  update(){
+    console.log(this.selectedBranch)
+  }
 }
+
