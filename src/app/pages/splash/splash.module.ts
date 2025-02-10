@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { SplashRoutingModule } from './splash-routing.module';
 import { SplashComponent } from './splash.component';
+import { SwiperModule } from 'swiper/angular';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { SplashComponent } from './splash.component';
   ],
   imports: [
     CommonModule,
-    SplashRoutingModule
+    SplashRoutingModule,
+    SwiperModule
   ]
 })
 export class SplashModule { }

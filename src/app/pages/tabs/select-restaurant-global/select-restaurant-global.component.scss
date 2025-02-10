@@ -1,0 +1,35 @@
+.select-restaurant-global-8869 {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 100;
+}
+
+.location-gl-5325343 {
+    height: 10vh;
+    cursor: pointer;
+}
+
+.location-gl-5325343 {
+  transition: transform 0.2s ease-in-out;
+}
+
+.location-gl-5325343:hover {
+  transform: scale(1.1);
+  animation: wobble 0.2s ease-in-out;
+}
+
+@keyframes wobble {
+  0% {
+    transform: scale(1.1) rotate(0deg);
+  }
+  30% {
+    transform: scale(1.1) rotate(3deg);
+  }
+  60% {
+    transform: scale(1.1) rotate(-3deg);
+  }
+  100% {
+    transform: scale(1.1) rotate(0deg);
+  }
+}

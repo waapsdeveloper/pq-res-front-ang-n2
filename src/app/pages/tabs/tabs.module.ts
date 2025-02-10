@@ -6,6 +6,7 @@ import { TabsComponent } from './tabs.component';
 import { PageLayoutModule } from '../../layouts/page-layout/page-layout.module';
 import { GlobalHeaderModule } from '../../layouts/global-header/global-header.module';
 import { GlobalFooterModule } from '../../layouts/global-footer/global-footer.module';
+import { SelectRestaurantGlobalModule } from './select-restaurant-global/select-restaurant-global.module';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import { GlobalFooterModule } from '../../layouts/global-footer/global-footer.mo
     GlobalHeaderModule,
     GlobalFooterModule,
     PageLayoutModule,
+    SelectRestaurantGlobalModule
 
   ]
 })
