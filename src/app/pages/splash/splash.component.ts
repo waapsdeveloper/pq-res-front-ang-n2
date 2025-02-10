@@ -35,7 +35,7 @@ export class SplashComponent extends BasePage {
     setTimeout(() => {
       this.hideLoader();
       this.events.publish('open-link', { link: 'tabs' });
-    }, 2000);
+    }, 200);
   }
 
   async fetchRestaurantDetails(restaurantId: string) {
