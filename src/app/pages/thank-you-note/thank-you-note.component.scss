@@ -1,0 +1,16 @@
+/* thank-you.component.css (or your global styles) */
+.thank-you-message {
+  /* Style your thank you message as needed */
+  text-align: center; /* Example */
+  margin-top: 20px;   /* Example */
+}
+
+/* Optional: Style the original content container if needed */
+.sc-5-cont {
+  /* Example: You might want to add some transition effects */
+  transition: opacity 0.3s ease; /* Smooth fade out */
+}
+
+.sc-5-cont.hidden { /* Class to be added when hidden */
+  opacity: 0;
+}

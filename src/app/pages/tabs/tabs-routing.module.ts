@@ -109,6 +109,14 @@ const routes: Routes = [
           ),
         data: { breadcrumb: 'Booking Checkout' },
       },
+      {
+        path: 'thank-you-note',
+        loadChildren: () =>
+          import('../thank-you-note/thank-you-note.module').then(
+            (m) => m.ThankYouNoteModule
+          ),
+        data: { breadcrumb: 'Thank you note' },
+      },
     ],
   },
 ];
