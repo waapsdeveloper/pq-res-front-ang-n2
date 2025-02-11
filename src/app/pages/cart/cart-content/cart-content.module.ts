@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { CartContentComponent } from './cart-content.component';
 import { FormsModule } from '@angular/forms';
 import { CartItemModule } from './cart-item/cart-item.module';
+import { ThankYouNoteModule } from '../../thank-you-note/thank-you-note.module';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { CartItemModule } from './cart-item/cart-item.module';
   imports: [
     CommonModule,
     FormsModule,
-    CartItemModule
+    CartItemModule,
+    ThankYouNoteModule
   ],
   exports: [
     CartContentComponent

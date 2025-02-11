@@ -1,45 +1,20 @@
-<p>thank-you-note works!</p>
-<section class="sec-5">
+<div
+  *ngIf="showThankYou"
+  class="thank-you-container"
+  [@fadeInOut]>
+  <div class="thank-you-images">
     <div class="fl-18" data-aos="fade" data-aos-duration="1200">
-        <img src="assets/img/fl-18.svg" alt="">
+      <img src="assets/img/fl-18.svg" alt="">
     </div>
     <div class="fl-19" data-aos="fade" data-aos-duration="1200">
-        <img src="assets/img/fl-19.svg" alt="">
+      <img src="assets/img/fl-19.svg" alt="">
     </div>
     <div class="fl-20" data-aos="fade" data-aos-duration="1200">
-        <img src="assets/img/fl-20.svg" alt="">
+      <img src="assets/img/fl-20.svg" alt="">
     </div>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="sc-5-img">
-                    <img src="assets/img/food-item.svg" alt="">
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="sc-5-cont" >  <h3 class="top-cont-1">delivery</h3>
-                    <h2 class="top-cont-2 mb-3">A Moments of <br> Delivered <span>On Right <br>Time & Place</span></h2>
-                    <p>Food Khan is a restaurant, bar and coffee roastery located on a busy corner site in Farringdon's Exmouth Market. With glazed frontage
-                        on two sides of the building, overlooking the market and a bustling London inteon.
-                    </p>
-                    <div class="delivery" data-aos="fade" data-aos-duration="2400">
-                        <div class="dl-img">
-                            <img src="assets/img/delivery.png" alt="">
-                        </div>
-                        <div class="dl-cont">
-                            <p>delivery order num.</p>
-                            <h6>phone</h6>
-                        </div>
-                        <div class="btn-sc">
-                            <button class="btn-prime">  Try It Now
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="thank-you-message">  <h3>Thank you for choosing our restaurant!</h3>
-                    <p>We appreciate your order and hope you enjoy your meal.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+  </div>
+  <div class="thank-you-content">
+    <h3 class="top-cont-1">Thank You!</h3>
+    <p>We sincerely appreciate your support and hope you enjoy what we've prepared for you!</p>
+  </div>
+</div>

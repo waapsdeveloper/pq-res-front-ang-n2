@@ -15,7 +15,7 @@ export class CartContentComponent implements OnInit {
   branches: any[] = [];
   selectedBranch: any;
   hostScreensize = -1;
-
+  showFlag = false;
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
     this.updateColumnClass(event.target.innerWidth);
@@ -83,7 +83,7 @@ export class CartContentComponent implements OnInit {
     console.log(`Variation toggled for ${item.name}:`, variation);
   }
 
- async ngOnInit() {
+  async ngOnInit() {
     const res = await this.network.allBranches();
     this.branches = res?.data;
     console.log('this is the branches', this.branches);
@@ -117,7 +117,9 @@ export class CartContentComponent implements OnInit {
     let obj = {
       table_identifier: table_identifier ? table_identifier : '',
       products: items,
-      restaurant_id:this.selectedBranch ? this.selectedBranch : localStorage.getItem("restaurant_id"),
+      restaurant_id: this.selectedBranch
+        ? this.selectedBranch
+        : localStorage.getItem('restaurant_id'),
       phone: this.phone,
       status: 'pending',
       gst: this.gstAmount,
@@ -137,6 +139,10 @@ export class CartContentComponent implements OnInit {
         this.carte.clearCart();
         this.navigateToPage(res?.data.order_number);
         this.utility.presentSuccessToast('Order Placed!');
+        this.showFlag = true;
+        setTimeout(() => {
+          this.showFlag = false;
+        }, 2000);
       }
     }
   }
@@ -148,8 +154,7 @@ export class CartContentComponent implements OnInit {
   // getCartTotal(){
   //   return this.carte.getCartTotal();
   // }
-  update(){
-    console.log(this.selectedBranch)
+  update() {
+    console.log(this.selectedBranch);
   }
 }
-

@@ -12,6 +12,7 @@ import { ThankYouNoteComponent } from './thank-you-note.component';
   imports: [
     CommonModule,
     ThankYouNoteRoutingModule
-  ]
+  ],
+  exports:[ThankYouNoteComponent]
 })
 export class ThankYouNoteModule { }
