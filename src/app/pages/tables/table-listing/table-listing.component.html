@@ -87,6 +87,7 @@
                   placeholder="Date"
                   type="date"
                   [(ngModel)]="selectedDate"
+                  [min]="minDate"
                 />
               </div>
             </div>
@@ -132,7 +133,7 @@
             </div>
           </div>
         </div>
-        <div class="row">
+        <div class="row mb-4">
           <div class="col-md-6">
             <h3 class="mb-0">Table List</h3>
           </div>
@@ -156,24 +157,8 @@
                 </select>
               </div>
 
-              <!-- Branch Dropdown -->
-              <div class="radio-container">
-                <label for="branch-select">
-                  <i class="bi bi-pin-map"></i> Select Branch:
-                </label>
-                <select
-                  id="branch-select"
-                  class="floor-dropdown form-control"
-                  style="width: auto"
-                  [(ngModel)]="selectedBranch"
-                  required (ngModelChange)="update()"
-
-                >
-                  <option *ngFor="let branch of branches" [value]="branch.id">
-                    {{ branch.name }}
-                  </option>
-                </select>
-              </div>
+              
+              
             </div>
           </div>
         </div>

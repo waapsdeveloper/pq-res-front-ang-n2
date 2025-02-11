@@ -18,7 +18,7 @@
               </div>
               <div class="col-md-3">
                  <div class="book-inp">
-                    <input class="form-control" placeholder="Date" type="date" [(ngModel)]="formData.date" >
+                    <input class="form-control" placeholder="Date" type="date" [(ngModel)]="formData.date" [min]="minDate" >
                  </div>
               </div>
               <div class="col-md-3">

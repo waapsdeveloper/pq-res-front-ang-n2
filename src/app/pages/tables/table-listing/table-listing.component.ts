@@ -25,6 +25,8 @@ export class TableListingComponent extends BasePage implements OnInit {
   branches: any[] = [];
   selectedBranch: any;
 
+  minDate = new Date().toISOString().split('T')[0];
+
   selectedFloor = 'First';
 
   name = '';
@@ -181,7 +183,6 @@ export class TableListingComponent extends BasePage implements OnInit {
     let bookingData = {
       name:this.name,
       phone:this.phone,
-      restaurant_id: this.selectedBranch,
       tables: selected,
       no_of_seats: this.selectedGuestCount,
       start_time: startTimeString + ':00',
@@ -199,23 +200,29 @@ export class TableListingComponent extends BasePage implements OnInit {
     console.log(bookingData);
     const res = await this.network.setTableBooking(bookingData);
     console.log(res);
+
     if (res && res.booking) {
-      this.utility.presentSuccessToast(
-        'Table booked successfully - we will contact you shortly, Thank you!'
-      );
-
-      this.formData = {
-        no_of_guests: '',
-        date: '',
-        time: '',
-      };
-      setTimeout(() => {
-        this.nav.pop();
-      }, 1500);
-
-      // sthis.nav.pop();
-      // this.nav.push('/tabs/booking-checkout', { booking: JSON.stringify(res.booking) });
+      this.nav.push('/tabs/table-booking-tracker/' + res.booking.order_number);
+    } else {
+      this.utility.presentFailureToast('Failed to book table, please try again later');
     }
+    // if (res && res.booking) {
+    //   this.utility.presentSuccessToast(
+    //     'Table booked successfully - we will contact you shortly, Thank you!'
+    //   );
+
+    //   this.formData = {
+    //     no_of_guests: '',
+    //     date: '',
+    //     time: '',
+    //   };
+    //   setTimeout(() => {
+    //     this.nav.pop();
+    //   }, 1500);
+
+    //   // sthis.nav.pop();
+    //   // this.nav.push('/tabs/booking-checkout', { booking: JSON.stringify(res.booking) });
+    // }
   }
 
   formData = {
