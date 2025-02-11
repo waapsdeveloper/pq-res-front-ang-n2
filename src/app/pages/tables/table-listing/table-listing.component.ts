@@ -132,6 +132,22 @@ export class TableListingComponent extends BasePage implements OnInit {
   }
 
   async startBooking() {
+
+    const user = await this.users.getLoginUser();
+
+    console.log(user);
+
+    if(!user){
+      this.utility.presentFailureToast('Please login to book a table');
+      this.nav.push('tabs/login');
+      return;
+    }
+
+
+
+
+
+
     // get selected tables
     const selected = this.list
       .filter((x: any) => x.selected)

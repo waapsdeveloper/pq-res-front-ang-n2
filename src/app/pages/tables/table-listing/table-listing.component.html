@@ -11,128 +11,60 @@
   <div class="">
     <div class="table-box">
       <div class="container">
-        <div class="tb-head-sc mb-4">
-          <h3>Please fill the form for your booking</h3>
-          <div class="row">
-            <!-- Name Input -->
-            <div
-              [ngClass]="{
-                'col-md-2': hostScreensize > 1300,
-                'col-md-4': hostScreensize <= 1300 && hostScreensize > 1000,
-                'col-md-12': hostScreensize <= 1000
-              }"
-              style="margin-bottom: 16px"
-            >
-              <div class="book-inp">
-                <input
-                  class="form-control"
-                  placeholder="Name"
-                  type="text"
-                  [(ngModel)]="name"
-                />
+        <div class="booking-box" data-aos="zoom-in-up" data-aos-duration="1300">
+           <div class="fl-9"  data-aos="fade" data-aos-duration="1200">
+              <img src="assets/img/fl-9.svg" alt="">
+           </div>
+           <div class="fl-10"  data-aos="fade" data-aos-duration="1200">
+              <img src="assets/img/fl-10.svg" alt="">
+           </div>
+           <div class="book-sc">
+              <h3 class="top-cont-1">Online Booking</h3>
+              <h2 class="top-cont-2">Table <span>Booking</span></h2>
+              <div class="row">
+                 <div class="col-md-3">
+                    <div class="book-inp">
+                       <input class="form-control" placeholder="No of Guest" type="number" [(ngModel)]="selectedGuestCount"
+                       (ngModelChange)="updateGuestCount($event)">
+                    </div>
+                 </div>
+                 <div class="col-md-3">
+                    <div class="book-inp">
+                       <input class="form-control" placeholder="Date" type="date" [(ngModel)]="selectedDate"
+                       [min]="minDate" >
+                    </div>
+                 </div>
+                 <div class="col-md-3">
+                    <div class="book-inp">
+                       <input class="form-control" placeholder="Time" type="time" [(ngModel)]="selectedTime">
+                    </div>
+                 </div>
+                 <div class="col-md-3">
+                    <div class="book-inp">
+                       <div class="btn-sc text-left">
+   
+                          <button class="btn-prime" (click)="startBooking()" >
+                           Book Table NoW
+                          </button>
+   
+                       </div>
+                    </div>
+                 </div>
               </div>
-            </div>
-
-            <!-- Phone Input -->
-            <div
-              [ngClass]="{
-                'col-md-2': hostScreensize > 1300,
-                'col-md-4': hostScreensize <= 1300 && hostScreensize > 1000,
-                'col-md-12': hostScreensize <= 1000
-              }"
-              style="margin-bottom: 16px"
-            >
-              <div class="book-inp">
-                <input
-                  class="form-control"
-                  placeholder="Phone"
-                  type="text"
-                  [(ngModel)]="phone"
-                />
-              </div>
-            </div>
-
-            <!-- No of Guest -->
-            <div
-              [ngClass]="{
-                'col-md-2': hostScreensize > 1300,
-                'col-md-4': hostScreensize <= 1300 && hostScreensize > 1000,
-                'col-md-12': hostScreensize <= 1000
-              }"
-              style="margin-bottom: 16px"
-            >
-              <div class="book-inp">
-                <input
-                  class="form-control"
-                  placeholder="No of Guest"
-                  type="number"
-                  [(ngModel)]="selectedGuestCount"
-                  (ngModelChange)="updateGuestCount($event)"
-                />
-              </div>
-            </div>
-
-            <!-- Date Input -->
-            <div
-              [ngClass]="{
-                'col-md-2': hostScreensize > 1300,
-                'col-md-4': hostScreensize <= 1300 && hostScreensize > 1000,
-                'col-md-12': hostScreensize <= 1000
-              }"
-              style="margin-bottom: 16px"
-            >
-              <div class="book-inp">
-                <input
-                  class="form-control"
-                  placeholder="Date"
-                  type="date"
-                  [(ngModel)]="selectedDate"
-                  [min]="minDate"
-                />
-              </div>
-            </div>
-
-            <!-- Time Input -->
-            <div
-              [ngClass]="{
-                'col-md-2': hostScreensize > 1300,
-                'col-md-4': hostScreensize <= 1300 && hostScreensize > 1000,
-                'col-md-12': hostScreensize <= 1000
-              }"
-              style="margin-bottom: 16px"
-            >
-              <div class="book-inp">
-                <input
-                  class="form-control"
-                  placeholder="Time"
-                  type="time"
-                  [(ngModel)]="selectedTime"
-                />
-              </div>
-            </div>
-
-            <!-- Continue Button -->
-            <div
-              [ngClass]="{
-                'col-md-2': hostScreensize > 1300,
-                'col-md-4': hostScreensize <= 1300 && hostScreensize > 1000,
-                'col-md-12': hostScreensize <= 1000
-              }"
-              style="margin-bottom: 16px"
-            >
-              <button class="btn-prime w-100" (click)="startBooking()">
-                Continue
-              </button>
-            </div>
-
-            <!-- Extra Row for Alignment -->
-            <div class="col-md-12 gap-8 mt-3 d-flex justify-content-end">
-              <div class="book-inp">
-                <div class="btn-sc text-left"></div>
-              </div>
-            </div>
-          </div>
+           </div>
+           <div class="fl-11"  data-aos="fade" data-aos-duration="1200">
+              <img src="assets/img/fl-11.svg" alt="">
+           </div>
+           <div class="fl-12"  data-aos="fade" data-aos-duration="1200">
+              <img src="assets/img/fl-12.svg" alt="">
+           </div>
+           <div class="fl-14" data-aos="fade" data-aos-duration="1200">
+              <img src="assets/img/fl-14.svg" alt="">
+           </div>
         </div>
+     </div>
+      <div class="container">        
+        
         <div class="row mb-4">
           <div class="col-md-6">
             <h3 class="mb-0">Table List</h3>

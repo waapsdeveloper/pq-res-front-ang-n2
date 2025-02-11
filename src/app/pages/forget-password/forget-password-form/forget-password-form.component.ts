@@ -3,42 +3,37 @@ import { NavService } from '../../../services/nav.service';
 import { UtilityService } from '../../../services/utility.service';
 
 @Component({
-  selector: 'app-register-form',
+  selector: 'app-forget-password-form',
   standalone: false,
-
-  templateUrl: './register-form.component.html',
-  styleUrl: './register-form.component.scss'
+  
+  templateUrl: './forget-password-form.component.html',
+  styleUrl: './forget-password-form.component.scss'
 })
-export class RegisterFormComponent {
+export class ForgetPasswordFormComponent {
 
+  
   formData = {
     name: '',
     email: '',
-    password: '',
-    phone: ''
+    password: ''
   }
 
   @Output('onAction') onAction = new EventEmitter<any>();
+  @Output('onRegister') onRegister = new EventEmitter<any>();
 
   constructor(private utility: UtilityService, public nav: NavService){
 
   }
 
+  newformSubmit(){
+    this.onRegister.emit();
+  }
+
   async formSubmit(){
     console.log(this.formData)
 
-    if(!this.formData.name){
-      this.utility.presentFailureToast("Please enter your name");
-      return;
-    }
-
     if(!this.formData.email){
       this.utility.presentFailureToast("Please enter your password");
-      return;
-    }
-
-    if(!this.formData.phone){
-      this.utility.presentFailureToast("Please enter your phone number");
       return;
     }
 

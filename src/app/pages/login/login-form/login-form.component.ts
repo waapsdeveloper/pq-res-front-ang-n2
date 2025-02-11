@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
+import { NavService } from '../../../services/nav.service';
 import { UtilityService } from '../../../services/utility.service';
 
 @Component({
@@ -19,7 +20,7 @@ export class LoginFormComponent {
   @Output('onAction') onAction = new EventEmitter<any>();
   @Output('onRegister') onRegister = new EventEmitter<any>();
 
-  constructor(private utility: UtilityService){
+  constructor(private utility: UtilityService, public nav: NavService){
 
   }
 
