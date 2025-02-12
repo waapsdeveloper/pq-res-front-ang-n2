@@ -31,6 +31,13 @@ const routes: Routes = [
           import('./../forget-password/forget-password.module').then((m) => m.ForgetPasswordModule),
         data: { breadcrumb: 'Forget Password' },
       },
+      // for profile 
+      {
+        path: 'profile',
+        loadChildren: () =>
+          import('./../profile/profile.module').then((m) => m.ProfileModule),
+          data: { breadcrumb: 'Profile' },
+      },
       {
         path: 'home',
         loadChildren: () =>

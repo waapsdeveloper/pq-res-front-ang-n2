@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { NavService } from '../../../services/nav.service';
+import { NetworkService } from '../../../services/network.service';
 import { UtilityService } from '../../../services/utility.service';
 
 @Component({
@@ -20,7 +21,7 @@ export class RegisterFormComponent {
 
   @Output('onAction') onAction = new EventEmitter<any>();
 
-  constructor(private utility: UtilityService, public nav: NavService){
+  constructor(private network: NetworkService, private utility: UtilityService, public nav: NavService){
 
   }
 
@@ -47,11 +48,34 @@ export class RegisterFormComponent {
       return;
     }
 
-    this.onAction.emit(this.formData);
+    this.onSubmitRegister(this.formData)
+
+    // this.onAction.emit(this.formData);
 
     // const res = await this.network.checkTableAvailability(this.formData);
 
     // console.log(res);
+
+  }
+
+  async onSubmitRegister(obj: any){
+
+    let data = Object.assign({}, obj);
+    console.log(data);
+    const res = await this.network.authRegister(data);
+    console.log(res)
+
+    if(res.token){
+      localStorage.setItem('token', res.token);
+    }
+
+    if(res.user){
+      localStorage.setItem('user', res.user);
+      this.nav.push('/tabs/home');
+    }
+
+
+
 
   }
 

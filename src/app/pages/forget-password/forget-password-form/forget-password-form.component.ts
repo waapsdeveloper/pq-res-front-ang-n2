@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { NavService } from '../../../services/nav.service';
+import { NetworkService } from '../../../services/network.service';
 import { UtilityService } from '../../../services/utility.service';
 
 @Component({
@@ -13,15 +14,13 @@ export class ForgetPasswordFormComponent {
 
   
   formData = {
-    name: '',
     email: '',
-    password: ''
   }
 
   @Output('onAction') onAction = new EventEmitter<any>();
   @Output('onRegister') onRegister = new EventEmitter<any>();
 
-  constructor(private utility: UtilityService, public nav: NavService){
+  constructor( private network: NetworkService, private utility: UtilityService, public nav: NavService){
 
   }
 
@@ -37,16 +36,11 @@ export class ForgetPasswordFormComponent {
       return;
     }
 
-    if(!this.formData.password){
-      this.utility.presentFailureToast("Please enter your password");
-      return;
-    }
+    // this.onAction.emit(this.formData);
 
-    this.onAction.emit(this.formData);
+    const res = await this.network.postEmailForgetPassword(this.formData);
 
-    // const res = await this.network.checkTableAvailability(this.formData);
-
-    // console.log(res);
+    console.log(res);
 
   }
 

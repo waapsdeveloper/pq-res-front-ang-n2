@@ -39,7 +39,9 @@ export class NetworkService {
   }
 
   // Auth registration
-
+  postEmailForgetPassword(data: any) {
+    return this.httpPostResponse('auth/forgot-password', data, null, false, true);
+  }
   getUserByToken() {
     return this.httpGetResponse('auth/me', null, false);
   }
@@ -52,6 +54,8 @@ export class NetworkService {
     return this.httpPostResponse('auth/login', data, null, false, true);
   }
 
+
+
   aboutUsCategory() {
     return this.httpGetResponse('about-us', null, false);
   }
@@ -62,7 +66,7 @@ export class NetworkService {
     return this.httpGetResponse('all-categories', null, false);
   }
   allBranches(){
-    return this.httpGetResponse('all-branches', null, false);
+    return this.httpGetResponse('all-branches', null, false, false);
   }
 
   // table bookings start
@@ -261,6 +265,16 @@ export class NetworkService {
           if (showloader === true) {
             // return
             this.utility.hideLoader();
+          }
+
+          if(showError == true) {
+
+            if (res.status === 200) {
+              this.utility.presentSuccessToast(res.message);
+            } else {
+              this.utility.presentFailureToast(res.message);
+            }
+
           }
 
           console.log('EW', res);
