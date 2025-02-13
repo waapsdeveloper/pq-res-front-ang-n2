@@ -2,6 +2,7 @@ import { OrderTrackerModule } from './../order-tracker/order-tracker.module';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { TabsComponent } from './tabs.component';
+import { userResolver } from '../../resolvers/user.resolver';
 
 const routes: Routes = [
   {
@@ -37,6 +38,9 @@ const routes: Routes = [
         loadChildren: () =>
           import('./../profile/profile.module').then((m) => m.ProfileModule),
           data: { breadcrumb: 'Profile' },
+        resolve: {
+          user: userResolver
+        },  
       },
       {
         path: 'home',
