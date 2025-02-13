@@ -73,6 +73,10 @@ export class NetworkService {
   updatePassword(data:any){
     return this.httpPostResponse('profile/update-password', data, null, false, true);
   }
+
+  getUserAddresses(){
+    return this.httpGetResponse('profile/all-user-address', null, false, true);
+  }
   addAddress(data:any){
     return this.httpPostResponse('profile/add-user-address', data, null, false, true);
   }
