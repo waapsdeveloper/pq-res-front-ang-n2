@@ -80,6 +80,9 @@ export class NetworkService {
   addAddress(data:any){
     return this.httpPostResponse('profile/add-user-address', data, null, false, true);
   }
+  updateAddress(id:any,data:any){
+    return this.httpPostResponse('profile/update-user-address', data, id, false, true);
+  }
   deleteAddress(id:any){
     return this.httpDeleteResponse('profile/delete-user-address', id, false, true);
   }

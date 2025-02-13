@@ -4,7 +4,7 @@
       <div class="d-flex justify-content-between align-items-center">
         <h2 style="display: flex; align-items: center; justify-content: space-between; gap: 16px;">
           Address Book
-          <div class="add-btn btn-prime btn-update-67856">
+          <div class="add-btn btn-prime btn-update-67856" (click)="addNewAddress()">
             Add
           </div>
         </h2>
@@ -83,13 +83,13 @@
                 <div class="d-flex gap-2">
                   <button
                     class="btn-prime btn-update-67856"
-                    (click)="formSubmit(i)"
+                    (click)="formSubmit(item)"
                   >
                     Update
                   </button>
                   <button
                     class="btn-prime btn-update-67856"
-                    (click)="delete(i)"
+                    (click)="delete(item)"
                   >
                     Delete
                   </button>
