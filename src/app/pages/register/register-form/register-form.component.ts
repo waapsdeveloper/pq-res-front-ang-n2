@@ -2,6 +2,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { NavService } from '../../../services/nav.service';
 import { NetworkService } from '../../../services/network.service';
 import { UtilityService } from '../../../services/utility.service';
+import { UsersService } from '../../../services/users.service';
 
 @Component({
   selector: 'app-register-form',
@@ -23,7 +24,8 @@ export class RegisterFormComponent {
   constructor(
     private network: NetworkService,
     private utility: UtilityService,
-    public nav: NavService
+    public nav: NavService,
+    private user :UsersService
   ) {}
 
   async formSubmit() {
@@ -71,7 +73,7 @@ export class RegisterFormComponent {
     if (res.user) {
       let user = JSON.stringify(res.user);
       console.log(user);
-      localStorage.setItem('user', user);
+      this.user.setUser(user);
       this.nav.push('/tabs/home');
     }
   }

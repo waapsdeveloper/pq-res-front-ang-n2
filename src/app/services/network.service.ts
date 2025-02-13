@@ -49,6 +49,9 @@ export class NetworkService {
   authRegister(data: any) {
     return this.httpPostResponse('auth/register', data, null, false, true);
   }
+  updateCredential(data:any){
+    return this.httpPostResponse('profile/update-user', data, null, false, true);
+  }
 
   authLogin(data: any) {
     return this.httpPostResponse('auth/login', data, null, false, true);
@@ -67,6 +70,9 @@ export class NetworkService {
     return this.httpGetResponse('all-branches', null, false, false);
   }
 
+  updatePassword(data:any){
+    return this.httpPostResponse('profile/update-password', data, null, false, true);
+  }
   // table bookings start
 
   getTablesByRestaurantId(params: any, id: number) {

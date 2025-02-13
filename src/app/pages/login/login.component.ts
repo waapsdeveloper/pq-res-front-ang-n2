@@ -1,47 +1,41 @@
 import { Component, Injector, OnInit } from '@angular/core';
 import { BasePage } from '../base-page/base-page';
+import { UsersService } from '../../services/users.service';
 
 @Component({
   selector: 'app-login',
   standalone: false,
 
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  styleUrl: './login.component.scss',
 })
-export class LoginComponent  extends BasePage implements OnInit {
-
-  constructor(injector: Injector) {
+export class LoginComponent extends BasePage implements OnInit {
+  constructor(injector: Injector, private user: UsersService) {
     super(injector);
   }
 
-
-
   ngOnInit(): void {
-    console.log("sds");
+    console.log('sds');
   }
 
-
-
-  async onSubmitLogin($event: any){
-
+  async onSubmitLogin($event: any) {
     let data = Object.assign({}, $event);
     console.log(data);
     const res = await this.network.authLogin(data);
-    console.log(res)
+    console.log(res);
 
-    if(res.token){
+    if (res.token) {
       localStorage.setItem('token', res.token);
     }
 
-    if(res.user){
-      let user = JSON.stringify(res.user)
-      localStorage.setItem('user', user);
+    if (res.user) {
+      let user = JSON.stringify(res.user);
+      this.user.setUser(user);
       this.nav.pop();
     }
-
   }
 
-  onRegister($event: any){
+  onRegister($event: any) {
     this.nav.push('/tabs/register');
   }
 }
