@@ -60,7 +60,7 @@ export class NetworkService {
     return this.httpGetResponse('about-us', null, false);
   }
   lowestPrice() {
-    return this.httpGetResponse('lowest-price', null, false);
+    return this.httpGetResponse('lowest-price', null, false, false);
   }
   allCategory() {
     return this.httpGetResponse('all-categories', null, false);
@@ -101,16 +101,16 @@ export class NetworkService {
 
   getProducts(params: any) {
     let str = this.serialize(params);
-    return this.httpGetResponse('products?' + str, null, false, true);
+    return this.httpGetResponse('products?' + str, null, false, false);
   }
 
   getPopularProducts(data: any) {
     let str = this.serialize(data);
-    return this.httpGetResponse('popular-products?' + str, null, false, true);
+    return this.httpGetResponse('popular-products?' + str, null, false, false);
   }
   getTodayDeal(data: any) {
     let str = this.serialize(data);
-    return this.httpGetResponse('today-deals?' + str, null, false, true);
+    return this.httpGetResponse('today-deals?' + str, null, false, false);
   }
 
   // cart

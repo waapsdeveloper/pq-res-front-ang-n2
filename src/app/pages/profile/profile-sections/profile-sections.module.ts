@@ -5,11 +5,11 @@ import { AccountInformationComponent } from './account-information/account-infor
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { AddressComponent } from './address/address.component';
 import { OrderHistoryComponent } from './order-history/order-history.component';
-import { OrderTrackingComponent } from './order-tracking/order-tracking.component';
 import { TableTrackingComponent } from './table-tracking/table-tracking.component';
 import { PaymentMethodsComponent } from './payment-methods/payment-methods.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { BhelpComponent } from './bhelp/bhelp.component';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -20,14 +20,14 @@ import { BhelpComponent } from './bhelp/bhelp.component';
     ChangePasswordComponent,
     AddressComponent,
     OrderHistoryComponent,
-    OrderTrackingComponent,
     TableTrackingComponent,
     PaymentMethodsComponent,
     NotificationsComponent,
     BhelpComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    FormsModule
   ],
   exports: [
     ProfileSectionsComponent

@@ -8,5 +8,7 @@ import { Component } from '@angular/core';
   styleUrl: './table-tracking.component.scss'
 })
 export class TableTrackingComponent {
+  
+  bookings: any[] = [];
 
 }

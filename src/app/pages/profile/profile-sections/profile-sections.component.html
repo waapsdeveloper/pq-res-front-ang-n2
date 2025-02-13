@@ -25,11 +25,11 @@
         </div>
         <div class="col-md-9">
           <div class="d-flex flex-column gap-5">
-            <app-account-information></app-account-information>
-            <app-change-password></app-change-password>
-            <app-address></app-address>
-            <app-order-tracking></app-order-tracking>
-            <app-table-tracking></app-table-tracking>
+            <app-account-information *ngIf="getSelectedItemStatus('accountInformation') === true"></app-account-information>
+            <app-change-password *ngIf="getSelectedItemStatus('changePassword') === true"></app-change-password>
+            <app-address *ngIf="getSelectedItemStatus('addresses') === true"></app-address>
+            <app-order-history *ngIf="getSelectedItemStatus('orderHistory') === true"></app-order-history>            
+            <app-table-tracking *ngIf="getSelectedItemStatus('tableTracking') === true"></app-table-tracking>
             
 
           </div>

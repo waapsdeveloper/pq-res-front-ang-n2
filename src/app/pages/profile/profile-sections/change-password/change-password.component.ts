@@ -9,4 +9,14 @@ import { Component } from '@angular/core';
 })
 export class ChangePasswordComponent {
 
+  
+  formData = {
+    password: '',
+    confirm_password: '',
+  }
+
+  formSubmit() {
+    
+  }
+
 }

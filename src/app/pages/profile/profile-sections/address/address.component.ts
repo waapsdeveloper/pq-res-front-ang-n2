@@ -9,4 +9,24 @@ import { Component } from '@angular/core';
 })
 export class AddressComponent {
 
+  
+address: any = {
+  name: '',
+  house_number: '',
+  area: '',
+  pincode: '',
+  phone: '',
+  landmark: '',
+  type: 'Home'
+};
+
+  formData = {
+    password: '',
+    confirm_password: '',
+  }
+
+  formSubmit() {
+    
+  }
+
 }

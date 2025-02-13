@@ -9,4 +9,16 @@ import { Component } from '@angular/core';
 })
 export class AccountInformationComponent {
 
+  
+  formData = {
+    name: '',
+    email: '',
+    password: '',
+    phone: ''
+  }
+
+  formSubmit() {
+    
+  }
+
 }

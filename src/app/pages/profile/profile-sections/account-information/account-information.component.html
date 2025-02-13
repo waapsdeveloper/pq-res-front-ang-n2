@@ -1,1 +1,39 @@
-<p>account-information works!</p>
+<section class="sc-2 pb-0">
+   <div class="container p-2">
+      <div class="mn-box mb-0">
+         <h2>Account Information</h2>
+         <div class="row">
+            <div class="col-md-12 mb-2">
+               <div class="book-inp text-left">
+                  <label for="name">Name</label>
+                  <input class="form-control" placeholder="Name" type="text" [(ngModel)]="formData.name">
+               </div>
+            </div>
+            <div class="col-md-12 mb-2">
+               <div class="book-inp text-left">
+                  <label for="name">Email</label>
+                  <input class="form-control" readonly placeholder="Email" type="email" [(ngModel)]="formData.email">
+               </div>
+            </div>
+            <div class="col-md-12 mb-2">
+               <div class="book-inp text-left">
+                  <label for="name">Phone</label>
+                  <input class="form-control" placeholder="Phone" type="text" [(ngModel)]="formData.phone">
+               </div>
+            </div>           
+            <div class="col-md-12 mb-2">
+               <div class="book-inp">
+                  <div class="btn-sc">
+                     <label class="" style="height: 16px; width: 100%;"> </label>
+                     <button class="btn-prime" (click)="formSubmit()">
+                        Update
+                     </button>
+
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+
+   </div>
+</section>
