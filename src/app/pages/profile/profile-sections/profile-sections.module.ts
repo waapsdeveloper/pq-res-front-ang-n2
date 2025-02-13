@@ -11,6 +11,8 @@ import { NotificationsComponent } from './notifications/notifications.component'
 import { BhelpComponent } from './bhelp/bhelp.component';
 import { FormsModule } from '@angular/forms';
 import { SwiperModule } from 'swiper/angular';
+import { CartItemModule } from '../../cart/cart-content/cart-item/cart-item.module';
+import { CartItemComponent } from '../../cart/cart-content/cart-item/cart-item.component';
 
 
 
@@ -24,7 +26,7 @@ import { SwiperModule } from 'swiper/angular';
     TableTrackingComponent,
     PaymentMethodsComponent,
     NotificationsComponent,
-    BhelpComponent
+    BhelpComponent,
   ],
   imports: [
     CommonModule,

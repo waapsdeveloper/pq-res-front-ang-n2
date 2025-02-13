@@ -14,7 +14,6 @@ import { NavService } from '../../../services/nav.service';
   styleUrl: './cart-content.component.scss',
 })
 export class CartContentComponent implements OnInit {
-
   user: any = null;
   branches: any[] = [];
   selectedBranch: any;
@@ -89,12 +88,11 @@ export class CartContentComponent implements OnInit {
     console.log(`Variation toggled for ${item.name}:`, variation);
   }
 
- async ngOnInit() {
-
-
-    this.user = await this.users.getUser();
+  async ngOnInit() {
+    let user = await this.users.getUser();
+    this.user = JSON.parse(user);
     console.log('this is the user', this.user);
-
+    this.phone = this.user?.phone;
 
     const res = await this.network.allBranches();
     this.branches = res?.data;
@@ -118,14 +116,13 @@ export class CartContentComponent implements OnInit {
     console.log('Variations received from child:', updatedVariations);
     this.variations = updatedVariations;
   }
-  
-  async loginUser(){
+
+  async loginUser() {
     this.nav.push('/tabs/login', {
-      backUrl: '/tabs/cart'
-    })
+      backUrl: '/tabs/cart',
+    });
   }
-  
-  
+
   async makeOrder() {
     const table_identifier = localStorage.getItem('table_identifier') || '';
 
@@ -137,7 +134,9 @@ export class CartContentComponent implements OnInit {
     let obj = {
       table_identifier: table_identifier ? table_identifier : '',
       products: items,
-      restaurant_id:this.selectedBranch ? this.selectedBranch : localStorage.getItem("restaurant_id"),
+      restaurant_id: this.selectedBranch
+        ? this.selectedBranch
+        : localStorage.getItem('restaurant_id'),
       phone: this.phone,
       status: 'pending',
       gst: this.gstAmount,
@@ -168,8 +167,7 @@ export class CartContentComponent implements OnInit {
   // getCartTotal(){
   //   return this.carte.getCartTotal();
   // }
-  update(){
-    console.log(this.selectedBranch)
+  update() {
+    console.log(this.selectedBranch);
   }
 }
-

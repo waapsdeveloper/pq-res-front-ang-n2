@@ -1,0 +1,157 @@
+.order-link {
+  color: #007bff; /* Bootstrap Primary Link Color */
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.order-link:hover {
+  color: #0056b3; /* Darker shade on hover */
+  text-decoration: none;
+}
+
+.cart-left {
+  flex: 1;
+}
+
+
+
+.cart-img {
+  position: relative;
+  width: 100%;
+  // height: 120px;
+  border-radius: 10px;
+  overflow: hidden;
+  max-height: 200px;
+}
+
+.cart-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cart-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  padding: 5px;
+  text-align: center;
+}
+
+.cart-right {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.cart-variations {
+  background: #FFE1E1;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.variations-list {
+  margin-bottom: 10px;
+}
+
+.variation-title {
+  font-weight: bold;
+  margin-bottom: 5px;
+  font-size: 24px;
+}
+
+.variation-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-bottom: 5px;
+  background: #fff;
+}
+
+.variation-item.selected {
+  background-color: #ffe1e1 !important;
+}
+
+.variation-item span {
+  font-weight: bold;
+}
+
+.variation-item label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  cursor: pointer;
+}
+
+.variation-item input {
+  margin-left: auto;
+}
+
+.cart-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: space-between;
+}
+
+.cart-count {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.cart-count img {
+  width: 30px;
+  cursor: pointer;
+}
+
+.cart-delete {
+  width: 36px;
+  cursor: pointer;
+}
+.cart-details {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid;
+}
+
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.cart-left {
+  flex: 1;
+}
+
+.cart-right {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Responsive: Stack on smaller screens */
+@media (max-width: 1300px) {
+  .cart-item {
+    flex-direction: column; /* Stack items vertically */
+  }
+
+  .cart-left {
+    width: 100%; /* Full width */
+  }
+
+  .cart-right {
+    width: 100%; /* Full width */
+  }
+}
+

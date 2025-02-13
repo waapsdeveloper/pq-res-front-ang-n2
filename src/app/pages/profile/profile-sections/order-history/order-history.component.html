@@ -3,7 +3,7 @@
     <div class="col-md-12">
       <div class="cart-box">
         <h3 class="mb-3">Order History</h3>
-        <div class="table-responsive">
+        <div class="table-responsive" *ngIf="!selectedOrder">
           <table class="table">
             <thead>
               <tr>
@@ -15,15 +15,112 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let order of orders">
-                <td>{{ order.order_number }}</td>
-                <td>{{ order.created_at | date: 'dd/MM/yyyy' }}</td>
+              <tr
+                *ngFor="let order of orders"
+                (click)="selectOrder(order)"
+                style="cursor: pointer"
+              >
+                <td>
+                  <a
+                    href="javascript:void(0)"
+                    (click)="selectOrder(order)"
+                    class="order-link"
+                  >
+                    {{ order.order_number }}
+                  </a>
+                </td>
+                <td>{{ order.created_at | date : "dd/MM/yyyy" }}</td>
                 <td>{{ order.restaurant.name }}</td>
-                <td>{{ order.total_price | currency: 'INR':'symbol-narrow':'1.0-0' }}</td>
+                <td>
+                  {{
+                    order.total_price
+                      | currency : "USD" : "symbol-narrow" : "1.0-0"
+                  }}
+                </td>
                 <td>{{ order.status }}</td>
               </tr>
             </tbody>
           </table>
+        </div>
+        <div class="order-card mt-4" *ngIf="selectedOrder">
+          <div class="card">
+            <div
+              class="card-header d-flex justify-content-between align-items-center"
+            >
+              <h4>Order Details</h4>
+              <button class="btn btn-danger" (click)="selectedOrder = null">
+                Close
+              </button>
+            </div>
+            <div class="card-body">
+              <h5>Order #{{ selectedOrder.order_number }}</h5>
+              <p>
+                <strong>Restaurant:</strong> {{ selectedOrder.restaurant.name }}
+              </p>
+              <p>
+                <strong>Address:</strong> {{ selectedOrder.restaurant.address }}
+              </p>
+              <p>
+                <strong>Phone:</strong> {{ selectedOrder.restaurant.phone }}
+              </p>
+              <p>
+                <strong>Total Price:</strong>
+                {{ selectedOrder.total_price | currency }}
+              </p>
+              <p><strong>Order Type:</strong> {{ selectedOrder.type }}</p>
+              <p>
+                <strong>Status:</strong>
+                <span class="badge bg-warning">{{ selectedOrder.status }}</span>
+              </p>
+
+              <h5>Products</h5>
+              <div *ngFor="let product of selectedOrder.products" class="product-item">
+                <div class="cart-item d-flex  gap-4" style="padding-bottom: 0.5px;">
+                  <!-- Left: Product Image -->
+                  <div class="cart-left">
+                    <div class="cart-img">
+                      <img [src]="product.product_image" alt="{{ product.product_name }}" />
+                      <div class="cart-overlay">
+                        <div>{{ product.product_name }}</div>
+                        <div>${{ product.product_price }}</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Right: Product Details -->
+                  <div class="cart-right w-100">
+                    <div class="cart-details d-flex justify-content-between align-items-center">
+                      <h3>{{ product.product_name }} x <b>{{ product.quantity }}</b></h3>
+                      <h3 class="text-end">${{ product.product_price }}</h3>
+                    </div>
+
+                    <!-- Variations Section -->
+                    <p class="mb-2 mt-2"><strong>Variations</strong></p>
+                    <div class="cart-variations" *ngFor="let vari of product?.variations">
+                      <div class="variations-list" *ngFor="let variation of vari">
+                        <p class="variation-title">{{ variation?.type }}</p>
+                        <div class="d-flex flex-column gap-2 ">
+                          <!-- [ngClass]="{'selected': option?.selected}" -->
+                          <div class="variation-item" *ngFor="let option of variation?.options">
+                            <label>
+                              <div>
+                                <span>{{ option?.name }}</span>
+                              </div>
+                              <div class="d-flex gap-3">
+                                <span>${{ option?.price }}</span>
+                                <input type="checkbox" disabled="true" [checked]="option?.selected" [(ngModel)]="option.selected"
+                                   />
+                              </div>
+                            </label>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div> <!-- End Right Section -->
+                </div> <!-- End Cart Item -->
+              </div> <!-- End Product Item -->
+
         </div>
       </div>
     </div>

@@ -86,6 +86,9 @@ export class NetworkService {
   deleteAddress(id:any){
     return this.httpDeleteResponse('profile/delete-user-address', id, false, true);
   }
+  orderHistory(){
+    return this.httpGetResponse('order-history', null, false, true);
+  }
   // table bookings start
 
   getTablesByRestaurantId(params: any, id: number) {
