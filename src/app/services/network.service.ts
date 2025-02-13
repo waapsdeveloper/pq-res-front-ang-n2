@@ -54,8 +54,6 @@ export class NetworkService {
     return this.httpPostResponse('auth/login', data, null, false, true);
   }
 
-
-
   aboutUsCategory() {
     return this.httpGetResponse('about-us', null, false);
   }
@@ -269,7 +267,7 @@ export class NetworkService {
 
           if(showError == true) {
 
-            if (res.status === 200) {
+            if (res.code === 200) {
               this.utility.presentSuccessToast(res.message);
             } else {
               this.utility.presentFailureToast(res.message);
