@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, isDevMode } from '@angular/core';
 import { UsersService } from '../../../../services/users.service';
 import { NetworkService } from '../../../../services/network.service';
 import { SwiperComponent } from 'swiper/angular';
@@ -23,6 +23,7 @@ export class AddressComponent {
   ) {}
   ngOnInit() {
     this.user = this.userService.getUser();
+    this.id = this.user.id;
     // call api for get addresses
     this.getAllAddresses();
 
@@ -62,16 +63,22 @@ export class AddressComponent {
     });
   }
 
-  formSubmit(i:any) {
+  async formSubmit(i: any) {
     let obj = {
-      user_id: this.user.id,
+      user_id: i.user_id,
       city: i.city,
-      country: i.address.city,
-      state: i.address.state,
-      address: i.address.name,
+      country: i.country,
+      state: i.state,
+      address: i.address,
     };
-    const res = this.network.addAddress(obj);
-    console.log('address', res);
+    if (i.id) {
+      await this.network.updateAddress(i.id, obj);
+      console.log('Updated Address:', obj);
+    } else {
+      const res = await this.network.addAddress(obj);
+      console.log('Added New Address:', res);
+      this.getAllAddresses();
+    }
   }
   nextSlide(swiper: SwiperComponent) {
     if (swiper && swiper.swiperRef) {
@@ -83,10 +90,23 @@ export class AddressComponent {
       swiper.swiperRef.slidePrev();
     }
   }
-  delete(i:any){
- let res =    this.network.deleteAddress(i.id);
- console.log(res , "delete");
-
+  delete(i: any) {
+    let res = this.network.deleteAddress(i.id);
+    console.log(res, 'delete');
   }
-
+  addNewAddress() {
+    this.addresses.push({
+      id: null, // No ID yet since it's new
+      user_id: this.id,
+      address: '',
+      city: '',
+      state: '',
+      country: '',
+    });
+    setTimeout(() => {
+      if (this.swiperRef?.swiperRef) {
+        this.swiperRef.swiperRef.slideTo(this.addresses.length - 1);
+      }
+    }, 100);
+  }
 }
