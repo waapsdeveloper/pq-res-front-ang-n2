@@ -80,6 +80,9 @@ export class NetworkService {
   addAddress(data:any){
     return this.httpPostResponse('profile/add-user-address', data, null, false, true);
   }
+  deleteAddress(id:any){
+    return this.httpDeleteResponse('profile/delete-user-address', id, false, true);
+  }
   // table bookings start
 
   getTablesByRestaurantId(params: any, id: number) {
