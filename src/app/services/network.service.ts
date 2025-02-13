@@ -73,6 +73,9 @@ export class NetworkService {
   updatePassword(data:any){
     return this.httpPostResponse('profile/update-password', data, null, false, true);
   }
+  addAddress(data:any){
+    return this.httpPostResponse('profile/add-user-address', data, null, false, true);
+  }
   // table bookings start
 
   getTablesByRestaurantId(params: any, id: number) {
