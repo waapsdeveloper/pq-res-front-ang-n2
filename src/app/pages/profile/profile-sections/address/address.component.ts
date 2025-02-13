@@ -15,7 +15,7 @@ export class AddressComponent {
   user: any;
 
 
-  id: any;
+  id: number = -1;
   address: any;
   constructor(
     private userService: UsersService,
@@ -55,7 +55,7 @@ export class AddressComponent {
     this.setSelectedAddress(this.id);
   }
 
-  setSelectedAddress(id: string) {
+  setSelectedAddress(id: number) {
     this.addresses.forEach(address => {
       address.selected = false  
       if (address.id === id) {

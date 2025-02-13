@@ -10,6 +10,7 @@ import { PaymentMethodsComponent } from './payment-methods/payment-methods.compo
 import { NotificationsComponent } from './notifications/notifications.component';
 import { BhelpComponent } from './bhelp/bhelp.component';
 import { FormsModule } from '@angular/forms';
+import { SwiperModule } from 'swiper/angular';
 
 
 
@@ -27,7 +28,8 @@ import { FormsModule } from '@angular/forms';
   ],
   imports: [
     CommonModule,
-    FormsModule
+    FormsModule,
+    SwiperModule
   ],
   exports: [
     ProfileSectionsComponent
