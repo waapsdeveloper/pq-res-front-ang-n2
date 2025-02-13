@@ -8,6 +8,7 @@ export const userResolver: ResolveFn<any> = (route, state) => {
   const router = inject(Router);
 
   const user = usersService.getUser();
+  console.log(user);
   if(user){
     return user;
   } else {

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavService } from '../../../services/nav.service';
+import { UsersService } from '../../../services/users.service';
 
 @Component({
   selector: 'app-profile-sections',
@@ -9,7 +10,7 @@ import { NavService } from '../../../services/nav.service';
   styleUrl: './profile-sections.component.scss',
 })
 export class ProfileSectionsComponent {
-  constructor(private nav: NavService) {}
+  constructor(private nav: NavService, private users: UsersService) {}
 
   sections: any[] = [
     {
@@ -93,8 +94,7 @@ export class ProfileSectionsComponent {
     // for example, you could set a route in your router module
   }
   logout() {
-    localStorage.removeItem('user');
-    localStorage.removeItem('token');
+    this.users.logout();
     this.nav.push('/tabs/home');
   }
 }

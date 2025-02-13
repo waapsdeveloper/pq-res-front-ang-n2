@@ -81,4 +81,10 @@ export class UsersService {
       }
     });
   }
+
+  logout(){
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    this.muser = null;
+  }
 }
