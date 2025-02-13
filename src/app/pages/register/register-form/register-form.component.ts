@@ -69,9 +69,9 @@ export class RegisterFormComponent {
     }
 
     if (res.user) {
-      res.user = JSON.stringify(res.user);
-      console.log(res.user);
-      localStorage.setItem('user', res.user);
+      let user = JSON.stringify(res.user);
+      console.log(user);
+      localStorage.setItem('user', user);
       this.nav.push('/tabs/home');
     }
   }

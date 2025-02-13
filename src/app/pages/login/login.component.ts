@@ -34,7 +34,8 @@ export class LoginComponent  extends BasePage implements OnInit {
     }
 
     if(res.user){
-      localStorage.setItem('user', res.user);
+      let user = JSON.stringify(res.user)
+      localStorage.setItem('user', user);
       this.nav.pop();
     }
 
