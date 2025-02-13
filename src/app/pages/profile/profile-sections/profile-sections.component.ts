@@ -1,13 +1,15 @@
 import { Component } from '@angular/core';
+import { NavService } from '../../../services/nav.service';
 
 @Component({
   selector: 'app-profile-sections',
   standalone: false,
-  
+
   templateUrl: './profile-sections.component.html',
-  styleUrl: './profile-sections.component.scss'
+  styleUrl: './profile-sections.component.scss',
 })
 export class ProfileSectionsComponent {
+  constructor(private nav: NavService) {}
 
   sections: any[] = [
     {
@@ -17,7 +19,7 @@ export class ProfileSectionsComponent {
       icon: 'account_circle',
       link: '/profile/account',
       selected: true,
-      hidden: false
+      hidden: false,
     },
     {
       id: 2,
@@ -26,7 +28,7 @@ export class ProfileSectionsComponent {
       icon: 'lock',
       link: '/profile/password',
       selected: false,
-      hidden: true
+      hidden: true,
     },
     {
       id: 3,
@@ -36,7 +38,7 @@ export class ProfileSectionsComponent {
       link: '/profile/addresses',
       selected: false,
     },
-    // order history 
+    // order history
     {
       id: 4,
       title: 'Order History',
@@ -77,7 +79,7 @@ export class ProfileSectionsComponent {
     // }
   ];
 
-  getSelectedItemStatus(key: string){
+  getSelectedItemStatus(key: string) {
     return this.sections.find((section) => section.key === key).selected;
   }
 
@@ -90,9 +92,9 @@ export class ProfileSectionsComponent {
     // implement navigation logic here
     // for example, you could set a route in your router module
   }
-
-
-
-
-
+  logout() {
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
+    this.nav.push('/tabs/home');
+  }
 }

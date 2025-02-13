@@ -9,7 +9,7 @@ import { BasePage } from '../base-page/base-page';
   styleUrl: './register.component.scss'
 })
 export class RegisterComponent extends BasePage implements OnInit {
-
+ 
   constructor(injector: Injector) {
     super(injector);
   }
@@ -22,5 +22,5 @@ export class RegisterComponent extends BasePage implements OnInit {
 
 
 
- 
+
 }

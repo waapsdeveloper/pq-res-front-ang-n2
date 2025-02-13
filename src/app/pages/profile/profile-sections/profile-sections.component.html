@@ -1,40 +1,49 @@
 <section class="sec-3">
-    <div class="fl-15" data-aos="fade" data-aos-duration="1200">
-      <img src="assets/img/fl-15.svg" alt="">
-    </div>
-    <div class="fl-16" data-aos="fade" data-aos-duration="1200">
-      <img src="assets/img/fl-16.svg" alt="">
-    </div>
-    <div class="fl-17" data-aos="fade" data-aos-duration="1200">
-      <img src="assets/img/fl-17.svg" alt="">
-    </div>
-    <div class="container">
-      <div class="row cstm-col-ip">
-        <div class="col-md-3">
-          <div class="menu-item-sidebar">
-            <div class="mn-box">
-              <ul class="mn-list">
-                <li *ngFor="let item of sections" >
-                  <a (click)="switchSection(item)">
-                    <span>{{ item.title }}</span>
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-9">
-          <div class="d-flex flex-column gap-5">
-            <app-account-information *ngIf="getSelectedItemStatus('accountInformation') === true"></app-account-information>
-            <app-change-password *ngIf="getSelectedItemStatus('changePassword') === true"></app-change-password>
-            <app-address *ngIf="getSelectedItemStatus('addresses') === true"></app-address>
-            <app-order-history *ngIf="getSelectedItemStatus('orderHistory') === true"></app-order-history>            
-            <app-table-tracking *ngIf="getSelectedItemStatus('tableTracking') === true"></app-table-tracking>
-            
+  <div class="fl-15" data-aos="fade" data-aos-duration="1200">
+    <img src="assets/img/fl-15.svg" alt="" />
+  </div>
+  <div class="fl-16" data-aos="fade" data-aos-duration="1200">
+    <img src="assets/img/fl-16.svg" alt="" />
+  </div>
+  <div class="fl-17" data-aos="fade" data-aos-duration="1200">
+    <img src="assets/img/fl-17.svg" alt="" />
+  </div>
+  <div class="container">
+    <div class="row cstm-col-ip">
+      <div class="col-md-3">
+        <div class="menu-item-sidebar">
+          <div class="mn-box">
+            <ul class="mn-list">
+              <li *ngFor="let item of sections">
+                <a (click)="switchSection(item)">
+                  <span>{{ item.title }}</span>
+                </a>
+              </li>
+            </ul>
 
           </div>
+          <button class="btn-prime" (click)="logout()">Log out</button>
+        </div>
+      </div>
+      <div class="col-md-9">
+        <div class="d-flex flex-column gap-5">
+          <app-account-information
+            *ngIf="getSelectedItemStatus('accountInformation') === true"
+          ></app-account-information>
+          <app-change-password
+            *ngIf="getSelectedItemStatus('changePassword') === true"
+          ></app-change-password>
+          <app-address
+            *ngIf="getSelectedItemStatus('addresses') === true"
+          ></app-address>
+          <app-order-history
+            *ngIf="getSelectedItemStatus('orderHistory') === true"
+          ></app-order-history>
+          <app-table-tracking
+            *ngIf="getSelectedItemStatus('tableTracking') === true"
+          ></app-table-tracking>
         </div>
       </div>
     </div>
-  </section>
-  
+  </div>
+</section>
