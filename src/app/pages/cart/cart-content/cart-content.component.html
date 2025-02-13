@@ -61,33 +61,31 @@
                 [(ngModel)]="notes"
               >
               </textarea>
-              <p>Alternate Phone Number (3XXXXXXXXX)</p>
-              <input
-                type="number"
-                name="phone"
-                placeholder="Phone"
-                id="phone1234567"
-                class="int-field"
-                required
-                [(ngModel)]="phone"
-              />
-            </div>
-            <div class="instructions">
-              <!-- Branch Dropdown -->
-              <p>Select Branch</p>
-              <select
-                id="branch-select"
-                name="branch"
-                class="contact-input form-control"
-                [(ngModel)]="selectedBranch"
-                (ngModelChange)="update()"
-              >
-                <option value="" disabled selected>Select Branch</option>
-                <option *ngFor="let branch of branches" [value]="branch.id">
-                  {{ branch.name }}
-                </option>
-              </select>
-            </div>
+
+              <div class="mb-5" *ngIf="!user">
+                <!-- if user not logged in,  -->
+                <p class="mb-3">Please Sign In to Checkout</p>
+                
+
+              </div>
+              <div class="d-flex flex-column gap-2" *ngIf="user">
+                <!-- if user logged in,  -->
+                <p>Your Name:</p>
+                <p>{{ user?.name }}</p>
+                <p>{{ user?.phone }}</p>
+                <p>Alternate Phone Number (3XXXXXXXXX)</p>
+                <input
+                  type="number"
+                  name="phone"
+                  placeholder="Phone"
+                  id="phone1234567"
+                  class="int-field"
+                  required
+                  [(ngModel)]="phone"
+                />
+              </div>
+              
+            </div>            
             <div class="instructions">
               <h3>Your Order</h3>
               <ul>
@@ -112,10 +110,10 @@
               </ul>
               <div class="checkout-bar">
                 <span>
-                  {{ cartItems.length }} Items |$
-                  {{ this.carte.total_price | number : "1.2-2" }}
+                  {{ cartItems.length }} Items | ${{ this.carte.total_price | number : "1.2-2" }}
                 </span>
-                <button (click)="makeOrder()">Check Out</button>
+                <button *ngIf="user" (click)="makeOrder()">Check Out</button>
+                <button *ngIf="!user" (click)="loginUser()">Login</button>
               </div>
             </div>
           </div>

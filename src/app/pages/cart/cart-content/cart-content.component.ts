@@ -3,6 +3,8 @@ import { CartService } from '../../../services/cart.service';
 import { NetworkService } from '../../../services/network.service';
 import { Router } from '@angular/router';
 import { UtilityService } from '../../../services/utility.service';
+import { UsersService } from '../../../services/users.service';
+import { NavService } from '../../../services/nav.service';
 
 @Component({
   selector: 'app-cart-content',
@@ -12,6 +14,8 @@ import { UtilityService } from '../../../services/utility.service';
   styleUrl: './cart-content.component.scss',
 })
 export class CartContentComponent implements OnInit {
+
+  user: any = null;
   branches: any[] = [];
   selectedBranch: any;
   hostScreensize = -1;
@@ -38,7 +42,9 @@ export class CartContentComponent implements OnInit {
     public carte: CartService,
     private network: NetworkService,
     private router: Router,
-    public utility: UtilityService
+    public utility: UtilityService,
+    private nav: NavService,
+    private users: UsersService
   ) {
     // this.carte.getCartItems().subscribe((res: any) => {
     //   this.cartItems = res;
@@ -84,6 +90,12 @@ export class CartContentComponent implements OnInit {
   }
 
  async ngOnInit() {
+
+
+    this.user = await this.users.getUser();
+    console.log('this is the user', this.user);
+
+
     const res = await this.network.allBranches();
     this.branches = res?.data;
     console.log('this is the branches', this.branches);
@@ -106,6 +118,14 @@ export class CartContentComponent implements OnInit {
     console.log('Variations received from child:', updatedVariations);
     this.variations = updatedVariations;
   }
+  
+  async loginUser(){
+    this.nav.push('/tabs/login', {
+      backUrl: '/tabs/cart'
+    })
+  }
+  
+  
   async makeOrder() {
     const table_identifier = localStorage.getItem('table_identifier') || '';
 

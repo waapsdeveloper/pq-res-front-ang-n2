@@ -62,7 +62,7 @@ export class AddressComponent {
     });
   }
 
-  formSubmit(i:any) {
+  formSubmit(i: any) {
     let obj = {
       user_id: this.user.id,
       city: i.city,
@@ -83,10 +83,8 @@ export class AddressComponent {
       swiper.swiperRef.slidePrev();
     }
   }
-  delete(i:any){
- let res =    this.network.deleteAddress(i.id);
- console.log(res , "delete");
-
+  delete(i: any) {
+    let res = this.network.deleteAddress(i.id);
+    console.log(res, 'delete');
   }
-
 }
