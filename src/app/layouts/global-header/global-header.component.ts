@@ -16,17 +16,11 @@ export class GlobalHeaderComponent {
   logoUrl: string | null = null;
 
   constructor(
-    private nav: NavService,
+    public nav: NavService,
     public carte: CartService
   ) {
     this.cartCounter = this.carte.getCartCounter();
     this.setLogo();
-  }
-
-
-
-  gotoCart() {
-    this.nav.push('/tabs/cart');
   }
 
   setLogo() {

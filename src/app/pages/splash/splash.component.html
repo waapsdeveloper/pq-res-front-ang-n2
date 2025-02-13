@@ -1,0 +1,116 @@
+<section class="sec-3" *ngIf="bSelections === 'list'">
+    <div class="fl-15" data-aos="fade" data-aos-duration="1200">
+      <img src="assets/img/fl-15.svg" alt="">
+    </div>
+    <div class="fl-16" data-aos="fade" data-aos-duration="1200">
+      <img src="assets/img/fl-16.svg" alt="">
+    </div>
+    <div class="fl-17" data-aos="fade" data-aos-duration="1200">
+      <img src="assets/img/fl-17.svg" alt="">
+    </div>
+    <div class="container">
+      <div class="fod-head text-center">
+        <h3 class="top-cont-1">Select Your Location</h3>
+        <h2 class="top-cont-2">Nearest <span>branch</span></h2>
+      </div>
+      
+    </div>
+
+    <div class="row justify-content-center">
+        <ng-container *ngIf="list.length > 4; else noSwiper">
+          <swiper
+            [slidesPerView]="4"
+            [spaceBetween]="20"
+            [navigation]="false"
+            [pagination]="{ clickable: true }"
+            [centeredSlides]="true"
+            [loop]="true"
+            [breakpoints]="{
+              '320': { slidesPerView: 1 },
+              '768': { slidesPerView: 2 },
+              '1024': { slidesPerView: 4 }
+            }"
+            style="overflow: hidden"
+          >
+            <ng-template swiperSlide *ngFor="let item of list; let i = index">
+              <div>
+                <div (click)="selectRestaurant(item)"
+                  [ngClass]="{
+                    'abt-box auto-h-8675': true,
+                    'abt-1': i % 2 === 0,
+                    'abt-2': i % 2 !== 0
+                  }"
+                >
+                  <div>
+                    <div
+                      class="abt-img"
+                      style="
+                        width: 150px;
+                        height: 150px;
+                        border-radius: 50%;
+                        overflow: hidden;
+                        margin: 0 auto;
+                      "
+                    >
+                      <img
+                        [src]="item?.logo"
+                        alt=""
+                        style="
+                          width: 100%;
+                          height: 100%;
+                          display: block;
+                          object-fit: cover;
+                        "
+                      />
+                    </div>
+                    <div class="abt-cont">
+                      <h3>{{ item?.name }}</h3>                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+          </swiper>
+        </ng-container>
+  
+        <!-- Show regular layout if items are 4 or fewer -->
+        <ng-template #noSwiper>
+          <div *ngFor="let item of list; let i = index" class="col-md-3">
+            <div (click)="selectRestaurant(item)"
+              [ngClass]="{
+                'abt-box auto-h-8675': true,
+                'abt-1': i % 2 === 0,
+                'abt-2': i % 2 !== 0
+              }"
+            >
+              <div>
+                <div
+                  class="abt-img"
+                  style="
+                    width: 150px;
+                    height: 150px;
+                    border-radius: 50%;
+                    overflow: hidden;
+                    margin: 0 auto;
+                  "
+                >
+                  <img
+                    [src]="item?.image"
+                    style="
+                      width: 100%;
+                      height: 100%;
+                      display: block;
+                      object-fit: cover;
+                    "
+                    alt=""
+                  />
+                </div>
+                <div class="abt-cont">
+                  <h3>{{ item?.name }}</h3>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </div>
+  </section>

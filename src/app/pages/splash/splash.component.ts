@@ -1,4 +1,5 @@
-import { Component, Injector } from '@angular/core';
+import { Component, Injector, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { BasePage } from '../base-page/base-page';
 
 @Component({
@@ -7,15 +8,42 @@ import { BasePage } from '../base-page/base-page';
   templateUrl: './splash.component.html',
   styleUrl: './splash.component.scss',
 })
-export class SplashComponent extends BasePage {
+export class SplashComponent extends BasePage implements OnInit {
+
+  list: any[] = [];
+  bSelections: string = '';
   restaurant_id: any;
 
-  constructor(injector: Injector) {
+  constructor(injector: Injector, private route: ActivatedRoute) {
     super(injector);
-    this.initialize();
+
+  }
+
+  ngOnInit(): void {
+    this.route.queryParams.subscribe( (params: any) => {
+      console.log(params)
+      if (params.selection === 'list') {
+        // do something when selection is list
+        console.log(params.selection);
+        this.bSelections = 'list';
+      }
+
+      this.initialize();
+    });
   }
 
   async initialize() {
+
+    if(this.bSelections === 'list'){
+
+      const res = await this.network.allBranches();
+      this.list = res.data;
+
+      return;
+
+    }
+
+
     this.restaurant_id = localStorage.getItem("restaurant_id");
 
     if (!this.restaurant_id) {
@@ -29,22 +57,26 @@ export class SplashComponent extends BasePage {
       }
     }
 
-    // Fetch restaurant details
-    await this.fetchRestaurantDetails(this.restaurant_id);
+    // // Fetch restaurant details
+    // await this.fetchRestaurantDetails(this.restaurant_id);
 
-    setTimeout(() => {
+    // setTimeout(() => {
       this.hideLoader();
       this.events.publish('open-link', { link: 'tabs' });
-    }, 200);
+    // }, 2000);
   }
 
-  async fetchRestaurantDetails(restaurantId: string) {
+
+
+  async fetchRestaurantDetails(restaurantId: string): Promise<void> {
     const res = await this.network.restaurantDetail(restaurantId);
     if (res && res.data) {
       let R = res.data;
       localStorage.setItem('restaurant', JSON.stringify(R));
       localStorage.setItem('restaurant_id', R.id);
     }
+
+    return res
   }
 
   // Call this method when the user changes the restaurant
@@ -55,4 +87,11 @@ export class SplashComponent extends BasePage {
       await this.fetchRestaurantDetails(newRestaurantId);
     }
   }
+
+  async selectRestaurant(item: any) {
+    await this.fetchRestaurantDetails(item.id);
+    this.events.publish('open-link', { link: 'tabs' });
+  }
+
+
 }

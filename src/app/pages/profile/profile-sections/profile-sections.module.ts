@@ -1,0 +1,36 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ProfileSectionsComponent } from './profile-sections.component';
+import { AccountInformationComponent } from './account-information/account-information.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
+import { AddressComponent } from './address/address.component';
+import { OrderHistoryComponent } from './order-history/order-history.component';
+import { OrderTrackingComponent } from './order-tracking/order-tracking.component';
+import { TableTrackingComponent } from './table-tracking/table-tracking.component';
+import { PaymentMethodsComponent } from './payment-methods/payment-methods.component';
+import { NotificationsComponent } from './notifications/notifications.component';
+import { BhelpComponent } from './bhelp/bhelp.component';
+
+
+
+@NgModule({
+  declarations: [
+    ProfileSectionsComponent,
+    AccountInformationComponent,
+    ChangePasswordComponent,
+    AddressComponent,
+    OrderHistoryComponent,
+    OrderTrackingComponent,
+    TableTrackingComponent,
+    PaymentMethodsComponent,
+    NotificationsComponent,
+    BhelpComponent
+  ],
+  imports: [
+    CommonModule
+  ],
+  exports: [
+    ProfileSectionsComponent
+  ]
+})
+export class ProfileSectionsModule { }

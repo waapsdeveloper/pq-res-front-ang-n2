@@ -30,3 +30,22 @@
   background: #000000e3;
   box-shadow: -1px 7px 6px 3px #0000001f;
 }
+
+.cart-count-head{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate( -50%, -50%);
+  background: #fff;
+  font-weight: 600;
+  color: black;
+  padding: 2px;
+}
+
+.user-icon-header {
+
+  img {
+    max-height: 48px;
+  }
+
+}

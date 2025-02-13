@@ -26,6 +26,19 @@ const routes: Routes = [
         data: { breadcrumb: 'Register' },
       },
       {
+        path: 'forget-password',
+        loadChildren: () =>
+          import('./../forget-password/forget-password.module').then((m) => m.ForgetPasswordModule),
+        data: { breadcrumb: 'Forget Password' },
+      },
+      // for profile 
+      {
+        path: 'profile',
+        loadChildren: () =>
+          import('./../profile/profile.module').then((m) => m.ProfileModule),
+          data: { breadcrumb: 'Profile' },
+      },
+      {
         path: 'home',
         loadChildren: () =>
           import('./../home/home.module').then((m) => m.HomeModule),
@@ -100,6 +113,14 @@ const routes: Routes = [
         loadChildren: () =>
           import('./../tables/tables.module').then((m) => m.TablesModule),
         data: { breadcrumb: 'tables' },
+      },
+      {
+        path: 'table-booking-tracker/:order_number',
+        loadChildren: () =>
+          import('../table-booking-tracker/table-booking-tracker.module').then(
+            (m) => m.TableBookingTrackerModule
+          ),
+        data: { breadcrumb: 'table-booking-tracker' },
       },
       {
         path: 'booking-checkout',

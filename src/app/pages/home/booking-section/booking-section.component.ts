@@ -17,6 +17,8 @@ export class BookingSectionComponent {
     time: ''
   }
 
+  minDate = new Date().toISOString().split('T')[0];
+
   @Output('onAction') onAction = new EventEmitter<any>();
 
   constructor(private utility: UtilityService){

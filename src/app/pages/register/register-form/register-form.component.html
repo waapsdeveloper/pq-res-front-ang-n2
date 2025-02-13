@@ -1,53 +1,74 @@
 <section class="sc-2">
-  <div class="container">
-     <div class="booking-box">
-        <div class="fl-9"  data-aos="fade" data-aos-duration="1200">
-           <img src="assets/img/fl-9.svg" alt="">
-        </div>
-        <div class="fl-10"  data-aos="fade" data-aos-duration="1200">
-           <img src="assets/img/fl-10.svg" alt="">
-        </div>
-        <div class="book-sc">
-           <h3 class="top-cont-1">Online Registration</h3>
-           <h2 class="top-cont-2">Table <span>Booking</span></h2>
-           <div class="row">
-              <div class="col-md-3">
-                 <div class="book-inp">
-                    <input class="form-control" placeholder="Name" type="text" [(ngModel)]="formData.name">
-                 </div>
-              </div>
-              <div class="col-md-3">
-                 <div class="book-inp">
-                    <input class="form-control" placeholder="Email" type="email" [(ngModel)]="formData.email">
-                 </div>
-              </div>
-              <div class="col-md-3">
-                 <div class="book-inp">
-                    <input class="form-control" placeholder="password" type="password" [(ngModel)]="formData.password">
-                 </div>
-              </div>
-              <div class="col-md-3">
-                 <div class="book-inp">
-                    <div class="btn-sc text-left">
+   <div class="container">
+      <div class="booking-box" style="height: max-content;">
+         <div class="fl-9" data-aos="fade" data-aos-duration="1200">
+            <img src="assets/img/fl-9.svg" alt="">
+         </div>
+         <div class="fl-10" data-aos="fade" data-aos-duration="1200">
+            <img src="assets/img/fl-10.svg" alt="">
+         </div>
+         <div class="book-sc">
+            <!-- <h3 class="top-cont-1">We appreciate your time for registration</h3> -->
+            <h2 class="top-cont-2">Please <span>Register</span></h2>
+            <div class="row">
+               <div class="col-md-12 mb-2">
+                  <div class="book-inp text-left">
+                     <label for="name">Name</label>
+                     <input class="form-control" placeholder="Name" type="text" [(ngModel)]="formData.name">
+                  </div>
+               </div>
+               <div class="col-md-12 mb-2">
+                  <div class="book-inp text-left">
+                     <label for="name">Email</label>
+                     <input class="form-control" placeholder="Email" type="email" [(ngModel)]="formData.email">
+                  </div>
+               </div>
+               <div class="col-md-12 mb-2">
+                  <div class="book-inp text-left">
+                     <label for="name">Phone</label>
+                     <input class="form-control" placeholder="Phone" type="text" [(ngModel)]="formData.phone">
+                  </div>
+               </div>
+               <div class="col-md-12 mb-2">
+                  <div class="book-inp text-left">
+                     <label for="name">Password</label>
+                     <input class="form-control" placeholder="password" type="password" [(ngModel)]="formData.password">
+                  </div>
+               </div>
+               <div class="col-md-12 mb-2">
+                  <div class="book-inp">
+                     <div class="btn-sc">
+                        <label class="" style="height: 16px; width: 100%;"> </label>
+                        <button class="btn-prime" (click)="formSubmit()">
+                           Register NOW
+                        </button>
 
-                       <button class="btn-prime" (click)="formSubmit()" >
-                        Register ME
-                       </button>
-
-                    </div>
-                 </div>
-              </div>
-           </div>
-        </div>
-        <div class="fl-11"  data-aos="fade" data-aos-duration="1200">
-           <img src="assets/img/fl-11.svg" alt="">
-        </div>
-        <div class="fl-12"  data-aos="fade" data-aos-duration="1200">
-           <img src="assets/img/fl-12.svg" alt="">
-        </div>
-        <div class="fl-14" data-aos="fade" data-aos-duration="1200">
-           <img src="assets/img/fl-14.svg" alt="">
-        </div>
-     </div>
-  </div>
+                     </div>
+                  </div>
+               </div>               
+            </div>
+            <div class="row mt-4">
+               <div class="col-md-12">
+                  <label class=""><a href="javascript:void(0)" (click)="nav.push('/tabs/login')">Already have an account?</a> </label>
+               </div>
+            </div>
+            <div class="row mt-4">
+               <div class="col-md-12">
+                  <div class="book-text">
+                     <p>By clicking the "Register Now" button, you agree to our <a href="javascript:void(0)">Terms & Conditions</a> and <a href="javascript:void(0)">Privacy Policy</a>.</p>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="fl-11" data-aos="fade" data-aos-duration="1200">
+            <img src="assets/img/fl-11.svg" alt="">
+         </div>
+         <div class="fl-12" data-aos="fade" data-aos-duration="1200">
+            <img src="assets/img/fl-12.svg" alt="">
+         </div>
+         <div class="fl-14" data-aos="fade" data-aos-duration="1200">
+            <img src="assets/img/fl-14.svg" alt="">
+         </div>
+      </div>
+   </div>
 </section>

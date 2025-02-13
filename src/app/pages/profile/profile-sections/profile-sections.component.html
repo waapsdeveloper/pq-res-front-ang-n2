@@ -1,0 +1,40 @@
+<section class="sec-3">
+    <div class="fl-15" data-aos="fade" data-aos-duration="1200">
+      <img src="assets/img/fl-15.svg" alt="">
+    </div>
+    <div class="fl-16" data-aos="fade" data-aos-duration="1200">
+      <img src="assets/img/fl-16.svg" alt="">
+    </div>
+    <div class="fl-17" data-aos="fade" data-aos-duration="1200">
+      <img src="assets/img/fl-17.svg" alt="">
+    </div>
+    <div class="container">
+      <div class="row cstm-col-ip">
+        <div class="col-md-3">
+          <div class="menu-item-sidebar">
+            <div class="mn-box">
+              <ul class="mn-list">
+                <li *ngFor="let item of sections" >
+                  <a (click)="switchSection(item)">
+                    <span>{{ item.title }}</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-9">
+          <div class="d-flex flex-column gap-5">
+            <app-account-information></app-account-information>
+            <app-change-password></app-change-password>
+            <app-address></app-address>
+            <app-order-tracking></app-order-tracking>
+            <app-table-tracking></app-table-tracking>
+            
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
