@@ -18,7 +18,9 @@ export class AccountInformationComponent implements OnInit {
   formData: any;
 
   ngOnInit() {
-    this.user = JSON.parse(this.userService.getUser());
+
+    let user = this.userService.getUser();
+    this.user = typeof user === 'string' ? JSON.parse(user) : user;
     console.log(this.user, 'iam the user ');
     this.formData = {
       name: this.user.name,

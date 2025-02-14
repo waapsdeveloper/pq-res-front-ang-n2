@@ -89,6 +89,9 @@ export class NetworkService {
   orderHistory(){
     return this.httpGetResponse('order-history', null, false, true);
   }
+  getTableUser(){
+    return this.httpGetResponse('table-booking', null, false, true);
+  }
   // table bookings start
 
   getTablesByRestaurantId(params: any, id: number) {

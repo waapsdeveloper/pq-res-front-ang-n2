@@ -90,7 +90,7 @@ export class CartContentComponent implements OnInit {
 
   async ngOnInit() {
     let user = await this.users.getUser();
-    this.user = JSON.parse(user);
+    this.user = typeof user === 'string' ? JSON.parse(user) : user;
     console.log('this is the user', this.user);
     this.phone = this.user?.phone;
 

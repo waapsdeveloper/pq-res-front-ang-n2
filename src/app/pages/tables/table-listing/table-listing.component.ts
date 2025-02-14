@@ -8,6 +8,7 @@ import {
   Output,
 } from '@angular/core';
 import { BasePage } from '../../base-page/base-page';
+import { UsersService } from '../../../services/users.service';
 
 @Component({
   selector: 'app-table-listing',
@@ -24,7 +25,7 @@ export class TableListingComponent extends BasePage implements OnInit {
   guestCount = 0;
   branches: any[] = [];
   selectedBranch: any;
-
+  userr: any;
   minDate = new Date().toISOString().split('T')[0];
 
   selectedFloor = 'First';
@@ -60,19 +61,32 @@ export class TableListingComponent extends BasePage implements OnInit {
     this.hostScreensize = width; //<= 1300 ? 'col-md-12' : 'col-md-9';
   }
 
-  constructor(injector: Injector) {
+  constructor(injector: Injector, private user: UsersService) {
     super(injector);
   }
   async ngOnInit() {
+    this.initialize();
     this.updateColumnClass(window.innerWidth);
     this.restaurantId = localStorage.getItem('restaurant_id');
     const res = await this.network.allBranches();
+
     this.branches = res?.data;
     console.log('this is the branches', this.branches);
-   setTimeout(() => {
-    this.updateGuestCount(this.selectedGuestCount)
-   }, 1200);
+    setTimeout(() => {
+      this.updateGuestCount(this.selectedGuestCount);
+    }, 1200);
   }
+
+  async initialize() {
+
+    let user = await this.user.getUser();
+
+    if (user) {
+      this.userr = typeof user === 'string' ? JSON.parse(user) : user;
+
+    }
+  }
+
 
   setSelected(item: any) {
     item.selected = !item.selected;
@@ -132,21 +146,15 @@ export class TableListingComponent extends BasePage implements OnInit {
   }
 
   async startBooking() {
-
     const user = await this.users.getLoginUser();
 
     console.log(user);
 
-    if(!user){
+    if (!user) {
       this.utility.presentFailureToast('Please login to book a table');
       this.nav.push('tabs/login');
       return;
     }
-
-
-
-
-
 
     // get selected tables
     const selected = this.list
@@ -197,8 +205,8 @@ export class TableListingComponent extends BasePage implements OnInit {
     console.log('End Time:', formattedEndTime);
 
     let bookingData = {
-      name:this.name,
-      phone:this.phone,
+      name: this.userr?.name,
+      phone: this.userr?.phone,
       tables: selected,
       no_of_seats: this.selectedGuestCount,
       start_time: startTimeString + ':00',
@@ -219,8 +227,15 @@ export class TableListingComponent extends BasePage implements OnInit {
 
     if (res && res.booking) {
       this.nav.push('/tabs/table-booking-tracker/' + res.booking.order_number);
+      this.formData = {
+             no_of_guests: '',
+            date: '',
+            time: '',
+          };
     } else {
-      this.utility.presentFailureToast('Failed to book table, please try again later');
+      this.utility.presentFailureToast(
+        'Failed to book table, please try again later'
+      );
     }
     // if (res && res.booking) {
     //   this.utility.presentSuccessToast(
@@ -291,5 +306,10 @@ export class TableListingComponent extends BasePage implements OnInit {
     if (this.selectedBranch) {
       console.log('This is selected branch', this.selectedBranch);
     }
+  }
+  async loginUser() {
+    this.nav.push('/tabs/login', {
+      backUrl: 'tabs/tables',
+    });
   }
 }
