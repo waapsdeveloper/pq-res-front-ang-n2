@@ -43,6 +43,7 @@ export class InterceptorService implements HttpInterceptor {
     let R = localStorage.getItem('restaurant_id');
     if (R) {
       obj['restaurant_id'] = R;
+      obj['restaurant-id'] = R;
     }
 
     // obj['restaurant_id'] = localStorage.getItem('restaurant_id');

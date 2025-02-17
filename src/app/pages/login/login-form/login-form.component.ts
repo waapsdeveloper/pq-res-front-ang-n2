@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { NavService } from '../../../services/nav.service';
 import { UtilityService } from '../../../services/utility.service';
 
@@ -9,19 +10,27 @@ import { UtilityService } from '../../../services/utility.service';
   templateUrl: './login-form.component.html',
   styleUrl: './login-form.component.scss'
 })
-export class LoginFormComponent {
+export class LoginFormComponent implements OnInit {
 
+  backUrl: string = '';
+  
   formData = {
     name: '',
     email: '',
-    password: ''
+    phone: '',
+    password: '',
+    isGuestLogin: false,
   }
 
   @Output('onAction') onAction = new EventEmitter<any>();
   @Output('onRegister') onRegister = new EventEmitter<any>();
 
-  constructor(private utility: UtilityService, public nav: NavService){
+  constructor(private utility: UtilityService, public nav: NavService,  private router: ActivatedRoute){
 
+  }
+  
+  ngOnInit(): void {
+    this.backUrl = this.router.snapshot.queryParamMap.get('backUrl') || '';
   }
 
   newformSubmit(){
@@ -31,12 +40,22 @@ export class LoginFormComponent {
   async formSubmit(){
     console.log(this.formData)
 
-    if(!this.formData.email){
+    if(!this.formData.name && this.formData.isGuestLogin ){
+      this.utility.presentFailureToast("Please enter your name");
+      return;
+    }
+
+    if(!this.formData.phone && this.formData.isGuestLogin){
+      this.utility.presentFailureToast("Please enter your phone number");
+      return;
+    }
+
+    if(!this.formData.email && !this.formData.isGuestLogin){
       this.utility.presentFailureToast("Please enter your password");
       return;
     }
 
-    if(!this.formData.password){
+    if(!this.formData.password && !this.formData.isGuestLogin){
       this.utility.presentFailureToast("Please enter your password");
       return;
     }
@@ -47,6 +66,10 @@ export class LoginFormComponent {
 
     // console.log(res);
 
+  }
+
+  changeGuestLogin(){
+    this.formData.isGuestLogin = !this.formData.isGuestLogin;
   }
 
 }

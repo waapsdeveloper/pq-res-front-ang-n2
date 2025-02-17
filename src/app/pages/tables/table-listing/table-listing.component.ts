@@ -18,6 +18,8 @@ import { UsersService } from '../../../services/users.service';
   styleUrl: './table-listing.component.scss',
 })
 export class TableListingComponent extends BasePage implements OnInit {
+
+
   list: any[] = [];
   filteredList: any[] = [];
   floors: any[] = [];
@@ -27,6 +29,7 @@ export class TableListingComponent extends BasePage implements OnInit {
   selectedBranch: any;
   userr: any;
   minDate = new Date().toISOString().split('T')[0];
+  isGuest = false;
 
   selectedFloor = 'First';
 
@@ -152,7 +155,9 @@ export class TableListingComponent extends BasePage implements OnInit {
 
     if (!user) {
       this.utility.presentFailureToast('Please login to book a table');
-      this.nav.push('tabs/login');
+      this.nav.push('tabs/login', {
+        backUrl: '/tabs/tables'
+      });
       return;
     }
 
