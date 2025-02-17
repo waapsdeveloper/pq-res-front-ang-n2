@@ -1,31 +1,33 @@
 <div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="cart-box">
-                <h3 class="mb-3">Table Booking History</h3>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">Booking No.</th>
-                            <th scope="col">Date</th>
-                            <th scope="col">Time</th>
-                            <th scope="col">No. of Guests</th>
-                            <th scope="col">Restaurant</th>
-                            <th scope="col">Status</th>
-                        </tr>
-                    </thead>
-                    <tbody *ngFor="let booking of bookings">
-                        <tr >
-                            <td>{{ booking.booking_start.split(' ')[0]  }}</td>
-                            <td>{{ booking.booking_start.split(' ')[0] | date: 'dd/MM/yyyy' }}</td>
-                            <td>{{ booking.booking_start.split(' ')[1] }}</td>
-                            <td>{{ booking.no_of_seats}}</td>
-                            <td>{{ booking.restaurant.name }}</td>
-                            <td>{{ booking.status }}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="cart-box">
+        <h3 class="mb-3">Table Booking History</h3>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Booking No.</th>
+              <th scope="col">Date</th>
+              <th scope="col">Time</th>
+              <th scope="col">No. of Guests</th>
+              <th scope="col">Restaurant</th>
+              <th scope="col">Status</th>
+            </tr>
+          </thead>
+          <tbody *ngFor="let booking of bookings">
+            <tr>
+              <td>{{ booking.booking_start.split(" ")[0] }}</td>
+              <td>
+                {{ booking.booking_start.split(" ")[0] | date : "dd/MM/yyyy" }}
+              </td>
+              <td>{{ booking.booking_start.split(" ")[1] }}</td>
+              <td>{{ booking.no_of_seats }}</td>
+              <td>{{ booking.restaurant.name }}</td>
+              <td>{{ booking.status }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
+  </div>
 </div>
