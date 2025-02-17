@@ -36,7 +36,7 @@ export class TableBookingTrackerComponent implements OnInit {
     console.log(params.params);
 
     const res = await this.network.trackTableBooking(order_number);
-    // this.data = res.order;
+    this.data = res.order;
     // console.log(this.data);
 
     // this.notifications.registerPusherEvent(order_number)

@@ -112,8 +112,7 @@
                 <span>
                   {{ cartItems.length }} Items | ${{ this.carte.total_price | number : "1.2-2" }}
                 </span>
-                <button *ngIf="user" (click)="makeOrder()">Check Out</button>
-                <button *ngIf="!user" (click)="loginUser()">Login</button>
+                <button (click)="makeOrder()">Check Out</button>                
               </div>
             </div>
           </div>

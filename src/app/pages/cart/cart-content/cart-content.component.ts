@@ -124,6 +124,21 @@ export class CartContentComponent implements OnInit {
   }
 
   async makeOrder() {
+
+    const user = this.users.getUser();
+    if(!user){
+      this.nav.push('/tabs/login', {
+        backUrl: '/tabs/cart',
+      });
+
+      return;
+    }
+
+
+
+
+
+
     const table_identifier = localStorage.getItem('table_identifier') || '';
 
     const items = this.cartItems.map((item) => {
