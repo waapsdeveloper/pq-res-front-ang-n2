@@ -1,0 +1,102 @@
+<section class="sec-3">
+    <div class="fl-15" data-aos="fade" data-aos-duration="1200">
+      <img src="assets/img/fl-15.svg" alt="" />
+    </div>
+    <div class="fl-16" data-aos="fade" data-aos-duration="1200">
+      <img src="assets/img/fl-16.svg" alt="" />
+    </div>
+    <div class="fl-17" data-aos="fade" data-aos-duration="1200">
+      <img src="assets/img/fl-17.svg" alt="" />
+    </div>
+    <div class="container">
+      <div class="add-to-sc">
+        <div class="row">
+          <div class="col-md-9">
+            <div class="cart-box">
+              <h3 class="cart-heading">
+                <h3>ORDER DETAILS | {{ data?.order_number }}</h3>
+                <span class="badge badge-info">{{ data?.status }}</span>
+              </h3>
+              <div
+                class="item-bx text-center"
+                *ngIf="data?.products?.length == 0"
+              >
+                <img
+                  src="assets/img/delivery-img-inner.svg"
+                  class="mb-3"
+                  alt=""
+                />
+                <p>You haven’t added any items in bucket yet</p>
+                <a href="/tabs/products">
+                  <button class="btn-prime">Explore Menu</button>
+                </a>
+              </div>
+              <div
+                class="cart-items-list d-flex flex-column gap-5"
+                *ngIf="data?.products?.length > 0"
+              >
+                <div *ngFor="let item of data.products">
+                  <!-- <app-order-tracking-item [item]="item">
+                  </app-order-tracking-item> -->
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="cart-box">
+              <h3 class="mb-3">Order Details</h3>
+              <div class="instructions">
+                <p>Special Instructions (Optional)</p>
+                <textarea
+                  name=""
+                  id=""
+                  class="int-field"
+                  [value]="data?.notes"
+                  readonly
+                >
+                </textarea>
+                <p>Alternate Phone Number (3XXXXXXXXX)</p>
+                <input
+                  type="number"
+                  name=""
+                  placeholder="Phone"
+                  id="phone1234567"
+                  class="int-field"
+                  [value]="data?.customer.phone"
+                  readonly
+                />
+              </div>
+  
+              <div class="instructions">
+                <h3>Your Order</h3>
+                <ul>
+                  <li>
+                    <div class="left-item">Sub Total :</div>
+                    <div class="right-item">Rs :{{ data?.total_price }}</div>
+                  </li>
+                  <li>
+                    <div class="left-item">Delivery Fee :</div>
+                    <div class="right-item">Rs 0</div>
+                  </li>
+                  <li>
+                    <div class="left-item">GST ( NaN % ) :</div>
+                    <div class="right-item">Rs 0</div>
+                  </li>
+                </ul>
+  
+                <!-- Total Price and Split Bill Section -->
+                <div class="checkout-bar">
+                  <span
+                    >{{ data?.products?.length }} Items | Rs:
+                    {{ data?.total_price }}</span
+                  >
+                </div>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  

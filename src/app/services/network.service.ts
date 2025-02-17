@@ -160,10 +160,18 @@ export class NetworkService {
     return this.httpPostResponse('contact-us', data, null, false, true);
   }
 
-  trackOrder(data: any) {
-    let str = this.serialize(data);
+  trackOrder(order_number: any) {    
     return this.httpGetResponse(
-      'track-customer-order/' + data,
+      'track-customer-order/' + order_number,
+      null,
+      false,
+      true
+    );
+  }
+
+  trackTableBooking(order_number: any) {
+    return this.httpGetResponse(
+      'table-booking/track-table-booking/' + order_number,
       null,
       false,
       true

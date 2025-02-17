@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CartService } from '../../services/cart.service';
 import { NetworkService } from '../../services/network.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -11,7 +11,7 @@ import { NotificationsService } from '../../services/notifications.service';
   templateUrl: './order-tracker.component.html',
   styleUrl: './order-tracker.component.scss',
 })
-export class OrderTrackerComponent {
+export class OrderTrackerComponent implements OnInit {
   cartItems: any[] = [];
   data: any = null;
   phone: number | null = null;
