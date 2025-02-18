@@ -2,7 +2,13 @@
   <div class="row">
     <div class="col-md-12">
       <div class="cart-box">
-        <h3 class="mb-3">Table Booking History</h3>
+        <!-- Header Row with Search Input -->
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h3 class="mb-0">Table Booking History</h3>
+          <input type="text" class="form-control w-25" placeholder="Search Orders..."/>
+        </div>
+
+        <!-- Table -->
         <table class="table">
           <thead>
             <tr>
@@ -14,12 +20,10 @@
               <th scope="col">Status</th>
             </tr>
           </thead>
-          <tbody *ngFor="let booking of bookings">
-            <tr>
+          <tbody>
+            <tr *ngFor="let booking of bookings">
               <td>{{ booking.booking_start.split(" ")[0] }}</td>
-              <td>
-                {{ booking.booking_start.split(" ")[0] | date : "dd/MM/yyyy" }}
-              </td>
+              <td>{{ booking.booking_start.split(" ")[0] | date : "dd/MM/yyyy" }}</td>
               <td>{{ booking.booking_start.split(" ")[1] }}</td>
               <td>{{ booking.no_of_seats }}</td>
               <td>{{ booking.restaurant.name }}</td>
