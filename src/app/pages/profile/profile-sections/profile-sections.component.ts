@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { NavService } from '../../../services/nav.service';
 import { UsersService } from '../../../services/users.service';
 
@@ -9,8 +10,9 @@ import { UsersService } from '../../../services/users.service';
   templateUrl: './profile-sections.component.html',
   styleUrl: './profile-sections.component.scss',
 })
-export class ProfileSectionsComponent {
-  constructor(private nav: NavService, private users: UsersService) {}
+export class ProfileSectionsComponent implements OnInit {
+  
+  
 
   sections: any[] = [
     {
@@ -79,6 +81,22 @@ export class ProfileSectionsComponent {
     //   selected: false,
     // }
   ];
+
+  constructor(private nav: NavService, private users: UsersService, private router: ActivatedRoute) {
+    
+  }
+  
+  ngOnInit(): void {
+    this.router.queryParams.subscribe((params: any) => {
+      const section = params.section;
+      if (section) {
+        const sectionItem = this.sections.find((item) => item.key === section);
+        if (sectionItem) {
+          this.switchSection(sectionItem)
+        }
+      }
+    });
+  }
 
   getSelectedItemStatus(key: string) {
     return this.sections.find((section) => section.key === key).selected;
