@@ -8,6 +8,8 @@
             type="text"
             class="form-control w-25"
             placeholder="Search Orders..."
+            [(ngModel)]="searchText"
+            (ngModelChange)="search($event)"
           />
         </div>
         <div class="table-responsive" *ngIf="!selectedOrder">

@@ -242,6 +242,7 @@ export class TableListingComponent extends BasePage implements OnInit {
         'Failed to book table, please try again later'
       );
     }
+   
     // if (res && res.booking) {
     //   this.utility.presentSuccessToast(
     //     'Table booked successfully - we will contact you shortly, Thank you!'

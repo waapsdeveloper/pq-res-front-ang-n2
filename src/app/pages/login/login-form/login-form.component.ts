@@ -13,7 +13,7 @@ import { UtilityService } from '../../../services/utility.service';
 export class LoginFormComponent implements OnInit {
 
   backUrl: string = '';
-  
+
   formData = {
     name: '',
     email: '',
@@ -28,7 +28,7 @@ export class LoginFormComponent implements OnInit {
   constructor(private utility: UtilityService, public nav: NavService,  private router: ActivatedRoute){
 
   }
-  
+
   ngOnInit(): void {
     this.backUrl = this.router.snapshot.queryParamMap.get('backUrl') || '';
   }

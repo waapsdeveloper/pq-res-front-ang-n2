@@ -40,7 +40,13 @@ export class NetworkService {
 
   // Auth registration
   postEmailForgetPassword(data: any) {
-    return this.httpPostResponse('auth/forgot-password', data, null, false, true);
+    return this.httpPostResponse(
+      'auth/forgot-password',
+      data,
+      null,
+      false,
+      true
+    );
   }
   getUserByToken() {
     return this.httpGetResponse('auth/me', null, false);
@@ -49,8 +55,14 @@ export class NetworkService {
   authRegister(data: any) {
     return this.httpPostResponse('auth/register', data, null, false, true);
   }
-  updateCredential(data:any){
-    return this.httpPostResponse('profile/update-user', data, null, false, true);
+  updateCredential(data: any) {
+    return this.httpPostResponse(
+      'profile/update-user',
+      data,
+      null,
+      false,
+      true
+    );
   }
 
   authLogin(data: any) {
@@ -66,31 +78,56 @@ export class NetworkService {
   allCategory() {
     return this.httpGetResponse('all-categories', null, false);
   }
-  allBranches(){
+  allBranches() {
     return this.httpGetResponse('all-branches', null, false, false);
   }
 
-  updatePassword(data:any){
-    return this.httpPostResponse('profile/update-password', data, null, false, true);
+  updatePassword(data: any) {
+    return this.httpPostResponse(
+      'profile/update-password',
+      data,
+      null,
+      false,
+      true
+    );
   }
 
-  getUserAddresses(){
+  getUserAddresses() {
     return this.httpGetResponse('profile/all-user-address', null, false, true);
   }
-  addAddress(data:any){
-    return this.httpPostResponse('profile/add-user-address', data, null, false, true);
+  addAddress(data: any) {
+    return this.httpPostResponse(
+      'profile/add-user-address',
+      data,
+      null,
+      false,
+      true
+    );
   }
-  updateAddress(id:any,data:any){
-    return this.httpPostResponse('profile/update-user-address', data, id, false, true);
+  updateAddress(id: any, data: any) {
+    return this.httpPostResponse(
+      'profile/update-user-address',
+      data,
+      id,
+      false,
+      true
+    );
   }
-  deleteAddress(id:any){
-    return this.httpDeleteResponse('profile/delete-user-address', id, false, true);
+  deleteAddress(id: any) {
+    return this.httpDeleteResponse(
+      'profile/delete-user-address',
+      id,
+      false,
+      true
+    );
   }
-  orderHistory(){
-    return this.httpGetResponse('order-history', null, false, true);
+  orderHistory(params: any) {
+    let str = this.serialize(params);
+    return this.httpGetResponse('order-history' + '?' + str, null, false, true);
   }
-  getTableUser(){
-    return this.httpGetResponse('table-booking', null, false, true);
+  getTableUser(params:any) {
+    let str = this.serialize(params);
+    return this.httpGetResponse('table-booking' + '?' + str, null, false, true);
   }
   // table bookings start
 
@@ -160,7 +197,7 @@ export class NetworkService {
     return this.httpPostResponse('contact-us', data, null, false, true);
   }
 
-  trackOrder(order_number: any) {    
+  trackOrder(order_number: any) {
     return this.httpGetResponse(
       'track-customer-order/' + order_number,
       null,
@@ -178,7 +215,7 @@ export class NetworkService {
     );
   }
 
-  restaurantDetail(id:any) {
+  restaurantDetail(id: any) {
     return this.httpGetResponse(`restautant-detail/${id}`, null, false);
   }
 
@@ -298,14 +335,12 @@ export class NetworkService {
             this.utility.hideLoader();
           }
 
-          if(showError == true) {
-
+          if (showError == true) {
             if (res.code === 200) {
               this.utility.presentSuccessToast(res.message);
             } else {
               this.utility.presentFailureToast(res.message);
             }
-
           }
 
           console.log('EW', res);

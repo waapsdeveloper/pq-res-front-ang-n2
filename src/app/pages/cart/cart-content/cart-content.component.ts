@@ -36,7 +36,24 @@ export class CartContentComponent implements OnInit {
   total: number = 0;
   phone: number | null = null;
   variations: any[] = [];
+  paymentMethod:any;
+  orderType:any;
   notes: any;
+  orderTypes: { label: string; value: string }[] = [
+    { label: 'Delivery', value: 'delivery' },
+    { label: 'Takeaway', value: 'takeaway' },
+    { label: 'Dine-in', value: 'dinein' },
+    { label: 'Curbside Pickup', value: 'curbside' },
+    { label: 'Drive-Thru', value: 'drivethru' },
+  ];
+
+  paymentMethods: { label: string; value: string }[] = [
+    { label: 'Cash on Delivery', value: 'cod' },
+    { label: 'Apple Pay', value: 'applePay' },
+    { label: 'Google Pay', value: 'googlePay' },
+    { label: 'Credit/Debit Card', value: 'card' },
+    { label: 'PayPal', value: 'paypal' },
+  ];
   constructor(
     public carte: CartService,
     private network: NetworkService,
@@ -124,20 +141,14 @@ export class CartContentComponent implements OnInit {
   }
 
   async makeOrder() {
-
     const user = this.users.getUser();
-    if(!user){
+    if (!user) {
       this.nav.push('/tabs/login', {
         backUrl: '/tabs/cart',
       });
 
       return;
     }
-
-
-
-
-
 
     const table_identifier = localStorage.getItem('table_identifier') || '';
 
@@ -177,6 +188,7 @@ export class CartContentComponent implements OnInit {
 
   navigateToPage(order_number: string) {
     this.router.navigate(['/tabs/order-tracker/' + order_number]);
+
   }
 
   // getCartTotal(){

@@ -11,9 +11,12 @@ import { ActivatedRoute } from '@angular/router';
   styleUrl: './login.component.scss',
 })
 export class LoginComponent extends BasePage implements OnInit {
-
   backUrl: string = '';
-  constructor(injector: Injector, private user: UsersService, private router: ActivatedRoute) {
+  constructor(
+    injector: Injector,
+    private user: UsersService,
+    private router: ActivatedRoute
+  ) {
     super(injector);
   }
 
@@ -31,7 +34,13 @@ export class LoginComponent extends BasePage implements OnInit {
       localStorage.setItem('token', res.token);
     }
 
-    if (res.user) {
+    if (res.user && data.isGuestLogin) {
+      console.log("isGuestLogin")
+      let user = JSON.stringify(res.user);
+      localStorage.setItem('Guest User', user);
+      this.nav.pop(this.backUrl);
+    }
+    else if (res.user) {
       let user = JSON.stringify(res.user);
       this.user.setUser(user);
       this.nav.pop(this.backUrl);
