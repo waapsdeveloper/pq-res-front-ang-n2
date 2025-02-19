@@ -175,12 +175,15 @@ export class CartContentComponent implements OnInit {
       subTotal: this.carte.total_price,
       type: table_identifier ? 'dine-in' : 'delivery',
       notes: this.notes,
+      payment_method: this.paymentMethod,
+      order_type: this.orderType,
+      delivery_address: this.deliveryAddress,
     };
 
     console.log(obj);
 
     const res = await this.network.makeOrder(obj);
-    console.log(res);
+    console.log(res , "res");
     if (res) {
       if (res.data && res.data.order_number) {
         this.carte.clearCart();
@@ -191,7 +194,7 @@ export class CartContentComponent implements OnInit {
   }
 
   navigateToPage(order_number: string) {
-    this.router.navigate(['/tabs/order-tracker/' + order_number]);
+    this.nav.push('/tabs/order-tracker/' + order_number);
 
     let isGuestLogin = localStorage.getItem('guestLogin');
     if (isGuestLogin) {

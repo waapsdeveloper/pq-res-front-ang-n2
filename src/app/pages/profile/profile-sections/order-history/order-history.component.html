@@ -76,7 +76,10 @@
                 <strong>Total Price:</strong>
                 {{ selectedOrder.total_price | currency }}
               </p>
-              <p><strong>Order Type:</strong> {{ selectedOrder.type }}</p>
+              <p><strong>Order Type:</strong> {{ selectedOrder.order_type }}</p>
+              <p><strong>Payment Methods</strong> {{ selectedOrder.payment_method }}</p>
+              <p><strong>Order Type:</strong> {{ selectedOrder.delivery_address }}</p>
+
               <p>
                 <strong>Status:</strong>
                 <span class="badge bg-warning">{{ selectedOrder.status }}</span>
