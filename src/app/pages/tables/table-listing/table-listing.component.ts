@@ -18,8 +18,6 @@ import { UsersService } from '../../../services/users.service';
   styleUrl: './table-listing.component.scss',
 })
 export class TableListingComponent extends BasePage implements OnInit {
-
-
   list: any[] = [];
   filteredList: any[] = [];
   floors: any[] = [];
@@ -81,15 +79,12 @@ export class TableListingComponent extends BasePage implements OnInit {
   }
 
   async initialize() {
-
     let user = await this.user.getUser();
 
     if (user) {
       this.userr = typeof user === 'string' ? JSON.parse(user) : user;
-
     }
   }
-
 
   setSelected(item: any) {
     item.selected = !item.selected;
@@ -149,14 +144,14 @@ export class TableListingComponent extends BasePage implements OnInit {
   }
 
   async startBooking() {
-    const user = await this.users.getLoginUser();
+    const user = await this.users.getUser();
 
-    console.log(user);
+    console.log(user,"this is my user");
 
     if (!user) {
       this.utility.presentFailureToast('Please login to book a table');
       this.nav.push('tabs/login', {
-        backUrl: '/tabs/tables'
+        backUrl: '/tabs/tables',
       });
       return;
     }
@@ -233,16 +228,22 @@ export class TableListingComponent extends BasePage implements OnInit {
     if (res && res.booking) {
       this.nav.push('/tabs/table-booking-tracker/' + res.booking.order_number);
       this.formData = {
-             no_of_guests: '',
-            date: '',
-            time: '',
-          };
+        no_of_guests: '',
+        date: '',
+        time: '',
+      };
+      let isGuestLogin = localStorage.getItem('guestLogin');
+      if (isGuestLogin) {
+        localStorage.removeItem('guestLogin');
+        localStorage.removeItem('user');
+        localStorage.removeItem('token');
+      }
     } else {
       this.utility.presentFailureToast(
         'Failed to book table, please try again later'
       );
     }
-   
+
     // if (res && res.booking) {
     //   this.utility.presentSuccessToast(
     //     'Table booked successfully - we will contact you shortly, Thank you!'

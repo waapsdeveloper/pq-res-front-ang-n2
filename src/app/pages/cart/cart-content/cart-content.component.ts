@@ -36,8 +36,8 @@ export class CartContentComponent implements OnInit {
   total: number = 0;
   phone: number | null = null;
   variations: any[] = [];
-  paymentMethod:any;
-  orderType:any;
+  paymentMethod: any;
+  orderType: any;
   notes: any;
   orderTypes: { label: string; value: string }[] = [
     { label: 'Delivery', value: 'delivery' },
@@ -189,6 +189,13 @@ export class CartContentComponent implements OnInit {
   navigateToPage(order_number: string) {
     this.router.navigate(['/tabs/order-tracker/' + order_number]);
 
+    let isGuestLogin = localStorage.getItem('guestLogin');
+    if (isGuestLogin) {
+      localStorage.removeItem('guestLogin');
+      localStorage.removeItem('user');
+      localStorage.removeItem('token');
+
+    }
   }
 
   // getCartTotal(){

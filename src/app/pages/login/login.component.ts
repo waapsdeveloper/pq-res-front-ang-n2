@@ -35,12 +35,11 @@ export class LoginComponent extends BasePage implements OnInit {
     }
 
     if (res.user && data.isGuestLogin) {
-      console.log("isGuestLogin")
       let user = JSON.stringify(res.user);
-      localStorage.setItem('Guest User', user);
+      this.user.setUser(user);
+      localStorage.setItem('guestLogin', data.isGuestLogin);
       this.nav.pop(this.backUrl);
-    }
-    else if (res.user) {
+    } else if (res.user) {
       let user = JSON.stringify(res.user);
       this.user.setUser(user);
       this.nav.pop(this.backUrl);
