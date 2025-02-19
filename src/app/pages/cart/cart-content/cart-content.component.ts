@@ -1,9 +1,9 @@
+import { UsersService } from './../../../services/users.service';
 import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { CartService } from '../../../services/cart.service';
 import { NetworkService } from '../../../services/network.service';
 import { Router } from '@angular/router';
 import { UtilityService } from '../../../services/utility.service';
-import { UsersService } from '../../../services/users.service';
 import { NavService } from '../../../services/nav.service';
 
 @Component({
@@ -18,6 +18,7 @@ export class CartContentComponent implements OnInit {
   branches: any[] = [];
   selectedBranch: any;
   hostScreensize = -1;
+  deliveryAddress: string = '';
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
@@ -54,6 +55,7 @@ export class CartContentComponent implements OnInit {
     { label: 'Credit/Debit Card', value: 'card' },
     { label: 'PayPal', value: 'paypal' },
   ];
+
   constructor(
     public carte: CartService,
     private network: NetworkService,
@@ -62,6 +64,8 @@ export class CartContentComponent implements OnInit {
     private nav: NavService,
     private users: UsersService
   ) {
+    this.paymentMethod = this.paymentMethods[0].value;
+    this.orderType = this.orderTypes[0].value;
     // this.carte.getCartItems().subscribe((res: any) => {
     //   this.cartItems = res;
     //  console.log('res',this.cartItems);
@@ -191,10 +195,7 @@ export class CartContentComponent implements OnInit {
 
     let isGuestLogin = localStorage.getItem('guestLogin');
     if (isGuestLogin) {
-      localStorage.removeItem('guestLogin');
-      localStorage.removeItem('user');
-      localStorage.removeItem('token');
-
+      this.users.logout();
     }
   }
 

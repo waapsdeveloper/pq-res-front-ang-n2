@@ -83,8 +83,14 @@ export class UsersService {
   }
 
   logout(){
+    let isGuestLogin = localStorage.getItem('guestLogin');
+    if (isGuestLogin) {
+      localStorage.removeItem('guestLogin');
+    }
     localStorage.removeItem('token');
     localStorage.removeItem('user');
+
     this.muser = null;
+
   }
 }

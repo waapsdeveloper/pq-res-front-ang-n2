@@ -86,6 +86,19 @@
               </select>
             </div>
 
+
+            <div class="mb-3" *ngIf="orderType === 'delivery'">
+              <label for="deliveryAddress">Delivery Address:</label>
+              <textarea
+                id="deliveryAddress"
+                name="deliveryAddress"
+                class="int-field"
+                placeholder="Enter your delivery address"
+                [(ngModel)]="deliveryAddress"
+              ></textarea>
+            </div>
+
+
             <!-- Dropdown for Payment Method -->
             <div class="mb-3">
               <label for="paymentMethod">Select Payment Method:</label>

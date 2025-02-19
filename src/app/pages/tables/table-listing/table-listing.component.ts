@@ -146,7 +146,7 @@ export class TableListingComponent extends BasePage implements OnInit {
   async startBooking() {
     const user = await this.users.getUser();
 
-    console.log(user,"this is my user");
+    console.log(user, 'this is my user');
 
     if (!user) {
       this.utility.presentFailureToast('Please login to book a table');
@@ -234,9 +234,7 @@ export class TableListingComponent extends BasePage implements OnInit {
       };
       let isGuestLogin = localStorage.getItem('guestLogin');
       if (isGuestLogin) {
-        localStorage.removeItem('guestLogin');
-        localStorage.removeItem('user');
-        localStorage.removeItem('token');
+        this.users.logout();
       }
     } else {
       this.utility.presentFailureToast(
