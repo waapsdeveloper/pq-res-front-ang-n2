@@ -2,103 +2,62 @@
   <div class="container p-2">
     <div class="mn-box mb-0">
       <div class="d-flex justify-content-between align-items-center">
-        <h2 style="display: flex; align-items: center; justify-content: space-between; gap: 16px;">
+        <h2 class="address-heading">
           Address Book
-          <div class="add-btn btn-prime btn-update-67856" (click)="addNewAddress()">
-            Add
-          </div>
         </h2>
-
-        <!-- Add Button -->
-
-        <div class="d-flex align-items-center gap-3">
-          <!-- Previous Button -->
-          <div [className]="" class="backword-btn" (click)="prevSlide(swiperRef)">
-            Previous
-          </div>
-
-          <!-- Next Button -->
-          <div class="forward-btn " (click)="nextSlide(swiperRef)">Next</div>
-        </div>
+        <button class="btn-add" (click)="toggleAddForm()">+ Add Address</button>
       </div>
 
-      <swiper
-        #swiperRef
-        [slidesPerView]="1"
-        [spaceBetween]="10"
-        [navigation]="false"
-        [pagination]="{ clickable: true }"
-        [centeredSlides]="true"
-        [loop]="false"
-        style="overflow: hidden; width: 100%"
-      >
-        <ng-template swiperSlide *ngFor="let item of addresses; let i = index">
-          <div class="row">
-            <div class="col-md-12 mb-2">
-              <div class="book-inp">
-                <label for="address">Address</label>
-                <input
-                  class="form-control"
-                  placeholder="Address"
-                  type="text"
-                  [(ngModel)]="item.address"
-                />
-              </div>
-            </div>
-            <div class="col-md-12 mb-2">
-              <div class="book-inp">
-                <label for="city">City</label>
-                <input
-                  class="form-control"
-                  placeholder="City"
-                  type="text"
-                  [(ngModel)]="item.city"
-                />
-              </div>
-            </div>
-            <div class="col-md-12 mb-2">
-              <div class="book-inp">
-                <label for="state">State</label>
-                <input
-                  class="form-control"
-                  placeholder="State"
-                  type="text"
-                  [(ngModel)]="item.state"
-                />
-              </div>
-            </div>
-            <div class="col-md-12 mb-2">
-              <div class="book-inp">
-                <label for="country">Country</label>
-                <input
-                  class="form-control"
-                  placeholder="Country"
-                  type="text"
-                  [(ngModel)]="item.country"
-                />
-              </div>
-            </div>
-            <div class="col-md-12 mb-2">
-              <div class="book-inp">
-                <div class="d-flex gap-2">
-                  <button
-                    class="btn-prime btn-update-67856"
-                    (click)="formSubmit(item)"
-                  >
-                    Update
-                  </button>
-                  <button
-                    class="btn-prime btn-update-67856"
-                    (click)="delete(item)"
-                  >
-                    Delete
-                  </button>
-                </div>
-              </div>
-            </div>
+      <!-- Add/Update Form -->
+      <div *ngIf="showForm" class="form-container">
+        <form (ngSubmit)="formSubmit()">
+          <div class="mb-2">
+            <label>Address</label>
+            <input class="form-control" [(ngModel)]="selectedAddress.address" name="address" required />
           </div>
-        </ng-template>
-      </swiper>
+          <div class="mb-2">
+            <label>City</label>
+            <input class="form-control" [(ngModel)]="selectedAddress.city" name="city" required />
+          </div>
+          <div class="mb-2">
+            <label>State</label>
+            <input class="form-control" [(ngModel)]="selectedAddress.state" name="state" required />
+          </div>
+          <div class="mb-2">
+            <label>Country</label>
+            <input class="form-control" [(ngModel)]="selectedAddress.country" name="country" required />
+          </div>
+          <div class="button-group">
+            <button type="submit" class="btn-save">Save</button>
+            <button type="button" class="btn-cancel" (click)="cancelForm()">Cancel</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Address List -->
+      <table class="table mt-3">
+        <thead>
+          <tr>
+            <th>Address</th>
+            <th>City</th>
+            <th>State</th>
+            <th>Country</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of addresses">
+            <td>{{ item.address }}</td>
+            <td>{{ item.city }}</td>
+            <td>{{ item.state }}</td>
+            <td>{{ item.country }}</td>
+            <td class="action-buttons">
+              <button class="btn-update" (click)="editAddress(item)">Update</button>
+              <button class="btn-delete" (click)="deleteAddress(item)">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </section>
