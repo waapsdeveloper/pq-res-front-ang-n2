@@ -1,7 +1,9 @@
 import { Component, EventEmitter, Output, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NavService } from '../../../services/nav.service';
+import { PhoneService } from '../../../services/phone.service';
 import { UtilityService } from '../../../services/utility.service';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-login-form',
@@ -13,6 +15,7 @@ import { UtilityService } from '../../../services/utility.service';
 export class LoginFormComponent implements OnInit {
 
   backUrl: string = '';
+  dialCode: string = '1'; 
 
   formData = {
     name: '',
@@ -25,7 +28,7 @@ export class LoginFormComponent implements OnInit {
   @Output('onAction') onAction = new EventEmitter<any>();
   @Output('onRegister') onRegister = new EventEmitter<any>();
 
-  constructor(private utility: UtilityService, public nav: NavService,  private router: ActivatedRoute){
+  constructor(private utility: UtilityService, public nav: NavService,  private router: ActivatedRoute, private phoneService: PhoneService, private cdRef: ChangeDetectorRef){
 
   }
 
@@ -50,6 +53,16 @@ export class LoginFormComponent implements OnInit {
       return;
     }
 
+    
+    if(this.formData.phone && this.formData.isGuestLogin){
+      const validPhone = this.phoneService.isPhoneNumberValid(this.formData.phone);
+      if(!validPhone){
+        this.utility.presentFailureToast("Please enter a valid phone number");
+        return;
+      }
+    }
+    
+
     if(!this.formData.email && !this.formData.isGuestLogin){
       this.utility.presentFailureToast("Please enter your password");
       return;
@@ -70,6 +83,21 @@ export class LoginFormComponent implements OnInit {
 
   changeGuestLogin(){
     this.formData.isGuestLogin = !this.formData.isGuestLogin;
+  }
+
+  onPhoneInput(): void {
+    this.formData.phone = this.phoneService.formatPhoneNumberLive(this.formData.phone);
+    console.log(this.formData.phone)
+    this.cdRef.detectChanges(); 
+  }
+
+  keyupPh($event: any) {
+    let v = $event.target.value;
+  
+    // Remove all non-numeric characters except backspace handling
+    if (isNaN(Number(v[v.length - 1]))) {
+      $event.target.value = v.slice(0, -1); // Remove last character
+    }
   }
 
 }
