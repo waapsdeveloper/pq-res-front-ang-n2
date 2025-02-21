@@ -67,12 +67,13 @@
               <p>{{ user?.phone }}</p>
               <p>Alternate Phone Number (3XXXXXXXXX)</p>
               <input
-                type="number"
+                type="text"
                 name="phone"
                 placeholder="Phone"
                 class="int-field"
                 required
                 [(ngModel)]="phone"
+                (ngModelChange)="onPhoneInput()" [maxlength]="14" (keyup)="keyupPh($event)"
               />
             </div>
 

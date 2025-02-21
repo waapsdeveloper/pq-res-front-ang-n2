@@ -18,6 +18,7 @@ export class LoginFormComponent implements OnInit {
   dialCode: string = '1'; 
 
   formData = {
+    dial_code: '+1',
     name: '',
     email: '',
     phone: '',

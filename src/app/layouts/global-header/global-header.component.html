@@ -7,7 +7,7 @@
       <app-nav-menu-header [logoUrl]="logoUrl"></app-nav-menu-header>
 
       <div>
-         <a class="user-icon-header" (click)="nav.push('/tabs/profile')" data-aos="fade" data-aos-duration="1000">
+         <a class="user-icon-header" *ngIf="getUserRole() == 10" (click)="nav.push('/tabs/profile')" data-aos="fade" data-aos-duration="1000">
             <img src="/assets/img/user23.png" alt="">
          </a>
 

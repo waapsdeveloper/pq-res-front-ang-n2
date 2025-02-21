@@ -5,7 +5,8 @@ import { NetworkService } from '../../../services/network.service';
 import { Router } from '@angular/router';
 import { UtilityService } from '../../../services/utility.service';
 import { NavService } from '../../../services/nav.service';
-
+import { PhoneService } from '../../../services/phone.service';
+import { ChangeDetectorRef } from '@angular/core';
 @Component({
   selector: 'app-cart-content',
   standalone: false,
@@ -35,7 +36,7 @@ export class CartContentComponent implements OnInit {
   gstPercentage: number = 10; // Example GST percentage
   gstAmount: number = 0;
   total: number = 0;
-  phone: number | null = null;
+  phone: string = '';
   variations: any[] = [];
   paymentMethod: any;
   orderType: any;
@@ -62,7 +63,8 @@ export class CartContentComponent implements OnInit {
     private router: Router,
     public utility: UtilityService,
     private nav: NavService,
-    private users: UsersService
+    private users: UsersService,
+    private phoneService: PhoneService, private cdRef: ChangeDetectorRef
   ) {
     this.paymentMethod = this.paymentMethods[0].value;
     this.orderType = this.orderTypes[0].value;
@@ -154,6 +156,21 @@ export class CartContentComponent implements OnInit {
       return;
     }
 
+    
+    if (!this.phone) {
+      this.utility.presentFailureToast('Please enter your phone number');
+      return;
+    }
+
+    
+    if(this.phone){
+      const validPhone = this.phoneService.isPhoneNumberValid(this.phone);
+      if(!validPhone){
+        this.utility.presentFailureToast("Please enter a valid phone number");
+        return;
+      }
+    }
+
     const table_identifier = localStorage.getItem('table_identifier') || '';
 
     const items = this.cartItems.map((item) => {
@@ -207,5 +224,21 @@ export class CartContentComponent implements OnInit {
   // }
   update() {
     console.log(this.selectedBranch);
+  }
+
+  
+  
+  onPhoneInput(): void {
+    this.phone = this.phoneService.formatPhoneNumberLive(this.phone);    
+    this.cdRef.detectChanges(); 
+  }
+
+  keyupPh($event: any) {
+    let v = $event.target.value;
+  
+    // Remove all non-numeric characters except backspace handling
+    if (isNaN(Number(v[v.length - 1]))) {
+      $event.target.value = v.slice(0, -1); // Remove last character
+    }
   }
 }

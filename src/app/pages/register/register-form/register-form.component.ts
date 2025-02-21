@@ -3,6 +3,8 @@ import { NavService } from '../../../services/nav.service';
 import { NetworkService } from '../../../services/network.service';
 import { UtilityService } from '../../../services/utility.service';
 import { UsersService } from '../../../services/users.service';
+import { PhoneService } from '../../../services/phone.service';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-register-form',
@@ -25,7 +27,8 @@ export class RegisterFormComponent {
     private network: NetworkService,
     private utility: UtilityService,
     public nav: NavService,
-    private user :UsersService
+    private user :UsersService,
+    private phoneService: PhoneService, private cdRef: ChangeDetectorRef
   ) {}
 
   async formSubmit() {
@@ -44,6 +47,15 @@ export class RegisterFormComponent {
     if (!this.formData.phone) {
       this.utility.presentFailureToast('Please enter your phone number');
       return;
+    }
+
+    
+    if(this.formData.phone){
+      const validPhone = this.phoneService.isPhoneNumberValid(this.formData.phone);
+      if(!validPhone){
+        this.utility.presentFailureToast("Please enter a valid phone number");
+        return;
+      }
     }
 
     if (!this.formData.password) {
@@ -75,6 +87,22 @@ export class RegisterFormComponent {
       console.log(user);
       this.user.setUser(user);
       this.nav.push('/tabs/home');
+    }
+  }
+
+  
+  onPhoneInput(): void {
+    this.formData.phone = this.phoneService.formatPhoneNumberLive(this.formData.phone);
+    console.log(this.formData.phone)
+    this.cdRef.detectChanges(); 
+  }
+
+  keyupPh($event: any) {
+    let v = $event.target.value;
+  
+    // Remove all non-numeric characters except backspace handling
+    if (isNaN(Number(v[v.length - 1]))) {
+      $event.target.value = v.slice(0, -1); // Remove last character
     }
   }
 }

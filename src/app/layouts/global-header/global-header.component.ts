@@ -3,6 +3,7 @@ import { EventsService } from '../../services/events.service';
 import { NavService } from '../../services/nav.service';
 import { CartService } from '../../services/cart.service';
 import { Observable } from 'rxjs';
+import { UsersService } from '../../services/users.service';
 
 @Component({
   selector: 'app-global-header',
@@ -17,6 +18,7 @@ export class GlobalHeaderComponent {
 
   constructor(
     public nav: NavService,
+    public users: UsersService,
     public carte: CartService
   ) {
     this.cartCounter = this.carte.getCartCounter();
@@ -30,5 +32,9 @@ export class GlobalHeaderComponent {
     this.logoUrl = image?.logo || '';
     console.log(this.logoUrl);
     return this.logoUrl;
+  }
+
+  getUserRole(){
+    return this.users.getUserRole();
   }
 }
