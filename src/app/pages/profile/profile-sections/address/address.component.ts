@@ -11,102 +11,57 @@ import { SwiperComponent } from 'swiper/angular';
   styleUrl: './address.component.scss',
 })
 export class AddressComponent {
-  @ViewChild('swiperRef', { static: false }) swiperRef!: SwiperComponent;
   addresses: any[] = [];
-  user: any;
+  selectedAddress: any = {};
+  showForm: boolean = false;
+  isEditing: boolean = false; // Track if we are updating an address
 
-  id: any;
-  address: any;
   constructor(
     private userService: UsersService,
     private network: NetworkService
   ) {}
+
   ngOnInit() {
-    this.user = this.userService.getUser();
-    this.id = this.user.id;
-    // call api for get addresses
     this.getAllAddresses();
-
-    // this.user = JSON.parse(this.userService.getUser());
-    // this.id = this.user.id;
-    // console.log('user', this.id);
-
-    // this.address = {
-    //   name: '',
-    //   city: '',
-    //   state: '',
-    //   country: '',
-    //   user_id: this.id,
-    // };
   }
 
   async getAllAddresses() {
     const res = await this.network.getUserAddresses();
-    console.log(res);
-    this.addresses = res.addresses;
-
-    if (this.addresses.length == 0) {
-      this.addresses = [];
-      return;
-    }
-
-    this.id = this.addresses[0].id; // assuming first address is selected by default
-    this.setSelectedAddress(this.id);
+    this.addresses = res.addresses || [];
   }
 
-  setSelectedAddress(id: string) {
-    this.addresses.forEach((address) => {
-      address.selected = false;
-      if (address.id === id) {
-        address.selected = true;
-      }
-    });
+  toggleAddForm() {
+    this.selectedAddress = { address: '', city: '', state: '', country: '' };
+    this.isEditing = false;
+    this.showForm = true;
   }
 
-  async formSubmit(i: any) {
-    let obj = {
-      user_id: i.user_id,
-      city: i.city,
-      country: i.country,
-      state: i.state,
-      address: i.address,
-    };
-    if (i.id) {
-      await this.network.updateAddress(i.id, obj);
-      console.log('Updated Address:', obj);
+  editAddress(item: any) {
+    this.selectedAddress = { ...item }; // Copy values to avoid modifying the original before save
+    this.isEditing = true;
+    this.showForm = true;
+  }
+
+  async formSubmit() {
+    if (this.isEditing) {
+      await this.network.updateAddress(
+        this.selectedAddress.id,
+        this.selectedAddress
+      );
     } else {
-      const res = await this.network.addAddress(obj);
-      console.log('Added New Address:', res);
-      this.getAllAddresses();
+      await this.network.addAddress(this.selectedAddress);
     }
+    this.showForm = false;
+    this.getAllAddresses();
   }
-  nextSlide(swiper: SwiperComponent) {
-    if (swiper && swiper.swiperRef) {
-      swiper.swiperRef.slideNext();
-    }
+
+  async deleteAddress(item: any) {
+    await this.network.deleteAddress(item.id);
+    this.getAllAddresses();
   }
-  prevSlide(swiper: SwiperComponent) {
-    if (swiper && swiper.swiperRef) {
-      swiper.swiperRef.slidePrev();
-    }
-  }
-  delete(i: any) {
-    let res = this.network.deleteAddress(i.id);
-    console.log(res, 'delete');
-  }
-  addNewAddress() {
-    this.addresses.push({
-      id: null, // No ID yet since it's new
-      user_id: this.id,
-      address: '',
-      city: '',
-      state: '',
-      country: '',
-    });
-    setTimeout(() => {
-      if (this.swiperRef?.swiperRef) {
-        this.swiperRef.swiperRef.slideTo(this.addresses.length - 1);
-      }
-    }, 100);
+
+  cancelForm() {
+    this.showForm = false;
+    this.selectedAddress = {};
   }
 }
