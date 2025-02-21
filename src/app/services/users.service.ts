@@ -30,20 +30,21 @@ export class UsersService {
   }
 
   getUserRole() {
-    const res = localStorage.getItem('user');
-    if (res) {
-      this.muser = JSON.parse(res);
-    }
+    let u = this.getUser();
 
-    if (!this.muser) {
+    console.log(u)
+
+    u = JSON.parse(u);
+
+    if (!u) {
       return -1;
     }
 
-    if (!this.muser.role_id) {
+    if (!u.role_id) {
       return -1;
     }
 
-    return this.muser.role_id;
+    return u.role_id;
   }
 
   async getLoginUserFromApi() {
