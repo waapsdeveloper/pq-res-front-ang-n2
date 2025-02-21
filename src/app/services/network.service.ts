@@ -35,7 +35,7 @@ export class NetworkService {
 
   */
   getDefaultRestaurantId() {
-    return this.httpGetResponse('restaurant/active', null, false, true);
+    return this.httpGetResponse('restaurant/active', null, false, false);
   }
 
   // Auth registration
@@ -70,13 +70,13 @@ export class NetworkService {
   }
 
   aboutUsCategory() {
-    return this.httpGetResponse('about-us', null, false);
+    return this.httpGetResponse('about-us', null, false,false);
   }
   lowestPrice() {
     return this.httpGetResponse('lowest-price', null, false, false);
   }
   allCategory() {
-    return this.httpGetResponse('all-categories', null, false);
+    return this.httpGetResponse('all-categories', null, false,false);
   }
   allBranches() {
     return this.httpGetResponse('all-branches', null, false, false);
@@ -93,7 +93,7 @@ export class NetworkService {
   }
 
   getUserAddresses() {
-    return this.httpGetResponse('profile/all-user-address', null, false, true);
+    return this.httpGetResponse('profile/all-user-address', null, false, false);
   }
   addAddress(data: any) {
     return this.httpPostResponse(
@@ -123,11 +123,11 @@ export class NetworkService {
   }
   orderHistory(params: any) {
     let str = this.serialize(params);
-    return this.httpGetResponse('order-history' + '?' + str, null, false, true);
+    return this.httpGetResponse('order-history' + '?' + str, null, false, false);
   }
   getTableUser(params:any) {
     let str = this.serialize(params);
-    return this.httpGetResponse('table-booking' + '?' + str, null, false, true);
+    return this.httpGetResponse('table-booking' + '?' + str, null, false, false);
   }
   // table bookings start
 
@@ -137,7 +137,7 @@ export class NetworkService {
       'get-tables-by-restaurant/' + id + '?' + str,
       null,
       false,
-      true
+      false
     );
   }
 
@@ -151,7 +151,7 @@ export class NetworkService {
       data,
       null,
       false,
-      true
+      false
     );
   }
 

@@ -66,3 +66,43 @@
     margin-top: 30px;
   }
 }
+
+.badge-pending {
+  background-color: #7470eb;
+  color: #f5f5f5;
+}
+
+.badge-confirmed {
+  background-color: #e3f2fd;
+  color: #ffffff;
+}
+
+.badge-preparing {
+  background-color: #ffe0b2;
+  color: #f57c00;
+}
+
+.badge-ready-for-pickup {
+  background-color: #d1c4e9;
+  color: #512da8;
+}
+
+.badge-out-for-delivery {
+  background-color: #bbdefb;
+  color: #1976d2;
+}
+
+.badge-delivered {
+  background-color: #c8e6c9;
+  color: #388e3c;
+}
+
+.badge-completed {
+  background-color: #dcedc8;
+  color: #4caf50;
+}
+
+.badge-cancelled {
+  background-color: #ffcdd2;
+  color: red;
+}

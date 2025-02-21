@@ -10,7 +10,7 @@ import { UtilityService } from '../../../../services/utility.service';
     styleUrl: './order-tracking-item.component.scss',
   })
   export class OrderTrackingItemComponent {
-   
+
   private _item: any;
 
   @Input()
@@ -79,4 +79,21 @@ import { UtilityService } from '../../../../services/utility.service';
     this.carte.updateQuantity(item.id, item.quantity - 1);
     this.carte.totalOfProductCost();
   }
+  // In your component.ts file:
+
+// In your component.ts file (same as before):
+
+// In your component.ts file:
+
+variationGroupHasSelectedOption(variationGroup: any[]): boolean {  // Changed type to any[]
+  if (!variationGroup || variationGroup.length === 0) {  //check if array is empty or not
+    return false;
+  }
+  for (const variation of variationGroup) { //loop through each variation object in the array
+    if (variation.options && variation.options.some((option: any) => option.selected)) {
+      return true; // Found a selected option in this group
+    }
+  }
+  return false; // No selected options found in the entire group
+}
 }
