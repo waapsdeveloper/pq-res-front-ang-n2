@@ -81,20 +81,28 @@ export class GlobalFooterComponent implements OnInit {
   }
 
   isUserLoggedIn() {
-
     let u = this.users.getUser();
 
-    u = JSON.parse(u);
-
-    if(!u){
+    if (!u) {
       return false;
     }
 
-    if(u.role_id == 10){
-      return true;
+    try {
+      // Parse only if it's a string
+      if (typeof u === 'string') {
+        u = JSON.parse(u);
+      }
+
+      // Ensure `u` is a valid object
+      if (typeof u !== 'object' || u === null) {
+        return false;
+      }
+
+      return u.role_id === 10;
+    } catch (error) {
+      console.error("Error parsing user data:", error);
+      return false;
     }
-
-    return false;
-
   }
+
 }

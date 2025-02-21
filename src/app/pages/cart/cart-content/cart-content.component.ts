@@ -7,6 +7,7 @@ import { UtilityService } from '../../../services/utility.service';
 import { NavService } from '../../../services/nav.service';
 import { PhoneService } from '../../../services/phone.service';
 import { ChangeDetectorRef } from '@angular/core';
+import { CheckoutService } from '../../../services/checkout.service';
 @Component({
   selector: 'app-cart-content',
   standalone: false,
@@ -41,6 +42,9 @@ export class CartContentComponent implements OnInit {
   paymentMethod: any;
   orderType: any;
   notes: any;
+  city: string = '';
+  state: string = '';
+  country: string = '';
   orderTypes: { label: string; value: string }[] = [
     { label: 'Delivery', value: 'delivery' },
     { label: 'Takeaway', value: 'takeaway' },
@@ -64,7 +68,9 @@ export class CartContentComponent implements OnInit {
     public utility: UtilityService,
     private nav: NavService,
     private users: UsersService,
-    private phoneService: PhoneService, private cdRef: ChangeDetectorRef
+    private phoneService: PhoneService,
+    private cdRef: ChangeDetectorRef,
+    public checkout: CheckoutService
   ) {
     this.paymentMethod = this.paymentMethods[0].value;
     this.orderType = this.orderTypes[0].value;
@@ -112,6 +118,13 @@ export class CartContentComponent implements OnInit {
   }
 
   async ngOnInit() {
+    this.deliveryAddress = this.checkout.checkout_obj.deliveryAddress;
+    this.orderType = this.checkout.checkout_obj.orderType;
+    this.paymentMethod = this.checkout.checkout_obj.paymentMethod;
+    this.notes = this.checkout.checkout_obj.notes;
+    this.city = this.checkout.checkout_obj.city;
+    this.state = this.checkout.checkout_obj.state;
+    this.country = this.checkout.checkout_obj.country;
     let user = await this.users.getUser();
     this.user = typeof user === 'string' ? JSON.parse(user) : user;
     console.log('this is the user', this.user);
@@ -149,6 +162,15 @@ export class CartContentComponent implements OnInit {
   async makeOrder() {
     const user = this.users.getUser();
     if (!user) {
+      this.checkout.checkout_obj.orderType = this.orderType;
+      this.checkout.checkout_obj.deliveryAddress = this.deliveryAddress;
+      this.checkout.checkout_obj.paymentMethod = this.paymentMethod;
+      this.checkout.checkout_obj.notes = this.notes;
+      this.checkout.checkout_obj.phone = this.phone;
+      this.checkout.checkout_obj.country = this.country;
+      this.checkout.checkout_obj.state = this.state;
+      this.checkout.checkout_obj.city = this.city;
+
       this.nav.push('/tabs/login', {
         backUrl: '/tabs/cart',
       });
@@ -156,17 +178,15 @@ export class CartContentComponent implements OnInit {
       return;
     }
 
-    
     if (!this.phone) {
       this.utility.presentFailureToast('Please enter your phone number');
       return;
     }
 
-    
-    if(this.phone){
+    if (this.phone) {
       const validPhone = this.phoneService.isPhoneNumberValid(this.phone);
-      if(!validPhone){
-        this.utility.presentFailureToast("Please enter a valid phone number");
+      if (!validPhone) {
+        this.utility.presentFailureToast('Please enter a valid phone number');
         return;
       }
     }
@@ -200,7 +220,7 @@ export class CartContentComponent implements OnInit {
     console.log(obj);
 
     const res = await this.network.makeOrder(obj);
-    console.log(res , "res");
+    console.log(res, 'res');
     if (res) {
       if (res.data && res.data.order_number) {
         this.carte.clearCart();
@@ -226,16 +246,14 @@ export class CartContentComponent implements OnInit {
     console.log(this.selectedBranch);
   }
 
-  
-  
   onPhoneInput(): void {
-    this.phone = this.phoneService.formatPhoneNumberLive(this.phone);    
-    this.cdRef.detectChanges(); 
+    this.phone = this.phoneService.formatPhoneNumberLive(this.phone);
+    this.cdRef.detectChanges();
   }
 
   keyupPh($event: any) {
     let v = $event.target.value;
-  
+
     // Remove all non-numeric characters except backspace handling
     if (isNaN(Number(v[v.length - 1]))) {
       $event.target.value = v.slice(0, -1); // Remove last character

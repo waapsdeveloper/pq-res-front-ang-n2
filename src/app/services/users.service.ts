@@ -32,20 +32,29 @@ export class UsersService {
   getUserRole() {
     let u = this.getUser();
 
-    console.log(u)
-
-    u = JSON.parse(u);
-
     if (!u) {
       return -1;
     }
 
-    if (!u.role_id) {
+    try {
+      // Check if the value is a stringified JSON
+      if (typeof u === 'string') {
+        u = JSON.parse(u);
+      }
+
+      // Ensure it's an object
+      if (typeof u !== 'object' || u === null) {
+        return -1;
+      }
+
+      // Validate role_id existence
+      return u.role_id ?? -1;
+    } catch (error) {
+      console.error("Error parsing user data:", error);
       return -1;
     }
-
-    return u.role_id;
   }
+
 
   async getLoginUserFromApi() {
 

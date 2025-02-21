@@ -99,6 +99,42 @@
               ></textarea>
             </div>
 
+            <div class="mb-3" *ngIf="orderType === 'delivery'">
+              <label for="city">City:</label>
+              <input
+                type="text"
+                id="city"
+                name="city"
+                class="int-field"
+                placeholder="Enter your city"
+                [(ngModel)]="city"
+              />
+            </div>
+
+            <div class="mb-3" *ngIf="orderType === 'delivery'">
+              <label for="state">State:</label>
+              <input
+                type="text"
+                id="state"
+                name="state"
+                class="int-field"
+                placeholder="Enter your state"
+                [(ngModel)]="state"
+              />
+            </div>
+
+            <div class="mb-3" *ngIf="orderType === 'delivery'">
+              <label for="country">Country:</label>
+              <input
+                type="text"
+                id="country"
+                name="country"
+                class="int-field"
+                placeholder="Enter your country"
+                [(ngModel)]="country"
+              />
+            </div>
+
 
             <!-- Dropdown for Payment Method -->
             <div class="mb-3">
