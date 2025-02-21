@@ -158,3 +158,12 @@
   }
 }
 
+.filler {
+  height: 100px; /* Adjust as needed */
+  width: 100%;
+  display: flex; /* Center the text */
+  align-items: center;
+  justify-content: center;
+  color: #000000; /* Grayed-out text */
+  background: #FFE1E1;
+}
