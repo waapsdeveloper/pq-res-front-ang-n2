@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { CartService } from '../../../services/cart.service';
+import { NetworkService } from '../../../services/network.service';
 
 @Component({
   selector: 'app-order-tracker-content',
@@ -13,6 +14,7 @@ export class OrderTrackerContentComponent {
   total:any
   split_Bill=false;
   isTotalInvalid: boolean = false;
+  order_number: any;
   private _data: any;
   variations: any[] = [];
   @Input()
@@ -23,7 +25,7 @@ export class OrderTrackerContentComponent {
     this._data = value;
   }
 
-  constructor(public carte: CartService) {}
+  constructor(public carte: CartService, private network:NetworkService) {}
 
   async ngOnInit() {}
 
@@ -43,6 +45,11 @@ export class OrderTrackerContentComponent {
   }
   update(){
     this.split_Bill=false;
+
+  }
+ async track(){
+    let res = await this.network.trackOrder(this.order_number);
+    this.data = res.order;
 
   }
 
