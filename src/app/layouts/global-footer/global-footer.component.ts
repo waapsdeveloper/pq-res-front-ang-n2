@@ -2,6 +2,7 @@ import { CartItemComponent } from './../../pages/cart/cart-content/cart-item/car
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NetworkService } from '../../services/network.service';
+import { UsersService } from '../../services/users.service';
 
 @Component({
   selector: 'app-global-footer',
@@ -17,7 +18,7 @@ export class GlobalFooterComponent implements OnInit {
   logoUrl: string | null = null;
   selectedRestaurant: string = '';
   branches: any[] = [];
-  constructor(public router: Router, private network: NetworkService) {}
+  constructor(public router: Router, private network: NetworkService, public users: UsersService) {}
   async ngOnInit() {
     //  const res = await this.network.restaurantDetail();
     //  console.log(res.data);
@@ -37,6 +38,10 @@ export class GlobalFooterComponent implements OnInit {
 
   navigateToSignup() {
     this.router.navigate(['/tabs/register']); // Adjust if signup exists
+  }
+
+  navigateToProfile(){
+    this.router.navigate(['/tabs/profile']);
   }
   navigateToContact() {
     this.router.navigate(['/tabs/contact-us']);
@@ -72,6 +77,24 @@ export class GlobalFooterComponent implements OnInit {
   navigateToOrder(){
    let order_number = localStorage.getItem('order_number') ? localStorage.getItem('order_number') : null;
    this.router.navigate(['/tabs/order-tracker/' + order_number]);
+
+  }
+
+  isUserLoggedIn() {
+
+    let u = this.users.getUser();
+
+    u = JSON.parse(u);
+
+    if(!u){
+      return false;
+    }
+
+    if(u.role_id == 10){
+      return true;
+    }
+
+    return false;
 
   }
 }
