@@ -9,6 +9,7 @@ import {
 } from '@angular/core';
 import { BasePage } from '../../base-page/base-page';
 import { UsersService } from '../../../services/users.service';
+import { TableBookingService } from '../../../services/table-booking.service';
 
 @Component({
   selector: 'app-table-listing',
@@ -62,7 +63,7 @@ export class TableListingComponent extends BasePage implements OnInit {
     this.hostScreensize = width; //<= 1300 ? 'col-md-12' : 'col-md-9';
   }
 
-  constructor(injector: Injector, private user: UsersService) {
+  constructor(injector: Injector, private user: UsersService, public tableBookingService: TableBookingService) {
     super(injector);
   }
   async ngOnInit() {
@@ -100,16 +101,27 @@ export class TableListingComponent extends BasePage implements OnInit {
   async setObjectReceived(data: any) {
     console.log(data);
 
+
+
     if (data['no_of_guests']) {
       this.selectedGuestCount = data['no_of_guests'];
+    } 
+    else if (this.tableBookingService.bookingObj.guests) {
+      this.selectedGuestCount = this.tableBookingService.bookingObj.guests;
     }
 
     if (data['date']) {
       this.selectedDate = data['date'];
     }
+    else if (this.tableBookingService.bookingObj.date) {
+      this.selectedDate = this.tableBookingService.bookingObj.date;
+    }
 
     if (data['time']) {
       this.selectedTime = data['time'];
+    }
+    else if (this.tableBookingService.bookingObj.time) {
+      this.selectedTime = this.tableBookingService.bookingObj.time;
     }
 
     const restaurantId = String(localStorage.getItem('restaurant_id'));
@@ -144,11 +156,26 @@ export class TableListingComponent extends BasePage implements OnInit {
   }
 
   async startBooking() {
+
+    
+    
+
+
     const user = await this.users.getUser();
 
     console.log(user, 'this is my user');
 
     if (!user) {
+
+      this.tableBookingService.bookingObj.tableId = this.selectedTable;
+      this.tableBookingService.bookingObj.guests = this.selectedGuestCount;
+      this.tableBookingService.bookingObj.date = this.selectedDate;
+      this.tableBookingService.bookingObj.time = this.selectedTime;
+      this.tableBookingService.bookingObj.status = 'pending';
+
+
+
+
       this.utility.presentFailureToast('Please login to book a table');
       this.nav.push('tabs/login', {
         backUrl: '/tabs/tables',
@@ -224,6 +251,8 @@ export class TableListingComponent extends BasePage implements OnInit {
     console.log(bookingData);
     const res = await this.network.setTableBooking(bookingData);
     console.log(res);
+
+    this.tableBookingService.resetObj();
 
     if (res && res.booking) {
       this.nav.push('/tabs/table-booking-tracker/' + res.booking.order_number);
