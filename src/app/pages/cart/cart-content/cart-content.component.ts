@@ -49,7 +49,7 @@ export class CartContentComponent implements OnInit {
   ];
 
   paymentMethods: { label: string; value: string }[] = [
-    { label: 'Cash on Delivery', value: 'cod' },
+    { label: 'Cash on Delivery', value: 'Cash on Delivery' },
     { label: 'Apple Pay', value: 'applePay' },
     { label: 'Google Pay', value: 'googlePay' },
     { label: 'Credit/Debit Card', value: 'card' },

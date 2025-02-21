@@ -64,14 +64,12 @@
             <div class="card-body">
               <h5>Order #{{ selectedOrder.order_number }}</h5>
               <p>
-                <strong>Restaurant:</strong> {{ selectedOrder.restaurant.name }}
+                <strong>Customer: </strong> {{ selectedOrder.customer.name }}
               </p>
               <p>
-                <strong>Address:</strong> {{ selectedOrder.restaurant.address }}
+                <strong>Customer Phone:</strong> {{ selectedOrder.customer.phone }}
               </p>
-              <p>
-                <strong>Phone:</strong> {{ selectedOrder.restaurant.phone }}
-              </p>
+
               <p>
                 <strong>Total Price:</strong>
                 {{ selectedOrder.total_price | currency }}
