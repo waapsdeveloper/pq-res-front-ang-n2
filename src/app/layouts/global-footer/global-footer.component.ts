@@ -1,8 +1,9 @@
 import { CartItemComponent } from './../../pages/cart/cart-content/cart-item/cart-item.component';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 import { NetworkService } from '../../services/network.service';
 import { UsersService } from '../../services/users.service';
+import { NavService } from '../../services/nav.service';
 
 @Component({
   selector: 'app-global-footer',
@@ -18,7 +19,7 @@ export class GlobalFooterComponent implements OnInit {
   logoUrl: string | null = null;
   selectedRestaurant: string = '';
   branches: any[] = [];
-  constructor(public router: Router, private network: NetworkService, public users: UsersService) {}
+  constructor(public router: Router, private network: NetworkService, public users: UsersService, private nav: NavService) {}
   async ngOnInit() {
     //  const res = await this.network.restaurantDetail();
     //  console.log(res.data);
@@ -76,7 +77,11 @@ export class GlobalFooterComponent implements OnInit {
   }
   navigateToOrder(){
    let order_number = localStorage.getItem('order_number') ? localStorage.getItem('order_number') : null;
-   this.router.navigate(['/tabs/order-tracker/' + order_number]);
+
+   const extras: NavigationExtras = {
+      queryParams: { order_number: order_number },
+    };
+   this.router.navigate(['/tabs/order-tracker'], extras);
 
   }
 

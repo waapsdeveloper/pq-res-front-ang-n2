@@ -36,7 +36,6 @@ export class GlobalHeaderComponent {
 
   getUserRole(){
     let r = this.users.getUserRole();
-    console.log(r)
     return r;
   }
 }

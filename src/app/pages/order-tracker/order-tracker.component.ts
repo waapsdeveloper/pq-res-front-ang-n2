@@ -3,6 +3,7 @@ import { CartService } from '../../services/cart.service';
 import { NetworkService } from '../../services/network.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NotificationsService } from '../../services/notifications.service';
+import { NavService } from '../../services/nav.service';
 
 @Component({
   selector: 'app-order-tracker',
@@ -19,14 +20,15 @@ export class OrderTrackerComponent implements OnInit {
     public carte: CartService,
     private network: NetworkService,
     private activatedRoute: ActivatedRoute,
-    private notifications: NotificationsService
+    private notifications: NotificationsService,
+    private nav: NavService
   ) {
 
   }
 
   async ngOnInit() {
 
-    this.activatedRoute.paramMap.subscribe((params) => {
+    this.activatedRoute.queryParams.subscribe((params) => {
       this.initialize(params);
     })
 
@@ -34,16 +36,16 @@ export class OrderTrackerComponent implements OnInit {
   }
 
   async initialize(params: any){
-
-    const order_number = params.params['order_number'];
-    localStorage.setItem('order_number',order_number)
-    console.log(params.params);
+    console.log(params)
+    const order_number = params['order_number'];
+    // localStorage.setItem('order_number',order_number)
+    console.log(order_number);
 
     const res = await this.network.trackOrder(order_number);
     this.data = res.order;
     console.log(this.data);
 
-    this.notifications.registerPusherEvent(order_number)
+    // this.notifications.registerPusherEvent({order_number})
 
 
   }

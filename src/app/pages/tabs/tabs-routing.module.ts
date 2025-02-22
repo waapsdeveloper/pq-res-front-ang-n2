@@ -75,7 +75,7 @@ const routes: Routes = [
         data: { breadcrumb: 'checkout' },
       },
       {
-        path: 'order-tracker/:order_number',
+        path: 'order-tracker',
         loadChildren: () =>
           import('../order-tracker/order-tracker.module').then(
             (m) => m.OrderTrackerModule
