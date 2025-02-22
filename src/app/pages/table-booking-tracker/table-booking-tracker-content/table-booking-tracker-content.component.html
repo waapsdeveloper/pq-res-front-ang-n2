@@ -12,6 +12,37 @@
     <div class="add-to-sc">
       <div class="row">
         <div class="col-12">
+          <div class="book-sc">
+            <h2 class="top-cont-2">Track Your Table <span>Booking</span></h2>
+            <div class="row">
+              <div class="col-md-9">
+                <div class="book-inp">
+
+                  <input
+                    class="form-control"
+                    placeholder="Order Number"
+                    type="text"
+                    [(ngModel)]="table_no"
+
+                  />
+              </div>
+              </div>
+
+
+              <div class="col-md-3">
+                <div class="book-inp">
+                  <div class="btn-sc text-left">
+                    <button class="btn-prime" (click)="track()" >
+                      Track Now
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row mt-4">
+
+            </div>
+          </div>
           <div class="cart-box">
             <h3
               class="cart-heading d-flex justify-content-between align-items-center"
@@ -19,7 +50,7 @@
               <h3 class="m-0 p-0">
                 TABLE TRACKER DETAILS | {{ data?.order_number }}
               </h3>
-              <span
+              <span style="margin-right: 8px;"
                 class="badge fw-bold"
                 [ngClass]="{
                   'badge-pending': data?.status === 'pending',
