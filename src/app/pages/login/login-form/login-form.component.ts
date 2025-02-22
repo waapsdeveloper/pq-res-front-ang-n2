@@ -72,21 +72,20 @@ export class LoginFormComponent implements OnInit {
     
 
     if(!this.formData.email && !this.formData.isGuestLogin){
-      this.utility.presentFailureToast("Please enter your password");
+      this.utility.presentFailureToast("Please enter your email");
       return;
     }
 
-    if (!this.formData.email) {
-      this.utility.presentFailureToast('Please enter your email address');
-      return;
+    if(this.formData.email && !this.formData.isGuestLogin){
+      let validEmail = this.strings.validateEmail(this.formData.email);
+
+      if (!validEmail) {
+        this.utility.presentFailureToast('Please enter a valid email address');
+        return;
+      }
     }
 
-    let validEmail = this.strings.validateEmail(this.formData.email);
-
-    if (!validEmail) {
-      this.utility.presentFailureToast('Please enter a valid email address');
-      return;
-    }
+    
 
     if(!this.formData.password && !this.formData.isGuestLogin){
       this.utility.presentFailureToast("Please enter your password");
