@@ -4,7 +4,9 @@ import { NetworkService } from '../../../services/network.service';
 import { UtilityService } from '../../../services/utility.service';
 import { UsersService } from '../../../services/users.service';
 import { PhoneService } from '../../../services/phone.service';
+import { StringsService } from '../../../services/basic/strings.service';
 import { ChangeDetectorRef } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-register-form',
@@ -14,6 +16,9 @@ import { ChangeDetectorRef } from '@angular/core';
   styleUrl: './register-form.component.scss',
 })
 export class RegisterFormComponent {
+
+  backUrl: string = '';
+
   formData = {
     name: '',
     email: '',
@@ -28,8 +33,14 @@ export class RegisterFormComponent {
     private utility: UtilityService,
     public nav: NavService,
     private user :UsersService,
-    private phoneService: PhoneService, private cdRef: ChangeDetectorRef
+    private router: ActivatedRoute,
+    private phoneService: PhoneService, private cdRef: ChangeDetectorRef,
+    private strings: StringsService
   ) {}
+
+  ngOnInit(): void {
+    this.backUrl = this.router.snapshot.queryParamMap.get('backUrl') || '';
+  }
 
   async formSubmit() {
     console.log(this.formData);
@@ -40,7 +51,14 @@ export class RegisterFormComponent {
     }
 
     if (!this.formData.email) {
-      this.utility.presentFailureToast('Please enter your password');
+      this.utility.presentFailureToast('Please enter your email address');
+      return;
+    }
+
+    let validEmail = this.strings.validateEmail(this.formData.email);
+
+    if (!validEmail) {
+      this.utility.presentFailureToast('Please enter a valid email address');
       return;
     }
 
@@ -86,7 +104,8 @@ export class RegisterFormComponent {
       let user = JSON.stringify(res.user);
       console.log(user);
       this.user.setUser(user);
-      this.nav.push('/tabs/home');
+      // this.nav.push('/tabs/home');
+      this.nav.pop(this.backUrl);
     }
   }
 

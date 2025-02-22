@@ -18,17 +18,15 @@ export class TableBookingTrackerComponent implements OnInit {
   ) {}
 
   async ngOnInit() {
-    this.activatedRoute.paramMap.subscribe((params) => {
+    this.activatedRoute.queryParams.subscribe((params) => {
       this.initialize(params);
     });
   }
 
   async initialize(params: any) {
-    const table_no = params.params['order_number'];
+    const order_number = params['order_number'];
 
-    localStorage.setItem('table_no', table_no);
-
-    const res = await this.network.trackTableBooking(table_no);
+    const res = await this.network.trackTableBooking(order_number);
     this.data = res.order;
     // console.log(this.data);
 

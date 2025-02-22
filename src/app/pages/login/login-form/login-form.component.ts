@@ -4,6 +4,7 @@ import { NavService } from '../../../services/nav.service';
 import { PhoneService } from '../../../services/phone.service';
 import { UtilityService } from '../../../services/utility.service';
 import { ChangeDetectorRef } from '@angular/core';
+import { StringsService } from '../../../services/basic/strings.service';
 
 @Component({
   selector: 'app-login-form',
@@ -29,7 +30,11 @@ export class LoginFormComponent implements OnInit {
   @Output('onAction') onAction = new EventEmitter<any>();
   @Output('onRegister') onRegister = new EventEmitter<any>();
 
-  constructor(private utility: UtilityService, public nav: NavService,  private router: ActivatedRoute, private phoneService: PhoneService, private cdRef: ChangeDetectorRef){
+  constructor(
+    private utility: UtilityService, public nav: NavService, 
+    private router: ActivatedRoute, private phoneService: PhoneService,
+    private cdRef: ChangeDetectorRef, 
+    private strings: StringsService){
 
   }
 
@@ -38,7 +43,9 @@ export class LoginFormComponent implements OnInit {
   }
 
   newformSubmit(){
-    this.onRegister.emit();
+    // this.onRegister.emit();
+    this.nav.push('/tabs/register', {backUrl: this.backUrl});
+
   }
 
   async formSubmit(){
@@ -66,6 +73,18 @@ export class LoginFormComponent implements OnInit {
 
     if(!this.formData.email && !this.formData.isGuestLogin){
       this.utility.presentFailureToast("Please enter your password");
+      return;
+    }
+
+    if (!this.formData.email) {
+      this.utility.presentFailureToast('Please enter your email address');
+      return;
+    }
+
+    let validEmail = this.strings.validateEmail(this.formData.email);
+
+    if (!validEmail) {
+      this.utility.presentFailureToast('Please enter a valid email address');
       return;
     }
 
