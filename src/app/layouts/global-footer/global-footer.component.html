@@ -59,6 +59,9 @@
           ><a class="btn-account btn-login" (click)="navigateToOrder()"
             >Track Your Order</a
           >
+          <a class="btn-account btn-login" (click)="navigateToTableBooking()"
+            >Track Your Table Booking</a
+          >
         </div>
       </div>
       <div class="col-lg-3 col-md-6 d-flex">
@@ -92,7 +95,9 @@
           >
         </div>
         <div class="ftr-account" *ngIf="isUserLoggedIn()">
-          <a class="btn-account btn-login" (click)="navigateToProfile()">Profile</a>          
+          <a class="btn-account btn-login" (click)="navigateToProfile()"
+            >Profile</a
+          >
         </div>
       </div>
     </div>

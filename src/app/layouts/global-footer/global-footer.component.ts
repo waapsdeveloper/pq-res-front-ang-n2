@@ -104,5 +104,9 @@ export class GlobalFooterComponent implements OnInit {
       return false;
     }
   }
+  navigateToTableBooking(){
+    let table_no = localStorage.getItem("table_no") ? localStorage.getItem("table_no") : null;
+    this.router.navigate(["/tabs/table-booking-tracker/" + table_no]);
+  }
 
 }

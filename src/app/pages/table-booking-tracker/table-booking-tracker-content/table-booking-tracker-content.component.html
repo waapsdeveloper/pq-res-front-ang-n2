@@ -1,56 +1,75 @@
 <section class="sec-3">
-    <div class="fl-15" data-aos="fade" data-aos-duration="1200">
-      <img src="assets/img/fl-15.svg" alt="" />
-    </div>
-    <div class="fl-16" data-aos="fade" data-aos-duration="1200">
-      <img src="assets/img/fl-16.svg" alt="" />
-    </div>
-    <div class="fl-17" data-aos="fade" data-aos-duration="1200">
-      <img src="assets/img/fl-17.svg" alt="" />
-    </div>
-    <div class="container">
-      <div class="add-to-sc">
-        <div class="row">
-          <div class="col-12">
-            <div class="cart-box">
-              <h3 class="cart-heading">
-                <h3>TABLE TRACKER DETAILS | {{ data?.order_number }}</h3>
-                <span class="badge badge-info">{{ data?.status }}</span>
+  <div class="fl-15" data-aos="fade" data-aos-duration="1200">
+    <img src="assets/img/fl-15.svg" alt="" />
+  </div>
+  <div class="fl-16" data-aos="fade" data-aos-duration="1200">
+    <img src="assets/img/fl-16.svg" alt="" />
+  </div>
+  <div class="fl-17" data-aos="fade" data-aos-duration="1200">
+    <img src="assets/img/fl-17.svg" alt="" />
+  </div>
+  <div class="container">
+    <div class="add-to-sc">
+      <div class="row">
+        <div class="col-12">
+          <div class="cart-box">
+            <h3
+              class="cart-heading d-flex justify-content-between align-items-center"
+            >
+              <h3 class="m-0 p-0">
+                TABLE TRACKER DETAILS | {{ data?.order_number }}
               </h3>
-              
-              
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="cart-box">
-                            <h3 class="mb-3">Table Booking </h3>
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Date</th>
-                                        <th scope="col">Time</th>
-                                        <th scope="col">No. of Guests</th>
-                                        <th scope="col">Restaurant</th>
-                                        <th scope="col">Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody >
-                                    <tr >
-                                        <td>{{ data.booking_start.split(' ')[0] | date: 'dd/MM/yyyy' }}</td>
-                                        <td>{{ data.booking_start.split(' ')[1] }}</td>
-                                        <td>{{ data.no_of_seats}}</td>
-                                        <td>{{ data.restaurant.name }}</td>
-                                        <td>{{ data.status }}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+              <span
+                class="badge fw-bold"
+                [ngClass]="{
+                  'badge-pending': data?.status === 'pending',
+                  'badge-confirmed': data?.status === 'Confirmed',
+                  'badge-preparing': data?.status === 'Preparing',
+                  'badge-ready-for-pickup': data?.status === 'Ready For Pickup',
+                  'badge-out-for-delivery': data?.status === 'Out For Delivery',
+                  'badge-delivered': data?.status === 'Delivered',
+                  'badge-completed': data?.status === 'Completed',
+                  'badge-cancelled': data?.status === 'Cancelled'
+                }"
+                >{{ data?.status }}</span
+              >
+            </h3>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="cart-box">
+                  <h3 class="mb-3">Table Booking</h3>
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">Date</th>
+                        <th scope="col">Time</th>
+                        <th scope="col">No. of Guests</th>
+                        <th scope="col">Restaurant</th>
+                        <th scope="col">Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          {{
+                            data?.booking_start.split(" ")[0]
+                              | date : "dd/MM/yyyy"
+                          }}
+                        </td>
+                        <td>{{ data?.booking_start.split(" ")[1] }}</td>
+                        <td>{{ data?.no_of_seats }}</td>
+                        <td>{{ data?.restaurant.name }}</td>
+                        <td>{{ data?.status }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
-            
+              </div>
             </div>
-          </div>          
+          </div>
         </div>
       </div>
     </div>
-  </section>
-  
+  </div>
+</section>
