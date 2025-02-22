@@ -247,7 +247,7 @@ export class TableListingComponent extends BasePage implements OnInit {
     this.tableBookingService.resetObj();
 
     if (res && res.booking) {
-      this.nav.push('/tabs/table-booking-tracker/' + res.booking.order_number);
+      this.nav.push('/tabs/table-booking-tracker', { order_number:res.booking.order_number} );
       this.formData = {
         no_of_guests: '',
         date: '',

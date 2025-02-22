@@ -76,12 +76,12 @@ export class GlobalFooterComponent implements OnInit {
     }
   }
   navigateToOrder(){
-   let order_number = localStorage.getItem('order_number') ? localStorage.getItem('order_number') : null;
+  //  let order_number = localStorage.getItem('order_number') ? localStorage.getItem('order_number') : null;
 
-   const extras: NavigationExtras = {
-      queryParams: { order_number: order_number },
-    };
-   this.router.navigate(['/tabs/order-tracker'], extras);
+  //  const extras: NavigationExtras = {
+  //     queryParams: { order_number: order_number },
+  //   };
+   this.router.navigate(['/tabs/order-tracker']);
 
   }
 
@@ -110,8 +110,11 @@ export class GlobalFooterComponent implements OnInit {
     }
   }
   navigateToTableBooking(){
-    let table_no = localStorage.getItem("table_no") ? localStorage.getItem("table_no") : null;
-    this.router.navigate(["/tabs/table-booking-tracker/" + table_no]);
+    // let table_no = localStorage.getItem("table_no") ? localStorage.getItem("table_no") : null;
+    // const extras: NavigationExtras = {
+    //   queryParams: { table_no: table_no },
+    // };
+    this.router.navigate(["/tabs/table-booking-tracker"]);
   }
 
 }

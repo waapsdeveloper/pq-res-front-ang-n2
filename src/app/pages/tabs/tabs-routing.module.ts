@@ -119,7 +119,7 @@ const routes: Routes = [
         data: { breadcrumb: 'tables' },
       },
       {
-        path: 'table-booking-tracker/:order_number',
+        path: 'table-booking-tracker',
         loadChildren: () =>
           import('../table-booking-tracker/table-booking-tracker.module').then(
             (m) => m.TableBookingTrackerModule
