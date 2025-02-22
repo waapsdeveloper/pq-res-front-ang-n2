@@ -191,6 +191,43 @@ export class CartContentComponent implements OnInit {
       }
     }
 
+    if (!this.orderType) {
+      this.utility.presentFailureToast('Please select an order type');
+      return;
+    }
+
+
+    if (this.orderType === 'delivery' && !this.deliveryAddress) {
+      this.utility.presentFailureToast('Please enter your delivery address');
+      return;
+    }
+
+    if (this.orderType === 'delivery' && !this.city) {
+      this.utility.presentFailureToast('Please enter your city');
+      return;
+    }
+
+    if (this.orderType === 'delivery' && !this.state) {
+      this.utility.presentFailureToast('Please enter your state');
+      return;
+    }
+
+    if (this.orderType === 'delivery' && !this.country) {
+      this.utility.presentFailureToast('Please enter your country');
+      return;
+    }
+
+    if (!this.paymentMethod) {
+      this.utility.presentFailureToast('Please select a payment method');
+      return;
+    }
+
+
+
+
+
+
+
     const table_identifier = localStorage.getItem('table_identifier') || '';
 
     const items = this.cartItems.map((item) => {
