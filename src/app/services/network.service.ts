@@ -202,7 +202,7 @@ export class NetworkService {
       'track-customer-order/' + order_number,
       null,
       false,
-      true
+      false
     );
   }
 
@@ -211,7 +211,7 @@ export class NetworkService {
       'track-table-booking/' + order_number,
       null,
       false,
-      true
+      false
     );
   }
 
@@ -336,7 +336,7 @@ export class NetworkService {
           }
 
           if (showError == true) {
-            if (res.code !== 200) {            
+            if (res.code !== 200) {
               this.utility.presentFailureToast(res.message);
             }
           }

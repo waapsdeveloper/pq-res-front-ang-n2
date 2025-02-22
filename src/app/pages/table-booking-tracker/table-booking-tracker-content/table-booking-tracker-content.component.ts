@@ -21,6 +21,7 @@ export class TableBookingTrackerContentComponent {
     this._data = value;
   }
  async track(){
+  
     let res = await this.network.trackTableBooking(this.table_no);
     this.data = res.order;
 
