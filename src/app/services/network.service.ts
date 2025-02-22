@@ -208,7 +208,7 @@ export class NetworkService {
 
   trackTableBooking(order_number: any) {
     return this.httpGetResponse(
-      'table-booking/track-table-booking/' + order_number,
+      'track-table-booking/' + order_number,
       null,
       false,
       true
@@ -336,9 +336,7 @@ export class NetworkService {
           }
 
           if (showError == true) {
-            if (res.code === 200) {
-              this.utility.presentSuccessToast(res.message);
-            } else {
+            if (res.code !== 200) {            
               this.utility.presentFailureToast(res.message);
             }
           }
