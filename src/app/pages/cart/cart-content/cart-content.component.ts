@@ -235,6 +235,11 @@ export class CartContentComponent implements OnInit {
       return { product_id: id, ...rest };
     });
 
+
+    let full_address = this.deliveryAddress + ' ' + this.city + ' ' + this.state + ' ' + this.country;
+
+
+
     let obj = {
       table_identifier: table_identifier ? table_identifier : '',
       products: items,
@@ -251,7 +256,7 @@ export class CartContentComponent implements OnInit {
       notes: this.notes,
       payment_method: this.paymentMethod,
       order_type: this.orderType,
-      delivery_address: this.deliveryAddress,
+      delivery_address: full_address,
     };
 
     console.log(obj);
@@ -259,11 +264,23 @@ export class CartContentComponent implements OnInit {
     const res = await this.network.makeOrder(obj);
     console.log(res, 'res');
     if (res) {
+
       if (res.data && res.data.order_number) {
         this.carte.clearCart();
         this.navigateToPage(res?.data.order_number);
         this.utility.presentSuccessToast('Order Placed!');
       }
+
+      let userRole = this.users.getUserRole();
+      if (userRole == 11) {
+        this.users.logout();
+      }
+
+
+
+
+
+
     }
   }
 

@@ -34,4 +34,23 @@ export class OrderHistoryComponent implements OnInit {
     this.orders = res.data.data;
     console.log(this.orders, 'orders');
   }
+
+  variationGroupHasSelectedOption(variationGroup: any[]): boolean {
+    // Changed type to any[]
+    if (!variationGroup || variationGroup.length === 0) {
+      //check if array is empty or not
+      return false;
+    }
+    for (const variation of variationGroup) {
+      //loop through each variation object in the array
+      if (
+        variation.options &&
+        variation.options.some((option: any) => option.selected)
+      ) {
+        return true; // Found a selected option in this group
+      }
+    }
+    return false; // No selected options found in the entire group
+  }
+  
 }

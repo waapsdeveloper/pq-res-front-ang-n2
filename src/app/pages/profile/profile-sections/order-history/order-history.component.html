@@ -4,13 +4,8 @@
       <div class="cart-box">
         <div class="d-flex justify-content-between align-items-center mb-3">
           <h3 class="mb-0">Order History</h3>
-          <input
-            type="text"
-            class="form-control w-25"
-            placeholder="Search Orders..."
-            [(ngModel)]="searchText"
-            (ngModelChange)="search($event)"
-          />
+          <input type="text" class="form-control w-25" placeholder="Search Orders..." [(ngModel)]="searchText"
+            (ngModelChange)="search($event)" />
         </div>
         <div class="table-responsive" *ngIf="!selectedOrder">
           <table class="table">
@@ -24,17 +19,9 @@
               </tr>
             </thead>
             <tbody>
-              <tr
-                *ngFor="let order of orders"
-                (click)="selectOrder(order)"
-                style="cursor: pointer"
-              >
+              <tr *ngFor="let order of orders" (click)="selectOrder(order)" style="cursor: pointer">
                 <td>
-                  <a
-                    href="javascript:void(0)"
-                    (click)="selectOrder(order)"
-                    class="order-link"
-                  >
+                  <a href="javascript:void(0)" (click)="selectOrder(order)" class="order-link">
                     {{ order.order_number }}
                   </a>
                 </td>
@@ -42,8 +29,8 @@
                 <td>{{ order.restaurant.name }}</td>
                 <td>
                   {{
-                    order.total_price
-                      | currency : "USD" : "symbol-narrow" : "1.0-0"
+                  order.total_price
+                  | currency : "USD" : "symbol-narrow" : "1.0-0"
                   }}
                 </td>
                 <td>{{ order.status }}</td>
@@ -53,9 +40,7 @@
         </div>
         <div class="order-card mt-4" *ngIf="selectedOrder">
           <div class="card">
-            <div
-              class="card-header d-flex justify-content-between align-items-center"
-            >
+            <div class="card-header d-flex justify-content-between align-items-center">
               <h4>Order Details</h4>
               <button class="btn btn-danger" (click)="selectedOrder = null">
                 Close
@@ -105,34 +90,45 @@
                     </div>
 
                     <!-- Variations Section -->
-                    <p class="mb-2 mt-2"><strong>Variations</strong></p>
-                    <div class="cart-variations" *ngFor="let vari of product?.variations">
-                      <div class="variations-list" *ngFor="let variation of vari">
-                        <p class="variation-title">{{ variation?.type }}</p>
-                        <div class="d-flex flex-column gap-2 ">
-                          <!-- [ngClass]="{'selected': option?.selected}" -->
-                          <div class="variation-item" *ngFor="let option of variation?.options">
-                            <label>
-                              <div>
-                                <span>{{ option?.name }}</span>
+                    <!-- <p class="mb-2 mt-2"><strong>Variations</strong></p> -->
+                     <div *ngFor="let vari of product?.variations">
+                      <ng-container *ngIf="variationGroupHasSelectedOption(vari); else filler">
+                        <div class="cart-variations" >
+                          <div class="variations-list" *ngFor="let variation of vari">
+                            <p class="variation-title">{{ variation?.type }}</p>
+                            <div class="d-flex flex-column gap-2 ">
+                              <!-- [ngClass]="{'selected': option?.selected}" -->
+                              <div class="variation-item" *ngFor="let option of variation?.options">
+                                <label>
+                                  <div>
+                                    <span>{{ option?.name }}</span>
+                                  </div>
+                                  <div class="d-flex gap-3">
+                                    <span>${{ option?.price }}</span>
+                                    <input type="checkbox" disabled="true" [checked]="option?.selected"
+                                      [(ngModel)]="option.selected" />
+                                  </div>
+                                </label>
                               </div>
-                              <div class="d-flex gap-3">
-                                <span>${{ option?.price }}</span>
-                                <input type="checkbox" disabled="true" [checked]="option?.selected" [(ngModel)]="option.selected"
-                                   />
-                              </div>
-                            </label>
+                            </div>
+  
                           </div>
                         </div>
-
-                      </div>
-                    </div>
+  
+                      </ng-container>
+                      <ng-template #filler>
+                        <div class="filler">
+                          No options selected.
+                        </div>
+                      </ng-template>
+                     </div>
+                    
                   </div> <!-- End Right Section -->
                 </div> <!-- End Cart Item -->
               </div> <!-- End Product Item -->
 
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</div>

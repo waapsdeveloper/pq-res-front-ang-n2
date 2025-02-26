@@ -192,6 +192,12 @@ export class TableListingComponent extends BasePage implements OnInit {
       return;
     }
 
+    // if selected guest count is less then 1 
+    if (parseInt(this.selectedGuestCount) <= 1) {
+      this.utility.presentFailureToast('Please select guest count more than 1');
+      return
+    }
+
     // get selected tables
     const selected = this.list
       .filter((x: any) => x.selected)
@@ -251,23 +257,27 @@ export class TableListingComponent extends BasePage implements OnInit {
     const res = await this.network.setTableBooking(bookingData);
     console.log(res);
 
-    this.tableBookingService.resetObj();
-
+    
     if (res && res.booking) {
+      
+      this.tableBookingService.resetObj();
       this.nav.push('/tabs/table-booking-tracker', { order_number:res.booking.order_number} );
       this.formData = {
         no_of_guests: '',
         date: '',
         time: '',
       };
-      let isGuestLogin = localStorage.getItem('guestLogin');
-      if (isGuestLogin) {
+      let userRole = this.users.getUserRole();
+      if (userRole == 11) {
         this.users.logout();
       }
+      
     } else {
+
       this.utility.presentFailureToast(
         'Failed to book table, please try again later'
       );
+      
     }
 
     // if (res && res.booking) {
