@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { CartService } from '../../../services/cart.service';
 import { NetworkService } from '../../../services/network.service';
+import { UtilityService } from '../../../services/utility.service';
 
 @Component({
   selector: 'app-order-tracker-content',
@@ -25,7 +26,7 @@ export class OrderTrackerContentComponent {
     this._data = value;
   }
 
-  constructor(public carte: CartService, private network:NetworkService) {}
+  constructor(public carte: CartService, private network:NetworkService, private utility: UtilityService) {}
 
   async ngOnInit() {}
 
@@ -48,8 +49,10 @@ export class OrderTrackerContentComponent {
 
   }
  async track(){
+    this.utility.showLoader();
     let res = await this.network.trackOrder(this.order_number);
     this.data = res.order;
+    this.utility.hideLoader();
 
   }
 

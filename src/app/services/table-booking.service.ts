@@ -11,7 +11,8 @@ export class TableBookingService {
     date: '',
     time: '',
     notes: '',
-    status: 'pending'
+    status: 'pending',
+    list: []
   }
 
   constructor() { }
@@ -23,7 +24,8 @@ export class TableBookingService {
       date: '',
       time: '',
       notes: '',
-      status: 'pending'
+      status: 'pending',
+      list: []
     }
   }
 }

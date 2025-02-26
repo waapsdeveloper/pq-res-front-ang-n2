@@ -268,7 +268,7 @@ export class CartContentComponent implements OnInit {
   }
 
   navigateToPage(order_number: string) {
-    this.nav.push('/tabs/order-tracker/' + order_number);
+    this.nav.push('/tabs/order-tracker', { order_number });
 
     let isGuestLogin = localStorage.getItem('guestLogin');
     if (isGuestLogin) {

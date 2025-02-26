@@ -125,6 +125,10 @@ export class TableListingComponent extends BasePage implements OnInit {
       this.selectedTime = this.tableBookingService.bookingObj.time;
     }
 
+    if (this.tableBookingService.bookingObj.list.length > 0) {
+      this.list = this.tableBookingService.bookingObj.list;
+    }
+
     const restaurantId = String(localStorage.getItem('restaurant_id'));
     let obj = {
       restaurant_id: restaurantId,
@@ -167,22 +171,12 @@ export class TableListingComponent extends BasePage implements OnInit {
       this.tableBookingService.bookingObj.date = this.selectedDate;
       this.tableBookingService.bookingObj.time = this.selectedTime;
       this.tableBookingService.bookingObj.status = 'pending';
+      this.tableBookingService.bookingObj.list = this.list as any;
 
       this.utility.presentFailureToast('Please login to book a table');
       this.nav.push('tabs/login', {
         backUrl: '/tabs/tables',
       });
-      return;
-    }
-
-    // get selected tables
-    const selected = this.list
-      .filter((x: any) => x.selected)
-      .map((x: any) => x.id);
-    console.log(selected);
-
-    if (selected.length == 0) {
-      this.utility.presentFailureToast('Please select a table to book');
       return;
     }
 
@@ -197,6 +191,19 @@ export class TableListingComponent extends BasePage implements OnInit {
       );
       return;
     }
+
+    // get selected tables
+    const selected = this.list
+      .filter((x: any) => x.selected)
+      .map((x: any) => x.id);
+    console.log(selected);
+
+    if (selected.length == 0) {
+      this.utility.presentFailureToast('Please select a table to book');
+      return;
+    }
+
+    
 
     // let startTIme = this.selectedDate + ' ' + this.selectedTime;
     // // add 1 hour
@@ -247,7 +254,7 @@ export class TableListingComponent extends BasePage implements OnInit {
     this.tableBookingService.resetObj();
 
     if (res && res.booking) {
-      this.nav.push('/tabs/table-booking-tracker/' + res.booking.order_number);
+      this.nav.push('/tabs/table-booking-tracker', { order_number:res.booking.order_number} );
       this.formData = {
         no_of_guests: '',
         date: '',
@@ -339,9 +346,10 @@ export class TableListingComponent extends BasePage implements OnInit {
     });
   }
   navigate() {
-    let table_no = localStorage.getItem('table_no')
-      ? localStorage.getItem('table_no')
-      : null;
-    this.router.navigate(['/tabs/table-booking-tracker/' + table_no]);
+    // let table_no = localStorage.getItem('table_no')
+    //   ? localStorage.getItem('table_no')
+    //   : null;
+    // , { order_number: table_no }
+    this.router.navigate(['/tabs/table-booking-tracker']);
   }
 }

@@ -11,165 +11,122 @@
   <div class="container">
     <div class="add-to-sc">
       <div class="row">
-        <div
-          class="col-md-9"
-          [ngClass]="{
+        <div class="col-md-9" [ngClass]="{
             'col-md-9': hostScreensize > 1300,
             'col-md-6': hostScreensize <= 1300 && hostScreensize > 1000,
             'col-md-12': hostScreensize <= 1000
-          }"
-        >
+          }">
           <div class="cart-box">
             <div class="item-bx text-center" *ngIf="cartItems.length == 0">
-              <img
-                src="assets/img/delivery-img-inner.svg"
-                class="mb-3"
-                alt=""
-              />
+              <img src="assets/img/delivery-img-inner.svg" class="mb-3" alt="" />
               <p>You haven’t added any items in bucket yet</p>
               <a href="/tabs/products">
                 <button class="btn-prime">Explore Menu</button>
               </a>
             </div>
             <div class="cart-items-list" *ngIf="cartItems.length > 0">
-              <div
-                *ngFor="let item of cartItems; let i = index"
-                class="d-flex flex-column gap-5"
-              >
+              <div *ngFor="let item of cartItems; let i = index" class="d-flex flex-column gap-5">
                 <app-cart-item [item]="item" [cartIndex]="i"></app-cart-item>
                 <div class="line=2143"></div>
               </div>
             </div>
           </div>
         </div>
-        <div
-          class="col-md-3"
-          [ngClass]="{
+        <div class="col-md-3" [ngClass]="{
             'col-md-3': hostScreensize > 1300,
             'col-md-6': hostScreensize <= 1300 && hostScreensize > 1000,
             'col-md-12': hostScreensize <= 1000
-          }"
-        >
-        <div class="cart-box">
-          <h3 class="mb-3">Order Details</h3>
+          }">
+          <div class="cart-box">
+            <h3 class="mb-3">Order Details</h3>
 
-          <div class="instructions">
-            <p>Special Instructions (Optional)</p>
-            <textarea name="notes" class="int-field" [(ngModel)]="notes"></textarea>
+            <div class="instructions">
+              <p>Special Instructions (Optional)</p>
+              <textarea name="notes" class="int-field" [(ngModel)]="notes"></textarea>
 
-            <div class="mb-5" *ngIf="!user">
-              <p class="mb-3">Please Sign In to Checkout</p>
+              <div class="mb-5" *ngIf="!user">
+                <p class="mb-3">Please Sign In to Checkout</p>
+              </div>
+
+              <div class="d-flex flex-column gap-2" *ngIf="user">
+                <p>Your Name:</p>
+                <p>{{ user?.name }}</p>
+                <p>{{ user?.phone }}</p>
+                <p>Alternate Phone Number (3XXXXXXXXX)</p>
+                <input type="text" name="phone" placeholder="Phone" class="int-field" required [(ngModel)]="phone"
+                  (ngModelChange)="onPhoneInput()" [maxlength]="14" (keyup)="keyupPh($event)" />
+              </div>
+
+              <!-- Dropdown for Order Type -->
+              <div class="mb-3">
+                <label for="orderType">Select Order Type:</label>
+                <select id="orderType" class="int-field" [(ngModel)]="orderType">
+                  <option *ngFor="let type of orderTypes" [value]="type.value">
+                    {{ type.label }}
+                  </option>
+                </select>
+              </div>
+
+
+              <div class="mb-3" *ngIf="orderType === 'delivery'">
+                <label for="deliveryAddress">Delivery Address:</label>
+                <textarea id="deliveryAddress" name="deliveryAddress" class="int-field"
+                  placeholder="Enter your delivery address" [(ngModel)]="deliveryAddress"></textarea>
+              </div>
+
+              <div class="mb-3" *ngIf="orderType === 'delivery'">
+                <label for="city">City:</label>
+                <input type="text" id="city" name="city" class="int-field" placeholder="Enter your city"
+                  [(ngModel)]="city" />
+              </div>
+
+              <div class="mb-3" *ngIf="orderType === 'delivery'">
+                <label for="state">State:</label>
+                <input type="text" id="state" name="state" class="int-field" placeholder="Enter your state"
+                  [(ngModel)]="state" />
+              </div>
+
+              <div class="mb-3" *ngIf="orderType === 'delivery'">
+                <label for="country">Country:</label>
+                <input type="text" id="country" name="country" class="int-field" placeholder="Enter your country"
+                  [(ngModel)]="country" />
+              </div>
+
+
+              <!-- Dropdown for Payment Method -->
+              <div class="mb-3">
+                <label for="paymentMethod">Select Payment Method:</label>
+                <select id="paymentMethod" class="int-field" [(ngModel)]="paymentMethod">
+                  <option *ngFor="let method of paymentMethods" [value]="method.value">
+                    {{ method.label }}
+                  </option>
+                </select>
+              </div>
             </div>
 
-            <div class="d-flex flex-column gap-2" *ngIf="user">
-              <p>Your Name:</p>
-              <p>{{ user?.name }}</p>
-              <p>{{ user?.phone }}</p>
-              <p>Alternate Phone Number (3XXXXXXXXX)</p>
-              <input
-                type="text"
-                name="phone"
-                placeholder="Phone"
-                class="int-field"
-                required
-                [(ngModel)]="phone"
-                (ngModelChange)="onPhoneInput()" [maxlength]="14" (keyup)="keyupPh($event)"
-              />
-            </div>
+            <div class="instructions">
+              <h3>Your Order</h3>
+              <ul>
+                <li>
+                  <div class="left-item">Sub Total :</div>
+                  <div class="right-item">${{ carte.total_price | number: "1.2-2" }}</div>
+                </li>
+                <li>
+                  <div class="left-item">Delivery Fee :</div>
+                  <div class="right-item">${{ deliveryFee || 0 | number: "1.2-2" }}</div>
+                </li>
+                <li>
+                  <div class="left-item">GST (0%) :</div>
+                  <div class="right-item">${{ gstAmount || 0 | number: "1.2-2" }}</div>
+                </li>
+              </ul>
 
-            <!-- Dropdown for Order Type -->
-            <div class="mb-3">
-              <label for="orderType">Select Order Type:</label>
-              <select id="orderType" class="int-field" [(ngModel)]="orderType">
-                <option *ngFor="let type of orderTypes" [value]="type.value">
-                  {{ type.label }}
-                </option>
-              </select>
-            </div>
-
-
-            <div class="mb-3" *ngIf="orderType === 'delivery'">
-              <label for="deliveryAddress">Delivery Address:</label>
-              <textarea
-                id="deliveryAddress"
-                name="deliveryAddress"
-                class="int-field"
-                placeholder="Enter your delivery address"
-                [(ngModel)]="deliveryAddress"
-              ></textarea>
-            </div>
-
-            <div class="mb-3" *ngIf="orderType === 'delivery'">
-              <label for="city">City:</label>
-              <input
-                type="text"
-                id="city"
-                name="city"
-                class="int-field"
-                placeholder="Enter your city"
-                [(ngModel)]="city"
-              />
-            </div>
-
-            <div class="mb-3" *ngIf="orderType === 'delivery'">
-              <label for="state">State:</label>
-              <input
-                type="text"
-                id="state"
-                name="state"
-                class="int-field"
-                placeholder="Enter your state"
-                [(ngModel)]="state"
-              />
-            </div>
-
-            <div class="mb-3" *ngIf="orderType === 'delivery'">
-              <label for="country">Country:</label>
-              <input
-                type="text"
-                id="country"
-                name="country"
-                class="int-field"
-                placeholder="Enter your country"
-                [(ngModel)]="country"
-              />
-            </div>
-
-
-            <!-- Dropdown for Payment Method -->
-            <div class="mb-3">
-              <label for="paymentMethod">Select Payment Method:</label>
-              <select id="paymentMethod" class="int-field" [(ngModel)]="paymentMethod">
-                <option *ngFor="let method of paymentMethods" [value]="method.value">
-                  {{ method.label }}
-                </option>
-              </select>
+              <div class="checkout-bar">
+                <span>{{ cartItems.length }} Items | ${{ carte.total_price | number: "1.2-2" }}</span>
+                <button (click)="makeOrder()">Check Out</button>
+              </div>
             </div>
           </div>
-
-          <div class="instructions">
-            <h3>Your Order</h3>
-            <ul>
-              <li>
-                <div class="left-item">Sub Total :</div>
-                <div class="right-item">${{ carte.total_price | number: "1.2-2" }}</div>
-              </li>
-              <li>
-                <div class="left-item">Delivery Fee :</div>
-                <div class="right-item">${{ deliveryFee || 0 | number: "1.2-2" }}</div>
-              </li>
-              <li>
-                <div class="left-item">GST (0%) :</div>
-                <div class="right-item">${{ gstAmount || 0 | number: "1.2-2" }}</div>
-              </li>
-            </ul>
-
-            <div class="checkout-bar">
-              <span>{{ cartItems.length }} Items | ${{ carte.total_price | number: "1.2-2" }}</span>
-              <button (click)="makeOrder()">Check Out</button>
-            </div>
-          </div>
-        </div>
 
 
         </div>
