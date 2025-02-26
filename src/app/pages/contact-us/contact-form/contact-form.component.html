@@ -35,24 +35,10 @@
                 class="contact-input"
                 placeholder="Phone"
                 [(ngModel)]="phone"
+                (ngModelChange)="onPhoneInput()"
+                [maxlength]="14"
+                (keyup)="keyupPh($event)"
               />
-            </div>
-
-            <!-- Branch Dropdown (Fixed) -->
-            <div class="form-group">
-              <select
-                id="branch-select"
-                name="branch"
-                class="contact-input form-control"
-                [(ngModel)]="selectedBranch"
-                (ngModelChange)="update()"
-              >
-              <option value="text" disabled selected>Select a Branch</option>
-                <!-- Placeholder option -->
-                <option *ngFor="let branch of branches" [value]="branch.id">
-                  {{ branch.name }}
-                </option>
-              </select>
             </div>
 
             <div class="form-group">
