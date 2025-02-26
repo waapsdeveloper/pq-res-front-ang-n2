@@ -1,16 +1,15 @@
-  import { Component, EventEmitter, Input, Output } from '@angular/core';
-  import { CartService } from '../../../../services/cart.service';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { CartService } from '../../../../services/cart.service';
 import { UtilityService } from '../../../../services/utility.service';
 
-  @Component({
-    selector: 'app-order-tracking-item',
-    standalone: false,
+@Component({
+  selector: 'app-order-tracking-item',
+  standalone: false,
 
-    templateUrl: './order-tracking-item.component.html',
-    styleUrl: './order-tracking-item.component.scss',
-  })
-  export class OrderTrackingItemComponent {
-
+  templateUrl: './order-tracking-item.component.html',
+  styleUrl: './order-tracking-item.component.scss',
+})
+export class OrderTrackingItemComponent {
   private _item: any;
 
   @Input()
@@ -51,7 +50,7 @@ import { UtilityService } from '../../../../services/utility.service';
   //   }
   // }
 
-  constructor(public carte: CartService,public utility:UtilityService) {}
+  constructor(public carte: CartService, public utility: UtilityService) {}
 
   changeVariationSelection($event: any) {
     this.carte.totalOfProductCost();
@@ -60,13 +59,13 @@ import { UtilityService } from '../../../../services/utility.service';
   removeItem(item: any) {
     this.carte.removeFromCart(item.id);
     this.carte.totalOfProductCost();
-    this.utility.presentSuccessToast("Item remove from cart");
+    this.utility.presentSuccessToast('Item remove from cart');
   }
 
   addQuantity(item: any) {
     let n = parseInt(item.quantity);
     n = n + 1;
-    console.log(n)
+    console.log(n);
     this.carte.updateQuantity(item.id, n);
     this.carte.totalOfProductCost();
   }
@@ -81,19 +80,25 @@ import { UtilityService } from '../../../../services/utility.service';
   }
   // In your component.ts file:
 
-// In your component.ts file (same as before):
+  // In your component.ts file (same as before):
 
-// In your component.ts file:
+  // In your component.ts file:
 
-variationGroupHasSelectedOption(variationGroup: any[]): boolean {  // Changed type to any[]
-  if (!variationGroup || variationGroup.length === 0) {  //check if array is empty or not
-    return false;
-  }
-  for (const variation of variationGroup) { //loop through each variation object in the array
-    if (variation.options && variation.options.some((option: any) => option.selected)) {
-      return true; // Found a selected option in this group
+  variationGroupHasSelectedOption(variationGroup: any[]): boolean {
+    // Changed type to any[]
+    if (!variationGroup || variationGroup.length === 0) {
+      //check if array is empty or not
+      return false;
     }
+    for (const variation of variationGroup) {
+      //loop through each variation object in the array
+      if (
+        variation.options &&
+        variation.options.some((option: any) => option.selected)
+      ) {
+        return true; // Found a selected option in this group
+      }
+    }
+    return false; // No selected options found in the entire group
   }
-  return false; // No selected options found in the entire group
-}
 }

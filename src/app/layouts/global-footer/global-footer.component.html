@@ -95,9 +95,8 @@
           >
         </div>
         <div class="ftr-account" *ngIf="isUserLoggedIn()">
-          <a class="btn-account btn-login" (click)="navigateToProfile()"
-            >Profile</a
-          >
+          <a class="btn-account btn-login" *ngIf="isUserLoggedIn() == 11" (click)="removeGuestProfile()">Remove Guest Session</a>
+          <a class="btn-account btn-login" *ngIf="isUserLoggedIn() == 10" (click)="navigateToProfile()">Profile</a>
         </div>
       </div>
     </div>

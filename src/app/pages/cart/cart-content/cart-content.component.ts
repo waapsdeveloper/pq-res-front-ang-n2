@@ -259,11 +259,23 @@ export class CartContentComponent implements OnInit {
     const res = await this.network.makeOrder(obj);
     console.log(res, 'res');
     if (res) {
+
       if (res.data && res.data.order_number) {
         this.carte.clearCart();
         this.navigateToPage(res?.data.order_number);
         this.utility.presentSuccessToast('Order Placed!');
       }
+
+      let userRole = this.users.getUserRole();
+      if (userRole == 11) {
+        this.users.logout();
+      }
+
+
+
+
+
+
     }
   }
 
