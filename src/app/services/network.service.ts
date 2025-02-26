@@ -70,13 +70,13 @@ export class NetworkService {
   }
 
   aboutUsCategory() {
-    return this.httpGetResponse('about-us', null, false,false);
+    return this.httpGetResponse('about-us', null, false, false);
   }
   lowestPrice() {
     return this.httpGetResponse('lowest-price', null, false, false);
   }
   allCategory() {
-    return this.httpGetResponse('all-categories', null, false,false);
+    return this.httpGetResponse('all-categories', null, false, false);
   }
   allBranches() {
     return this.httpGetResponse('all-branches', null, false, false);
@@ -123,11 +123,21 @@ export class NetworkService {
   }
   orderHistory(params: any) {
     let str = this.serialize(params);
-    return this.httpGetResponse('order-history' + '?' + str, null, false, false);
+    return this.httpGetResponse(
+      'order-history' + '?' + str,
+      null,
+      false,
+      false
+    );
   }
-  getTableUser(params:any) {
+  getTableUser(params: any) {
     let str = this.serialize(params);
-    return this.httpGetResponse('table-booking' + '?' + str, null, false, false);
+    return this.httpGetResponse(
+      'table-booking' + '?' + str,
+      null,
+      false,
+      false
+    );
   }
   // table bookings start
 

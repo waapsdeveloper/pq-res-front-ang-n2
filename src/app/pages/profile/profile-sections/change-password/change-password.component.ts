@@ -22,5 +22,9 @@ export class ChangePasswordComponent {
     };
 
     this.network.updatePassword(obj);
+    this.formData = {
+      password: '',
+      confirm_password: '',
+    }
   }
 }
