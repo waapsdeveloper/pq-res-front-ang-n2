@@ -235,6 +235,11 @@ export class CartContentComponent implements OnInit {
       return { product_id: id, ...rest };
     });
 
+
+    let full_address = this.deliveryAddress + ' ' + this.city + ' ' + this.state + ' ' + this.country;
+
+
+
     let obj = {
       table_identifier: table_identifier ? table_identifier : '',
       products: items,
@@ -251,7 +256,7 @@ export class CartContentComponent implements OnInit {
       notes: this.notes,
       payment_method: this.paymentMethod,
       order_type: this.orderType,
-      delivery_address: this.deliveryAddress,
+      delivery_address: full_address,
     };
 
     console.log(obj);
