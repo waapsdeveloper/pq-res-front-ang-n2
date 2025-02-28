@@ -98,7 +98,7 @@
                             <p class="variation-title">{{ variation?.type }}</p>
                             <div class="d-flex flex-column gap-2 ">
                               <!-- [ngClass]="{'selected': option?.selected}" -->
-                              <div class="variation-item" *ngFor="let option of variation?.options">
+                              <div class="variation-item" *ngFor="let option of variation?.options" [class.notselected]="!option?.selected">
                                 <label>
                                   <div>
                                     <span>{{ option?.name }}</span>

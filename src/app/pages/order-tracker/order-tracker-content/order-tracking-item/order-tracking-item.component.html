@@ -27,7 +27,7 @@
           <div class="variations-list" *ngFor="let variation of variationGroup">
             <p class="variation-title">{{ variation?.type }}</p>
             <div class="d-flex flex-column gap-2">
-              <div class="variation-item" *ngFor="let option of variation?.options">
+              <div class="variation-item" *ngFor="let option of variation?.options" [class.notselected]="!option?.selected">
                 <label *ngIf="option?.selected">
                   <div>
                     <span>{{ option?.name }}</span>
