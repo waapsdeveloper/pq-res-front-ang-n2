@@ -10,6 +10,7 @@ import { UsersService } from '../../../../services/users.service';
   styleUrl: './account-information.component.scss',
 })
 export class AccountInformationComponent implements OnInit {
+
   constructor(
     private network: NetworkService,
     private userService: UsersService
@@ -27,7 +28,18 @@ export class AccountInformationComponent implements OnInit {
       email: this.user.email,
       password: '',
       phone: this.user.phone,
+      dial_code: this.user.dial_code
     };
+  }
+
+  udpatePhoneNumber($event: string){
+    this.formData.phone = $event;
+    console.log(this.formData.phone);    
+  }
+
+  updateDialCode($event: string) {
+    this.formData.dial_code = $event;
+    console.log(this.formData.phone);
   }
 
   async formSubmit() {
@@ -35,6 +47,7 @@ export class AccountInformationComponent implements OnInit {
     let obj = {
       name: this.formData.name,
       phone: this.formData.phone,
+      dial_code: this.formData.dial_code,
     };
     const res = await this.network.updateCredential(obj);
     let user = JSON.stringify(res.user);

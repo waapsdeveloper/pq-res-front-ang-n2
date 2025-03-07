@@ -26,14 +26,14 @@ export class PhoneService {
     return (validPhoneNumber.toString().length < 10) ? false : true;
   }
 
-  formatPhoneNumberLive(inputValue: string): string {
+  formatPhoneNumberLive(countryCode: CountryCode, inputValue: string): string {
     if (!inputValue) {
       return ''; // Return empty string if no input
     }
 
     const digits = inputValue.replace(/\D/g, '').substring(0, 10); 
 
-    const tel = new AsYouType(this.countryCode).input(digits)
+    const tel = new AsYouType(countryCode).input(digits)
 
     return tel;
 

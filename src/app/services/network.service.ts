@@ -229,6 +229,10 @@ export class NetworkService {
     return this.httpGetResponse(`restautant-detail/${id}`, null, false);
   }
 
+  getCountries() {
+    return this.httpGetResponse(`countries`, null, false, false);
+  }
+
   serialize = (obj: any) => {
     const str: any[] = [];
     for (const p in obj) {

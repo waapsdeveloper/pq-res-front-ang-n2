@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RegisterFormComponent } from './register-form.component';
 import { FormsModule } from '@angular/forms';
+import { PhoneNumberCntModule } from "../../../components/phone-number-cnt/phone-number-cnt.module";
 
 
 
@@ -11,8 +12,9 @@ import { FormsModule } from '@angular/forms';
   ],
   imports: [
     CommonModule,
-    FormsModule
-  ],
+    FormsModule,
+    PhoneNumberCntModule
+],
   exports: [
     RegisterFormComponent,
 

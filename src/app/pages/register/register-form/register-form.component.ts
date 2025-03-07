@@ -24,6 +24,7 @@ export class RegisterFormComponent {
     email: '',
     password: '',
     phone: '',
+    dial_code: '+1'
   };
 
   @Output('onAction') onAction = new EventEmitter<any>();
@@ -109,19 +110,12 @@ export class RegisterFormComponent {
     }
   }
 
-  
-  onPhoneInput(): void {
-    this.formData.phone = this.phoneService.formatPhoneNumberLive(this.formData.phone);
-    console.log(this.formData.phone)
-    this.cdRef.detectChanges(); 
+  udpatePhoneNumber($event: string){
+    this.formData.phone = $event;
   }
 
-  keyupPh($event: any) {
-    let v = $event.target.value;
-  
-    // Remove all non-numeric characters except backspace handling
-    if (isNaN(Number(v[v.length - 1]))) {
-      $event.target.value = v.slice(0, -1); // Remove last character
-    }
+  updateDialCode($event: string){
+    this.formData.dial_code = $event;    
   }
+
 }

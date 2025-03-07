@@ -26,7 +26,8 @@
                <div class="col-md-12 mb-2">
                   <div class="book-inp text-left">
                      <label for="name">Phone</label>
-                     <input class="form-control" placeholder="Phone" type="text" [(ngModel)]="formData.phone" [(ngModel)]="formData.phone" (ngModelChange)="onPhoneInput()" [maxlength]="14" (keyup)="keyupPh($event)">
+                     <!-- <input class="form-control" placeholder="Phone" type="text" [(ngModel)]="formData.phone" [(ngModel)]="formData.phone" (ngModelChange)="onPhoneInput()" [maxlength]="14" (keyup)="keyupPh($event)"> -->
+                     <app-phone-number-cnt [phone_number]="formData.phone" [countryCode]="formData.dial_code" (udpatePhoneNumber)="udpatePhoneNumber($event)" (updateDialCode)="updateDialCode($event)"></app-phone-number-cnt>
                   </div>
                </div>
                <div class="col-md-12 mb-2">

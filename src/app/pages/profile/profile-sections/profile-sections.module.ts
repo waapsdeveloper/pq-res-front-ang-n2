@@ -11,8 +11,7 @@ import { NotificationsComponent } from './notifications/notifications.component'
 import { BhelpComponent } from './bhelp/bhelp.component';
 import { FormsModule } from '@angular/forms';
 import { SwiperModule } from 'swiper/angular';
-import { CartItemModule } from '../../cart/cart-content/cart-item/cart-item.module';
-import { CartItemComponent } from '../../cart/cart-content/cart-item/cart-item.component';
+import { PhoneNumberCntModule } from '../../../components/phone-number-cnt/phone-number-cnt.module';
 
 
 
@@ -31,7 +30,8 @@ import { CartItemComponent } from '../../cart/cart-content/cart-item/cart-item.c
   imports: [
     CommonModule,
     FormsModule,
-    SwiperModule
+    SwiperModule,
+    PhoneNumberCntModule
   ],
   exports: [
     ProfileSectionsComponent

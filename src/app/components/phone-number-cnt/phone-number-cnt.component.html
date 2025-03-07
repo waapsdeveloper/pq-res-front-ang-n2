@@ -1,0 +1,8 @@
+<div class="input-group phone-number-group-2532">
+    <div class="input-group-prepend">
+      <select class="input-group-text dial-code-outer px-3" id="basic-addon1" [(ngModel)]="countryCode" (ngModelChange)="updateCountryCodeLabel($event)">
+        <option *ngFor="let country of countries" [value]="country.dial_code">{{country.dial_code}}</option>
+      </select>
+    </div>
+    <input type="text" class="form-control" placeholder="{{countryCodeLabel}}" [(ngModel)]="phone_number" (ngModelChange)="onPhoneInput()" [maxlength]="16" (keyup)="keyupPh($event)" aria-label="phone number" aria-describedby="phone_number">
+  </div>

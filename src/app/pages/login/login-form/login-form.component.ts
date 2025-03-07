@@ -94,29 +94,18 @@ export class LoginFormComponent implements OnInit {
 
     this.onAction.emit(this.formData);
 
-    // const res = await this.network.checkTableAvailability(this.formData);
-
-    // console.log(res);
-
   }
 
   changeGuestLogin(){
     this.formData.isGuestLogin = !this.formData.isGuestLogin;
   }
 
-  onPhoneInput(): void {
-    this.formData.phone = this.phoneService.formatPhoneNumberLive(this.formData.phone);
-    console.log(this.formData.phone)
-    this.cdRef.detectChanges(); 
+  udpatePhoneNumber($event: string){
+    this.formData.phone = $event;
   }
 
-  keyupPh($event: any) {
-    let v = $event.target.value;
-  
-    // Remove all non-numeric characters except backspace handling
-    if (isNaN(Number(v[v.length - 1]))) {
-      $event.target.value = v.slice(0, -1); // Remove last character
-    }
+  updateDialCode($event: string){
+    this.formData.dial_code = $event;    
   }
 
 }

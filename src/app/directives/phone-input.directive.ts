@@ -17,7 +17,7 @@ export class PhoneInputDirective {
     if (!value) return;
 
     // Format phone number using the service
-    const formattedNumber = this.phoneService.formatPhoneNumberLive(value);
+    const formattedNumber = this.phoneService.formatPhoneNumberLive('US', value);
     
     // Update the model value
     this.ngModel.viewToModelUpdate(formattedNumber);

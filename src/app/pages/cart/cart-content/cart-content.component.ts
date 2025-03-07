@@ -301,7 +301,7 @@ export class CartContentComponent implements OnInit {
   }
 
   onPhoneInput(): void {
-    this.phone = this.phoneService.formatPhoneNumberLive(this.phone);
+    this.phone = this.phoneService.formatPhoneNumberLive('US', this.phone);
     this.cdRef.detectChanges();
   }
 

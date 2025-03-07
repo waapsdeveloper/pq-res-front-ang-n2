@@ -41,7 +41,8 @@
               <div class="col-md-12 mb-2" *ngIf="formData.isGuestLogin">
                 <div class="book-inp text-left" >
                    <label class="mb-2">Phone Number</label> 
-                   <input class="form-control" placeholder="Phone Number" type="text" [(ngModel)]="formData.phone" (ngModelChange)="onPhoneInput()" [maxlength]="14" (keyup)="keyupPh($event)">
+                   <!-- <input class="form-control" placeholder="Phone Number" type="text" [(ngModel)]="formData.phone" (ngModelChange)="onPhoneInput()" [maxlength]="14" (keyup)="keyupPh($event)"> -->
+                   <app-phone-number-cnt [phone_number]="formData.phone" [countryCode]="formData.dial_code" (udpatePhoneNumber)="udpatePhoneNumber($event)" (updateDialCode)="updateDialCode($event)"></app-phone-number-cnt>
                 </div>
               </div>
               <div class="col-md-12 mb-2">
