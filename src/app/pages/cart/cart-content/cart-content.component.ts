@@ -121,6 +121,11 @@ export class CartContentComponent implements OnInit {
     console.log('this is the addresses', this.addresses);
   }
 
+  getUserRole(){
+    let r = this.users.getUserRole();
+    return r;
+  }
+
   toggleVariation(item: any, variation: any): void {
     variation.selected = !variation.selected; // Toggle the selected status
     console.log(`Variation toggled for ${item.name}:`, variation);
