@@ -116,4 +116,8 @@ export class CartItemComponent implements OnInit {
     this.carte.updateQuantity(item.id, item.quantity - 1);
     this.carte.totalOfProductCost();
   }
+
+  addVariations(item: any) {
+    
+  }
 }
