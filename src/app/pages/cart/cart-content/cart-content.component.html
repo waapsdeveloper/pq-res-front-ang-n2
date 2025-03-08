@@ -51,8 +51,9 @@
                 <p>{{ user?.name }}</p>
                 <p>{{ user?.dial_code }} {{ user?.phone }}</p>
                 <p>Alternate Phone Number (3XXXXXXXXX)</p>
-                <input type="text" name="phone" placeholder="Phone" class="int-field" required [(ngModel)]="phone"
-                  (ngModelChange)="onPhoneInput()" [maxlength]="14" (keyup)="keyupPh($event)" />
+                <app-phone-number-cnt [phone_number]="phone" [countryCode]="dial_code" (udpatePhoneNumber)="udpatePhoneNumber($event)" (updateDialCode)="updateDialCode($event)"></app-phone-number-cnt>
+                <!-- <input type="text" name="phone" placeholder="Phone" class="int-field" required [(ngModel)]="phone"
+                  (ngModelChange)="onPhoneInput()" [maxlength]="14" (keyup)="keyupPh($event)" /> -->
               </div>
 
               <!-- Dropdown for Order Type -->

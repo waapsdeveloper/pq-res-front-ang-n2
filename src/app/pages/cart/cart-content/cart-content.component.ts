@@ -38,6 +38,7 @@ export class CartContentComponent implements OnInit {
   gstAmount: number = 0;
   total: number = 0;
   phone: string = '';
+  dial_code: string = '';
   variations: any[] = [];
   paymentMethod: any;
   orderType: any;
@@ -128,7 +129,8 @@ export class CartContentComponent implements OnInit {
     let user = await this.users.getUser();
     this.user = typeof user === 'string' ? JSON.parse(user) : user;
     console.log('this is the user', this.user);
-    this.phone = this.user?.phone;
+    this.phone = this.checkout.checkout_obj.phone || this.user ? this.user?.phone : '';
+    this.dial_code = this.checkout.checkout_obj.dial_code || this.user ? this.user?.dial_code : '+1';
 
     const res = await this.network.allBranches();
     this.branches = res?.data;
@@ -167,6 +169,7 @@ export class CartContentComponent implements OnInit {
       this.checkout.checkout_obj.paymentMethod = this.paymentMethod;
       this.checkout.checkout_obj.notes = this.notes;
       this.checkout.checkout_obj.phone = this.phone;
+      this.checkout.checkout_obj.dial_code = this.dial_code;
       this.checkout.checkout_obj.country = this.country;
       this.checkout.checkout_obj.state = this.state;
       this.checkout.checkout_obj.city = this.city;
@@ -247,6 +250,7 @@ export class CartContentComponent implements OnInit {
         ? this.selectedBranch
         : localStorage.getItem('restaurant_id'),
       phone: this.phone,
+      dial_code: this.dial_code,
       status: 'pending',
       gst: this.gstAmount,
       total_price: this.carte.total_price,
@@ -312,5 +316,13 @@ export class CartContentComponent implements OnInit {
     if (isNaN(Number(v[v.length - 1]))) {
       $event.target.value = v.slice(0, -1); // Remove last character
     }
+  }
+
+  udpatePhoneNumber($event: string){
+    this.phone = $event;
+  }
+
+  updateDialCode($event: string){
+    this.dial_code = $event;
   }
 }
