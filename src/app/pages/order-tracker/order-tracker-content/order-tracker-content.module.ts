@@ -5,6 +5,7 @@ import { OrderTrackerContentComponent } from './order-tracker-content.component'
 import { FormsModule } from '@angular/forms';
 import { OrderTrackingItemComponent } from './order-tracking-item/order-tracking-item.component';
 import { CartItemModule } from '../../cart/cart-content/cart-item/cart-item.module';
+import { PhoneNumberCntModule } from '../../../components/phone-number-cnt/phone-number-cnt.module';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { CartItemModule } from '../../cart/cart-content/cart-item/cart-item.modu
   imports: [
     CommonModule,
     FormsModule,
-    CartItemModule
+    CartItemModule,
+    PhoneNumberCntModule
   ],
   exports: [OrderTrackerContentComponent]
 })

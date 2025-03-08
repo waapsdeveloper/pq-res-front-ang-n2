@@ -120,7 +120,7 @@
               >
               </textarea>
               <p>Alternate Phone Number (3XXXXXXXXX)</p>
-              <input
+              <!-- <input
                 type="text"
                 name=""
                 placeholder="Phone"
@@ -128,7 +128,9 @@
                 class="int-field"
                 [value]="data?.customer.phone"
                 readonly
-              />
+              /> -->
+              <app-phone-number-cnt [phone_number]="data?.phone" [countryCode]="data?.dial_code"></app-phone-number-cnt>
+              
               <p>Order Type</p>
               <input
                 type="text"
