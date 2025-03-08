@@ -21,7 +21,8 @@ export class CartContentComponent implements OnInit {
   selectedBranch: any;
   hostScreensize = -1;
   deliveryAddress: string = '';
-
+  addresses: any[] = [];
+  address: string = ' ';
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
     this.updateColumnClass(event.target.innerWidth);
@@ -113,12 +114,20 @@ export class CartContentComponent implements OnInit {
     //   console.log('Mapped Cart Items:', this.cartItems);
     // });
   }
+  async getAllAddresses() {
+    const res = await this.network.getUserAddresses();
+
+    this.addresses = res.addresses || [];
+    console.log('this is the addresses', this.addresses);
+  }
+
   toggleVariation(item: any, variation: any): void {
     variation.selected = !variation.selected; // Toggle the selected status
     console.log(`Variation toggled for ${item.name}:`, variation);
   }
 
   async ngOnInit() {
+    this.getAllAddresses();
     this.deliveryAddress = this.checkout.checkout_obj.deliveryAddress;
     this.orderType = this.checkout.checkout_obj.orderType;
     this.paymentMethod = this.checkout.checkout_obj.paymentMethod;
@@ -129,8 +138,12 @@ export class CartContentComponent implements OnInit {
     let user = await this.users.getUser();
     this.user = typeof user === 'string' ? JSON.parse(user) : user;
     console.log('this is the user', this.user);
-    this.phone = this.checkout.checkout_obj.phone || this.user ? this.user?.phone : '';
-    this.dial_code = this.checkout.checkout_obj.dial_code || this.user ? this.user?.dial_code : '+1';
+    this.phone =
+      this.checkout.checkout_obj.phone || this.user ? this.user?.phone : '';
+    this.dial_code =
+      this.checkout.checkout_obj.dial_code || this.user
+        ? this.user?.dial_code
+        : '+1';
 
     const res = await this.network.allBranches();
     this.branches = res?.data;
@@ -199,7 +212,6 @@ export class CartContentComponent implements OnInit {
       return;
     }
 
-
     if (this.orderType === 'delivery' && !this.deliveryAddress) {
       this.utility.presentFailureToast('Please enter your delivery address');
       return;
@@ -225,12 +237,6 @@ export class CartContentComponent implements OnInit {
       return;
     }
 
-
-
-
-
-
-
     const table_identifier = localStorage.getItem('table_identifier') || '';
 
     const items = this.cartItems.map((item) => {
@@ -238,10 +244,14 @@ export class CartContentComponent implements OnInit {
       return { product_id: id, ...rest };
     });
 
-
-    let full_address = this.deliveryAddress + ' ' + this.city + ' ' + this.state + ' ' + this.country;
-
-
+    let full_address =
+      this.deliveryAddress +
+      ' ' +
+      this.city +
+      ' ' +
+      this.state +
+      ' ' +
+      this.country;
 
     let obj = {
       table_identifier: table_identifier ? table_identifier : '',
@@ -268,7 +278,6 @@ export class CartContentComponent implements OnInit {
     const res = await this.network.makeOrder(obj);
     console.log(res, 'res');
     if (res) {
-
       if (res.data && res.data.order_number) {
         this.carte.clearCart();
         this.navigateToPage(res?.data.order_number);
@@ -279,12 +288,6 @@ export class CartContentComponent implements OnInit {
       if (userRole == 11) {
         this.users.logout();
       }
-
-
-
-
-
-
     }
   }
 
@@ -318,11 +321,26 @@ export class CartContentComponent implements OnInit {
     }
   }
 
-  udpatePhoneNumber($event: string){
+  udpatePhoneNumber($event: string) {
     this.phone = $event;
   }
 
-  updateDialCode($event: string){
+  updateDialCode($event: string) {
     this.dial_code = $event;
+  }
+  onAddressChange($event: any) {
+    const addressId = Number($event);
+    if (!this.addresses?.length) return;
+
+    const selectedAddress = this.addresses.find(
+      (addr) => addr.id === addressId
+    );
+    console.log(selectedAddress);
+    if (selectedAddress) {
+      this.deliveryAddress = selectedAddress.address;
+      this.city = selectedAddress.city;
+      this.state = selectedAddress.state;
+      this.country = selectedAddress.country;
+    }
   }
 }

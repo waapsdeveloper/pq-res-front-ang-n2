@@ -66,6 +66,15 @@
                 </select>
               </div>
 
+              <div class="mb-3" *ngIf="orderType === 'delivery'">
+                <label for="storedAddress">Your Addresses:</label>
+                 <select id="paymentMethod" class="int-field" [(ngModel)]="address" (ngModelChange)="onAddressChange($event)">
+                  <option *ngFor="let method of addresses" [value]="method.id">
+                    {{ method.address }}
+                  </option>
+                </select>
+              </div>
+
 
               <div class="mb-3" *ngIf="orderType === 'delivery'">
                 <label for="deliveryAddress">Delivery Address:</label>
