@@ -30,11 +30,11 @@
     <div class="cart-variations" *ngFor="let vari of item?.variations; let i = index">
       <div class="variations-list" *ngFor="let variation of vari; let j = index">
 
-        <div class="variation-title">
-          <p>{{ variation?.type }}</p>
-          <select>
+        <div class="variation-title" style="display: flex; justify-content: space-between; align-items: center; gap: 16px;">
+          <p style="margin: 0;">{{ variation?.type }}</p>
+          <select style="flex-shrink: 0; width: 150px;">
             <option *ngFor="let n of item.quantity; let k = index" [value]="k">
-              {{ 'Option ' + k + 1 }}
+              {{ 'Option ' + (k + 1)  }} {{n}} <!-- Fixed the option number display -->
             </option>
           </select>
         </div>
