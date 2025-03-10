@@ -90,7 +90,7 @@
                 </select>
               </div>
 
-              <div class="mb-3" *ngIf="orderType === 'delivery'">
+              <div class="mb-3" *ngIf="orderType === 'delivery' && getUserRole() == 10">
                 <label for="storedAddress">Your Addresses:</label>
                 <select
                   id="paymentMethod"
