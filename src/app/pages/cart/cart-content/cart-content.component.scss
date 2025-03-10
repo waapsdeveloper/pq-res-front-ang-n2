@@ -65,4 +65,28 @@
     font-size: 12px; /* Smaller font for instructions on smaller screens */
   }
 }
+.coupon-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.coupon-input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+}
+
+.apply-btn {
+  padding: 8px 12px;
+  background-color: rgb(211, 47, 47);;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  width: 100%;
+}
+
 

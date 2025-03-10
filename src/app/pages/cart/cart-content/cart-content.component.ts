@@ -23,6 +23,7 @@ export class CartContentComponent implements OnInit {
   deliveryAddress: string = '';
   addresses: any[] = [];
   address: string = ' ';
+  couponCode: string = '';
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
     this.updateColumnClass(event.target.innerWidth);
@@ -47,6 +48,8 @@ export class CartContentComponent implements OnInit {
   city: string = '';
   state: string = '';
   country: string = '';
+  discountAmount: number = 0;
+  final_total: number = 0;
   orderTypes: { label: string; value: string }[] = [
     { label: 'Delivery', value: 'delivery' },
     { label: 'Takeaway', value: 'takeaway' },
@@ -342,5 +345,8 @@ export class CartContentComponent implements OnInit {
       this.state = selectedAddress.state;
       this.country = selectedAddress.country;
     }
+  }
+  applyCoupon(){
+    console.log(this.couponCode);
   }
 }
