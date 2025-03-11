@@ -151,8 +151,8 @@
                 [value]="data?.payment_method"
                 readonly
               />
-              <p> Delivery Address</p>
-              <textarea
+              <p *ngIf="data?.order_type === 'delivery'"> Delivery Address</p>
+              <textarea *ngIf="data?.order_type === 'delivery'"
                 name=""
                 id=""
                 class="int-field"

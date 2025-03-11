@@ -59,6 +59,14 @@
                 <strong>Total Price:</strong>
                 {{ selectedOrder.total_price | currency }}
               </p>
+              <p  class="badge badge-preparing" >
+                <strong>Discounts</strong>
+                {{ selectedOrder.discount_value | currency }}
+              </p>
+              <p>
+                <strong>Discounted Price</strong>
+                {{ selectedOrder.final_total | currency }}
+              </p>
               <p><strong>Order Type:</strong> {{ selectedOrder.order_type }}</p>
               <p><strong>Payment Methods</strong> {{ selectedOrder.payment_method }}</p>
               <p><strong>Order Type:</strong> {{ selectedOrder.delivery_address }}</p>
