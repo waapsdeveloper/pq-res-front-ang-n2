@@ -203,6 +203,14 @@ export class NetworkService {
       true
     );
   }
+  getAvailableCoupon(params:any) {
+    const query = this.serialize(params);
+    return this.httpGetResponse('coupon/available-valid-coupon' + (query ? `?${query}` : ''), null, true, true);
+  }
+
+  updateCouponUsage(data :any) {
+    return this.httpPostResponse('coupon/update-coupon-usage', data, null, false, true);
+  }
   contactUs(data: any) {
     return this.httpPostResponse('contact-us', data, null, false, true);
   }

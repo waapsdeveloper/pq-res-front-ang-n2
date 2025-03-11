@@ -201,7 +201,7 @@
                 <button (click)="makeOrder()">Check Out</button>
               </div>
             </div>
-            <div class="instructions">
+            <div class="instructions" *ngIf="cartItems.length > 0">
               <h3>Coupon</h3>
 
               <!-- Coupon Input Field -->

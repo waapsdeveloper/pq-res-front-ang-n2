@@ -30,13 +30,10 @@
     <div class="cart-variations" *ngFor="let vari of item?.variations; let i = index">
       <div class="variations-list" *ngFor="let variation of vari; let j = index">
 
-<<<<<<< HEAD
        
-=======
         <div class="variation-title" style="display: flex; justify-content: space-between; align-items: center; gap: 16px;">
           <p style="margin: 0;">{{ variation?.type }}</p>
         </div>
->>>>>>> f62ee1018d4eb39c4bb09185431c5ea25bc37ac5
         <div class="d-flex flex-column gap-2 ">
           <!-- [ngClass]="{'selected': option?.selected}" -->
           <div class="variation-item" *ngFor="let option of variation?.options; let k = index">

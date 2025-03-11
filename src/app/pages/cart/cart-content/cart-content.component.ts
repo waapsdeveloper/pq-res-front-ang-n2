@@ -75,7 +75,7 @@ export class CartContentComponent implements OnInit {
     private users: UsersService,
     private phoneService: PhoneService,
     private cdRef: ChangeDetectorRef,
-    public checkout: CheckoutService
+    public checkout: CheckoutService,
   ) {
     this.paymentMethod = this.paymentMethods[0].value;
     this.orderType = this.orderTypes[0].value;
@@ -279,6 +279,10 @@ export class CartContentComponent implements OnInit {
       payment_method: this.paymentMethod,
       order_type: this.orderType,
       delivery_address: full_address,
+      final_total: this.final_total,
+      discount_value: this.discountAmount,
+      coupon_code: this.couponCode,
+    
     };
 
     console.log(obj);
@@ -291,7 +295,12 @@ export class CartContentComponent implements OnInit {
         this.navigateToPage(res?.data.order_number);
         this.utility.presentSuccessToast('Order Placed!');
       }
-
+      let coupon = {
+        code: this.couponCode
+      };
+      const response = await this.network.updateCouponUsage(coupon);
+      console.log(response);
+     
       let userRole = this.users.getUserRole();
       if (userRole == 11) {
         this.users.logout();
@@ -351,7 +360,52 @@ export class CartContentComponent implements OnInit {
       this.country = selectedAddress.country;
     }
   }
-  applyCoupon(){
-    console.log(this.couponCode);
+  resetFields() {
+    this.discountAmount = 0;
+    this.final_total = 0;
+  }
+  async applyCoupon() {
+    this.resetFields();
+    let obj = {
+      code: this.couponCode
+    };
+
+    const res = await this.network.getAvailableCoupon(obj);
+    console.log(res?.coupon);
+
+    const data = res?.coupon;
+    console.log(data);
+
+    if (!data) {
+      console.warn('No coupon data available');
+      return;
+    }
+
+    let discountValue = data?.discount_value || 0;
+    let calculatedDiscount = 0; // To store the calculated discount before applying it
+
+    if (data?.discount_type === 'percentage') {
+      // Calculate discount as a percentage
+      calculatedDiscount = (this.carte.total_price * discountValue) / 100;
+    } else if (data?.discount_type === 'fixed') {
+      // Directly assign the fixed discount amount
+      calculatedDiscount = discountValue;
+    } else {
+      console.warn('Invalid discount type');
+      return;
+    }
+
+    // Check if the discount exceeds 50% of the total cost
+    if (calculatedDiscount > this.carte.total_price * 0.5) {
+      console.error('Invalid coupon: Discount exceeds 50% of the total cost.');
+      this.utility.presentFailureToast('Invalid coupon: Discount cannot exceed 50% of the total cost.'); // Display error message
+      return;
+    }
+
+    // Apply the validated discount
+    this.discountAmount = calculatedDiscount;
+    this.final_total = Math.max(this.carte.total_price - this.discountAmount, 0);
+
+    console.log('Final total after discount:', this.final_total);
   }
 }
