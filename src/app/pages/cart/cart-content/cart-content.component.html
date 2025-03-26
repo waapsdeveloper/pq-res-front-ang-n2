@@ -98,8 +98,8 @@
                   [(ngModel)]="address"
                   (ngModelChange)="onAddressChange($event)"
                 >
-                  <option *ngFor="let method of addresses" [value]="method.id">
-                    {{ method.address }}
+                  <option *ngFor="let method of addresses" [value]="method?.id">
+                    {{ method?.address }}
                   </option>
                 </select>
               </div>

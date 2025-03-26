@@ -120,7 +120,7 @@ export class CartContentComponent implements OnInit {
   async getAllAddresses() {
     const res = await this.network.getUserAddresses();
 
-    this.addresses = res.addresses || [];
+    this.addresses = res?.addresses || [];
     console.log('this is the addresses', this.addresses);
   }
 
