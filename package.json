@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "build-prod": "ng build --configuration production --base-href https://restaurant.axetechsolutions.com/"
+    "build-prod": "ng build --configuration production --base-href https://pq-res-front-ang-n2.vercel.app/"
   },
   "private": true,
   "dependencies": {
