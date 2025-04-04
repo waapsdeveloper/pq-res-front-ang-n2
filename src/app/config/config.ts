@@ -24,6 +24,5 @@ export class Config {
 
   // Method to get full URL for an endpoint
   static getFullUrl(endpointKey: keyof typeof Config.endpoints): string {
-    return `${this.apiBaseUrl}${this.endpoints[endpointKey]}`;
-  }
+    return `${this.apiBaseUrl}${this.endpoints[endpointKey]}`;}
 }

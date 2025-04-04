@@ -135,7 +135,7 @@ export class CartContentComponent implements OnInit {
   }
 
   async ngOnInit() {
-    this.getAllAddresses();
+
     this.deliveryAddress = this.checkout.checkout_obj.deliveryAddress;
     this.orderType = this.checkout.checkout_obj.orderType;
     this.paymentMethod = this.checkout.checkout_obj.paymentMethod;
@@ -146,6 +146,10 @@ export class CartContentComponent implements OnInit {
     let user = await this.users.getUser();
     this.user = typeof user === 'string' ? JSON.parse(user) : user;
     console.log('this is the user', this.user);
+
+    if(this.user){
+      this.getAllAddresses();
+    }
     this.phone =
       this.checkout.checkout_obj.phone || this.user ? this.user?.phone : '';
     this.dial_code =
@@ -282,7 +286,7 @@ export class CartContentComponent implements OnInit {
       final_total: this.final_total,
       discount_value: this.discountAmount,
       coupon_code: this.couponCode,
-    
+
     };
 
     console.log(obj);
@@ -300,7 +304,7 @@ export class CartContentComponent implements OnInit {
       };
       const response = await this.network.updateCouponUsage(coupon);
       console.log(response);
-     
+
       let userRole = this.users.getUserRole();
       if (userRole == 11) {
         this.users.logout();
