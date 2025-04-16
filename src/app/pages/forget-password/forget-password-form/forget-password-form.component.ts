@@ -6,13 +6,13 @@ import { UtilityService } from '../../../services/utility.service';
 @Component({
   selector: 'app-forget-password-form',
   standalone: false,
-  
+
   templateUrl: './forget-password-form.component.html',
   styleUrl: './forget-password-form.component.scss'
 })
 export class ForgetPasswordFormComponent {
 
-  
+
   formData = {
     email: '',
   }
@@ -32,7 +32,7 @@ export class ForgetPasswordFormComponent {
     console.log(this.formData)
 
     if(!this.formData.email){
-      this.utility.presentFailureToast("Please enter your password");
+      this.utility.presentFailureToast("Please enter your email");
       return;
     }
 
