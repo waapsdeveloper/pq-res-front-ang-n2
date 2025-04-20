@@ -2,9 +2,23 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.7.
 
-## Development server
+## Prerequisites
+
+Before running the project, ensure you have the following installed:
+- [Node.js](https://nodejs.org/) (LTS version recommended)
+- [Angular CLI](https://angular.io/cli) version 18.2.7 or compatible
+
+## Development Server
+
+To start the development server:
+1. Install dependencies by running:
+   ```bash
+   npm install
+   ```
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+
+CHeck [config.ts](src/app/config/config.ts) file for production URL update
 
 ## Code scaffolding
 
