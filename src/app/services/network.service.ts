@@ -38,6 +38,15 @@ export class NetworkService {
     return this.httpGetResponse('restaurant/active', null, false, false);
   }
 
+  getRestaurantConfigById(id: any) {
+    return this.httpGetResponse(
+      'restaurant/get-restaurant-config-by-id',
+      id,
+      false,
+      false
+    );
+  }
+
   // Auth registration
   postEmailForgetPassword(data: any) {
     return this.httpPostResponse(

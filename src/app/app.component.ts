@@ -14,7 +14,7 @@ import { CountriesService } from "./services/countries.service";
 export class AppComponent implements OnInit {
 
   constructor(public events: EventsService, public nav: NavService, private notifications: NotificationsService, private countriesService: CountriesService){
-    this.events.subscribe('open-link', this.openlink.bind(this))    
+    this.events.subscribe('open-link', this.openlink.bind(this))
   }
 
   ngOnInit(): void {
@@ -25,7 +25,6 @@ export class AppComponent implements OnInit {
   openlink(data: any){
     console.log(data);
     let link = data.link;
-
     this.nav.push(link);
   }
 }
