@@ -9,14 +9,14 @@ import { BasePage } from '../base-page/base-page';
   styleUrl: './splash.component.scss',
 })
 export class SplashComponent extends BasePage implements OnInit {
-  
+
   list: any[] = [];
   bSelections: string = '';
   restaurant_id: any;
 
   constructor(injector: Injector, private route: ActivatedRoute) {
     super(injector);
-    
+
   }
 
   ngOnInit(): void {
@@ -54,6 +54,16 @@ export class SplashComponent extends BasePage implements OnInit {
         this.restaurant_id = R.id;
         localStorage.setItem('restaurant', JSON.stringify(R));
         localStorage.setItem('restaurant_id', R.id);
+
+        // Fetch restaurant config
+        const config = await this.network.getRestaurantConfigById(R.id);
+        if (config && config.data) {
+          localStorage.setItem('restaurant_config', JSON.stringify(config.data));
+        }
+
+
+
+
       }
     }
 
