@@ -41,6 +41,14 @@ export class SplashComponent extends BasePage implements OnInit {
     }
 
     let restaurantId = localStorage.getItem('restaurant_id');
+    console.log('restaurantId', restaurantId);
+    if (!restaurantId) {
+      const defaults = await this.network.getDefaultRestaurantId();
+      const activeRestaurant = defaults?.active_restaurant;
+      console.log('activeRestaurant', activeRestaurant);
+      restaurantId = activeRestaurant.id;
+    }
+
     const res = await this.globalData.setRestaurantData(restaurantId);
 
     this.hideLoader();

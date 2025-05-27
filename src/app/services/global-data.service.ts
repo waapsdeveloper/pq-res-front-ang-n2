@@ -8,10 +8,10 @@ export class GlobalDataService {
 
   constructor(private network: NetworkService) { }
 
-  setRestaurantData(id: string | null): Promise<any> {
+  setRestaurantData(id: any): Promise<any> {
 
     return new Promise(async (resolve, reject) => {
-
+      console.log('setRestaurantData', id);
       if (!id) {
         const defaults = await this.network.getDefaultRestaurantId();
         const activeRestaurant = defaults?.active_restaurant;
