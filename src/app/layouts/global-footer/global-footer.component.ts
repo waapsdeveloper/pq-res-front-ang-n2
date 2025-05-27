@@ -24,9 +24,6 @@ export class GlobalFooterComponent implements OnInit {
 
   constructor(public router: Router, private network: NetworkService, public users: UsersService, private nav: NavService) {}
   async ngOnInit() {
-    //  const res = await this.network.restaurantDetail();
-    //  console.log(res.data);
-    //  this.item= res.data;
     const res = await this.network.allBranches();
     this.branches = res.data;
     console.log(this.branches);

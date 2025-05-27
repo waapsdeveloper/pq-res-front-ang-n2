@@ -1,6 +1,7 @@
 import { Component, Injector, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BasePage } from '../base-page/base-page';
+import { GlobalDataService } from '../../services/global-data.service';
 
 @Component({
   selector: 'app-splash',
@@ -14,13 +15,13 @@ export class SplashComponent extends BasePage implements OnInit {
   bSelections: string = '';
   restaurant_id: any;
 
-  constructor(injector: Injector, private route: ActivatedRoute) {
+  constructor(injector: Injector, private route: ActivatedRoute, private globalData: GlobalDataService) {
     super(injector);
 
   }
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe( (params: any) => {
+    this.route.queryParams.subscribe((params: any) => {
       console.log(params)
       if (params.selection === 'list') {
         // do something when selection is list
@@ -33,74 +34,22 @@ export class SplashComponent extends BasePage implements OnInit {
   }
 
   async initialize() {
-
-    if(this.bSelections === 'list'){
-
+    if (this.bSelections === 'list') {
       const res = await this.network.allBranches();
       this.list = res.data;
-
       return;
-
     }
 
+    let restaurantId = localStorage.getItem('restaurant_id');
+    const res = await this.globalData.setRestaurantData(restaurantId);
 
-    this.restaurant_id = localStorage.getItem("restaurant_id");
-
-    if (!this.restaurant_id) {
-      // If restaurant_id is not found in local storage, fetch default restaurant
-      const defaults = await this.network.getDefaultRestaurantId();
-      if (defaults && defaults.active_restaurant) {
-        let R = defaults.active_restaurant;
-        this.restaurant_id = R.id;
-        localStorage.setItem('restaurant', JSON.stringify(R));
-        localStorage.setItem('restaurant_id', R.id);
-
-        // Fetch restaurant config
-        const config = await this.network.getRestaurantConfigById(R.id);
-        console.log("branch_config", config);
-        if (config && config.data) {
-          localStorage.setItem('restaurant_config', JSON.stringify(config.data));
-        }
-
-
-
-
-      }
-    }
-
-    // // Fetch restaurant details
-    // await this.fetchRestaurantDetails(this.restaurant_id);
-
-    // setTimeout(() => {
-      this.hideLoader();
-      this.events.publish('open-link', { link: 'tabs' });
-    // }, 2000);
+    this.hideLoader();
+    this.events.publish('open-link', { link: 'tabs' });
   }
 
-
-
-  async fetchRestaurantDetails(restaurantId: string): Promise<void> {
-    const res = await this.network.restaurantDetail(restaurantId);
-    if (res && res.data) {
-      let R = res.data;
-      localStorage.setItem('restaurant', JSON.stringify(R));
-      localStorage.setItem('restaurant_id', R.id);
-    }
-
-    return res
-  }
-
-  // Call this method when the user changes the restaurant
-  async onRestaurantChange(newRestaurantId: string) {
-    if (this.restaurant_id !== newRestaurantId) {
-      this.restaurant_id = newRestaurantId;
-      localStorage.setItem('restaurant_id', newRestaurantId);
-      await this.fetchRestaurantDetails(newRestaurantId);
-    }
-  }
 
   async selectRestaurant(item: any) {
-    await this.fetchRestaurantDetails(item.id);
+    await this.globalData.setRestaurantData(item.id);
     this.events.publish('open-link', { link: 'tabs' });
   }
 
