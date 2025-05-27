@@ -12,8 +12,10 @@
   <div class="cart-right">
     <!-- Product Name & Price -->
     <div class="cart-details">
-      <h3>{{ item.name }} x <b>{{ item.quantity}}</b></h3>
-      <h3>${{item.price}}</h3>
+      <h3>
+        {{ item.name }} x <b>{{ item.quantity }}</b>
+      </h3>
+      <h3>{{ currency_symbol + " " }}{{ item.price }}</h3>
     </div>
 
     <!-- Actions (Quantity + Remove) -->
@@ -23,36 +25,56 @@
         <!-- <input type="number" class="value" style="padding-left: 8px;" [value]="item.quantity" min="1" /> -->
         <img src="assets/svg/circle-minus.svg" (click)="removeQuantity(item)" />
       </div>
-      <img class="cart-delete" src="assets/svg/trash.svg" (click)="removeItem(item)" />
+      <img
+        class="cart-delete"
+        src="assets/svg/trash.svg"
+        (click)="removeItem(item)"
+      />
     </div>
 
     <!-- Variations Section -->
-    <div class="cart-variations" *ngFor="let vari of item?.variations; let i = index">
-      <div class="variations-list" *ngFor="let variation of vari; let j = index">
-
-       
-        <div class="variation-title" style="display: flex; justify-content: space-between; align-items: center; gap: 16px;">
-          <p style="margin: 0;">{{ variation?.type }}</p>
+    <div
+      class="cart-variations"
+      *ngFor="let vari of item?.variations; let i = index"
+    >
+      <div
+        class="variations-list"
+        *ngFor="let variation of vari; let j = index"
+      >
+        <div
+          class="variation-title"
+          style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+          "
+        >
+          <p style="margin: 0">{{ variation?.type }}</p>
         </div>
-        <div class="d-flex flex-column gap-2 ">
+        <div class="d-flex flex-column gap-2">
           <!-- [ngClass]="{'selected': option?.selected}" -->
-          <div class="variation-item" *ngFor="let option of variation?.options; let k = index">
+          <div
+            class="variation-item"
+            *ngFor="let option of variation?.options; let k = index"
+          >
             <label>
               <div>
                 <span>{{ option?.name }}</span>
               </div>
               <div class="d-flex gap-3">
-                <span>${{ option?.price }}</span>
+                <span>{{ currency_symbol + " " }}{{ option?.price }}</span>
                 <!-- [(ngModel)]="option.selected" -->
-                <input type="checkbox" [checked]="option?.selected"
-                  (change)="changeVariationSelection($event, option, i,j,k)" />
+                <input
+                  type="checkbox"
+                  [checked]="option?.selected"
+                  (change)="changeVariationSelection($event, option, i, j, k)"
+                />
               </div>
             </label>
           </div>
         </div>
-
       </div>
     </div>
-
   </div>
 </div>

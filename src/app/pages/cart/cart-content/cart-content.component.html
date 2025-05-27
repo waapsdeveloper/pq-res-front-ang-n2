@@ -90,7 +90,10 @@
                 </select>
               </div>
 
-              <div class="mb-3" *ngIf="orderType === 'delivery' && getUserRole() == 10">
+              <div
+                class="mb-3"
+                *ngIf="orderType === 'delivery' && getUserRole() == 10"
+              >
                 <label for="storedAddress">Your Addresses:</label>
                 <select
                   id="paymentMethod"
@@ -175,28 +178,30 @@
                 <li>
                   <div class="left-item">Sub Total :</div>
                   <div class="right-item">
-                    ${{ carte.total_price | number : "1.2-2" }}
+                    {{ currency_symbol + " " }}
+                    {{ carte.total_price | number : "1.2-2" }}
                   </div>
                 </li>
                 <li>
                   <div class="left-item">Delivery Fee :</div>
                   <div class="right-item">
-                    ${{ deliveryFee || 0 | number : "1.2-2" }}
+                    {{ currency_symbol + " " }}
+                    {{ deliveryFee || 0 | number : "1.2-2" }}
                   </div>
                 </li>
                 <li>
                   <div class="left-item">GST (0%) :</div>
                   <div class="right-item">
-                    ${{ gstAmount || 0 | number : "1.2-2" }}
+                    {{ currency_symbol + " "
+                    }}{{ gstAmount || 0 | number : "1.2-2" }}
                   </div>
                 </li>
               </ul>
 
               <div class="checkout-bar">
                 <span
-                  >{{ cartItems.length }} Items | ${{
-                    carte.total_price | number : "1.2-2"
-                  }}</span
+                  >{{ cartItems.length }} Items | {{ currency_symbol + " "
+                  }}{{ carte.total_price | number : "1.2-2" }}</span
                 >
                 <button (click)="makeOrder()">Check Out</button>
               </div>
@@ -218,7 +223,8 @@
                 <li>
                   <div class="left-item">Discount :</div>
                   <div class="right-item">
-                    - ${{ discountAmount || 0 | number : "1.2-2" }}
+                    - {{ currency_symbol + " "
+                    }}{{ discountAmount || 0 | number : "1.2-2" }}
                   </div>
                 </li>
                 <li>
@@ -226,7 +232,10 @@
                     <strong>Discounted Price :</strong>
                   </div>
                   <div class="right-item">
-                    <strong>${{ final_total | number : "1.2-2" }}</strong>
+                    <strong
+                      >{{ currency_symbol + " "
+                      }}{{ final_total | number : "1.2-2" }}</strong
+                    >
                   </div>
                 </li>
               </ul>

@@ -8,6 +8,7 @@ import { NavService } from '../../../services/nav.service';
 import { PhoneService } from '../../../services/phone.service';
 import { ChangeDetectorRef } from '@angular/core';
 import { CheckoutService } from '../../../services/checkout.service';
+import { GlobalDataService } from '../../../services/global-data.service';
 @Component({
   selector: 'app-cart-content',
   standalone: false,
@@ -23,6 +24,8 @@ export class CartContentComponent implements OnInit {
   deliveryAddress: string = '';
   addresses: any[] = [];
   address: string = ' ';
+  currency_symbol: string = '$';
+
   couponCode: string = '';
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
@@ -76,6 +79,7 @@ export class CartContentComponent implements OnInit {
     private phoneService: PhoneService,
     private cdRef: ChangeDetectorRef,
     public checkout: CheckoutService,
+    private globalData: GlobalDataService
   ) {
     this.paymentMethod = this.paymentMethods[0].value;
     this.orderType = this.orderTypes[0].value;
@@ -124,7 +128,7 @@ export class CartContentComponent implements OnInit {
     console.log('this is the addresses', this.addresses);
   }
 
-  getUserRole(){
+  getUserRole() {
     let r = this.users.getUserRole();
     return r;
   }
@@ -135,7 +139,9 @@ export class CartContentComponent implements OnInit {
   }
 
   async ngOnInit() {
-
+    this.globalData.getCurrencySymbol().subscribe((symbol) => {
+      this.currency_symbol = symbol || '$'; // Default to $ if symbol is not set
+    });
     this.deliveryAddress = this.checkout.checkout_obj.deliveryAddress;
     this.orderType = this.checkout.checkout_obj.orderType;
     this.paymentMethod = this.checkout.checkout_obj.paymentMethod;
@@ -147,7 +153,7 @@ export class CartContentComponent implements OnInit {
     this.user = typeof user === 'string' ? JSON.parse(user) : user;
     console.log('this is the user', this.user);
 
-    if(this.user){
+    if (this.user) {
       this.getAllAddresses();
     }
     this.phone =
@@ -286,7 +292,6 @@ export class CartContentComponent implements OnInit {
       final_total: this.final_total,
       discount_value: this.discountAmount,
       coupon_code: this.couponCode,
-
     };
 
     console.log(obj);
@@ -300,7 +305,7 @@ export class CartContentComponent implements OnInit {
         this.utility.presentSuccessToast('Order Placed!');
       }
       let coupon = {
-        code: this.couponCode
+        code: this.couponCode,
       };
       const response = await this.network.updateCouponUsage(coupon);
       console.log(response);
@@ -371,7 +376,7 @@ export class CartContentComponent implements OnInit {
   async applyCoupon() {
     this.resetFields();
     let obj = {
-      code: this.couponCode
+      code: this.couponCode,
     };
 
     const res = await this.network.getAvailableCoupon(obj);
@@ -402,13 +407,18 @@ export class CartContentComponent implements OnInit {
     // Check if the discount exceeds 50% of the total cost
     if (calculatedDiscount > this.carte.total_price * 0.5) {
       console.error('Invalid coupon: Discount exceeds 50% of the total cost.');
-      this.utility.presentFailureToast('Invalid coupon: Discount cannot exceed 50% of the total cost.'); // Display error message
+      this.utility.presentFailureToast(
+        'Invalid coupon: Discount cannot exceed 50% of the total cost.'
+      ); // Display error message
       return;
     }
 
     // Apply the validated discount
     this.discountAmount = calculatedDiscount;
-    this.final_total = Math.max(this.carte.total_price - this.discountAmount, 0);
+    this.final_total = Math.max(
+      this.carte.total_price - this.discountAmount,
+      0
+    );
 
     console.log('Final total after discount:', this.final_total);
   }

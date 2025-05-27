@@ -1,16 +1,18 @@
 <div class="prod-box">
   <div class="prod-img">
-     <img [src]="item.image" alt="">
+    <img [src]="item.image" alt="" />
   </div>
   <div class="prod-cont" [class.booked]="item.addedToCart">
-     <a href="#">
-        <h3 class="prod-tittle">{{ item.name }}</h3>
-     </a>
-     <p class="prod-disc">{{ item.description }}</p>
-     <h6 class="prod-price">price :<span> ${{item.price}}</span></h6>
-     <a href="javascript:void(0)" class="prod-btn" (click)="addToCart(item)">
-       {{ item.addedToCart ? 'Added to cart' : 'Add to cart' }}
-     </a>
+    <a href="#">
+      <h3 class="prod-tittle">{{ item.name }}</h3>
+    </a>
+    <p class="prod-disc">{{ item.description }}</p>
+    <h6 class="prod-price">
+      price :<span> {{ currency_symbol }}{{ item.price }}</span>
+    </h6>
+    <a href="javascript:void(0)" class="prod-btn" (click)="addToCart(item)">
+      {{ item.addedToCart ? "Added to cart" : "Add to cart" }}
+    </a>
   </div>
 </div>
 <!-- <div class="new-order-received-fixed-layout" *ngIf="addToCarts">

@@ -1,6 +1,14 @@
-import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  HostListener,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { CartService } from '../../../../services/cart.service';
 import { UtilityService } from '../../../../services/utility.service';
+import { GlobalDataService } from '../../../../services/global-data.service';
 
 @Component({
   selector: 'app-cart-item',
@@ -10,7 +18,7 @@ import { UtilityService } from '../../../../services/utility.service';
   styleUrl: './cart-item.component.scss',
 })
 export class CartItemComponent implements OnInit {
-
+  currency_symbol: string = '$';
   private _item: any;
 
   @Input() cartIndex: number = -1;
@@ -21,6 +29,9 @@ export class CartItemComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.globalData.getCurrencySymbol().subscribe((symbol) => {
+      this.currency_symbol = symbol || '$'; // Default to $ if symbol is not set
+    });
     this.carte.totalOfProductCost();
   }
   set item(value: any) {
@@ -53,20 +64,29 @@ export class CartItemComponent implements OnInit {
   //   }
   // }
 
-  constructor(public carte: CartService,public utility:UtilityService) {}
+  constructor(
+    public carte: CartService,
+    public utility: UtilityService,
+    private globalData: GlobalDataService
+  ) {}
 
   // changeVariationSelection($event: any, option: any ) {
   //   console.log($event.target.checked, option);
-
 
   //   this.carte.updateVariations(this.item.id, this.item.variations )
 
   //   this.carte.totalOfProductCost();
   // }
 
-  changeVariationSelection(event: Event, option: any, i: number, j: number, k: number) {
+  changeVariationSelection(
+    event: Event,
+    option: any,
+    i: number,
+    j: number,
+    k: number
+  ) {
     const checked = (event.target as HTMLInputElement).checked;
-  
+
     this.carte.setState((state) =>
       state.map((cartItem, cIndex) =>
         cIndex === this.cartIndex
@@ -78,8 +98,11 @@ export class CartItemComponent implements OnInit {
                       varIndex === j
                         ? {
                             ...variation,
-                            options: variation.options.map((opt: any, optIndex: number) =>
-                              optIndex === k ? { ...opt, selected: checked } : opt
+                            options: variation.options.map(
+                              (opt: any, optIndex: number) =>
+                                optIndex === k
+                                  ? { ...opt, selected: checked }
+                                  : opt
                             ),
                           }
                         : variation
@@ -91,19 +114,17 @@ export class CartItemComponent implements OnInit {
       )
     );
   }
-  
-  
 
   removeItem(item: any) {
     this.carte.removeFromCart(item.id);
     this.carte.totalOfProductCost();
-    this.utility.presentSuccessToast("Item remove from cart");
+    this.utility.presentSuccessToast('Item remove from cart');
   }
 
   addQuantity(item: any) {
     let n = parseInt(item.quantity);
     n = n + 1;
-    console.log(n)
+    console.log(n);
     this.carte.updateQuantity(item.id, n);
     this.carte.totalOfProductCost();
   }
@@ -117,7 +138,5 @@ export class CartItemComponent implements OnInit {
     this.carte.totalOfProductCost();
   }
 
-  addVariations(item: any) {
-    
-  }
+  addVariations(item: any) {}
 }
