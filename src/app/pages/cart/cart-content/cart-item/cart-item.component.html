@@ -4,7 +4,7 @@
       <img [src]="item.image" alt="" />
       <div class="cart-overlay">
         <div>{{ item.name }}</div>
-        <div>${{ item.price }}</div>
+        <div>{{ currency_symbol + " " }}{{ item.price }}</div>
       </div>
     </div>
   </div>
