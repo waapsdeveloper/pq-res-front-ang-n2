@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { TabsResolver } from '../resolvers/tabs.service';
 
 const routes: Routes = [
   {
@@ -16,8 +17,11 @@ const routes: Routes = [
     path: 'tabs',
     loadChildren: () => import('./tabs/tabs.module').then((m) => m.TabsModule),
     data: { breadcrumb: 'Tabs' },
+    resolve: {
+      tabsData: TabsResolver
+    }
   },
-  
+
 
 
 

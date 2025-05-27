@@ -57,6 +57,7 @@ export class SplashComponent extends BasePage implements OnInit {
 
         // Fetch restaurant config
         const config = await this.network.getRestaurantConfigById(R.id);
+        console.log("branch_config", config);
         if (config && config.data) {
           localStorage.setItem('restaurant_config', JSON.stringify(config.data));
         }
