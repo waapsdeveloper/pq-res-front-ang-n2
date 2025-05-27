@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CartService } from '../../../../services/cart.service';
 import { UtilityService } from '../../../../services/utility.service';
+import { GlobalDataService } from '../../../../services/global-data.service';
 
 @Component({
   selector: 'app-order-tracking-item',
@@ -10,6 +11,7 @@ import { UtilityService } from '../../../../services/utility.service';
   styleUrl: './order-tracking-item.component.scss',
 })
 export class OrderTrackingItemComponent {
+  currency_symbol: string = '$';
   private _item: any;
 
   @Input()
@@ -19,6 +21,9 @@ export class OrderTrackingItemComponent {
 
   ngOnInit(): void {
     this.carte.totalOfProductCost();
+    this.globalData.getCurrencySymbol().subscribe((symbol) => {
+      this.currency_symbol = symbol || '$'; // Default to $ if symbol is not set
+    });
   }
   set item(value: any) {
     this._item = value;
@@ -50,7 +55,11 @@ export class OrderTrackingItemComponent {
   //   }
   // }
 
-  constructor(public carte: CartService, public utility: UtilityService) {}
+  constructor(
+    public carte: CartService,
+    public utility: UtilityService,
+    private globalData: GlobalDataService
+  ) {}
 
   changeVariationSelection($event: any) {
     this.carte.totalOfProductCost();

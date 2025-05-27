@@ -4,7 +4,7 @@
       <img [src]="item.image" alt="" />
       <div class="cart-overlay">
         <div>{{ item.name }}</div>
-        <div>${{ item.price }}</div>
+        <div>{{ currency_symbol + " " }}{{ item.price }}</div>
       </div>
     </div>
   </div>
@@ -15,27 +15,38 @@
       <h3>
         {{ item.name }} x <b>{{ item.quantity }}</b>
       </h3>
-      <h3>${{ item.price }}</h3>
+      <h3>{{ currency_symbol + " " }}{{ item.price }}</h3>
     </div>
 
     <!-- Actions (Quantity + Remove) -->
 
     <!-- Variations Section -->
     <div *ngFor="let variationGroup of item?.variations">
-      <ng-container *ngIf="variationGroupHasSelectedOption(variationGroup); else filler">
+      <ng-container
+        *ngIf="variationGroupHasSelectedOption(variationGroup); else filler"
+      >
         <div class="cart-variations">
           <div class="variations-list" *ngFor="let variation of variationGroup">
             <p class="variation-title">{{ variation?.type }}</p>
             <div class="d-flex flex-column gap-2">
-              <div class="variation-item" *ngFor="let option of variation?.options" [class.notselected]="!option?.selected">
+              <div
+                class="variation-item"
+                *ngFor="let option of variation?.options"
+                [class.notselected]="!option?.selected"
+              >
                 <label *ngIf="option?.selected">
                   <div>
                     <span>{{ option?.name }}</span>
                   </div>
                   <div class="d-flex gap-3">
-                    <span>${{ option?.price }}</span>
-                    <input type="checkbox" disabled="true" [checked]="option?.selected" [(ngModel)]="option.selected"
-                      (ngModelChange)="changeVariationSelection($event)" />
+                    <span>{{ currency_symbol + " " }}{{ option?.price }}</span>
+                    <input
+                      type="checkbox"
+                      disabled="true"
+                      [checked]="option?.selected"
+                      [(ngModel)]="option.selected"
+                      (ngModelChange)="changeVariationSelection($event)"
+                    />
                   </div>
                 </label>
               </div>
@@ -44,9 +55,7 @@
         </div>
       </ng-container>
       <ng-template #filler>
-        <div class="filler">
-          No options selected.
-        </div>
+        <div class="filler">No options selected.</div>
       </ng-template>
     </div>
   </div>
