@@ -190,10 +190,9 @@
                   </div>
                 </li>
                 <li>
-                  <div class="left-item">GST (0%) :</div>
+                  <div class="left-item">GST ({{ tax_percentage }}%) :</div>
                   <div class="right-item">
-                    {{ currency_symbol + " "
-                    }}{{ gstAmount || 0 | number : "1.2-2" }}
+                    {{ tax_amount || 0 | number : "1.2-2" }}
                   </div>
                 </li>
               </ul>

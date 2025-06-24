@@ -25,6 +25,8 @@ export class CartContentComponent implements OnInit {
   addresses: any[] = [];
   address: string = ' ';
   currency_symbol: string = '$';
+  tax_percentage: number = 0;
+  tax_amount: number = 0;
 
   couponCode: string = '';
   @HostListener('window:resize', ['$event'])
@@ -141,6 +143,9 @@ export class CartContentComponent implements OnInit {
   async ngOnInit() {
     this.globalData.getCurrencySymbol().subscribe((symbol) => {
       this.currency_symbol = symbol || '$'; // Default to $ if symbol is not set
+    });
+    this.globalData.getTaxPercentage().subscribe((percentage) => {
+      this.tax_percentage = percentage || 0; // Default to $ if symbol is not set
     });
     this.deliveryAddress = this.checkout.checkout_obj.deliveryAddress;
     this.orderType = this.checkout.checkout_obj.orderType;

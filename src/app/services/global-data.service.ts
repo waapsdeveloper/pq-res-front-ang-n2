@@ -1,35 +1,40 @@
 import { Injectable } from '@angular/core';
 import { NetworkService } from './network.service';
-import { NgSimpleStateBaseRxjsStore, NgSimpleStateStoreConfig } from 'ng-simple-state';
+import {
+  NgSimpleStateBaseRxjsStore,
+  NgSimpleStateStoreConfig,
+} from 'ng-simple-state';
 import { Observable } from 'rxjs';
 
 export interface GlobalDataState {
   restaurant_id: number;
   currency: string;
   currency_symbol: string;
+  tax_percentage: number;
 }
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class GlobalDataService extends NgSimpleStateBaseRxjsStore<GlobalDataState> {
-
   private restaurantId: string | null = null;
   private currency: string | null = null;
   private currencySymbol: string | null = null;
+  private tax_percentage: number | null = null;
 
   constructor(private network: NetworkService) {
     super();
   }
   protected storeConfig(): NgSimpleStateStoreConfig {
     return {
-      storeName: 'GlobalDataState'
+      storeName: 'GlobalDataState',
     };
   }
   protected initialState(): GlobalDataState {
     return {
       restaurant_id: 0,
       currency: 'USD',
-      currency_symbol: '$'
+      currency_symbol: '$',
+      tax_percentage: 0,
     };
   }
 
@@ -38,7 +43,7 @@ export class GlobalDataService extends NgSimpleStateBaseRxjsStore<GlobalDataStat
     this.setState((state) => ({ restaurant_id: id }));
   }
 
-  getRestaurantId(): Observable<any>{
+  getRestaurantId(): Observable<any> {
     return this.selectState((state) => state.restaurant_id);
   }
 
@@ -59,12 +64,15 @@ export class GlobalDataService extends NgSimpleStateBaseRxjsStore<GlobalDataStat
   getCurrencySymbol(): Observable<any> {
     return this.selectState((state) => state.currency_symbol);
   }
-
-
-
+  setTaxPercentage(tax: number): void {
+    this.tax_percentage = tax;
+    this.setState((state) => ({ tax_percentage: tax }));
+  }
+  getTaxPercentage(): Observable<any> {
+    return this.selectState((state) => state.tax_percentage);
+  }
 
   setRestaurantData(id: any): Promise<any> {
-
     return new Promise(async (resolve, reject) => {
       console.log('setRestaurantData', id);
       if (!id) {
@@ -81,7 +89,6 @@ export class GlobalDataService extends NgSimpleStateBaseRxjsStore<GlobalDataStat
 
       const res = await this.fetchRestaurantDetails(id);
       resolve(res);
-
     });
   }
 
@@ -93,7 +100,6 @@ export class GlobalDataService extends NgSimpleStateBaseRxjsStore<GlobalDataStat
       localStorage.setItem('restaurant_id', R.id);
 
       this.setRestaurantId(R.id);
-
     }
 
     const config = await this.network.getRestaurantConfigById(restaurantId);
@@ -103,10 +109,9 @@ export class GlobalDataService extends NgSimpleStateBaseRxjsStore<GlobalDataStat
       localStorage.setItem('restaurant_config', JSON.stringify(config.data));
       this.setCurrency(config.data.currency);
       this.setCurrencySymbol(config.data.currency_symbol);
+      this.setTaxPercentage(config.data.tax);
     }
 
     return res.data;
   }
-
-
 }
