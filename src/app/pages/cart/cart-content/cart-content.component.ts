@@ -288,6 +288,8 @@ export class CartContentComponent implements OnInit {
       order_type: this.orderType,
       delivery_address: full_address,
       final_total: this.carte.final_total,
+      tax_percentage: this.carte.taxPercent,
+      tax_amount: this.carte.taxAmount,
       discount_value: this.carte.discountAmount,
       coupon_code: this.carte.couponCode,
     };

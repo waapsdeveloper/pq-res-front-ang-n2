@@ -169,13 +169,20 @@
                     {{ currency_symbol + " " }}{{ data?.total_price }}
                   </div>
                 </li>
+
                 <li>
-                  <div class="left-item">Delivery Fee :</div>
-                  <div class="right-item">{{ currency_symbol + " " }} 0</div>
+                  <div class="left-item">
+                    GST ( {{ data?.tax_percentage }}% ) :
+                  </div>
+                  <div class="right-item">
+                    {{ currency_symbol + " " }} {{ data?.tax_amount }}
+                  </div>
                 </li>
                 <li>
-                  <div class="left-item">GST ( 0% ) :</div>
-                  <div class="right-item">{{ currency_symbol + " " }} 0</div>
+                  <div class="left-item">Discounts :</div>
+                  <div class="right-item">
+                    {{ currency_symbol + " " }} {{ data?.discount_value }}
+                  </div>
                 </li>
               </ul>
 
@@ -186,32 +193,6 @@
                   {{ currency_symbol + " " }} {{ data?.total_price }}</span
                 >
               </div>
-            </div>
-            <div class="instructions">
-              <h3>Coupon</h3>
-
-              <!-- Coupon Input Field -->
-
-              <ul>
-                <li>
-                  <div class="left-item">Discount :</div>
-                  <div class="right-item">
-                    - {{ currency_symbol + " "
-                    }}{{ data?.discount_value || 0 | number : "1.2-2" }}
-                  </div>
-                </li>
-                <li>
-                  <div class="left-item">
-                    <strong>Discounted Price :</strong>
-                  </div>
-                  <div class="right-item">
-                    <strong
-                      >{{ currency_symbol + " "
-                      }}{{ data?.final_total | number : "1.2-2" }}</strong
-                    >
-                  </div>
-                </li>
-              </ul>
             </div>
           </div>
 
