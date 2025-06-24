@@ -25,10 +25,7 @@ export class CartContentComponent implements OnInit {
   addresses: any[] = [];
   address: string = ' ';
   currency_symbol: string = '$';
-  tax_percentage: number = 0;
-  tax_amount: number = 0;
 
-  couponCode: string = '';
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
     this.updateColumnClass(event.target.innerWidth);
@@ -53,8 +50,6 @@ export class CartContentComponent implements OnInit {
   city: string = '';
   state: string = '';
   country: string = '';
-  discountAmount: number = 0;
-  final_total: number = 0;
   orderTypes: { label: string; value: string }[] = [
     { label: 'Delivery', value: 'delivery' },
     { label: 'Takeaway', value: 'takeaway' },
@@ -144,9 +139,7 @@ export class CartContentComponent implements OnInit {
     this.globalData.getCurrencySymbol().subscribe((symbol) => {
       this.currency_symbol = symbol || '$'; // Default to $ if symbol is not set
     });
-    this.globalData.getTaxPercentage().subscribe((percentage) => {
-      this.tax_percentage = percentage || 0; // Default to $ if symbol is not set
-    });
+
     this.deliveryAddress = this.checkout.checkout_obj.deliveryAddress;
     this.orderType = this.checkout.checkout_obj.orderType;
     this.paymentMethod = this.checkout.checkout_obj.paymentMethod;
@@ -294,9 +287,9 @@ export class CartContentComponent implements OnInit {
       payment_method: this.paymentMethod,
       order_type: this.orderType,
       delivery_address: full_address,
-      final_total: this.final_total,
-      discount_value: this.discountAmount,
-      coupon_code: this.couponCode,
+      final_total: this.carte.final_total,
+      discount_value: this.carte.discountAmount,
+      coupon_code: this.carte.couponCode,
     };
 
     console.log(obj);
@@ -310,7 +303,7 @@ export class CartContentComponent implements OnInit {
         this.utility.presentSuccessToast('Order Placed!');
       }
       let coupon = {
-        code: this.couponCode,
+        code: this.carte.couponCode,
       };
       const response = await this.network.updateCouponUsage(coupon);
       console.log(response);
@@ -375,56 +368,7 @@ export class CartContentComponent implements OnInit {
     }
   }
   resetFields() {
-    this.discountAmount = 0;
-    this.final_total = 0;
-  }
-  async applyCoupon() {
-    this.resetFields();
-    let obj = {
-      code: this.couponCode,
-    };
-
-    const res = await this.network.getAvailableCoupon(obj);
-    console.log(res?.coupon);
-
-    const data = res?.coupon;
-    console.log(data);
-
-    if (!data) {
-      console.warn('No coupon data available');
-      return;
-    }
-
-    let discountValue = data?.discount_value || 0;
-    let calculatedDiscount = 0; // To store the calculated discount before applying it
-
-    if (data?.discount_type === 'percentage') {
-      // Calculate discount as a percentage
-      calculatedDiscount = (this.carte.total_price * discountValue) / 100;
-    } else if (data?.discount_type === 'fixed') {
-      // Directly assign the fixed discount amount
-      calculatedDiscount = discountValue;
-    } else {
-      console.warn('Invalid discount type');
-      return;
-    }
-
-    // Check if the discount exceeds 50% of the total cost
-    if (calculatedDiscount > this.carte.total_price * 0.5) {
-      console.error('Invalid coupon: Discount exceeds 50% of the total cost.');
-      this.utility.presentFailureToast(
-        'Invalid coupon: Discount cannot exceed 50% of the total cost.'
-      ); // Display error message
-      return;
-    }
-
-    // Apply the validated discount
-    this.discountAmount = calculatedDiscount;
-    this.final_total = Math.max(
-      this.carte.total_price - this.discountAmount,
-      0
-    );
-
-    console.log('Final total after discount:', this.final_total);
+    this.carte.discountAmount = 0;
+    this.carte.final_total = 0;
   }
 }

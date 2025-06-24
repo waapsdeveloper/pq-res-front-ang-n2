@@ -5,15 +5,32 @@ import {
 } from 'ng-simple-state';
 import { CartState, UserCartProduct } from '../interfaces/user-cart-product';
 import { Observable } from 'rxjs';
+import { GlobalDataService } from './global-data.service';
+import { UtilityService } from './utility.service';
+import { NetworkService } from './network.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CartService extends NgSimpleStateBaseRxjsStore<CartState> {
   total_price: any;
-  variation_price:any;
-  constructor() {
+  variation_price: any;
+  taxPercent: number = 0;
+  taxAmount: number = 0;
+  discountAmount: number = 0;
+  final_total: number = 0;
+  couponCode: string = '';
+
+  constructor(
+    private globalData: GlobalDataService,
+    private utility: UtilityService,
+    private network: NetworkService
+  ) {
     super();
+    this.globalData.getTaxPercentage().subscribe((percentage) => {
+      this.taxPercent = percentage || 0;
+      this.globalData.setTaxPercentage(this.taxPercent);
+    });
   }
 
   protected override storeConfig(): NgSimpleStateStoreConfig {
@@ -26,11 +43,9 @@ export class CartService extends NgSimpleStateBaseRxjsStore<CartState> {
   }
 
   addToCart(item: UserCartProduct) {
-
-   if(!item.variations){
-     item.variations = [];
-   }
-
+    if (!item.variations) {
+      item.variations = [];
+    }
 
     this.setState((state: any) => {
       let findIndex = state.findIndex((i: any) => i.id === item.id);
@@ -91,7 +106,6 @@ export class CartService extends NgSimpleStateBaseRxjsStore<CartState> {
   }
 
   updateQuantity(id: number, quantity: number) {
-
     this.setState((state) => {
       const updatedState = state.map((item: any) =>
         item.id === id ? { ...item, quantity: quantity } : item
@@ -101,7 +115,6 @@ export class CartService extends NgSimpleStateBaseRxjsStore<CartState> {
   }
 
   updateVariations(id: number, variations: any[]) {
-
     this.setState((state) => {
       const updatedState = state.map((item: any) =>
         item.id === id ? { ...item, variations: variations } : item
@@ -136,21 +149,14 @@ export class CartService extends NgSimpleStateBaseRxjsStore<CartState> {
         next.variations.forEach((variation: any[]) => {
           console.log(variation);
 
-          for(var i = 0; i < variation.length; i++){
-
-            console.log(variation[i])
+          for (var i = 0; i < variation.length; i++) {
+            console.log(variation[i]);
             variation[i].options.forEach((option: any) => {
               if (option.selected == true) {
                 productCost += option.price;
-
               }
             });
           }
-
-
-          
-            
-          
         });
       }
 
@@ -159,5 +165,51 @@ export class CartService extends NgSimpleStateBaseRxjsStore<CartState> {
 
     console.log(cost); // Log the total cost
     this.total_price = cost; // Update the total cost
+    this.recalculateTotals();
+  }
+  async applyCoupon() {
+    this.discountAmount = 0;
+    let obj = { code: this.couponCode };
+    const res = await this.network.getAvailableCoupon(obj);
+    const data = res?.coupon;
+
+    if (!data) {
+      this.utility.presentFailureToast('No coupon data available');
+      this.recalculateTotals();
+      return false;
+    }
+
+    let discountValue = data?.discount_value || 0;
+    let calculatedDiscount = 0;
+
+    if (data?.discount_type === 'percentage') {
+      calculatedDiscount = (this.total_price * discountValue) / 100;
+    } else if (data?.discount_type === 'fixed') {
+      calculatedDiscount = discountValue;
+    } else {
+      this.utility.presentFailureToast('Invalid discount type');
+      this.recalculateTotals();
+      return false;
+    }
+
+    if (calculatedDiscount > this.total_price * 0.5) {
+      this.utility.presentFailureToast(
+        'Invalid coupon: Discount cannot exceed 50% of the total_price.'
+      );
+      this.discountAmount = 0;
+      this.recalculateTotals();
+      return false;
+    }
+
+    this.discountAmount = calculatedDiscount;
+    this.recalculateTotals();
+    return true;
+  }
+  recalculateTotals() {
+    // Subtotal is already set
+    const discount = this.discountAmount || 0;
+    const discountedSubtotal = Math.max(this.total_price - discount, 0);
+    this.taxAmount = (discountedSubtotal * this.taxPercent) / 100;
+    this.final_total = discountedSubtotal + this.taxAmount;
   }
 }

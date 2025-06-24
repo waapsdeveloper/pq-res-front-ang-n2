@@ -25,7 +25,8 @@
   accent-color: #007bff; /* Makes the checkbox prominent */
 }
 /* Styling for the input fields and select dropdowns */
-.contact-input, .int-field {
+.contact-input,
+.int-field {
   background-color: #fff; /* Match the background color */
   border: 1px solid #ccc; /* Border color for all form inputs */
   padding: 10px; /* Padding for consistency */
@@ -81,7 +82,7 @@
 
 .apply-btn {
   padding: 8px 12px;
-  background-color: rgb(211, 47, 47);;
+  background-color: rgb(211, 47, 47);
   color: white;
   border: none;
   cursor: pointer;
@@ -89,4 +90,6 @@
   width: 100%;
 }
 
-
+.checkout-bar {
+  bottom: -22px;
+}

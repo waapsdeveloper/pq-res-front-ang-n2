@@ -183,27 +183,23 @@
                   </div>
                 </li>
                 <li>
-                  <div class="left-item">Delivery Fee :</div>
+                  <div class="left-item">Discounts:</div>
                   <div class="right-item">
-                    {{ currency_symbol + " " }}
-                    {{ deliveryFee || 0 | number : "1.2-2" }}
+                    {{ currency_symbol + " "
+                    }}{{ this.carte.discountAmount || 0 | number : "1.2-2" }}
                   </div>
                 </li>
+
                 <li>
-                  <div class="left-item">GST ({{ tax_percentage }}%) :</div>
+                  <div class="left-item">
+                    GST ({{ this.carte.taxPercent }}%) :
+                  </div>
                   <div class="right-item">
-                    {{ tax_amount || 0 | number : "1.2-2" }}
+                    {{ currency_symbol + " " }}
+                    {{ this.carte.taxAmount || 0 | number : "1.2-2" }}
                   </div>
                 </li>
               </ul>
-
-              <div class="checkout-bar">
-                <span
-                  >{{ cartItems.length }} Items | {{ currency_symbol + " "
-                  }}{{ carte.total_price | number : "1.2-2" }}</span
-                >
-                <button (click)="makeOrder()">Check Out</button>
-              </div>
             </div>
             <div class="instructions" *ngIf="cartItems.length > 0">
               <h3>Coupon</h3>
@@ -212,36 +208,21 @@
               <div class="coupon-section">
                 <input
                   type="text"
-                  [(ngModel)]="couponCode"
+                  [(ngModel)]="this.carte.couponCode"
                   placeholder="Enter Coupon Code"
                   class="coupon-input"
                 />
-                <button (click)="applyCoupon()" class="apply-btn">Apply</button>
+                <button (click)="this.carte.applyCoupon()" class="apply-btn">
+                  Apply
+                </button>
               </div>
-              <ul>
-                <li>
-                  <div class="left-item">Discount :</div>
-                  <div class="right-item">
-                    - {{ currency_symbol + " "
-                    }}{{ discountAmount || 0 | number : "1.2-2" }}
-                  </div>
-                </li>
-                <li>
-                  <div class="left-item">
-                    <strong>Discounted Price :</strong>
-                  </div>
-                  <div class="right-item">
-                    <strong
-                      >{{ currency_symbol + " "
-                      }}{{ final_total | number : "1.2-2" }}</strong
-                    >
-                  </div>
-                </li>
-              </ul>
-
-              <div class="checkout-bar">
-                <button (click)="makeOrder()">Check Out</button>
-              </div>
+            </div>
+            <div class="checkout-bar">
+              <span
+                >{{ cartItems.length }} Items | {{ currency_symbol + " " }}
+                {{ carte.final_total | number : "1.2-2" }}</span
+              >
+              <button (click)="makeOrder()">Check Out</button>
             </div>
           </div>
         </div>
