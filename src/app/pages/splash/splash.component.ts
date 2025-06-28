@@ -10,19 +10,21 @@ import { GlobalDataService } from '../../services/global-data.service';
   styleUrl: './splash.component.scss',
 })
 export class SplashComponent extends BasePage implements OnInit {
-
   list: any[] = [];
   bSelections: string = '';
   restaurant_id: any;
 
-  constructor(injector: Injector, private route: ActivatedRoute, private globalData: GlobalDataService) {
+  constructor(
+    injector: Injector,
+    private route: ActivatedRoute,
+    private globalData: GlobalDataService
+  ) {
     super(injector);
-
   }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params: any) => {
-      console.log(params)
+      console.log(params);
       if (params.selection === 'list') {
         // do something when selection is list
         console.log(params.selection);
@@ -55,11 +57,8 @@ export class SplashComponent extends BasePage implements OnInit {
     this.events.publish('open-link', { link: 'tabs' });
   }
 
-
   async selectRestaurant(item: any) {
     await this.globalData.setRestaurantData(item.id);
     this.events.publish('open-link', { link: 'tabs' });
   }
-
-
 }
