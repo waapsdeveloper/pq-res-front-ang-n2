@@ -398,4 +398,8 @@ export class NetworkService {
       }
     });
   }
+
+  getRestaurantWithMeta(id: any) {
+    return this.httpGetResponse(`restaurant/with-meta/${id}`, null, false, false);
+  }
 }
