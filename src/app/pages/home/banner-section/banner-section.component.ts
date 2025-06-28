@@ -35,7 +35,9 @@ export class BannerSectionComponent implements OnInit {
           const metaTitle = res.restaurant.meta.find(
             (m: any) => m.key === 'home_page_title'
           );
-          this.homePageTitle = metaTitle ? metaTitle.value : '';
+          this.homePageTitle = metaTitle
+            ? metaTitle.value
+            : 'Savor the flavor enjoy great deals!';
         }
       }
     });
