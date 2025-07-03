@@ -184,6 +184,18 @@
                     {{ currency_symbol + " " }} {{ data?.discount_value }}
                   </div>
                 </li>
+                <li>
+                  <div class="left-item">Tips :</div>
+                  <div class="right-item">
+                    {{ currency_symbol + " " }} {{ data?.tips }}
+                  </div>
+                </li>
+                <li *ngIf="data?.order_type === 'delivery'">
+                  <div class="left-item">Delivery Charges :</div>
+                  <div class="right-item">
+                    {{ currency_symbol + " " }} {{ data?.delivery_charges }}
+                  </div>
+                </li>
               </ul>
 
               <!-- Total Price and Split Bill Section -->
