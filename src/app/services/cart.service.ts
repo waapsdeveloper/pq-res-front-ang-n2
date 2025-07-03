@@ -20,6 +20,9 @@ export class CartService extends NgSimpleStateBaseRxjsStore<CartState> {
   discountAmount: number = 0;
   final_total: number = 0;
   couponCode: string = '';
+  tips: number = 0;
+  delivery_charges: number = 0;
+  orderType: string = ''; // Default to delivery
 
   constructor(
     private globalData: GlobalDataService,
@@ -142,8 +145,8 @@ export class CartService extends NgSimpleStateBaseRxjsStore<CartState> {
     const selected_products = (await this.getCart()) as any[];
     console.log(selected_products);
     let cost = selected_products.reduce((prev, next) => {
-      // Calculate base product cost
-      let productCost = next.quantity * next.price;
+      // Calculate base product cost - ensure all values are numbers
+      let productCost = Number(next.quantity || 0) * Number(next.price || 0);
 
       if (next.variations) {
         next.variations.forEach((variation: any[]) => {
@@ -153,18 +156,18 @@ export class CartService extends NgSimpleStateBaseRxjsStore<CartState> {
             console.log(variation[i]);
             variation[i].options.forEach((option: any) => {
               if (option.selected == true) {
-                productCost += option.price;
+                productCost += Number(option.price || 0);
               }
             });
           }
         });
       }
 
-      return prev + productCost; // Add product cost to the total
+      return Number(prev) + Number(productCost); // Ensure both values are numbers
     }, 0);
 
     console.log(cost); // Log the total cost
-    this.total_price = cost; // Update the total cost
+    this.total_price = Number(cost); // Ensure total_price is a number
     this.recalculateTotals();
   }
   async applyCoupon() {
@@ -179,11 +182,12 @@ export class CartService extends NgSimpleStateBaseRxjsStore<CartState> {
       return false;
     }
 
-    let discountValue = data?.discount_value || 0;
+    let discountValue = Number(data?.discount_value || 0);
     let calculatedDiscount = 0;
+    const totalPrice = Number(this.total_price || 0);
 
     if (data?.discount_type === 'percentage') {
-      calculatedDiscount = (this.total_price * discountValue) / 100;
+      calculatedDiscount = (totalPrice * discountValue) / 100;
     } else if (data?.discount_type === 'fixed') {
       calculatedDiscount = discountValue;
     } else {
@@ -192,7 +196,7 @@ export class CartService extends NgSimpleStateBaseRxjsStore<CartState> {
       return false;
     }
 
-    if (calculatedDiscount > this.total_price * 0.5) {
+    if (calculatedDiscount > totalPrice * 0.5) {
       this.utility.presentFailureToast(
         'Invalid coupon: Discount cannot exceed 50% of the total_price.'
       );
@@ -201,15 +205,27 @@ export class CartService extends NgSimpleStateBaseRxjsStore<CartState> {
       return false;
     }
 
-    this.discountAmount = calculatedDiscount;
+    this.discountAmount = Number(calculatedDiscount);
     this.recalculateTotals();
     return true;
   }
   recalculateTotals() {
-    // Subtotal is already set
-    const discount = this.discountAmount || 0;
-    const discountedSubtotal = Math.max(this.total_price - discount, 0);
-    this.taxAmount = (discountedSubtotal * this.taxPercent) / 100;
-    this.final_total = discountedSubtotal + this.taxAmount;
+    // Subtotal is already set - ensure all values are numbers
+    const discount = Number(this.discountAmount || 0);
+    const totalPrice = Number(this.total_price || 0);
+    const discountedSubtotal = Math.max(totalPrice - discount, 0);
+    this.taxAmount = Number((discountedSubtotal * Number(this.taxPercent || 0)) / 100);
+    
+    // Calculate delivery charges only for delivery orders
+    let deliveryChargesToApply = 0;
+    if (this.orderType === 'delivery') {
+      deliveryChargesToApply = Number(this.delivery_charges || 0);
+    }
+    
+    this.final_total = Number(discountedSubtotal) + Number(this.taxAmount) + Number(this.tips || 0) + Number(deliveryChargesToApply);
+  }
+
+  calculateFinalTotal() {
+    this.recalculateTotals();
   }
 }

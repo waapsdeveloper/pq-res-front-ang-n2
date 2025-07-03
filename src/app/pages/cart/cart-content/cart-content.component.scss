@@ -93,3 +93,41 @@
 .checkout-bar {
   bottom: -22px;
 }
+
+/* Tips and Delivery Charges Input Styling */
+.tips-input,
+.delivery-input {
+  width: 80px;
+  padding: 5px 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  text-align: right;
+  background-color: #fff;
+}
+
+.tips-input:focus,
+.delivery-input:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+/* Order details list styling for tips and delivery */
+.instructions ul li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.instructions ul li .left-item {
+  font-weight: 500;
+  color: #333;
+}
+
+.instructions ul li .right-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}

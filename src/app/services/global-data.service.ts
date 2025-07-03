@@ -11,6 +11,7 @@ export interface GlobalDataState {
   currency: string;
   currency_symbol: string;
   tax_percentage: number;
+  delivery_charges: number;
 }
 @Injectable({
   providedIn: 'root',
@@ -20,6 +21,7 @@ export class GlobalDataService extends NgSimpleStateBaseRxjsStore<GlobalDataStat
   private currency: string | null = null;
   private currencySymbol: string | null = null;
   private tax_percentage: number | null = null;
+  private delivery_charges: number | null = null;
 
   constructor(private network: NetworkService) {
     super();
@@ -35,6 +37,7 @@ export class GlobalDataService extends NgSimpleStateBaseRxjsStore<GlobalDataStat
       currency: 'USD',
       currency_symbol: '$',
       tax_percentage: 0,
+      delivery_charges: 0,
     };
   }
 
@@ -71,6 +74,14 @@ export class GlobalDataService extends NgSimpleStateBaseRxjsStore<GlobalDataStat
   getTaxPercentage(): Observable<any> {
     return this.selectState((state) => state.tax_percentage);
   }
+  setDeliveryCharges(delivery_charges: number): void {
+    this.delivery_charges = delivery_charges;
+    this.setState((state) => ({ delivery_charges }));
+  }
+  getDeliveryCharges(): Observable<any> {
+    return this.selectState((state) => state.delivery_charges);
+  }
+
 
   setRestaurantData(id: any): Promise<any> {
     return new Promise(async (resolve, reject) => {
@@ -96,6 +107,7 @@ export class GlobalDataService extends NgSimpleStateBaseRxjsStore<GlobalDataStat
     const res = await this.network.restaurantDetail(restaurantId);
     if (res && res.data) {
       let R = res.data;
+      this.setDeliveryCharges(res.data.delivery_charges);
       localStorage.setItem('restaurant', JSON.stringify(R));
       localStorage.setItem('restaurant_id', R.id);
 

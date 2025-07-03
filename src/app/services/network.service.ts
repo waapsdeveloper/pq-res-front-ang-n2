@@ -406,4 +406,12 @@ export class NetworkService {
   getFormattedOpeningHours(id: any) {
     return this.httpGetResponse(`restaurant/${id}/formatted-opening-hours`, null, false, false);
   }
+
+  updateOrderCharges(orderId: any, data: any) {
+    return this.httpPutResponse(`update-order-charges/${orderId}`, data);
+  }
+
+  getOrderSummary(orderId: any) {
+    return this.httpGetResponse(`order-summary/${orderId}`, null, false, false);
+  }
 }

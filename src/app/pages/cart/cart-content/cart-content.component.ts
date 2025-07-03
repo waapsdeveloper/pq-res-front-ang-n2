@@ -41,6 +41,7 @@ export class CartContentComponent implements OnInit {
   gstPercentage: number = 10; // Example GST percentage
   gstAmount: number = 0;
   total: number = 0;
+  tips: number = 0;
   phone: string = '';
   dial_code: string = '';
   variations: any[] = [];
@@ -139,6 +140,9 @@ export class CartContentComponent implements OnInit {
     this.globalData.getCurrencySymbol().subscribe((symbol) => {
       this.currency_symbol = symbol || '$'; // Default to $ if symbol is not set
     });
+    this.globalData.getDeliveryCharges().subscribe((delivery_charges) => {
+      this.carte.delivery_charges = Number(delivery_charges || 0);
+    });
 
     this.deliveryAddress = this.checkout.checkout_obj.deliveryAddress;
     this.orderType = this.checkout.checkout_obj.orderType;
@@ -147,6 +151,8 @@ export class CartContentComponent implements OnInit {
     this.city = this.checkout.checkout_obj.city;
     this.state = this.checkout.checkout_obj.state;
     this.country = this.checkout.checkout_obj.country;
+    this.tips = Number(this.checkout.checkout_obj.tips || 0);
+    this.carte.delivery_charges = Number(this.checkout.checkout_obj.delivery_charges || 0);
     let user = await this.users.getUser();
     this.user = typeof user === 'string' ? JSON.parse(user) : user;
     console.log('this is the user', this.user);
@@ -179,6 +185,39 @@ export class CartContentComponent implements OnInit {
   changeVariationSelection($event: any) {
     this.carte.totalOfProductCost();
   }
+
+  calculateTotal() {
+    // Update the cart service with new tips and delivery charges - ensure they are numbers
+    this.carte.tips = Number(this.tips || 0);
+    
+    // Recalculate the final total
+    this.carte.calculateFinalTotal();
+    
+    // Update checkout service
+    this.checkout.checkout_obj.tips = Number(this.tips || 0);
+    this.checkout.checkout_obj.delivery_charges = Number(this.carte.delivery_charges || 0);
+  }
+
+  recalculateTotals() {
+    // Recalculate the final total including tips and delivery charges
+    this.carte.calculateFinalTotal();
+    
+    // Update checkout service with proper number conversion
+    this.checkout.checkout_obj.tips = Number(this.carte.tips || 0);
+    this.checkout.checkout_obj.delivery_charges = Number(this.carte.delivery_charges || 0);
+  }
+
+  onOrderTypeChange(orderType: string) {
+    // Update cart service order type
+    this.carte.orderType = orderType;
+    
+    // Recalculate totals to apply/remove delivery charges based on order type
+    this.carte.recalculateTotals();
+    
+    // Update checkout service
+    this.checkout.checkout_obj.orderType = orderType;
+  }
+
   handleVariations(updatedVariations: any[]) {
     console.log('Variations received from child:', updatedVariations);
     this.variations = updatedVariations;
@@ -292,6 +331,9 @@ export class CartContentComponent implements OnInit {
       tax_amount: this.carte.taxAmount,
       discount_value: this.carte.discountAmount,
       coupon_code: this.carte.couponCode,
+      tips: Number(this.tips || 0),
+      tips_amount: Number(this.tips || 0),
+      delivery_charges: Number(this.carte.delivery_charges || 0),
     };
 
     console.log(obj);

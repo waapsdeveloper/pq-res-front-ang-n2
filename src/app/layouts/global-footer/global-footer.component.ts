@@ -70,10 +70,20 @@ export class GlobalFooterComponent implements OnInit {
     this.router.navigate(['/tabs/products']);
   }
   formatTime(time: string): string {
-    const [hour, minute] = time.split(':');
-    const period = +hour >= 12 ? 'PM' : 'AM';
-    const formattedHour = +hour % 12 || 12; // Convert 24-hour to 12-hour format
-    return `${formattedHour}:${minute} ${period}`;
+    // Check if time is defined and not null
+    if (!time || typeof time !== 'string') {
+      return '--:--';
+    }
+    
+    try {
+      const [hour, minute] = time.split(':');
+      const period = +hour >= 12 ? 'PM' : 'AM';
+      const formattedHour = +hour % 12 || 12; // Convert 24-hour to 12-hour format
+      return `${formattedHour}:${minute} ${period}`;
+    } catch (error) {
+      console.error('Error formatting time:', error, 'Time value:', time);
+      return '--:--';
+    }
   }
   setLogo() {
     let json = localStorage.getItem('restaurant');

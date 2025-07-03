@@ -14,6 +14,11 @@ export class CheckoutService {
     city: '',
     state: '',
     country: '',
+    tips: 0,
+    tips_amount: 0,
+    delivery_charges: 0,
+    tax_percentage: 0,
+    tax_amount: 0,
   };
   constructor() {}
   reset() {
@@ -27,6 +32,11 @@ export class CheckoutService {
       city: '',
       state: '',
       country: '',
+      tips: 0,
+      tips_amount: 0,
+      delivery_charges: 0,
+      tax_percentage: 0,
+      tax_amount: 0,
     };
   }
 }
