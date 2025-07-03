@@ -1,0 +1,13 @@
+.opening-hours-item {
+  margin-bottom: 8px;
+  line-height: 1.4;
+  
+  span {
+    color: #fff;
+    font-size: 14px;
+  }
+}
+
+.opening-hours-item:last-child {
+  margin-bottom: 0;
+}

@@ -19,6 +19,7 @@ export class GlobalFooterComponent implements OnInit {
   logoUrl: string | null = null;
   selectedRestaurant: string = '';
   branches: any[] = [];
+  formattedOpeningHours: string[] = [];
 
   isGuestUser: boolean = false;
 
@@ -32,6 +33,17 @@ export class GlobalFooterComponent implements OnInit {
     this.setLogo();
 
     this.footer = json ? JSON.parse(json) : null;
+    
+    // Fetch formatted opening hours if restaurant is available
+    if (this.footer && this.footer.id) {
+      try {
+        const openingHoursRes = await this.network.getFormattedOpeningHours(this.footer.id);
+        this.formattedOpeningHours = openingHoursRes.formatted_opening_hours || [];
+      } catch (error) {
+        console.error('Error fetching opening hours:', error);
+        this.formattedOpeningHours = [];
+      }
+    }
   }
   navigateToLogin() {
     this.router.navigate(['/tabs/login']); // Full path to login
