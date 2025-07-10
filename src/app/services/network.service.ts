@@ -183,6 +183,11 @@ export class NetworkService {
     return this.httpGetResponse('products?' + str, null, false, false);
   }
 
+  getProductsByCategory(params: any) {
+    let str = this.serialize(params);
+    return this.httpGetResponse('products-by-category?' + str, null, false, false);
+  }
+
   getPopularProducts(data: any) {
     let str = this.serialize(data);
     return this.httpGetResponse('popular-products?' + str, null, false, false);
