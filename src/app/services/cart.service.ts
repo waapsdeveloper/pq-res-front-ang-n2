@@ -172,6 +172,11 @@ export class CartService extends NgSimpleStateBaseRxjsStore<CartState> {
   }
   async applyCoupon() {
     this.discountAmount = 0;
+    if (!this.couponCode || this.couponCode.trim() === '') {
+      // Coupon is optional; if empty, do nothing and return true
+      this.recalculateTotals();
+      return true;
+    }
     let obj = { code: this.couponCode };
     const res = await this.network.getAvailableCoupon(obj);
     const data = res?.coupon;

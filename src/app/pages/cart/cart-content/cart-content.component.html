@@ -241,7 +241,7 @@
                   placeholder="Enter Coupon Code"
                   class="coupon-input"
                 />
-                <button (click)="this.carte.applyCoupon()" class="apply-btn">
+                <button (click)="this.carte.applyCoupon()" class="apply-btn" [disabled]="!this.carte.couponCode || this.carte.couponCode.trim() === ''">
                   Apply
                 </button>
               </div>
