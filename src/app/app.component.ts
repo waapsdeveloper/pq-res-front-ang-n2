@@ -44,7 +44,7 @@ export class AppComponent implements OnInit {
     this.globalDataService.getRestaurantId().subscribe(async (id) => {
       if (id) {
         this.restaurant_id = id;
-
+       this.restaurantMetaService.clearMeta();
         this.restaurantMetaService.getMeta(this.restaurant_id ).subscribe(meta => {
           console.log(meta, "meta state");
           this.setHeaderAndFavicon(meta);

@@ -18,7 +18,7 @@ export class SelectRestaurantGlobalComponent {
 
   selectRestaurant(){
     this.showTooltip = false;
-    this.nav.push('splash', {
+    this.nav.push('/', {
       selection: 'list'
     })
   }

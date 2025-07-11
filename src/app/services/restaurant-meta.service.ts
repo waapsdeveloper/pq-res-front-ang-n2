@@ -31,7 +31,7 @@ export class RestaurantMetaService extends NgSimpleStateBaseRxjsStore<Restaurant
   protected initialState(): RestaurantMetaState {
     return {
       home_page_title: '',
-      home_page_slider: '',
+      home_page_slider: 'Savor the flavor & enjoy great deals!',
       copyright_text: '',
       google_map: '',
       favicon: '',
@@ -59,5 +59,9 @@ export class RestaurantMetaService extends NgSimpleStateBaseRxjsStore<Restaurant
         favicon: res.favicon || '',
       });
     }
+  }
+
+  clearMeta() {
+    this.setState(this.initialState());
   }
 }
