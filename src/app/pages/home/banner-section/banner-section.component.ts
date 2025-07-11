@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NetworkService } from '../../../services/network.service';
 import { GlobalDataService } from '../../../services/global-data.service';
+import { RestaurantMetaService } from '../../../services/restaurant-meta.service';
 
 @Component({
   selector: 'app-banner-section',
@@ -12,36 +13,29 @@ import { GlobalDataService } from '../../../services/global-data.service';
 })
 export class BannerSectionComponent implements OnInit {
   restaurant: any;
+  id=0;
   currency_symbol: string = '$';
   lowestPrice: number = 0;
-  homePageTitle: string = 'Savor the flavor enjoy great deals!';
+  home_page_slider=  'Savor the flavor & enjoy great deals!';
   constructor(
     public router: Router,
     private network: NetworkService,
-    private globalData: GlobalDataService
+    private globalData: GlobalDataService,
+    private restaurantMeta: RestaurantMetaService
   ) {}
 
   async ngOnInit() {
     let json = localStorage.getItem('restaurant');
     this.restaurant = json ? JSON.parse(json) : null;
+    this.id = parseInt(this.restaurant.id)
 
     this.globalData.getCurrencySymbol().subscribe((symbol) => {
       this.currency_symbol = symbol || '$'; // Default to $ if symbol is not set
     });
-    this.globalData.getRestaurantId().subscribe(async (id) => {
-      if (id) {
-        const res = await this.network.getRestaurantWithMeta(id);
-        if (res && res.restaurant && Array.isArray(res.restaurant.meta)) {
-          const metaTitle = res.restaurant.meta.find(
-            (m: any) => m.key === 'home_page_title'
-          );
-          this.homePageTitle = metaTitle
-            ? metaTitle.value
-            : 'Savor the flavor enjoy great deals!';
-        }
-      }
-    });
-
+    this.restaurantMeta.getMeta(this.id).subscribe((text)=> {
+      this.home_page_slider = text.home_page_slider;
+    })
+   
     let res = await this.network.lowestPrice();
     this.lowestPrice = parseFloat(res?.products?.price);
     console.log(this.lowestPrice);

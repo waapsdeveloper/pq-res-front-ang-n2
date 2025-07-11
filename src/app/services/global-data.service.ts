@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 
 export interface GlobalDataState {
   restaurant_id: number;
+  restaurant_name:string;
   currency: string;
   currency_symbol: string;
   tax_percentage: number;
@@ -18,6 +19,7 @@ export interface GlobalDataState {
 })
 export class GlobalDataService extends NgSimpleStateBaseRxjsStore<GlobalDataState> {
   private restaurantId: string | null = null;
+  private restaurant_name :string |null =null 
   private currency: string | null = null;
   private currencySymbol: string | null = null;
   private tax_percentage: number | null = null;
@@ -34,6 +36,7 @@ export class GlobalDataService extends NgSimpleStateBaseRxjsStore<GlobalDataStat
   protected initialState(): GlobalDataState {
     return {
       restaurant_id: 0,
+      restaurant_name:'',
       currency: 'USD',
       currency_symbol: '$',
       tax_percentage: 0,
@@ -49,6 +52,7 @@ export class GlobalDataService extends NgSimpleStateBaseRxjsStore<GlobalDataStat
   getRestaurantId(): Observable<any> {
     return this.selectState((state) => state.restaurant_id);
   }
+ 
 
   setCurrency(currency: string): void {
     this.currency = currency;
@@ -82,6 +86,15 @@ export class GlobalDataService extends NgSimpleStateBaseRxjsStore<GlobalDataStat
     return this.selectState((state) => state.delivery_charges);
   }
 
+  setRestaurantName(name: string): void {
+    this.restaurant_name = name;
+    this.setState((state) => ({ restaurant_name: name }));
+  }
+
+  getRestaurantName(): Observable<any> {
+    return this.selectState((state) => state.restaurant_name);
+  }
+
 
   setRestaurantData(id: any): Promise<any> {
     return new Promise(async (resolve, reject) => {
@@ -112,6 +125,7 @@ export class GlobalDataService extends NgSimpleStateBaseRxjsStore<GlobalDataStat
       localStorage.setItem('restaurant_id', R.id);
 
       this.setRestaurantId(R.id);
+      this.setRestaurantName(R.name); // Set the restaurant name
     }
 
     const config = await this.network.getRestaurantConfigById(restaurantId);

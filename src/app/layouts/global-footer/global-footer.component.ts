@@ -4,6 +4,7 @@ import { NavigationExtras, Router } from '@angular/router';
 import { NetworkService } from '../../services/network.service';
 import { UsersService } from '../../services/users.service';
 import { NavService } from '../../services/nav.service';
+import { RestaurantMetaService } from '../../services/restaurant-meta.service';
 
 @Component({
   selector: 'app-global-footer',
@@ -14,16 +15,17 @@ import { NavService } from '../../services/nav.service';
 })
 export class GlobalFooterComponent implements OnInit {
   item: any;
+  id:any;
   footer: any;
   currentYear: number = new Date().getFullYear();
   logoUrl: string | null = null;
   selectedRestaurant: string = '';
   branches: any[] = [];
   formattedOpeningHours: string[] = [];
-
+ googleMap:string =''
   isGuestUser: boolean = false;
 
-  constructor(public router: Router, private network: NetworkService, public users: UsersService, private nav: NavService) {}
+  constructor(public router: Router, private network: NetworkService, public users: UsersService, private nav: NavService , private restaurantMetaService: RestaurantMetaService) {}
   async ngOnInit() {
     const res = await this.network.allBranches();
     this.branches = res.data;
@@ -31,9 +33,10 @@ export class GlobalFooterComponent implements OnInit {
 
     let json = localStorage.getItem('restaurant');
     this.setLogo();
+   
 
     this.footer = json ? JSON.parse(json) : null;
-    
+    this.id= this.footer.id;
     // Fetch formatted opening hours if restaurant is available
     if (this.footer && this.footer.id) {
       try {
@@ -44,6 +47,10 @@ export class GlobalFooterComponent implements OnInit {
         this.formattedOpeningHours = [];
       }
     }
+    this.restaurantMetaService.getMeta(this.id).subscribe((googleMap) => {
+      this.googleMap = googleMap.google_map;
+      console.log(this.googleMap)
+    })
   }
   navigateToLogin() {
     this.router.navigate(['/tabs/login']); // Full path to login

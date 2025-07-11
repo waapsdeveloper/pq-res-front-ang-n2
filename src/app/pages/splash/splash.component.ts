@@ -50,7 +50,6 @@ export class SplashComponent extends BasePage implements OnInit {
       console.log('activeRestaurant', activeRestaurant);
       restaurantId = activeRestaurant.id;
     }
-
     const res = await this.globalData.setRestaurantData(restaurantId);
 
     this.hideLoader();

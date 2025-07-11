@@ -9,6 +9,7 @@ import { NotificationsService } from './services/notifications.service';
 import { CountriesService } from './services/countries.service';
 import { NetworkService } from './services/network.service'; // adjust path as needed
 import { GlobalDataService } from './services/global-data.service';
+import { RestaurantMetaService } from './services/restaurant-meta.service';
 
 @Component({
   selector: 'app-root',
@@ -18,12 +19,15 @@ import { GlobalDataService } from './services/global-data.service';
 })
 export class AppComponent implements OnInit {
   restaurant_id: any;
+  restaurantName:string = '';
   constructor(
     public events: EventsService,
     public nav: NavService,
     private notifications: NotificationsService,
     private countriesService: CountriesService,
     private globalDataService: GlobalDataService,
+    
+    private restaurantMetaService: RestaurantMetaService,
     private titleService: Title,
     @Inject(DOCUMENT) private document: Document,
     private network: NetworkService
@@ -33,13 +37,19 @@ export class AppComponent implements OnInit {
 
   async ngOnInit() {
     AOS.init();
+    this.globalDataService.getRestaurantName().subscribe((name) => {
+      this.restaurantName= name
+      console.log(this.restaurantName);
+    })
     this.globalDataService.getRestaurantId().subscribe(async (id) => {
       if (id) {
         this.restaurant_id = id;
-        const res = await this.network.getRestaurantWithMeta(id);
-        if (res && res.restaurant) {
-          this.setHeaderAndFavicon(res.restaurant);
-        }
+
+        this.restaurantMetaService.getMeta(this.restaurant_id ).subscribe(meta => {
+          console.log(meta, "meta state");
+          this.setHeaderAndFavicon(meta);
+        });
+      
       }
     });
     await this.countriesService.getCountries();
@@ -51,22 +61,13 @@ export class AppComponent implements OnInit {
     this.nav.push(link);
   }
 
-  setHeaderAndFavicon(restaurant: any) {
-    // Get the home_page_title from meta if available
-    let pageTitle = restaurant.name || 'Default Title';
-    if (restaurant.meta && Array.isArray(restaurant.meta)) {
-      const metaTitle = restaurant.meta.find(
-        (m: any) => m.key === 'home_page_title'
-      );
-      if (metaTitle && metaTitle.value) {
-        pageTitle = metaTitle.value;
-      }
-    }
-    // Set the title
+  setHeaderAndFavicon(meta: any) {
+    // meta is RestaurantMetaState
+    let pageTitle = meta.home_page_title || this.restaurantName;
     this.titleService.setTitle(pageTitle);
 
     // Set the favicon
-    const faviconUrl = restaurant.favicon || 'assets/default-favicon.ico';
+    const faviconUrl = meta.favicon || 'assets/default-favicon.ico';
     let link = this.document.querySelector("link[rel*='icon']");
     if (link instanceof HTMLLinkElement) {
       // If favicon link exists, update its href

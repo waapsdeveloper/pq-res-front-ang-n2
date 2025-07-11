@@ -408,6 +408,10 @@ export class NetworkService {
     return this.httpGetResponse(`restaurant/with-meta/${id}`, null, false, false);
   }
 
+  getRestaurantMeta(id: any) {
+    return this.httpGetResponse(`restaurant/meta/${id}`, null, false, false);
+  }
+
   getFormattedOpeningHours(id: any) {
     return this.httpGetResponse(`restaurant/${id}/formatted-opening-hours`, null, false, false);
   }
