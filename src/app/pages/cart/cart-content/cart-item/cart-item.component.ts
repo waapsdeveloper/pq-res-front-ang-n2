@@ -81,38 +81,42 @@ export class CartItemComponent implements OnInit {
   changeVariationSelection(
     event: Event,
     option: any,
-    i: number,
-    j: number,
-    k: number
+    groupIndex: number,
+    variationIndex: number,
+    optionIndex: number
   ) {
     const checked = (event.target as HTMLInputElement).checked;
+    console.log(`Changing variation: group ${groupIndex}, variation ${variationIndex}, option ${optionIndex}, checked: ${checked}`);
 
     this.carte.setState((state) =>
       state.map((cartItem, cIndex) =>
         cIndex === this.cartIndex
           ? {
               ...cartItem,
-              variations: cartItem.variations.map((vari, variIndex) =>
-                variIndex === i
-                  ? vari.map((variation: any, varIndex: number) =>
-                      varIndex === j
+              variations: cartItem.variations.map((variationGroup: any[], gIndex: number) =>
+                gIndex === groupIndex
+                  ? variationGroup.map((variation: any, vIndex: number) =>
+                      vIndex === variationIndex
                         ? {
                             ...variation,
                             options: variation.options.map(
-                              (opt: any, optIndex: number) =>
-                                optIndex === k
+                              (opt: any, oIndex: number) =>
+                                oIndex === optionIndex
                                   ? { ...opt, selected: checked }
                                   : opt
                             ),
                           }
                         : variation
                     )
-                  : vari
+                  : variationGroup
               ),
             }
           : cartItem
       )
     );
+    
+    // Recalculate totals after variation change
+    this.carte.totalOfProductCost();
   }
 
   removeItem(item: any) {

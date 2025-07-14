@@ -1,18 +1,11 @@
-<div class="prod-box horizontal-card">
+<div class="prod-box horizontal-card" (click)="onCardClick()">
   <div class="prod-img">
-    <ng-container *ngIf="item.discount">
-      <span class="discount-badge">{{ item.discount }}%</span>
-    </ng-container>
     <img [src]="item.image" alt="" />
   </div>
   <div class="prod-cont">
     <h3 class="prod-tittle">{{ item.name }}</h3>
     <div class="prod-price-row">
       <span class="prod-price-new">{{ currency_symbol + ' ' + item.price }}</span>
-      <span class="prod-price-discount" *ngIf="item.discount">({{ item.discount }}%)</span>
-    </div>
-    <div class="prod-price-old" *ngIf="item.old_price">
-      <s>{{ currency_symbol + ' ' + item.old_price }}</s>
     </div>
     <div class="prod-desc">{{ item.description }}</div>
   </div>

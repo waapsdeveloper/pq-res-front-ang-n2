@@ -143,30 +143,36 @@ export class CartService extends NgSimpleStateBaseRxjsStore<CartState> {
 
   async totalOfProductCost() {
     const selected_products = (await this.getCart()) as any[];
-    console.log(selected_products);
+    console.log('Cart items for cost calculation:', selected_products);
     let cost = selected_products.reduce((prev, next) => {
       // Calculate base product cost - ensure all values are numbers
       let productCost = Number(next.quantity || 0) * Number(next.price || 0);
 
       if (next.variations) {
-        next.variations.forEach((variation: any[]) => {
-          console.log(variation);
-
-          for (var i = 0; i < variation.length; i++) {
-            console.log(variation[i]);
-            variation[i].options.forEach((option: any) => {
-              if (option.selected == true) {
-                productCost += Number(option.price || 0);
-              }
-            });
-          }
+        console.log('Processing variations for product:', next.name);
+        next.variations.forEach((variationGroup: any[], groupIndex: number) => {
+          console.log(`Variation group ${groupIndex}:`, variationGroup);
+          
+          variationGroup.forEach((variation: any, variationIndex: number) => {
+            console.log(`Variation ${variationIndex}:`, variation);
+            
+            if (variation.options && Array.isArray(variation.options)) {
+              variation.options.forEach((option: any, optionIndex: number) => {
+                if (option.selected === true) {
+                  const optionPrice = Number(option.price || 0);
+                  productCost += optionPrice;
+                  console.log(`Selected option: ${option.name}, price: ${optionPrice}, total so far: ${productCost}`);
+                }
+              });
+            }
+          });
         });
       }
 
       return Number(prev) + Number(productCost); // Ensure both values are numbers
     }, 0);
 
-    console.log(cost); // Log the total cost
+    console.log('Total cost calculated:', cost); // Log the total cost
     this.total_price = Number(cost); // Ensure total_price is a number
     this.recalculateTotals();
   }

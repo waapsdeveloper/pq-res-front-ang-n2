@@ -50,4 +50,8 @@ export class UtilityService {
     );
   }
 
+  presentProductModal(product: any, cartService: any) {
+    return this.alerts.presentProductModal(product, cartService);
+  }
+
 }

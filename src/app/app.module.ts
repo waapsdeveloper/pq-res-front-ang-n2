@@ -15,6 +15,7 @@ import { InterceptorService } from './services/interceptor.service';
 import { provideNgSimpleState } from 'ng-simple-state';
 import { SpinnerComponent } from '../theme/spinner/spinner.component';
 import { PhoneInputDirective } from './directives/phone-input.directive';
+import { ProductModalComponent } from './components/product-modal/product-modal.component';
 
 @NgModule({
   declarations: [AppComponent],

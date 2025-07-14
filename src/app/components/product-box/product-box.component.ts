@@ -1,5 +1,5 @@
 import { UtilityService } from './../../services/utility.service';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { CartService } from '../../services/cart.service';
 import { Observable } from 'rxjs';
 import { GlobalDataService } from '../../services/global-data.service';
@@ -29,6 +29,8 @@ export class ProductBoxComponent implements OnInit {
 
   isItemInCart?: Observable<boolean>;
 
+  @Output() openModal = new EventEmitter<any>();
+
   constructor(
     public carte: CartService,
     public utility: UtilityService,
@@ -40,12 +42,7 @@ export class ProductBoxComponent implements OnInit {
     });
   }
 
-  addToCart(item: any) {
-    console.log(item);
-    item.addedToCart = true;
-
-    this.carte.addToCart(item);
-
-    this.utility.presentSuccessToast('Item added to cart!');
+  onCardClick() {
+    this.openModal.emit(this.item);
   }
 }

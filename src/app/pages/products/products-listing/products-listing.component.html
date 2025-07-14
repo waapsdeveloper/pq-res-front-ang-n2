@@ -42,9 +42,10 @@
       <!-- Products grid -->
       <div class="row" *ngIf="!loading && filteredProducts.length > 0">
         <div class="col-12 col-md-6" *ngFor="let product of filteredProducts">
-          <app-product-box [item]="product"></app-product-box>
+          <app-product-box [item]="product" (openModal)="openProductModal($event)"></app-product-box>
         </div>
       </div>
+      <app-product-modal *ngIf="selectedProduct" [product]="selectedProduct" [cartService]="carte" (close)="closeProductModal()"></app-product-modal>w
       <!-- No products message -->
       <div *ngIf="!loading && filteredProducts.length === 0" class="no-products-container">
         <div class="text-center">

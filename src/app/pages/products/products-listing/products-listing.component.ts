@@ -37,6 +37,16 @@ export class ProductsListingComponent {
     return cat ? cat.name : '';
   }
 
+  selectedProduct: any = null;
+
+  openProductModal(product: any) {
+    this.selectedProduct = product;
+  }
+
+  closeProductModal() {
+    this.selectedProduct = null;
+  }
+
   constructor(
     private network: NetworkService,
     public carte: CartService,

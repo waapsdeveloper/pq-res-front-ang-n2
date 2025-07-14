@@ -7,7 +7,7 @@ import { PageLayoutModule } from '../../layouts/page-layout/page-layout.module';
 import { ProductsListingComponent } from './products-listing/products-listing.component';
 import { ProductBoxModule } from '../../components/product-box/product-box.module';
 import { HeaderBreadcrumbModule } from "../../components/header-breadcrumb/header-breadcrumb.module";
-
+import { ProductModalComponent } from '../../components/product-modal/product-modal.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +19,8 @@ import { HeaderBreadcrumbModule } from "../../components/header-breadcrumb/heade
     ProductsRoutingModule,
     PageLayoutModule,
     ProductBoxModule,
-    HeaderBreadcrumbModule
+    HeaderBreadcrumbModule,
+   ProductModalComponent
 ]
 })
 export class ProductsModule { }

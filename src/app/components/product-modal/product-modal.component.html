@@ -1,0 +1,63 @@
+<div class="fullpage-modal-overlay">
+  <div class="fullpage-modal-content">
+    <button class="modal-close" (click)="onClose()">&times;</button>
+    <div class="modal-img">
+      <img [src]="product?.image" alt="" />
+    </div>
+    <div class="modal-body">
+      <h2 class="modal-title">{{ product?.name }}</h2>
+      <div class="modal-desc">{{ product?.description }}</div>
+      
+      <!-- Variations Section -->
+      <ng-container *ngIf="flattenedVariations && flattenedVariations.length > 0">
+        <div *ngFor="let variation of flattenedVariations; let vIdx = index" class="modal-variation-group">
+          <div class="variation-label">
+            {{ variation.type }}
+            <span class="optional">(optional)</span>
+          </div>
+          
+          <!-- All variations as checkboxes -->
+          <div class="variation-options">
+            <label *ngFor="let option of variation.options; let oIdx = index" class="variation-option">
+              <input 
+                type="checkbox" 
+                [name]="'variation_' + vIdx + '_' + oIdx" 
+                [checked]="selectedVariations[vIdx] && selectedVariations[vIdx].includes(oIdx)" 
+                (change)="onMultiSelectChange(vIdx, oIdx, $event)" 
+              />
+              <span class="option-text">{{ option.name }}</span>
+              <span class="option-price" *ngIf="option.price && option.price > 0">
+                +{{ product?.currency_symbol || '$' }}{{ option.price }}
+              </span>
+            </label>
+          </div>
+        </div>
+      </ng-container>
+      
+      <!-- Special Instructions -->
+      <div class="modal-instructions">
+        <label>Special Instructions <span class="optional">(optional)</span></label>
+        <textarea [(ngModel)]="specialInstructions" placeholder="e.g. 'No Mayo! Any allergies?' Please write concisely and clearly."></textarea>
+      </div>
+    </div>
+    
+    <!-- Footer -->
+    <div class="modal-footer">
+      <div class="modal-footer-left">
+        <div class="modal-qty">
+          <button (click)="decreaseQuantity()">-</button>
+          <span>{{ quantity }}</span>
+          <button (click)="increaseQuantity()">+</button>
+        </div>
+        <div class="modal-price-block">
+          <span class="modal-price">{{ product?.currency_symbol || '$' }}{{ product?.price }}</span>
+        </div>
+      </div>
+      <button class="modal-add-btn" (click)="addToCart()">
+        Add to Cart
+      </button>
+    </div>
+  </div>
+</div>
+
+
