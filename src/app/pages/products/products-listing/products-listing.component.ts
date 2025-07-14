@@ -20,13 +20,22 @@ export class ProductsListingComponent {
   currentPage: number = 1;
   totalPages: number = 1;
   totalItems: number = 0;
-  perPage: number = 5;
+  perPage: number = 6;
   paginationLinks: any[] = [];
   loading: boolean = false;
   currentCategoryId: number = 0; // Track current category filter
   
   // Make Math available in template
   Math = Math;
+
+  // Add this property to hold the current category name
+  get currentCategoryName(): string {
+    if (this.currentCategoryId === 0) {
+      return 'All Categories';
+    }
+    const cat = this.categories.find(c => c.id === this.currentCategoryId);
+    return cat ? cat.name : '';
+  }
 
   constructor(
     private network: NetworkService,
@@ -77,7 +86,8 @@ export class ProductsListingComponent {
     try {
       let obj: any = {
         restaurant_id: this.restaurant_id,
-        page: page
+        page: page,
+        perpage: this.perPage
       };
       
       if (categoryId && categoryId > 0) {
