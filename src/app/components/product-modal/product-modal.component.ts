@@ -66,18 +66,19 @@ export class ProductModalComponent implements OnInit {
   }
 
   onMultiSelectChange(vIdx: number, oIdx: number, event: any) {
-    console.log(`Multi-select change: variation ${vIdx}, option ${oIdx}, checked: ${event.target.checked}`);
-    
-    if (!this.selectedVariations[vIdx]) {
-      this.selectedVariations[vIdx] = [];
-    }
-    
+    // Always create a new array to avoid reference issues
+    const current = Array.isArray(this.selectedVariations[vIdx]) ? [...this.selectedVariations[vIdx]] : [];
     if (event.target.checked) {
-      this.selectedVariations[vIdx].push(oIdx);
+      if (!current.includes(oIdx)) {
+        current.push(oIdx);
+      }
     } else {
-      this.selectedVariations[vIdx] = this.selectedVariations[vIdx].filter((i: number) => i !== oIdx);
+      const idx = current.indexOf(oIdx);
+      if (idx > -1) {
+        current.splice(idx, 1);
+      }
     }
-    
+    this.selectedVariations[vIdx] = current;
     console.log(`Updated selectedVariations[${vIdx}]:`, this.selectedVariations[vIdx]);
   }
 

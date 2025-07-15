@@ -15,7 +15,7 @@
          class="category-link"
          [class.active]="currentCategoryId === 0">
         <span class="cat-img-circle"><img src="assets/img/food-item.svg" alt=""></span>
-        <span class="cat-label">All Categories</span>
+        <span class="cat-label">All Product</span>
       </a>
       <a *ngFor="let category of categories"
          (click)="getProductsByCategory(category.id)"
@@ -28,7 +28,7 @@
     <!-- End category bar -->
     <!-- Category heading -->
     <div class="category-heading">
-      <h2>{{ currentCategoryName }}</h2>
+      <h2>{{ currentCategoryId === 0 ? 'All Product' : currentCategoryName }}</h2>
     </div>
     <!-- End category heading -->
     <div class="product-sc">
@@ -45,7 +45,7 @@
           <app-product-box [item]="product" (openModal)="openProductModal($event)"></app-product-box>
         </div>
       </div>
-      <app-product-modal *ngIf="selectedProduct" [product]="selectedProduct" [cartService]="carte" (close)="closeProductModal()"></app-product-modal>w
+      <app-product-modal *ngIf="selectedProduct" [product]="selectedProduct" [cartService]="carte" (close)="closeProductModal()"></app-product-modal>
       <!-- No products message -->
       <div *ngIf="!loading && filteredProducts.length === 0" class="no-products-container">
         <div class="text-center">

@@ -53,10 +53,12 @@ export class CartService extends NgSimpleStateBaseRxjsStore<CartState> {
     this.setState((state: any) => {
       let findIndex = state.findIndex((i: any) => i.id === item.id);
       if (findIndex !== -1) {
-        state[findIndex].quantity += 1;
+        // Add the modal's quantity to the existing quantity
+        state[findIndex].quantity += Number(item.quantity || 1);
         return state;
       }
-      item.quantity = 1;
+      // Set the quantity to the modal's value (default 1)
+      item.quantity = Number(item.quantity || 1);
       return [...state, item];
     });
 
