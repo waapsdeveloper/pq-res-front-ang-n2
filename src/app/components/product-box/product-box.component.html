@@ -1,11 +1,14 @@
 <div class="prod-box horizontal-card" (click)="onCardClick()">
   <div class="prod-img">
     <img [src]="item.image" alt="" />
+    <span *ngIf="item.discount_percentage" class="discount-badge">{{ item.discount_percentage }}%</span>
   </div>
   <div class="prod-cont">
     <h3 class="prod-tittle">{{ item.name }}</h3>
     <div class="prod-price-row">
       <span class="prod-price-new">{{ currency_symbol + ' ' + item.price }}</span>
+      <span *ngIf="item.old_price" class="prod-price-old"><s>{{ currency_symbol + ' ' + item.old_price }}</s></span>
+      <span *ngIf="item.discount_percentage" class="prod-price-discount">({{ item.discount_percentage }}%)</span>
     </div>
     <div class="prod-desc">{{ item.description }}</div>
   </div>

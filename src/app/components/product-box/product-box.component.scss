@@ -53,7 +53,7 @@ button:last-child {
   display: flex;
   flex-direction: row;
   align-items: stretch;
-  background: #e9efef;
+  background: #fff;
   border-radius: 2px;
   box-shadow: none;
   padding: 0;
@@ -88,7 +88,7 @@ button:last-child {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background: #e9efef;
+  background: #fff;
   height: 100%;
   min-height: 0;
   margin-top: 0;
@@ -181,19 +181,19 @@ button:last-child {
 // Responsive horizontal card layout
 @media (max-width: 767.98px) {
   .horizontal-card {
-    flex-direction: column;
-    min-height: unset;
-    height: auto;
+    flex-direction: row; // Always row, even on mobile
+    min-height: 100px;
+    height: 100px;
   }
   .horizontal-card .prod-img {
-    width: 100%;
-    min-width: 100%;
-    max-width: 100%;
-    min-height: 180px;
-    max-height: 220px;
-    height: 180px;
-    border-bottom: 1px solid #e0e0e0;
-    border-right: none;
+    width: 100px;
+    min-width: 100px;
+    max-width: 100px;
+    min-height: 100px;
+    max-height: 100px;
+    height: 100px;
+    border-bottom: none;
+    border-right: 1px solid #e0e0e0;
     justify-content: flex-start;
     overflow: hidden;
     align-items: stretch;
@@ -208,22 +208,31 @@ button:last-child {
     display: block;
   }
   .horizontal-card .prod-cont {
-    padding: 18px 12px 16px 12px;
+    padding: 12px 10px 10px 16px;
     text-align: left;
-    height: auto;
+    height: 100%;
     min-height: 0;
     margin-top: 0;
     justify-content: flex-start;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
   }
   .horizontal-card .prod-tittle {
-    margin: 0 0 8px 0;
+    margin: 0 0 4px 0;
     padding: 0;
     line-height: 1.2;
+    font-size: 1.1rem;
   }
-  .horizontal-card .prod-tittle,
-  .horizontal-card .prod-price-row,
-  .horizontal-card .prod-price-old,
+  .horizontal-card .prod-price-row {
+    margin-bottom: 2px;
+    font-size: 1rem;
+  }
   .horizontal-card .prod-desc {
-    text-align: left;
+    font-size: 0.95rem;
+    margin-top: 2px;
+    color: #222;
+    font-weight: 400;
+    line-height: 1.2;
   }
 }

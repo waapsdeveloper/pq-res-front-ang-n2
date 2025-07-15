@@ -20,7 +20,7 @@ export class ProductsListingComponent {
   currentPage: number = 1;
   totalPages: number = 1;
   totalItems: number = 0;
-  perPage: number = 6;
+  perPage: number = 20;
   paginationLinks: any[] = [];
   loading: boolean = false;
   currentCategoryId: number = 0; // Track current category filter
@@ -119,7 +119,7 @@ export class ProductsListingComponent {
           this.currentPage = res.products.current_page || 1;
           this.totalPages = res.products.last_page || 1;
           this.totalItems = res.products.total || 0;
-          this.perPage = res.products.per_page || 5;
+          this.perPage = res.products.per_page || 20;
           this.paginationLinks = res.products.links || [];
           console.log('Products loaded:', this.products.length);
         } else if (res.data) {
@@ -129,7 +129,7 @@ export class ProductsListingComponent {
           this.currentPage = res.current_page || 1;
           this.totalPages = res.last_page || 1;
           this.totalItems = res.total || 0;
-          this.perPage = res.per_page || 5;
+          this.perPage = res.per_page || 20;
           this.paginationLinks = res.links || [];
           console.log('Products loaded (direct):', this.products.length);
         } else if (Array.isArray(res)) {
