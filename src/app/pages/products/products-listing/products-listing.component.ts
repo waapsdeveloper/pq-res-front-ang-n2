@@ -160,6 +160,8 @@ export class ProductsListingComponent {
   }
 
   async getProductsByCategory(id: number) {
+    // Scroll to top when switching category
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     // Reset to page 1 when changing category
     this.currentPage = 1;
     this.currentCategoryId = id;

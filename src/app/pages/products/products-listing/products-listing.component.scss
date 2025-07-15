@@ -231,6 +231,20 @@
   }
 }
 
+.flat-menu-bar .category-link.active::after {
+  content: '';
+  display: block;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 4px;
+  background: #dc3545;
+  border-radius: 2px;
+  width: 100%;
+  z-index: 2;
+}
+
 // Add margin between menu bar and products grid
 .flat-menu-bar {
   margin-bottom: 1.5rem;
@@ -242,7 +256,7 @@
 
 // Add vertical gap between product rows
 .product-sc .row {
-  row-gap: 0.5rem;
+  row-gap: 0.1rem;
 }
 
 // Add vertical margin between product cards if needed
@@ -283,16 +297,18 @@
 // Responsive adjustments for category bar
 @media (max-width: 768px) {
   .category-scrollbar {
-    padding: 0.5rem 0 1rem 0;
-    gap: 0.5rem;
-    .category-link {
-      font-size: 0.95rem;
-      padding: 0.4rem 0.8rem;
-      img {
-        width: 22px;
-        height: 22px;
-      }
+    position: sticky;
+    top: 100px;
+    z-index: 20;
+    background: #fff;
+    /* Hide scrollbar for Webkit browsers */
+    &::-webkit-scrollbar {
+      display: none;
     }
+    /* Hide scrollbar for Firefox */
+    scrollbar-width: none;
+    /* Hide scrollbar for IE/Edge */
+    -ms-overflow-style: none;
   }
 }
 
@@ -312,5 +328,16 @@
         }
       }
     }
+  }
+}
+
+@media (max-width: 768px) {
+  .product-sc .row {
+    row-gap: 0.05rem !important;
+    margin-bottom: 0 !important;
+  }
+  .product-sc .col-md-4, .product-sc .col-md-6 {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
   }
 }

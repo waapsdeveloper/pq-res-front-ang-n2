@@ -26,12 +26,19 @@
   position: absolute;
   top: 18px;
   right: 24px;
-  background: none;
+  background: #fff !important;
   border: none;
   font-size: 2.2rem;
-  color: #888;
+  color: #a30000 !important;
   cursor: pointer;
   z-index: 2;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 .modal-img img {
   width: 100%;
@@ -153,25 +160,19 @@
   box-shadow: 0 2px 8px rgba(0,0,0,0.04);
 }
 .modal-add-btn {
-  width: 100%;
-  background: #f87171;
-  color: #fff;
+  background: #a30000 !important;
+  color: #fff !important;
+  border: none;
+  border-radius: 5px;
   font-weight: 700;
   font-size: 1.1rem;
-  padding: 14px 0;
-  border: none;
-  border-radius: 0 0 5px 5px;
-  margin-bottom: 0.2rem;
   cursor: pointer;
-  transition: background 0.2s;
-  position: sticky;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 10;
+  transition: none;
 }
-.modal-add-btn:hover {
-  background: #d12e2e;
+
+.modal-add-btn:hover, .modal-add-btn:focus, .modal-add-btn:active {
+  background: #a30000 !important;
+  color: #fff !important;
 }
 .modal-footer {
   position: sticky;
