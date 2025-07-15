@@ -200,16 +200,16 @@ button:last-child {
 @media (max-width: 767.98px) {
   .horizontal-card {
     flex-direction: row; // Always row, even on mobile
-    min-height: 100px;
-    height: 100px;
+    min-height: 130px;
+    height: 130px;
   }
   .horizontal-card .prod-img {
     width: 100px;
-    min-width: 100px;
-    max-width: 100px;
-    min-height: 100px;
-    max-height: 100px;
-    height: 100px;
+    min-width: 130px;
+    max-width: 130px;
+    min-height: 130px;
+    max-height: 130px;
+    height: 130px;
     border-bottom: none;
     border-right: 1px solid #e0e0e0;
     justify-content: flex-start;
