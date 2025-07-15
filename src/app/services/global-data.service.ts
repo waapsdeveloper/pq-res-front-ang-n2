@@ -117,19 +117,20 @@ export class GlobalDataService extends NgSimpleStateBaseRxjsStore<GlobalDataStat
   }
 
   async fetchRestaurantDetails(restaurantId: string): Promise<void> {
-    const res = await this.network.restaurantDetail(restaurantId);
+    // Parallelize both requests
+    const [res, config] = await Promise.all([
+      this.network.restaurantDetail(restaurantId),
+      this.network.getRestaurantConfigById(restaurantId)
+    ]);
+
     if (res && res.data) {
       let R = res.data;
-      this.setDeliveryCharges(res.data.delivery_charges);
+      this.setDeliveryCharges(R.delivery_charges);
       localStorage.setItem('restaurant', JSON.stringify(R));
       localStorage.setItem('restaurant_id', R.id);
-
       this.setRestaurantId(R.id);
       this.setRestaurantName(R.name); // Set the restaurant name
     }
-
-    const config = await this.network.getRestaurantConfigById(restaurantId);
-    console.log('branch_config', config);
 
     if (config?.data) {
       localStorage.setItem('restaurant_config', JSON.stringify(config.data));
