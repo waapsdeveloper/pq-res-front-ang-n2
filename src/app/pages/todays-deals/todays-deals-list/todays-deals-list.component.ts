@@ -12,6 +12,7 @@ import { CartService } from '../../../services/cart.service';
 export class TodaysDealsListComponent {
   products: any[] = [];
   restaurant_id: any;
+  selectedProduct: any = null;
   constructor(private network: NetworkService, public carte: CartService) {
     this.initialize();
   }
@@ -33,5 +34,13 @@ export class TodaysDealsListComponent {
     console.log(item);
     item.addedToCart = true;
     this.carte.addToCart(item);
+  }
+
+  openProductModal(product: any) {
+    this.selectedProduct = product;
+  }
+
+  closeProductModal() {
+    this.selectedProduct = null;
   }
 }

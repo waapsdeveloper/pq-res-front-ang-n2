@@ -15,10 +15,11 @@
      </div>
      <div class="product-sc" data-aos="fade" data-aos-duration="1200">
         <div class="row">
-          <div class="col-md-3" *ngFor="let item of products">
-            <app-product-box [item]="item"></app-product-box>
+          <div class="col-md-6" *ngFor="let item of products">
+            <app-product-box [item]="item" (openModal)="openProductModal($event)"></app-product-box>
          </div>
         </div>
      </div>
+     <app-product-modal *ngIf="selectedProduct" [product]="selectedProduct" [cartService]="carte" (close)="closeProductModal()"></app-product-modal>
   </div>
 </section>

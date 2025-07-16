@@ -11,6 +11,7 @@ import { QualitySectionComponent } from './quality-section/quality-section.compo
 import { DeliveredSectionComponent } from './delivered-section/delivered-section.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProductBoxModule } from '../../components/product-box/product-box.module';
+import { ProductModalComponent } from '../../components/product-modal/product-modal.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { ProductBoxModule } from '../../components/product-box/product-box.modul
     HomeRoutingModule,
     PageLayoutModule,
     FormsModule,
-    ProductBoxModule
+    ProductBoxModule,
+    ProductModalComponent
   ]
 })
 export class HomeModule { }

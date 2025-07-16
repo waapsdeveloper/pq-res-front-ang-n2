@@ -15,6 +15,7 @@ export class PopularSectionComponent {
   currency_symbol: string = '$';
   products: any[] = [];
   restaurant_id: any;
+  selectedProduct: any = null;
   constructor(
     private network: NetworkService,
     public carte: CartService,
@@ -41,5 +42,13 @@ export class PopularSectionComponent {
     if (res?.products) {
       this.products = res?.products?.data;
     }
+  }
+
+  openProductModal(product: any) {
+    this.selectedProduct = product;
+  }
+
+  closeProductModal() {
+    this.selectedProduct = null;
   }
 }
