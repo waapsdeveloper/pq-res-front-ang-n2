@@ -341,3 +341,40 @@
     padding-bottom: 0 !important;
   }
 }
+
+.category-bar-wrapper {
+  position: relative;
+}
+
+.cat-scroll-arrow {
+  display: none;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 30;
+  background: rgba(255,255,255,0.9);
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  font-size: 1.5rem;
+  color: #dc3545;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  &.left { left: 4px; }
+  &.right { right: 4px; }
+  &:active { background: #f8f9fa; }
+}
+
+@media (max-width: 768px) {
+  .cat-scroll-arrow {
+    display: block;
+  }
+  .category-bar-wrapper {
+    position: relative;
+  }
+  .category-scrollbar.flat-menu-bar {
+    margin: 0; // Remove margin so bar stays in original place
+  }
+}

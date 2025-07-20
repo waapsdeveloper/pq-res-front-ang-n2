@@ -10,20 +10,42 @@
   </div>
   <div class="container">
     <!-- Horizontal scrollable category bar -->
-    <div class="category-scrollbar flat-menu-bar">
-      <a (click)="getProductsByCategory(0)"
-         class="category-link"
-         [class.active]="currentCategoryId === 0">
-        <span class="cat-img-circle"><img src="assets/img/food-item.svg" alt=""></span>
-        <span class="cat-label">All Product</span>
-      </a>
-      <a *ngFor="let category of categories"
-         (click)="getProductsByCategory(category.id)"
-         class="category-link"
-         [class.active]="currentCategoryId === category.id">
-        <span class="cat-img-circle"><img [src]="category.image" alt=""></span>
-        <span class="cat-label">{{ category.name }}</span>
-      </a>
+    <div class="category-bar-wrapper">
+      <!-- Left Arrow -->
+      <button
+        class="cat-scroll-arrow left"
+        *ngIf="isMobile && canScrollLeft"
+        (click)="scrollCategoryBar('left')"
+        aria-label="Scroll left"
+      >
+        &#8592;
+      </button>
+
+      <div #categoryBar class="category-scrollbar flat-menu-bar">
+        <a (click)="getProductsByCategory(0)"
+           class="category-link"
+           [class.active]="currentCategoryId === 0">
+          <span class="cat-img-circle"><img src="assets/img/food-item.svg" alt=""></span>
+          <span class="cat-label">All Product</span>
+        </a>
+        <a *ngFor="let category of categories"
+           (click)="getProductsByCategory(category.id)"
+           class="category-link"
+           [class.active]="currentCategoryId === category.id">
+          <span class="cat-img-circle"><img [src]="category.image" alt=""></span>
+          <span class="cat-label">{{ category.name }}</span>
+        </a>
+      </div>
+
+      <!-- Right Arrow -->
+      <button
+        class="cat-scroll-arrow right"
+        *ngIf="isMobile && canScrollRight"
+        (click)="scrollCategoryBar('right')"
+        aria-label="Scroll right"
+      >
+        &#8594;
+      </button>
     </div>
     <!-- End category bar -->
     <!-- Category heading -->

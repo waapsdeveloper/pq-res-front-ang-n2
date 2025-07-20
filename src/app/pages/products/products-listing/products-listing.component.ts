@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef, HostListener, AfterViewInit } from '@angular/core';
 import { NetworkService } from '../../../services/network.service';
 import { CartService } from '../../../services/cart.service';
 import { NavService } from '../../../services/nav.service';
@@ -10,7 +10,7 @@ import { NavService } from '../../../services/nav.service';
   templateUrl: './products-listing.component.html',
   styleUrl: './products-listing.component.scss',
 })
-export class ProductsListingComponent {
+export class ProductsListingComponent implements AfterViewInit {
   categories: any[] = [];
   products: any[] = [];
   filteredProducts: any[] = [];
@@ -206,5 +206,47 @@ export class ProductsListingComponent {
     }
     
     return pages;
+  }
+
+  @ViewChild('categoryBar') categoryBar!: ElementRef;
+  isMobile = false;
+  canScrollLeft = false;
+  canScrollRight = false;
+
+  ngAfterViewInit() {
+    this.checkMobile();
+    setTimeout(() => this.updateScrollArrows(), 0);
+    if (this.categoryBar) {
+      this.categoryBar.nativeElement.addEventListener('scroll', this.updateScrollArrows.bind(this));
+    }
+  }
+
+  @HostListener('window:resize')
+  onResize() {
+    this.checkMobile();
+    this.updateScrollArrows();
+  }
+
+  checkMobile() {
+    this.isMobile = window.innerWidth <= 768;
+  }
+
+  scrollCategoryBar(direction: 'left' | 'right') {
+    if (!this.categoryBar) return;
+    const el = this.categoryBar.nativeElement as HTMLElement;
+    const scrollAmount = 120; // Adjust as needed
+    if (direction === 'left') {
+      el.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+    } else {
+      el.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    }
+    setTimeout(() => this.updateScrollArrows(), 300); // update after scroll
+  }
+
+  updateScrollArrows() {
+    if (!this.categoryBar) return;
+    const el = this.categoryBar.nativeElement as HTMLElement;
+    this.canScrollLeft = el.scrollLeft > 5;
+    this.canScrollRight = el.scrollLeft + el.clientWidth < el.scrollWidth - 5;
   }
 }
