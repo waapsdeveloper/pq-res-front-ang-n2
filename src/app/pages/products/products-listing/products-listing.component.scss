@@ -344,6 +344,7 @@
 
 .category-bar-wrapper {
   position: relative;
+  margin-bottom: 1.2rem;
 }
 
 .cat-scroll-arrow {
@@ -352,24 +353,58 @@
   top: 50%;
   transform: translateY(-50%);
   z-index: 30;
-  background: rgba(255,255,255,0.9);
-  border: none;
+  background: #fff;
+  border: 2.5px solid #dc3545;
   border-radius: 50%;
-  width: 36px;
-  height: 36px;
+  width: 38px;
+  height: 38px;
   font-size: 1.5rem;
+  font-weight: bold;
   color: #dc3545;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  box-shadow: 0 4px 16px rgba(220,53,69,0.15), 0 1.5px 6px rgba(0,0,0,0.08);
   cursor: pointer;
-  transition: background 0.2s, color 0.2s;
-  &.left { left: 4px; }
-  &.right { right: 4px; }
-  &:active { background: #f8f9fa; }
+  transition: background 0.2s, color 0.2s, border 0.2s, box-shadow 0.2s;
+  opacity: 0.96;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  line-height: 1;
+  &.left {
+    left: 0;
+    transform: translateY(-50%) translateX(-50%);
+  }
+  &.right {
+    right: 0;
+    transform: translateY(-50%) translateX(50%);
+  }
+  &:hover, &:focus {
+    background: #dc3545;
+    color: #fff;
+    border-color: #dc3545;
+    opacity: 1;
+    box-shadow: 0 6px 20px rgba(220,53,69,0.22), 0 2px 8px rgba(0,0,0,0.12);
+  }
+  svg {
+    display: block;
+    margin: 0;
+    padding: 0;
+    vertical-align: middle;
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.cat-scroll-arrow.disabled {
+  opacity: 0.4;
+  filter: grayscale(1);
+  cursor: not-allowed;
+  pointer-events: none;
 }
 
 @media (max-width: 768px) {
   .cat-scroll-arrow {
-    display: block;
+    display: block !important;
   }
   .category-bar-wrapper {
     position: relative;
@@ -377,4 +412,33 @@
   .category-scrollbar.flat-menu-bar {
     margin: 0; // Remove margin so bar stays in original place
   }
+}
+
+.category-bar-inner {
+  position: relative;
+  max-width: 98vw;
+  margin: 0 auto;
+  padding: 0 32px; /* space for arrows */
+}
+
+@media (max-width: 768px) {
+  .category-bar-inner {
+    max-width: 92vw;
+    padding: 0 28px; /* more space for arrows on mobile */
+  }
+}
+
+.category-bar-inner.no-arrows {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  max-width: 100% !important;
+}
+
+.cat-scroll-arrow.left {
+  left: 0;
+  transform: translateY(-50%);
+}
+.cat-scroll-arrow.right {
+  right: 0;
+  transform: translateY(-50%);
 }
