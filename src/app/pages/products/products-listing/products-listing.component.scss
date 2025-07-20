@@ -402,6 +402,11 @@
   pointer-events: none;
 }
 
+.cat-scroll-arrow:hover svg path,
+.cat-scroll-arrow:focus svg path {
+  stroke: #fff;
+}
+
 @media (max-width: 768px) {
   .cat-scroll-arrow {
     display: block !important;
@@ -416,15 +421,15 @@
 
 .category-bar-inner {
   position: relative;
-  max-width: 98vw;
+  max-width: 100%;
   margin: 0 auto;
-  padding: 0 32px; /* space for arrows */
+  padding: 0;
 }
 
 @media (max-width: 768px) {
   .category-bar-inner {
     max-width: 92vw;
-    padding: 0 28px; /* more space for arrows on mobile */
+    padding: 0 28px;
   }
 }
 

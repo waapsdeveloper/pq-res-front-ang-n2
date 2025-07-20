@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef, HostListener, AfterViewInit } from '@angular/core';
+import { Component, ViewChild, ElementRef, HostListener, AfterViewInit, OnDestroy } from '@angular/core';
 import { NetworkService } from '../../../services/network.service';
 import { CartService } from '../../../services/cart.service';
 import { NavService } from '../../../services/nav.service';
@@ -10,7 +10,7 @@ import { NavService } from '../../../services/nav.service';
   templateUrl: './products-listing.component.html',
   styleUrl: './products-listing.component.scss',
 })
-export class ProductsListingComponent implements AfterViewInit {
+export class ProductsListingComponent implements AfterViewInit, OnDestroy {
   categories: any[] = [];
   products: any[] = [];
   filteredProducts: any[] = [];
@@ -89,6 +89,7 @@ export class ProductsListingComponent implements AfterViewInit {
     if (categories) {
       this.categories = categories.data;
     }
+    setTimeout(() => this.updateScrollArrows(), 0);
   }
 
   async loadProducts(page: number = 1, categoryId?: number) {
@@ -156,6 +157,7 @@ export class ProductsListingComponent implements AfterViewInit {
       console.error('Error loading products:', error);
     } finally {
       this.loading = false;
+      setTimeout(() => this.updateScrollArrows(), 0);
     }
   }
 
@@ -209,6 +211,7 @@ export class ProductsListingComponent implements AfterViewInit {
   }
 
   @ViewChild('categoryBar') categoryBar!: ElementRef;
+  private categoryBarObserver: MutationObserver | undefined;
   isMobile = false;
   canScrollLeft = false;
   canScrollRight = false;
@@ -218,6 +221,15 @@ export class ProductsListingComponent implements AfterViewInit {
     setTimeout(() => this.updateScrollArrows(), 0);
     if (this.categoryBar) {
       this.categoryBar.nativeElement.addEventListener('scroll', this.updateScrollArrows.bind(this));
+      // Observe changes in the category bar's children (e.g., when categories change)
+      this.categoryBarObserver = new MutationObserver(() => this.updateScrollArrows());
+      this.categoryBarObserver.observe(this.categoryBar.nativeElement, { childList: true, subtree: true });
+    }
+  }
+
+  ngOnDestroy() {
+    if (this.categoryBarObserver) {
+      this.categoryBarObserver.disconnect();
     }
   }
 

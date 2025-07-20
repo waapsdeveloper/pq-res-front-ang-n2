@@ -11,51 +11,64 @@
   <div class="container">
     <!-- Horizontal scrollable category bar -->
     <div class="category-bar-wrapper">
-      <div class="category-bar-inner" [ngClass]="{'no-arrows': !(canScrollLeft || canScrollRight)}">
-        <!-- Arrows: always show, but disable if not scrollable. Hide both if neither is scrollable. -->
-        <ng-container *ngIf="canScrollLeft || canScrollRight">
-          <button
-            class="cat-scroll-arrow left"
-            [class.disabled]="!canScrollLeft"
-            (click)="canScrollLeft && scrollCategoryBar('left')"
-            aria-label="Scroll left"
-            [disabled]="!canScrollLeft"
-          >
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M19 12H5" stroke="#dc3545" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M12 19L5 12L12 5" stroke="#dc3545" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </button>
+      <!-- Mobile version: arrows + padding + scroll logic -->
+      <div *ngIf="isMobile" class="category-bar-inner" [ngClass]="{'no-arrows': !(canScrollLeft || canScrollRight)}">
+        <button
+          class="cat-scroll-arrow left"
+          [class.disabled]="!canScrollLeft"
+          (click)="canScrollLeft && scrollCategoryBar('left')"
+          aria-label="Scroll left"
+        >
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M19 12H5" stroke="#dc3545" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M12 19L5 12L12 5" stroke="#dc3545" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <div #categoryBar class="category-scrollbar flat-menu-bar">
+          <a (click)="getProductsByCategory(0)"
+             class="category-link"
+             [class.active]="currentCategoryId === 0">
+            <span class="cat-img-circle"><img src="assets/img/food-item.svg" alt=""></span>
+            <span class="cat-label">All Product</span>
+          </a>
+          <a *ngFor="let category of categories"
+             (click)="getProductsByCategory(category.id)"
+             class="category-link"
+             [class.active]="currentCategoryId === category.id">
+            <span class="cat-img-circle"><img [src]="category.image" alt=""></span>
+            <span class="cat-label">{{ category.name }}</span>
+          </a>
+        </div>
+        <button
+          class="cat-scroll-arrow right"
+          [class.disabled]="!canScrollRight"
+          (click)="canScrollRight && scrollCategoryBar('right')"
+          aria-label="Scroll right"
+        >
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5 12H19" stroke="#dc3545" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M12 5L19 12L12 19" stroke="#dc3545" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
 
-          <div #categoryBar class="category-scrollbar flat-menu-bar">
-            <a (click)="getProductsByCategory(0)"
-               class="category-link"
-               [class.active]="currentCategoryId === 0">
-              <span class="cat-img-circle"><img src="assets/img/food-item.svg" alt=""></span>
-              <span class="cat-label">All Product</span>
-            </a>
-            <a *ngFor="let category of categories"
-               (click)="getProductsByCategory(category.id)"
-               class="category-link"
-               [class.active]="currentCategoryId === category.id">
-              <span class="cat-img-circle"><img [src]="category.image" alt=""></span>
-              <span class="cat-label">{{ category.name }}</span>
-            </a>
-          </div>
-
-          <button
-            class="cat-scroll-arrow right"
-            [class.disabled]="!canScrollRight"
-            (click)="canScrollRight && scrollCategoryBar('right')"
-            aria-label="Scroll right"
-            [disabled]="!canScrollRight"
-          >
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M5 12H19" stroke="#dc3545" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M12 5L19 12L12 19" stroke="#dc3545" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </button>
-        </ng-container>
+      <!-- Desktop version: no arrows, no padding -->
+      <div *ngIf="!isMobile" class="category-bar-inner no-arrows">
+        <div class="category-scrollbar flat-menu-bar">
+          <a (click)="getProductsByCategory(0)"
+             class="category-link"
+             [class.active]="currentCategoryId === 0">
+            <span class="cat-img-circle"><img src="assets/img/food-item.svg" alt=""></span>
+            <span class="cat-label">All Product</span>
+          </a>
+          <a *ngFor="let category of categories"
+             (click)="getProductsByCategory(category.id)"
+             class="category-link"
+             [class.active]="currentCategoryId === category.id">
+            <span class="cat-img-circle"><img [src]="category.image" alt=""></span>
+            <span class="cat-label">{{ category.name }}</span>
+          </a>
+        </div>
       </div>
     </div>
     <!-- End category bar -->
