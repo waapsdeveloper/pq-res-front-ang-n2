@@ -1,0 +1,16 @@
+.halo-img-responsive {
+  width: 100%;
+  max-width: 420px;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+  object-fit: cover;
+  margin: 0 auto;
+  display: block;
+}
+@media (min-width: 992px) {
+  .halo-img-responsive {
+    max-width: 1000px;
+    height: 750px;
+  }
+}

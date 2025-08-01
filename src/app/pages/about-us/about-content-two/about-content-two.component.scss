@@ -1,0 +1,29 @@
+@media (max-width: 767.98px) {
+  .about-main .row {
+    flex-direction: column;
+    align-items: center;
+  }
+  .abt-main-img {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .abt-main-img img {
+    width: 100% !important;
+    max-width: 320px;
+    height: auto !important;
+    margin: 0 auto;
+    display: block;
+  }
+  .abt-main-cont {
+    text-align: center;
+    padding: 0 10px;
+  }
+  .abt-main-cont h3,
+  .abt-main-cont h2 {
+    text-align: center;
+  }
+  .abt-tabs {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
