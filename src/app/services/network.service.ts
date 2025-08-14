@@ -223,7 +223,7 @@ export class NetworkService {
   }
 
   updateCouponUsage(data :any) {
-    return this.httpPostResponse('coupon/update-coupon-usage', data, null, false, true);
+    return this.httpPostResponse('coupon/update-coupon-usage', data, null, false, false);
   }
   contactUs(data: any) {
     return this.httpPostResponse('contact-us', data, null, false, true);
