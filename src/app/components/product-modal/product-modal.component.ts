@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { GlobalDataService } from '../../services/global-data.service';
 
 @Component({
   selector: 'app-product-modal',
@@ -13,7 +14,9 @@ export class ProductModalComponent implements OnInit {
   @Input() product: any;
   @Input() cartService: any;
   @Output() close = new EventEmitter<void>();
-
+   currency_symbol: string = '$';
+    constructor(private globalData: GlobalDataService) {}
+  
   quantity: number = 1;
   specialInstructions: string = '';
   selectedVariations: any[] = [];
@@ -24,6 +27,9 @@ export class ProductModalComponent implements OnInit {
   ngOnInit() {
     console.log('Product received in modal:', this.product);
     this.initializeVariations();
+      this.globalData.getCurrencySymbol().subscribe((symbol) => {
+        this.currency_symbol = symbol || '$'; // Default to $ if symbol is not set
+      });
   }
 
   private initializeVariations() {

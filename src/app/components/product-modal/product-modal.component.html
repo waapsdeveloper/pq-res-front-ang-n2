@@ -27,7 +27,7 @@
               />
               <span class="option-text">{{ option.name }}</span>
               <span class="option-price" *ngIf="option.price && option.price > 0">
-                +{{ product?.currency_symbol || '$' }}{{ option.price }}
+                +{{ currency_symbol  }}{{ option.price }}
               </span>
             </label>
           </div>
@@ -50,7 +50,7 @@
           <button (click)="increaseQuantity()">+</button>
         </div>
         <div class="modal-price-block">
-          <span class="modal-price">{{ product?.currency_symbol || '$' }}{{ product?.price }}</span>
+          <span class="modal-price">{{ currency_symbol }}{{ product?.price }}</span>
         </div>
       </div>
       <button class="modal-add-btn" (click)="addToCart()">
