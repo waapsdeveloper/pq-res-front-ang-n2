@@ -134,6 +134,7 @@ export class ProductModalComponent implements OnInit {
       price: this.product.price,
       image: this.product.image,
       quantity: this.quantity,
+      category: this.product.category,
       variations: groupedVariations,
       specialInstructions: this.specialInstructions
     };
