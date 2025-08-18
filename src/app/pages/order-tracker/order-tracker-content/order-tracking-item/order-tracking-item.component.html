@@ -21,42 +21,30 @@
     <!-- Actions (Quantity + Remove) -->
 
     <!-- Variations Section -->
-    <div *ngFor="let variationGroup of item?.variations">
-      <ng-container
-        *ngIf="variationGroupHasSelectedOption(variationGroup); else filler"
-      >
-        <div class="cart-variations">
-          <div class="variations-list" *ngFor="let variation of variationGroup">
-            <p class="variation-title">{{ variation?.type }}</p>
-            <div class="d-flex flex-column gap-2">
-              <div
-                class="variation-item"
-                *ngFor="let option of variation?.options"
-                [class.notselected]="!option?.selected"
-              >
-                <label *ngIf="option?.selected">
-                  <div>
-                    <span>{{ option?.name }}</span>
-                  </div>
-                  <div class="d-flex gap-3">
-                    <span>{{ currency_symbol + " " }}{{ option?.price }}</span>
-                    <input
-                      type="checkbox"
-                      disabled="true"
-                      [checked]="option?.selected"
-                      [(ngModel)]="option.selected"
-                      (ngModelChange)="changeVariationSelection($event)"
-                    />
-                  </div>
-                </label>
-              </div>
-            </div>
+    <div class="cart-variations" *ngFor="let variation of item?.variation">
+      <div class="variation-title">
+        <p>{{ variation?.type }}</p>
+      </div>
+
+      <!-- Only show if a selectedOption exists -->
+      <div class="variation-item" *ngIf="variation?.selectedOption">
+        <label>
+          <div>
+            <span>{{ variation?.selectedOption?.name }}</span>
           </div>
-        </div>
-      </ng-container>
-      <ng-template #filler>
-        <div class="filler">No options selected.</div>
-      </ng-template>
+          <div class="d-flex gap-3">
+            <span>{{ currency_symbol }} {{ variation?.selectedOption?.price }}</span>
+            <input type="radio" disabled checked />
+          </div>
+        </label>
+      </div>
+
+      <!-- Fallback if no option selected -->
+      <div class="filler" *ngIf="!variation?.selectedOption">
+        No options selected.
+      </div>
     </div>
+
+
   </div>
 </div>

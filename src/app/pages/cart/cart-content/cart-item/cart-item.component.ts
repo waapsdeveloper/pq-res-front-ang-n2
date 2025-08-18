@@ -68,7 +68,7 @@ export class CartItemComponent implements OnInit {
     public carte: CartService,
     public utility: UtilityService,
     private globalData: GlobalDataService
-  ) {}
+  ) { }
 
   // changeVariationSelection($event: any, option: any ) {
   //   console.log($event.target.checked, option);
@@ -78,46 +78,27 @@ export class CartItemComponent implements OnInit {
   //   this.carte.totalOfProductCost();
   // }
 
-  changeVariationSelection(
-    event: Event,
-    option: any,
-    groupIndex: number,
-    variationIndex: number,
-    optionIndex: number
-  ) {
-    const checked = (event.target as HTMLInputElement).checked;
-    console.log(`Changing variation: group ${groupIndex}, variation ${variationIndex}, option ${optionIndex}, checked: ${checked}`);
 
+  changeVariationSelection(option: any, variationIndex: number) {
     this.carte.setState((state) =>
       state.map((cartItem, cIndex) =>
         cIndex === this.cartIndex
           ? {
-              ...cartItem,
-              variations: cartItem.variations.map((variationGroup: any[], gIndex: number) =>
-                gIndex === groupIndex
-                  ? variationGroup.map((variation: any, vIndex: number) =>
-                      vIndex === variationIndex
-                        ? {
-                            ...variation,
-                            options: variation.options.map(
-                              (opt: any, oIndex: number) =>
-                                oIndex === optionIndex
-                                  ? { ...opt, selected: checked }
-                                  : opt
-                            ),
-                          }
-                        : variation
-                    )
-                  : variationGroup
-              ),
-            }
+            ...cartItem,
+            variation: cartItem.variations.map((variation: any, vIndex: number) =>
+              vIndex === variationIndex
+                ? { ...variation, selectedOption: option }
+                : variation
+            ),
+          }
           : cartItem
       )
     );
-    
-    // Recalculate totals after variation change
+
     this.carte.totalOfProductCost();
   }
+
+
 
   removeItem(item: any) {
     this.carte.removeFromCart(item.id);
@@ -142,5 +123,5 @@ export class CartItemComponent implements OnInit {
     this.carte.totalOfProductCost();
   }
 
-  addVariations(item: any) {}
+  addVariations(item: any) { }
 }

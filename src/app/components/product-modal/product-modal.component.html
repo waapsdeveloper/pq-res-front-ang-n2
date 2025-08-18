@@ -7,7 +7,7 @@
     <div class="modal-body">
       <h2 class="modal-title">{{ product?.name }}</h2>
       <div class="modal-desc">{{ product?.description }}</div>
-      
+
       <!-- Variations Section -->
       <ng-container *ngIf="flattenedVariations && flattenedVariations.length > 0">
         <div *ngFor="let variation of flattenedVariations; let vIdx = index" class="modal-variation-group">
@@ -15,32 +15,30 @@
             {{ variation.type }}
             <span class="optional">(optional)</span>
           </div>
-          
-          <!-- All variations as checkboxes -->
+
+          <!-- Options as radio buttons -->
           <div class="variation-options">
-            <label *ngFor="let option of variation.options; let oIdx = index" class="variation-option">
-              <input 
-                type="checkbox" 
-                [name]="'variation_' + vIdx + '_' + oIdx" 
-                [checked]="selectedVariations[vIdx] && selectedVariations[vIdx].includes(oIdx)" 
-                (change)="onMultiSelectChange(vIdx, oIdx, $event)" 
-              />
+            <label *ngFor="let option of variation.options" class="variation-option">
+              <input type="radio" [name]="'variation_' + vIdx" [(ngModel)]="variation.selectedOption"
+                [value]="option" />
               <span class="option-text">{{ option.name }}</span>
               <span class="option-price" *ngIf="option.price && option.price > 0">
-                +{{ currency_symbol  }}{{ option.price }}
+                +{{ currency_symbol }}{{ option.price }}
               </span>
             </label>
           </div>
+          
         </div>
       </ng-container>
-      
+
       <!-- Special Instructions -->
       <div class="modal-instructions">
         <label>Special Instructions <span class="optional">(optional)</span></label>
-        <textarea [(ngModel)]="specialInstructions" placeholder="e.g. 'No Mayo! Any allergies?' Please write concisely and clearly."></textarea>
+        <textarea [(ngModel)]="specialInstructions"
+          placeholder="e.g. 'No Mayo! Any allergies?' Please write concisely and clearly."></textarea>
       </div>
     </div>
-    
+
     <!-- Footer -->
     <div class="modal-footer">
       <div class="modal-footer-left">
@@ -59,5 +57,3 @@
     </div>
   </div>
 </div>
-
-
