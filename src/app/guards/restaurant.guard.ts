@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { CanActivate } from '@angular/router';
 import { NetworkService } from '../services/network.service';
 import { GlobalDataService } from '../services/global-data.service';
+import { LoadingService } from '../services/basic/loading.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,8 @@ export class RestaurantGuard implements CanActivate {
 
   constructor(
     private networkService: NetworkService,
-    private dataService: GlobalDataService
+    private dataService: GlobalDataService,
+    private loadingService: LoadingService
   ) {}
 
   async canActivate(): Promise<boolean> {
@@ -24,13 +26,14 @@ export class RestaurantGuard implements CanActivate {
     }
 
     try {
+      this.loadingService.setLoader(true);
       // ❌ Missing keys → fetch
       const obj: any = await this.networkService.getDefaultRestaurantId();
       const id = obj.active_restaurant.id;
 
       // DataService already saves data internally
       await this.dataService.fetchRestaurantDetails(id);
-
+      this.loadingService.setLoader(false);
       return true;
     } catch (err) {
       console.error('Restaurant guard failed:', err);
