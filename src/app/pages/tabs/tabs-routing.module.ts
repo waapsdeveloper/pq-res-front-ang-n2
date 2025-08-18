@@ -2,8 +2,8 @@ import { OrderTrackerModule } from './../order-tracker/order-tracker.module';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { TabsComponent } from './tabs.component';
-import { userResolver } from '../../resolvers/user.resolver';
-
+import { userResolver } from '../../resolvers/user.resolver'
+import { RestaurantGuard } from '../../guards/restaurant.guard';
 const routes: Routes = [
   {
     path: '',

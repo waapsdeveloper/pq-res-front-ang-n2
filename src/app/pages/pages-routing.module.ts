@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { TabsResolver } from '../resolvers/tabs.service';
+import { RestaurantGuard } from '../guards/restaurant.guard';
 
 const routes: Routes = [
   {
@@ -17,6 +18,8 @@ const routes: Routes = [
     path: 'tabs',
     loadChildren: () => import('./tabs/tabs.module').then((m) => m.TabsModule),
     data: { breadcrumb: 'Tabs' },
+    canActivate: [RestaurantGuard],
+      
     resolve: {
       tabsData: TabsResolver
     }
