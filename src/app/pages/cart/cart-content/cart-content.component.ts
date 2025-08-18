@@ -137,6 +137,8 @@ export class CartContentComponent implements OnInit {
   }
 
   async ngOnInit() {
+    this.dial_code = this.globalData.getDialCode() || '+1';
+
     this.globalData.getCurrencySymbol().subscribe((symbol) => {
       this.currency_symbol = symbol || '$'; // Default to $ if symbol is not set
     });
@@ -162,11 +164,6 @@ export class CartContentComponent implements OnInit {
     }
     this.phone =
       this.checkout.checkout_obj.phone || this.user ? this.user?.phone : '';
-    this.dial_code =
-      this.checkout.checkout_obj.dial_code || this.user
-        ? this.user?.dial_code
-        : '+1';
-
     const res = await this.network.allBranches();
     this.branches = res?.data;
     console.log('this is the branches', this.branches);
@@ -189,10 +186,10 @@ export class CartContentComponent implements OnInit {
   calculateTotal() {
     // Update the cart service with new tips and delivery charges - ensure they are numbers
     this.carte.tips = Number(this.tips || 0);
-    
+
     // Recalculate the final total
     this.carte.calculateFinalTotal();
-    
+
     // Update checkout service
     this.checkout.checkout_obj.tips = Number(this.tips || 0);
     this.checkout.checkout_obj.delivery_charges = Number(this.carte.delivery_charges || 0);
@@ -201,7 +198,7 @@ export class CartContentComponent implements OnInit {
   recalculateTotals() {
     // Recalculate the final total including tips and delivery charges
     this.carte.calculateFinalTotal();
-    
+
     // Update checkout service with proper number conversion
     this.checkout.checkout_obj.tips = Number(this.carte.tips || 0);
     this.checkout.checkout_obj.delivery_charges = Number(this.carte.delivery_charges || 0);
@@ -210,10 +207,10 @@ export class CartContentComponent implements OnInit {
   onOrderTypeChange(orderType: string) {
     // Update cart service order type
     this.carte.orderType = orderType;
-    
+
     // Recalculate totals to apply/remove delivery charges based on order type
     this.carte.recalculateTotals();
-    
+
     // Update checkout service
     this.checkout.checkout_obj.orderType = orderType;
   }
@@ -323,7 +320,7 @@ export class CartContentComponent implements OnInit {
       subTotal: this.carte.total_price,
       type: table_identifier ? 'dine-in' : 'delivery',
       notes: this.notes,
-      source:false ,
+      source: false,
       payment_method: this.paymentMethod,
       order_type: this.orderType,
       delivery_address: full_address,

@@ -5,6 +5,7 @@ import { PhoneService } from '../../../services/phone.service';
 import { UtilityService } from '../../../services/utility.service';
 import { ChangeDetectorRef } from '@angular/core';
 import { StringsService } from '../../../services/basic/strings.service';
+import { GlobalDataService } from '../../../services/global-data.service';
 
 @Component({
   selector: 'app-login-form',
@@ -34,12 +35,14 @@ export class LoginFormComponent implements OnInit {
     private utility: UtilityService, public nav: NavService, 
     private router: ActivatedRoute, private phoneService: PhoneService,
     private cdRef: ChangeDetectorRef, 
+    private globalDataService: GlobalDataService,
     private strings: StringsService){
 
   }
 
   ngOnInit(): void {
     this.backUrl = this.router.snapshot.queryParamMap.get('backUrl') || '';
+    this.formData.dial_code = this.globalDataService.getDialCode() || '+1';
   }
 
   newformSubmit(){

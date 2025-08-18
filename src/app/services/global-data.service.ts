@@ -141,4 +141,9 @@ export class GlobalDataService extends NgSimpleStateBaseRxjsStore<GlobalDataStat
 
     return res.data;
   }
+
+  getDialCode(){
+    const res = localStorage.getItem('restaurant_config') ? JSON.parse(localStorage.getItem('restaurant_config') || '{}') : {};
+   return res.dial_code || '+1'; // Default to +1 if not found
+  }
 }
