@@ -18,8 +18,7 @@ const routes: Routes = [
     path: 'tabs',
     loadChildren: () => import('./tabs/tabs.module').then((m) => m.TabsModule),
     data: { breadcrumb: 'Tabs' },
-    canActivate: [RestaurantGuard],
-      
+    
     resolve: {
       tabsData: TabsResolver
     }

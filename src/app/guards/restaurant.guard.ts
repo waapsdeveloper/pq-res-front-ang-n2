@@ -26,7 +26,7 @@ export class RestaurantGuard implements CanActivate {
     try {
       // ❌ Missing keys → fetch
       const obj: any = await this.networkService.getDefaultRestaurantId();
-      const id = obj.id;
+      const id = obj.active_restaurant.id;
 
       // DataService already saves data internally
       await this.dataService.fetchRestaurantDetails(id);

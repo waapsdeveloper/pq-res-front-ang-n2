@@ -8,6 +8,7 @@ const routes: Routes = [
   {
     path: '',
     component: TabsComponent,
+    canActivate: [RestaurantGuard],
     children: [
       {
         path: '',
@@ -103,6 +104,7 @@ const routes: Routes = [
         loadChildren: () =>
           import('./../products/products.module').then((m) => m.ProductsModule),
         data: { breadcrumb: 'products' },
+        canActivate: [RestaurantGuard],
       },
       {
         path: 'special-offers',
