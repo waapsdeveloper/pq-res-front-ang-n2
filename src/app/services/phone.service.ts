@@ -18,13 +18,15 @@ export class PhoneService {
     return numberVal.toString();
   }
   
-  isPhoneNumberValid(n: { toString: () => any; }) {
-    const validPhoneNumber = this.getOnlyDigits(n);
-    // remove trailing zeros
-    const s = validPhoneNumber.toString();
-    console.log(s)
-    return (validPhoneNumber.toString().length < 10) ? false : true;
-  }
+isPhoneNumberValid(n: { toString: () => any; }) {
+  const validPhoneNumber = this.getOnlyDigits(n);
+  const s = validPhoneNumber.toString();
+  console.log(s);
+
+  // Allow 8 digits (Bahrain), 10 digits (many countries), 11 digits etc.
+  return (s.length >= 8 && s.length <= 15);
+}
+
 
   formatPhoneNumberLive(countryCode: CountryCode, inputValue: string): string {
     if (!inputValue) {
